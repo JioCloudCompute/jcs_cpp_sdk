@@ -1,5 +1,8 @@
 #include <string>
 #include <map>
+
+using namespace std;
+
 struct auth_var{
 	char url[512];
 	char verb[8];
@@ -20,6 +23,12 @@ struct http_var{
 	
 };
 
+struct block_device_mapping{
+	char device_name[32];
+	bool delete_on_termination;
+	int volume_size;
+};
+
 char[8] get_protocol(char url[512])
 {	
 	//EXTRA CHECK REQUIRED Regexp
@@ -30,9 +39,5 @@ char[128] get_host(char url[128])
 {
 	string host_ = url;
 	return host.substr(8);
-}
-void populate_params(map<std::string,std::string> &params)
-{
-	
 }
 
