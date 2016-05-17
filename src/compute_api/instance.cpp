@@ -40,7 +40,7 @@ string start_instances(http_var &info, vector<string> instance_ids)
 	{	
 		cout<<"Instance-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 
 	string key = "InstanceId.";
@@ -65,7 +65,7 @@ string stop_instances(http_var &info, vector<string> instance_ids)
 	{	
 		cout<<"Instance-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 
 	string key = "InstanceId.";
@@ -91,7 +91,7 @@ string reboot_instances(http_var &info, vector<string> instance_ids)
 	{	
 		cout<<"Instance-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 
 	string key = "InstanceId.";
@@ -117,7 +117,7 @@ string terminate_instances(http_var &info, vector<string> instance_ids)
 	{	
 		cout<<"Instance-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 
 	string key = "InstanceId.";
@@ -146,7 +146,7 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 	{	
 		cout<<"Image-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 	else
 	{
@@ -157,7 +157,7 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 	{	
 		cout<<"Image-Type-Id needed"<<endl;
 		//// TODO :
-		// Raise exeception
+		// Raise exeception and return
 	}
 	else
 	{
