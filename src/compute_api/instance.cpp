@@ -1,5 +1,4 @@
-#include "utils.cpp"
-#include "requestify.cpp"
+#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -10,8 +9,8 @@ using namespace std;
 string describe_instances(http_var &info, vector<string> instance_ids  = vector<string>())
 {
 	map <string, string> params;
-	params['Action'] = "DescribeInstances";
-	params['Version'] = info.version;
+	params["Action"] = "DescribeInstances";
+	params["Version"] = info.version;
 	
 	string key = "InstanceId.";
 	stringstream ss;
@@ -25,14 +24,14 @@ string describe_instances(http_var &info, vector<string> instance_ids  = vector<
 	//// TODO : Add filters
 	// Right now filters functionality is broken, it works only
    	// for cases like --filters "Name=abc,Values=def"
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string start_instances(http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
-	params['Action'] = "StartInstances";
-	params['Version'] = info.version;
+	params["Action"] = "StartInstances";
+	params["Version"] = info.version;
 	
 	if(instance_ids.size() == 0)
 	{	
@@ -50,14 +49,14 @@ string start_instances(http_var &info, vector<string> instance_ids)
 		ss.str("");
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string stop_instances(http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
-	params['Action'] = "StopInstances";
-	params['Version'] = info.version;
+	params["Action"] = "StopInstances";
+	params["Version"] = info.version;
 
 	if(instance_ids.size() == 0)
 	{	
@@ -75,15 +74,15 @@ string stop_instances(http_var &info, vector<string> instance_ids)
 		ss.str("");
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string reboot_instances(http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
-	params['Action'] = "RebootInstances";
-	params['Version'] = info.version;
+	params["Action"] = "RebootInstances";
+	params["Version"] = info.version;
 	
 	if(instance_ids.size() == 0)
 	{	
@@ -101,15 +100,15 @@ string reboot_instances(http_var &info, vector<string> instance_ids)
 		ss.str("");
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string terminate_instances(http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
-	params['Action'] = "TerminateInstances";
-	params['Version'] = info.version;
+	params["Action"] = "TerminateInstances";
+	params["Version"] = info.version;
 	
 	if(instance_ids.size() == 0)
 	{	
@@ -127,7 +126,7 @@ string terminate_instances(http_var &info, vector<string> instance_ids)
 		ss.str("");
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
@@ -137,8 +136,8 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
  					vector<string> security_group_ids = vector string(), string key_name = "" )
 {
 	map <string, string> params;
-	params['Action'] = "StartInstances";
-	params['Version'] = info.version;
+	params["Action"] = "StartInstances";
+	params["Version"] = info.version;
 
 	if(image_id.length() == 0)
 	{	
@@ -148,7 +147,7 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 	}
 	else
 	{
-		params['ImageId'] = image_id;
+		params["ImageId"] = image_id;
 	}
 
 	if(instance_type_id.length() == 0)
@@ -159,7 +158,7 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 	}
 	else
 	{
-		params['InstanceTypeId'] = instance_type_id;
+		params["InstanceTypeId"] = instance_type_id;
 	}
 
 	if(blocks.size() != 0)
@@ -182,17 +181,17 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 
 	if(instance_count!=1)
 	{
-		params['InstanceCount'] = instance_count;
+		params["InstanceCount"] = instance_count;
 	}
 
 	if(subnet_id!="")
 	{
-		params['SubnetId'] = subnet_id;
+		params["SubnetId"] = subnet_id;
 	}
 
 	if(private_ip_address!="")
 	{
-		params['PrivateIPAddress'] = private_ip_address;
+		params["PrivateIPAddress"] = private_ip_address;
 	}
 
 	if(!security_group_ids.empty())
@@ -207,8 +206,8 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 
 	if(key_name!="")
 	{
-		params['KeyName'] = key_name;
+		params["KeyName"] = key_name;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }

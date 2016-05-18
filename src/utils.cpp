@@ -33,7 +33,3 @@ std::string get_host(char url[128])
 	return host_.substr(8);
 }
 
-int main()
-{
-	
-}

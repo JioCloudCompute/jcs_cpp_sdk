@@ -1,5 +1,4 @@
-#include "utils.cpp"
-#include "requestify.cpp"
+#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -7,21 +6,21 @@
 
 using namespace std;
 
-string describe_instances(http_var &info)
+string describe_key_pairs(http_var &info)
 {
 	map <string, string> params;
-	params['Action'] = "DescribeKeyPairs";
-	params['Version'] = info.version;
+	params["Action"] = "DescribeKeyPairs";
+	params["Version"] = info.version;
 	
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string create_key_pair(http_var &info, string key_name)
 {
 	map <string, string> params;
-	params['Action'] = "CreateKeyPair";
-	params['Version'] = info.version;
+	params["Action"] = "CreateKeyPair";
+	params["Version"] = info.version;
 	
 	if(key_name.length() == 0)
 	{	
@@ -31,17 +30,17 @@ string create_key_pair(http_var &info, string key_name)
 	}
 	else
 	{
-		params['KeyName'] = key_name;
+		params["KeyName"] = key_name;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string delete_key_pairs(http_var &info, string key_name)
 {
 	map <string, string> params;
-	params['Action'] = "DeleteKeyPair";
-	params['Version'] = info.version;
+	params["Action"] = "DeleteKeyPair";
+	params["Version"] = info.version;
 
 	if(key_name.length() == 0)
 	{	
@@ -51,17 +50,17 @@ string delete_key_pairs(http_var &info, string key_name)
 	}
 	else
 	{
-		params['KeyName'] = key_name;
+		params["KeyName"] = key_name;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string import_key_pair(http_var &info, string key_name, string public_key_material)
 {
 	map <string, string> params;
-	params['Action'] = "ImportKeyPair";
-	params['Version'] = info.version;
+	params["Action"] = "ImportKeyPair";
+	params["Version"] = info.version;
 
 	if(key_name.length() == 0)
 	{	
@@ -71,7 +70,7 @@ string import_key_pair(http_var &info, string key_name, string public_key_materi
 	}
 	else
 	{
-		params['KeyName'] = key_name;
+		params["KeyName"] = key_name;
 	}
 
 
@@ -83,8 +82,8 @@ string import_key_pair(http_var &info, string key_name, string public_key_materi
 	}
 	else
 	{
-		params['PublicKeyMaterial'] = public_key_material;
+		params["PublicKeyMaterial"] = public_key_material;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'	
+	return make_request(info, params);	// make_request function in "requestify.cpp"	
 }

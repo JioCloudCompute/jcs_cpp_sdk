@@ -1,5 +1,4 @@
-#include "utils.cpp"
-#include "requestify.cpp"
+#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -11,8 +10,8 @@ string describe_volumes(http_var &info, vector<string> volume_ids  = vector<stri
  				 int max_results = -1, string next_token = "", bool detail = true)
 {
 	map <string, string> params;
-	params['Action'] = "DescribeVolumes";
-	params['Version'] = info.version;
+	params["Action"] = "DescribeVolumes";
+	params["Version"] = info.version;
 
 	stringstream ss;
 	if(volume_ids.size() != 0)
@@ -29,23 +28,23 @@ string describe_volumes(http_var &info, vector<string> volume_ids  = vector<stri
 	if(max_results != -1)
 	{	
 		ss << max_results;
-		params['MaxResults'] = ss.str();
+		params["MaxResults"] = ss.str();
 		ss.str("");
 	}
 	
 	if(next_token.length() != 0)
 	{
-		params['NextToken'] = next_token;
+		params["NextToken"] = next_token;
 	}
 
 	if(!detail)
 	{
 		ss.str("false");
-		params['Detail'] = ss.str();
+		params["Detail"] = ss.str();
 		ss.str("");
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
@@ -53,8 +52,8 @@ string describe_volumes(http_var &info, vector<string> volume_ids  = vector<stri
 string attach_volume(http_var &info, string instance_id, string volume_id, string device)
 {
 	map <string, string> params;
-	params['Action'] = "AttachVolume";
-	params['Version'] = info.version;
+	params["Action"] = "AttachVolume";
+	params["Version"] = info.version;
 	
 	if(instance_id.length() == 0)
 	{	
@@ -64,7 +63,7 @@ string attach_volume(http_var &info, string instance_id, string volume_id, strin
 	}
 	else
 	{
-		params['InstanceId'] = instance_id;	
+		params["InstanceId"] = instance_id;	
 	}
 
 	if(volume_id.length() == 0)
@@ -75,7 +74,7 @@ string attach_volume(http_var &info, string instance_id, string volume_id, strin
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
 	if(device.length() == 0)
@@ -86,18 +85,18 @@ string attach_volume(http_var &info, string instance_id, string volume_id, strin
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string detach_volume(http_var &info, string instance_id, string volume_id)
 {
 	map <string, string> params;
-	params['Action'] = "DetachVolume";
-	params['Version'] = info.version;
+	params["Action"] = "DetachVolume";
+	params["Version"] = info.version;
 	
 	if(instance_id.length() == 0)
 	{	
@@ -107,7 +106,7 @@ string detach_volume(http_var &info, string instance_id, string volume_id)
 	}
 	else
 	{
-		params['InstanceId'] = instance_id;	
+		params["InstanceId"] = instance_id;	
 	}
 
 	if(volume_id.length() == 0)
@@ -118,38 +117,38 @@ string detach_volume(http_var &info, string instance_id, string volume_id)
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string create_volume(http_var &info, int size  = -1, string snapshot_id = "")
 {
 	map <string, string> params;
-	params['Action'] = "CreateVolume";
-	params['Version'] = info.version;
+	params["Action"] = "CreateVolume";
+	params["Version"] = info.version;
 	
 	if(size != -1)
 	{
 		stringstream ss;
 		ss<<i;
-		params['Size'] = ss.str();
+		params["Size"] = ss.str();
 	}
 
 	if(snapshot_id.length() != 0)
 	{	
-		params['SnapshotId'] = snapshot_id;
+		params["SnapshotId"] = snapshot_id;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 string delete_volume(http_var &info, string volume_id )
 {
 	map <string, string> params;
-	params['Action'] = "DeleteVolume";
-	params['Version'] = info.version;
+	params["Action"] = "DeleteVolume";
+	params["Version"] = info.version;
 	
 	if(volume_id.length() == 0)
 	{	
@@ -159,18 +158,18 @@ string delete_volume(http_var &info, string volume_id )
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string show_delete_on_termination_flag(http_var &info, string volume_id )
 {
 	map <string, string> params;
-	params['Action'] = "ShowDeleteOnTerminationFlag";
-	params['Version'] = info.version;
+	params["Action"] = "ShowDeleteOnTerminationFlag";
+	params["Version"] = info.version;
 	
 	if(volume_id.length() == 0)
 	{	
@@ -180,18 +179,18 @@ string show_delete_on_termination_flag(http_var &info, string volume_id )
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
 
 string update_delete_on_termination_flag(http_var &info, string volume_id, bool delete_on_termination)
 {
 	map <string, string> params;
-	params['Action'] = "UpdateDeleteOnTerminationFlag";
-	params['Version'] = info.version;
+	params["Action"] = "UpdateDeleteOnTerminationFlag";
+	params["Version"] = info.version;
 	
 	if(volume_id.length() == 0)
 	{	
@@ -201,7 +200,7 @@ string update_delete_on_termination_flag(http_var &info, string volume_id, bool 
 	}
 	else
 	{
-		params['VolumeId'] = volume_id;
+		params["VolumeId"] = volume_id;
 	}
 
 	stringstream ss;
@@ -214,7 +213,10 @@ string update_delete_on_termination_flag(http_var &info, string volume_id, bool 
 		ss.str("False");
 	}
 
-	params['DeleteOnTermination'] = ss.str();
+	params["DeleteOnTermination"] = ss.str();
 	
-	return make_request(info, params);	// make_request function in 'requestify.cpp'
+	return make_request(info, params);	// make_request function in "requestify.cpp"
+}
+int main(){
+	
 }
