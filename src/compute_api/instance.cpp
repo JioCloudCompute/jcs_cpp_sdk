@@ -28,8 +28,6 @@ string describe_instances(http_var &info, vector<string> instance_ids  = vector<
 	return make_request(info, params);	// make_request function in 'requestify.cpp'
 }
 
-
-
 string start_instances(http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
