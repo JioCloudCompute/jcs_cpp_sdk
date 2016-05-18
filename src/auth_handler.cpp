@@ -2,10 +2,13 @@
 #include <time.h>
 #include "utils.cpp"
 #include <string>
+#include <string.h>
 #include <map>
 #include <openssl/hmac.h>
 #include <curl/curl.h>
-
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+using namespace std;
 
 class Authorization
 {	
@@ -13,17 +16,17 @@ class Authorization
 public:
 	Authorization(struct auth_var data)
 	{
-		data_.url = data.url;
-		data_.verb = data.verb;
-		data_.access_key = data.access_key;
-		data_.secret_key = data.secret_key;
-		data_.headers = data.headers;
-		data_.path = data.path;
+		strcpy(data_.url,data.url);
+		strcpy(data_.verb , data.verb);
+		strcpy(data_.access_key , data.access_key);
+		strcpy(data_.secret_key, data.secret_key);
+		strcpy(data_.headers,data.headers);
+		strcpy(data_.path,data.path);
 
-		std::string protocol = get_protocol(url);	//utils
-		std::string host = get_host(url);			//utils
+		std::string protocol = get_protocol(data_.url);	//utils
+		std::string host = get_host(data_.url);			//utils
 
-		if(!protocol.compare("https") || !protocol.compare("http"))
+		if( protocol.compare("https") && protocol.compare("http"))
 		{
 			std::cout<<"Unsupported protocol present in given url";	
 		}
@@ -36,7 +39,7 @@ public:
 		if(pos != std::string::npos)
 		{
 			strcpy(data_.port,host.substr(pos+1).c_str());
-			strcpy(data_.host, host.substr(0,pos+1);	
+			strcpy(data_.host, host.substr(0,pos+1).c_str());	
 		}
 
 	}
@@ -44,15 +47,15 @@ public:
 	void add_params(std::map <std::string,std::string > &params)
 	{	
 		//Add generic key-value pairs in the param map
-		params['JCSAccessKeyId'] = data_.access_key;
-		params['SignatureVersion'] = '2';
-		params['SignatureMethod'] = 'HmacSHA256';
+		params["JCSAccessKeyId"] = data_.access_key;
+		params["SignatureVersion"] = "2";
+		params["SignatureMethod"] = "HmacSHA256";
 		//Time Stamp
 		time_t now = time(0);
 		tm *gmtm = gmtime(&now);
 		char stamp[64];
 		strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
-		params['Timestamp'] = stamp;
+		params["Timestamp"] = stamp;
 	}
 
 	std::string _get_utf8_value(std::string value)
@@ -63,28 +66,30 @@ public:
 
 
 
-	std::string sort_params(std::map<string ,string> &params){
+	std::string sort_params(std::map<std::string ,std::string> &params){
 		
 		std::string qs="";
-		for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+		for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
 		{
 			//Some parse and safety check left  refer auth_handler.py
 			// utf encoding on values left
 			qs+=it->first+"="+it->second+"&";
 		}
-		qs[qs.length()-1]="\0"; //removing last &
+		qs[qs.length()-1]='\0'; //removing last &
 		return qs;
 
 
 	}
-	string string_to_sign(std::map <std::string , std::string) &params)
+	std::string string_to_sign(std::map <std::string , std::string> &params)
 	{
 		//Calculate the canonical string for the request
-		std::string ss = data_.verb + "\n"+data_.host;
+		std::string verb_ = data_.verb;
+		std::string ss = verb_ + '\n' + data_.host;
 		
 		if(strcmp(data_.port,"None"))
 		{
-			ss+=":" + data_.port;
+			ss += ":";
+			ss+=data_.port;
 		}
 
 		ss+='\n' + data_.path + '\n';
@@ -94,53 +99,64 @@ public:
 
 	}
 
-	void add_authorization(std::map<string, string> &params)
+	void add_authorization(std::map<std::string, std::string> &params)
 	{
 		//key
 	
 		//data
 		std::string canonical_string = string_to_sign(params);
 		char data[canonical_string.length()];
-		strcpy(data,canonical_string);
+		strcpy(data,canonical_string.c_str());
 		
 		//hmac 
 		unsigned char* hmac_256;
     	unsigned int len = 256;
-    	
+   
     	hmac_256 = (unsigned char*)malloc(sizeof(char) * len);
     	
     	HMAC_CTX ctx;
     	HMAC_CTX_init(&ctx);
 
-		HMAC_Init_ex(&ctx, data.secret_key, strlen(data.secret_key), EVP_sha256(), NULL);
+		HMAC_Init_ex(&ctx, data_.secret_key, strlen(data_.secret_key), EVP_sha256(), NULL);
 		HMAC_Update(&ctx,(unsigned char*)&data, strlen(data));
     	HMAC_Final(&ctx, hmac_256, &len);
     	HMAC_CTX_cleanup(&ctx);
-
+    	
     	//storing ascii result in hmac_256_
     	std::string hmac_256_ ="";
     	char temp[8];
     	for (int i = 0; i != len; i++)
         	{
-        	sprintf(temp,"\\x%02x", (unsigned int)hmac_256[i]);
-        	hmac_256_+=temp;
+        	sprintf(temp,"%03u", (unsigned int)hmac_256[i]);
+        	hmac_256_+= atoi(temp);
         	}
 		free(hmac_256);
+		
+		//cout<<"digest "<<hmac_256_<<endl;
 
 		//base64 encoding
+		BIO *bio, *b64;
+		char message[hmac_256_.length()];
+		strcpy(message,hmac_256_.c_str());
 		
+		char message_out[512];
+		
+		b64 = BIO_new(BIO_f_base64());
+		bio = BIO_new(BIO_s_mem());
+		//bio = BIO_new_mem_buf(message_out, 100);
+		BIO_push(b64, bio);
+		BIO_write(b64, message, sizeof(message));
+		BIO_flush(b64);
+		BIO_read(bio, message_out, 512);
+		//cout<<message_out<<endl;
+		BIO_free_all(b64);
 
 		//urlencode
 		CURL *curl = curl_easy_init();
-		std::string hmac_Signature = curl_easy_escape(curl,,.length());
-		
-
-		params['Signature']=hmac_Signature;
+		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out));
+		std::cout<<hmac_Signature;
+		params["Signature"]=hmac_Signature;
 	}
 
 
-
-
-
-
-}
+};

@@ -9,7 +9,7 @@ struct auth_var{
 	char path[128];
 	char protocol[8];
 	char host[128];
-	int port;
+	char port[8];
 };
 
 struct http_var{
@@ -20,16 +20,16 @@ struct http_var{
 	
 };
 
-char[8] get_protocol(char url[512])
+std::string get_protocol(char url[512])
 {	
 	//EXTRA CHECK REQUIRED Regexp
-	string url_ = url;
-	return url.substr(0,5);   //https
+	std::string url_ = url;
+	return url_.substr(0,5);   //https
 }
 
-char[128] get_host(char url[128])
+std::string get_host(char url[128])
 {
-	string host_ = url;
-	return host.substr(8);
+	std::string host_ = url;
+	return host_.substr(8);
 }
 
