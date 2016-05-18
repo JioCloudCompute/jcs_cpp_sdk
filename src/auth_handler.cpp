@@ -14,14 +14,18 @@ class Authorization
 {	
 	auth_var data_;
 public:
-	Authorization(struct auth_var data)
-	{
+	Authorization(const struct auth_var data)
+	{	
+
 		strcpy(data_.url,data.url);
 		strcpy(data_.verb , data.verb);
 		strcpy(data_.access_key , data.access_key);
 		strcpy(data_.secret_key, data.secret_key);
 		strcpy(data_.headers,data.headers);
-		strcpy(data_.path,data.path);
+		// test for this part:TODO
+		if (strcmp(data.path,""))
+			strcpy(data_.path,data.path);
+		else strcpy(data_.path,"/");
 
 		std::string protocol = get_protocol(data_.url);	//utils
 		std::string host = get_host(data_.url);			//utils
@@ -138,8 +142,6 @@ public:
         	}
 		free(hmac_256);
 		
-		//cout<<"digest "<<hmac_256_<<endl;
-
 		//base64 encoding
 		BIO *bio, *b64;
 		char message[hmac_256_.length()];
@@ -154,16 +156,13 @@ public:
 		BIO_write(b64, message, sizeof(message));
 		BIO_flush(b64);
 		BIO_read(bio, message_out, 256);
-		//cout<<message_out<<endl;
 		BIO_free_all(b64);
-		cout<<endl<<message_out<<endl;
+		
 		//urlencode
 		CURL *curl = curl_easy_init();
 		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out)-2);
-		std::cout<<endl<<hmac_Signature<<endl;
 		params["Signature"]=hmac_Signature;
 	}
-	Authorization(){}
 
 
 };
