@@ -2,12 +2,12 @@
 #include <map>
 #include <string>
 
-// TODO :read from configuration files 
+// TODO :read from configuration files or hard COde >??
 std::map<std::string,std::string> endpoints = {{"vpc","https://vpc.ind-west-1.jiocloudservices.com/"},
 {"iam","https://iam.ind-west-1.jiocloudservices.com/"},
 {"rds","https://rds.ind-west-1.jiocloudservices.com/"},
 {"dss","https://dss.ind-west-1.jiocloudservices.com/"},
-{"compute","https://compute.ind-west-1.jiocloudservices.com/"}}
+{"compute","https://compute.ind-west-1.staging.jiocloudservices.com/"}}
 
 std::string get_service_url(std::string service_name)
 {
