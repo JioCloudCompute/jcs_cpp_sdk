@@ -54,7 +54,8 @@ public:
 		time_t now = time(0);
 		tm *gmtm = gmtime(&now);
 		char stamp[64];
-		strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
+		//utf-8 encoding
+		strftime(stamp,64,"%Y-%m-%dT%H%%3A%M%%3A%SZ",gmtm);
 		params["Timestamp"] = stamp;
 	}
 
@@ -84,7 +85,7 @@ public:
 	{
 		//Calculate the canonical string for the request
 		std::string verb_ = data_.verb;
-		std::string ss = verb_ + '\n' + data_.host;
+		std::string ss = verb_ + "\n" + data_.host;
 		
 		if(strcmp(data_.port,"None"))
 		{
@@ -92,7 +93,7 @@ public:
 			ss+=data_.port;
 		}
 
-		ss+='\n' + data_.path + '\n';
+		ss= ss + "\n" + data_.path + "\n";
 		add_params(params);
 		ss+=sort_params(params);
 		return ss;
@@ -107,11 +108,16 @@ public:
 		std::string canonical_string = string_to_sign(params);
 		char data[canonical_string.length()];
 		strcpy(data,canonical_string.c_str());
-		
-		//hmac 
+			
+		//check test
+		/*strcpy(data,"Action=DescribeImages&JCSAccessKeyId=183a744121e546528bc934a4fb3eb9f0&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2016-05-18T09%3A27%3A04Z&Version=2016-03-01");
+		cout<<data;
+		strcpy(data_.secret_key,"hello");
+		*///hmac 
+		cout<<"C++ : "<<data<<endl;
 		unsigned char* hmac_256;
     	unsigned int len = 256;
-   
+   		
     	hmac_256 = (unsigned char*)malloc(sizeof(char) * len);
     	
     	HMAC_CTX ctx;
@@ -139,7 +145,7 @@ public:
 		char message[hmac_256_.length()];
 		strcpy(message,hmac_256_.c_str());
 		
-		char message_out[512];
+		char message_out[256];
 		
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
@@ -147,16 +153,17 @@ public:
 		BIO_push(b64, bio);
 		BIO_write(b64, message, sizeof(message));
 		BIO_flush(b64);
-		BIO_read(bio, message_out, 512);
+		BIO_read(bio, message_out, 256);
 		//cout<<message_out<<endl;
 		BIO_free_all(b64);
-
+		cout<<endl<<message_out<<endl;
 		//urlencode
 		CURL *curl = curl_easy_init();
-		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out));
-		std::cout<<hmac_Signature;
+		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out)-2);
+		std::cout<<endl<<hmac_Signature<<endl;
 		params["Signature"]=hmac_Signature;
 	}
+	Authorization(){}
 
 
 };
