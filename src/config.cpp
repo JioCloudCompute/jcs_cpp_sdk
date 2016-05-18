@@ -7,37 +7,43 @@ std::map<std::string,std::string> endpoints = {{"vpc","https://vpc.ind-west-1.ji
 {"iam","https://iam.ind-west-1.jiocloudservices.com/"},
 {"rds","https://rds.ind-west-1.jiocloudservices.com/"},
 {"dss","https://dss.ind-west-1.jiocloudservices.com/"},
-{"compute","https://compute.ind-west-1.staging.jiocloudservices.com/"}}
+{"compute","https://compute.ind-west-1.staging.jiocloudservices.com/"}};
 
 std::string get_service_url(std::string service_name)
 {
-	return enpoints[service_name];
+	return endpoints[service_name];
 }
 
 
-class ConfigHandler()
+class ConfigHandler
 {
 	private:
 		//endpoints already
-		bool secure
-		bool debug
+		bool secure;
+		bool debug;
 
 		// read this from config file 
 		std::string access_key;
 		std::string secret_key;
 
-	public::
+	public:
 		ConfigHandler()
 		{	
 			//read this from configuration file
 			secure = true;
 			debug = false;
-			access_key +="";
-			secret_key += "";
-			
+			// reading keys from file
+			ifstream infile("config.txt");
+			string line;
+			getline(infile,line);
+			access_key = line;
+			getline(infile,line);
+			secret_key = line;
+			infile.close();
+
 			if (access_key.empty() || secret_key.empty())
 			{
-			std::cout<<"Unknown Credentials:Acess key or secret key not set";
+			std::cout<<"Unknown Credentials:Access key or secret key not set";
 			}
 		}
 

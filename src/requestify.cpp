@@ -26,27 +26,24 @@ size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 
 string make_request(http_var &info, map<string, string> &params, string path = "", string data ="")
 {
-	string access_key, secret_key;
 	auth_var auth_data;
-	// reading keys from file
-	ifstream infile("config.txt");
-	string line;
-	getline(infile,line);
-	access_key = line;
-	getline(infile,line);
-	secret_key = line;
-	infile.close();
-
-	// Removing '/' from url
-	if(info.url[strlen(info.url)-1] == '/')
-		info.url[strlen(info.url)-1] == '\0';
+	
+	//Access Key ,Secret Key, Debug Mode, Secure Mode Config
+	ConfigHandler config;
 
 	strcpy(auth_data.url, info.url);
 	strcpy(auth_data.verb, info.verb);
 	strcpy(auth_data.headers, info.headers);
-	strcpy(auth_data.access_key, access_key.c_str());
-	strcpy(auth_data.secret_key, secret_key.c_str());
-	strcpy(auth_data.path,"/");
+	strcpy(auth_data.access_key, config.get_access_key().c_str());
+	strcpy(auth_data.secret_key, config.get_secret_key().c_str());
+	
+	//Set the Path according to need
+	//strcpy(auth_data.path,"/");   //
+	
+	// Removing '/' from url
+	if(info.url[strlen(info.url)-1] == '/')
+		auth_data.url[strlen(auth_data.url)-1] == '\0';
+
 	Authorization obj(auth_data);
 	obj.add_authorization(params);
 
