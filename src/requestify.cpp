@@ -15,7 +15,6 @@ size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 { //callback must have this declaration
     //buf is a pointer to the data that curl has for us
     //size*nmemb is the size of the buffer
-	cout<<"inside writeCallback"<<endl;
     for (int c = 0; c<size*nmemb; c++)
     {
         response.push_back(buf[c]);
@@ -24,10 +23,10 @@ size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 }
 
 
-string make_request(http_var &info, map<string, string> &params, string path = "", string data ="")
+string make_request(http_var &info, map<string, string> &params , string data ="")
 {
 	auth_var auth_data;
-	
+
 	//Access Key ,Secret Key, Debug Mode, Secure Mode Config
 	ConfigHandler config;
 
@@ -37,8 +36,9 @@ string make_request(http_var &info, map<string, string> &params, string path = "
 	strcpy(auth_data.access_key, config.get_access_key().c_str());
 	strcpy(auth_data.secret_key, config.get_secret_key().c_str());
 	
-	//Set the Path according to need
-	//strcpy(auth_data.path,"/");   //
+	//Set the Path according to your need
+	string path = "";
+	strcpy(auth_data.path,path.c_str());   //
 	
 	// Removing '/' from url
 	if(info.url[strlen(info.url)-1] == '/')
@@ -74,7 +74,7 @@ string make_request(http_var &info, map<string, string> &params, string path = "
 
     curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
-    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
+    // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     curl_global_cleanup();

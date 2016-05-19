@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string describe_images(http_var &info, vector<string> image_ids = vector<string>())
+string describe_images(::http_var &info, vector<string> image_ids = vector<string>())
 {
 	map <string, string> params;
 	params["Action"] = "DescribeImages";

@@ -26,6 +26,27 @@ string describe_instances(::http_var &info, vector<string> instance_ids  = vecto
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
+string describe_instance_types(::http_var &info, vector<string> instance_type_ids  = vector<string>())
+{
+	map <string, string> params;
+	params["Action"] = "DescribeInstanceTypes";
+	params["Version"] = info.version;
+	
+	string key = "InstanceTypeId.";
+	stringstream ss;
+	for(int i=0 ; i<instance_type_ids.size() ; i++)
+	{
+		ss << i+1;
+		params[key + ss.str()] = instance_type_ids[i];
+		ss.str("");
+	}
+
+	//// TODO : Add filters
+	// Right now filters functionality is broken, it works only
+   	// for cases like --filters "Name=abc,Values=def"
+	return make_request(info, params);	// make_request function in "requestify.cpp"
+}
+
 string start_instances(::http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
@@ -34,9 +55,7 @@ string start_instances(::http_var &info, vector<string> instance_ids)
 	
 	if(instance_ids.size() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 
 	string key = "InstanceId.";
@@ -59,9 +78,7 @@ string stop_instances(::http_var &info, vector<string> instance_ids)
 
 	if(instance_ids.size() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 
 	string key = "InstanceId.";
@@ -85,9 +102,7 @@ string reboot_instances(::http_var &info, vector<string> instance_ids)
 	
 	if(instance_ids.size() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 
 	string key = "InstanceId.";
@@ -111,9 +126,7 @@ string terminate_instances(::http_var &info, vector<string> instance_ids)
 	
 	if(instance_ids.size() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 
 	string key = "InstanceId.";
@@ -140,9 +153,7 @@ string run_instances(::http_var &info, string image_id, string instance_type_id,
 
 	if(image_id.length() == 0)
 	{	
-		cout<<"Image-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Image-Id needed";
 	}
 	else
 	{
@@ -151,9 +162,7 @@ string run_instances(::http_var &info, string image_id, string instance_type_id,
 
 	if(instance_type_id.length() == 0)
 	{	
-		cout<<"Image-Type-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Type-Id needed";
 	}
 	else
 	{

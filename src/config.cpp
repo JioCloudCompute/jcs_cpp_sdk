@@ -5,19 +5,22 @@
 // TODO :read from configuration files or hard COde >??
 std::map<std::string,std::string> endpoints;
 
-std::string get_service_url(std::string service_name)
-{
-	return endpoints[service_name].c_str();
-}
-
 void set_up_endpoints()
-{
+{	
+
 	endpoints["vpc"]="https://vpc.ind-west-1.jiocloudservices.com";
 	endpoints["iam"] = "https://iam.ind-west-1.jiocloudservices.com";
 	endpoints["rds"] = "https://rds.ind-west-1.jiocloudservices.com";
 	endpoints["dss"]= "https://dss.ind-west-1.jiocloudservices.com";
 	endpoints["compute"] = "https://compute.ind-west-1.staging.jiocloudservices.com";
 }
+
+std::string get_service_url(std::string service_name)
+{	
+	set_up_endpoints();
+	return endpoints[service_name];
+}
+
 
 class ConfigHandler
 {
@@ -46,7 +49,7 @@ class ConfigHandler
 			infile.close();
 
 			//set up endpoints
-			set_up_endpoints();
+	
 			if (access_key.empty() || secret_key.empty())
 			{
 			std::cout<<"Unknown Credentials:Access key or secret key not set";

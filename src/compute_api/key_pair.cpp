@@ -23,9 +23,7 @@ string create_key_pair(::http_var &info, string key_name)
 	
 	if(key_name.length() == 0)
 	{	
-		cout<<"Key-Name needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Key-Name needed";
 	}
 	else
 	{
@@ -43,9 +41,7 @@ string delete_key_pair(::http_var &info, string key_name)
 
 	if(key_name.length() == 0)
 	{	
-		cout<<"KeyName needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : KeyName needed";
 	}
 	else
 	{
@@ -63,9 +59,7 @@ string import_key_pair(::http_var &info, string key_name, string public_key_mate
 
 	if(key_name.length() == 0)
 	{	
-		cout<<"KeyName needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : KeyName needed";
 	}
 	else
 	{
@@ -75,9 +69,7 @@ string import_key_pair(::http_var &info, string key_name, string public_key_mate
 
 	if(public_key_material.length() == 0)
 	{	
-		cout<<"Public key material needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Public key material needed";
 	}
 	else
 	{

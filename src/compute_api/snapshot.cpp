@@ -6,7 +6,7 @@
 using namespace std;
 
 
-string create_snapshot(http_var &info, string volume_id)
+string create_snapshot(::http_var &info, string volume_id)
 {
 	map <string, string> params;
 	params["Action"] = "CreateSnapshot";
@@ -14,9 +14,7 @@ string create_snapshot(http_var &info, string volume_id)
 	
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{
@@ -26,7 +24,7 @@ string create_snapshot(http_var &info, string volume_id)
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string delete_snapshot(http_var &info, string snapshot_id)
+string delete_snapshot(::http_var &info, string snapshot_id)
 {
 	map <string, string> params;
 	params["Action"] = "DeleteSnapshot";
@@ -34,9 +32,7 @@ string delete_snapshot(http_var &info, string snapshot_id)
 	
 	if(snapshot_id.length() == 0)
 	{	
-		cout<<"Snapshot ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Snapshot ID needed";
 	}
 	else
 	{
@@ -47,7 +43,7 @@ string delete_snapshot(http_var &info, string snapshot_id)
 }
 
 
-string describe_snapshots(http_var &info, vector<string> snapshot_ids  = vector<string>(),
+string describe_snapshots(::http_var &info, vector<string> snapshot_ids  = vector<string>(),
  				 int max_results = -1, string next_token = "", bool detail = true)
 {
 	map <string, string> params;

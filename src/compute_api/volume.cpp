@@ -56,9 +56,7 @@ string attach_volume(::http_var &info, string instance_id, string volume_id, str
 	
 	if(instance_id.length() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 	else
 	{
@@ -67,9 +65,7 @@ string attach_volume(::http_var &info, string instance_id, string volume_id, str
 
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{
@@ -78,13 +74,11 @@ string attach_volume(::http_var &info, string instance_id, string volume_id, str
 
 	if(device.length() == 0)
 	{	
-		cout<<"Device needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Device needed";
 	}
 	else
 	{
-		params["VolumeId"] = volume_id;
+		params["Device"] = device;
 	}
 
 	return make_request(info, params);	// make_request function in "requestify.cpp"
@@ -99,9 +93,7 @@ string detach_volume(::http_var &info, string instance_id, string volume_id)
 	
 	if(instance_id.length() == 0)
 	{	
-		cout<<"Instance-Id needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Instance-Id needed";
 	}
 	else
 	{
@@ -110,9 +102,7 @@ string detach_volume(::http_var &info, string instance_id, string volume_id)
 
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{
@@ -151,9 +141,7 @@ string delete_volume(::http_var &info, string volume_id )
 	
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{
@@ -172,9 +160,7 @@ string show_delete_on_termination_flag(::http_var &info, string volume_id )
 	
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{
@@ -193,9 +179,7 @@ string update_delete_on_termination_flag(::http_var &info, string volume_id, boo
 	
 	if(volume_id.length() == 0)
 	{	
-		cout<<"Volume ID needed"<<endl;
-		//// TODO :
-		// Raise exeception and return
+		return "Error : Volume ID needed";
 	}
 	else
 	{

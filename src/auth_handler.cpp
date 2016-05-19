@@ -59,7 +59,7 @@ public:
 		tm *gmtm = gmtime(&now);
 		char stamp[64];
 		//utf-8 encoding
-		strftime(stamp,64,"%Y-%m-%dT%H%%3A%M%%3A%SZ",gmtm);
+		strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
 		params["Timestamp"] = stamp;
 	}
 
@@ -74,13 +74,18 @@ public:
 	std::string sort_params(std::map<std::string ,std::string> &params){
 		
 		std::string qs="";
+		CURL *curl = curl_easy_init();
+		char *value; 
 		for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
 		{
 			//Some parse and safety check left  refer auth_handler.py
 			// utf encoding on values left
-			qs+=it->first+"="+it->second+"&";
+			//url encoding
+			value = curl_easy_escape(curl,it->second.c_str(),0);
+			qs+=it->first+"="+value+"&";
 		}
 		qs[qs.length()-1]='\0'; //removing last &
+		curl_free(value);
 		return qs;
 
 
@@ -106,22 +111,15 @@ public:
 
 	void add_authorization(std::map<std::string, std::string> &params)
 	{
-		//key
 	
 		//data
 		std::string canonical_string = string_to_sign(params);
 		char data[canonical_string.length()];
 		strcpy(data,canonical_string.c_str());
 			
-		//check test
-		/*strcpy(data,"Action=DescribeImages&JCSAccessKeyId=183a744121e546528bc934a4fb3eb9f0&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2016-05-18T09%3A27%3A04Z&Version=2016-03-01");
-		cout<<data;
-		strcpy(data_.secret_key,"hello");
-		*///hmac 
-		cout<<"C++ : "<<data<<endl;
 		unsigned char* hmac_256;
     	unsigned int len = 256;
-   		
+   		cout<<data<<endl;
     	hmac_256 = (unsigned char*)malloc(sizeof(char) * len);
     	
     	HMAC_CTX ctx;
@@ -143,26 +141,26 @@ public:
 		free(hmac_256);
 		
 		//base64 encoding
+		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44
 		BIO *bio, *b64;
 		char message[hmac_256_.length()];
 		strcpy(message,hmac_256_.c_str());
 		
-		char message_out[256];
-		
+		char message_out[46];
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
 		//bio = BIO_new_mem_buf(message_out, 100);
 		BIO_push(b64, bio);
 		BIO_write(b64, message, sizeof(message));
 		BIO_flush(b64);
-		BIO_read(bio, message_out, 256);
+		BIO_read(bio, message_out,46);
 		BIO_free_all(b64);
+		message_out[44]='\0';
 		
 		//urlencode
+
 		CURL *curl = curl_easy_init();
-		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out)-2);
+		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out));
 		params["Signature"]=hmac_Signature;
 	}
-
-
 };

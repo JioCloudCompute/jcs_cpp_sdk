@@ -16,7 +16,7 @@ class compute{
 public:
 	compute()
 	{
-		strcpy(info.url, get_service_url("compute"));
+		strcpy(info.url, get_service_url("compute").c_str());
 		strcpy(info.verb, "GET");
 		strcpy(info.headers, "");
 		strcpy(info.version, "2016-03-01");
@@ -33,6 +33,13 @@ public:
 	{
 		string result;
 		result = ::describe_instances(info,instance_ids);
+		return result;
+	}
+
+	string describe_instance_types(vector<string>instance_type_ids = vector<string>())
+	{
+		string result;
+		result = ::describe_instance_types(info,instance_type_ids);
 		return result;
 	}
 
@@ -149,8 +156,9 @@ public:
 	string attach_volume(string instance_id, string volume_id, string device)
 	{
 		string result;
+		cout<<instance_id<<" "<<volume_id <<" "<<device<<endl;
 		result = ::attach_volume(info, instance_id, volume_id, device);
-		return result;		
+		return result;
 	}
 
 	string describe_volumes(vector<string> volume_ids  = vector<string>(),
@@ -180,8 +188,13 @@ public:
 int main(){
 	compute obj;
 	string result;
+	string instance_id;
 	vector<string>image_ids;
-	result = obj.describe_images(image_ids);
-	cout<<"final result <<< "<<result<<endl;
+	// image_ids.push_back("i-ec554304");
+	// image_ids.push_back("i-cbf85c81");
+	// result = obj.attach_volume("i-cbf85c81","6444474e-8d07-4d39-aa38-11f2dfca9959", "/dev/vdb");
+	// result = obj.describe_volumes();
+	result = obj.show_delete_on_termination_flag("6444474e-8d07-4d39-aa38-11f2dfca9959");
+	cout<<result<<endl;
 	return 0;
 }
