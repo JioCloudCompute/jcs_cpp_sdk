@@ -1,4 +1,3 @@
-#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -6,7 +5,7 @@
 
 using namespace std;
 
-string describe_volumes(http_var &info, vector<string> volume_ids  = vector<string>(),
+string describe_volumes(::http_var &info, vector<string> volume_ids  = vector<string>(),
  				 int max_results = -1, string next_token = "", bool detail = true)
 {
 	map <string, string> params;
@@ -20,7 +19,7 @@ string describe_volumes(http_var &info, vector<string> volume_ids  = vector<stri
 		for(int i=0 ; i<volume_ids.size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_ids[i];
+			params[key + ss.str()] = volume_ids[i];
 			ss.str("");
 		}	
 	}
@@ -49,7 +48,7 @@ string describe_volumes(http_var &info, vector<string> volume_ids  = vector<stri
 
 
 
-string attach_volume(http_var &info, string instance_id, string volume_id, string device)
+string attach_volume(::http_var &info, string instance_id, string volume_id, string device)
 {
 	map <string, string> params;
 	params["Action"] = "AttachVolume";
@@ -92,7 +91,7 @@ string attach_volume(http_var &info, string instance_id, string volume_id, strin
 }
 
 
-string detach_volume(http_var &info, string instance_id, string volume_id)
+string detach_volume(::http_var &info, string instance_id, string volume_id)
 {
 	map <string, string> params;
 	params["Action"] = "DetachVolume";
@@ -123,7 +122,7 @@ string detach_volume(http_var &info, string instance_id, string volume_id)
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string create_volume(http_var &info, int size  = -1, string snapshot_id = "")
+string create_volume(::http_var &info, int size  = -1, string snapshot_id = "")
 {
 	map <string, string> params;
 	params["Action"] = "CreateVolume";
@@ -132,7 +131,7 @@ string create_volume(http_var &info, int size  = -1, string snapshot_id = "")
 	if(size != -1)
 	{
 		stringstream ss;
-		ss<<i;
+		ss << size;
 		params["Size"] = ss.str();
 	}
 
@@ -144,7 +143,7 @@ string create_volume(http_var &info, int size  = -1, string snapshot_id = "")
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string delete_volume(http_var &info, string volume_id )
+string delete_volume(::http_var &info, string volume_id )
 {
 	map <string, string> params;
 	params["Action"] = "DeleteVolume";
@@ -165,7 +164,7 @@ string delete_volume(http_var &info, string volume_id )
 }
 
 
-string show_delete_on_termination_flag(http_var &info, string volume_id )
+string show_delete_on_termination_flag(::http_var &info, string volume_id )
 {
 	map <string, string> params;
 	params["Action"] = "ShowDeleteOnTerminationFlag";
@@ -186,7 +185,7 @@ string show_delete_on_termination_flag(http_var &info, string volume_id )
 }
 
 
-string update_delete_on_termination_flag(http_var &info, string volume_id, bool delete_on_termination)
+string update_delete_on_termination_flag(::http_var &info, string volume_id, bool delete_on_termination)
 {
 	map <string, string> params;
 	params["Action"] = "UpdateDeleteOnTerminationFlag";
@@ -216,7 +215,4 @@ string update_delete_on_termination_flag(http_var &info, string volume_id, bool 
 	params["DeleteOnTermination"] = ss.str();
 	
 	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
-int main(){
-	
 }

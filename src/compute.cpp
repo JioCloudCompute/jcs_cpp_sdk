@@ -1,9 +1,9 @@
+#include "requestify.cpp"
 #include "compute_api/image.cpp"
 #include "compute_api/instance.cpp"
 #include "compute_api/volume.cpp"
 #include "compute_api/snapshot.cpp"
 #include "compute_api/key_pair.cpp"
-#include "config.cpp"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -68,7 +68,7 @@ public:
 	string run_instances(string image_id, string instance_type_id, 
 						vector<struct block_device_mapping> blocks = vector<struct block_device_mapping>(),
  						int instance_count = 1, string subnet_id = "", string private_ip_address = "",
- 						vector<string> security_group_ids = vector string(), string key_name = "" )
+ 						vector<string> security_group_ids = vector<string>(), string key_name = "" )
 	{
 		string result;
 		result = ::run_instances(info, image_id, instance_type_id, blocks, instance_count, subnet_id, private_ip_address, security_group_ids, key_name);
@@ -85,21 +85,21 @@ public:
 	string create_key_pair(string key_name)
 	{
 		string result;
-		result = ::create_key_pair(info,keyname);
+		result = ::create_key_pair(info,key_name);
 		return result;		
 	}
 
 	string delete_key_pair(string key_name)
 	{
 		string result;
-		result = ::delete_key_pair(info,keyname);
+		result = ::delete_key_pair(info,key_name);
 		return result;		
 	}
 
 	string import_key_pair(string key_name, string public_key_material)
 	{
 		string result;
-		result = ::import_key_pair(info,keyname,public_key_material);
+		result = ::import_key_pair(info,key_name,public_key_material);
 		return result;		
 	}
 
@@ -121,7 +121,7 @@ public:
  				 int max_results = -1, string next_token = "", bool detail = true)
 	{
 		string result;
-		result = ::create_snapshot(info, snapshot_ids, max_results, next_token, detail);
+		result = ::describe_snapshots(info, snapshot_ids, max_results, next_token, detail);
 		return result;		
 	}
 
@@ -142,7 +142,7 @@ public:
 	string detach_volume(string instance_id, string volume_id)
 	{
 		string result;
-		result = ::delete_volume(info, instance_id, volume_id);
+		result = ::detach_volume(info, instance_id, volume_id);
 		return result;		
 	}
 
@@ -181,7 +181,7 @@ int main(){
 	compute obj;
 	string result;
 	vector<string>image_ids;
-	result = obj.describe_images(image_ids);	
+	result = obj.describe_images(image_ids);
 	cout<<"final result <<< "<<result<<endl;
 	return 0;
 }

@@ -1,4 +1,3 @@
-#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -88,6 +87,3 @@ string describe_snapshots(http_var &info, vector<string> snapshot_ids  = vector<
 
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
-
-
-

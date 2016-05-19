@@ -1,4 +1,3 @@
-#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <map>
@@ -22,9 +21,3 @@ string describe_images(http_var &info, vector<string> image_ids = vector<string>
 
 	return make_request(info, params);	// make_request function in 'requestify.cpp'
 }
-
-int main(){
-	
-}
-
-

@@ -1,4 +1,3 @@
-#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -6,7 +5,7 @@
 
 using namespace std;
 
-string describe_key_pairs(http_var &info)
+string describe_key_pairs(::http_var &info)
 {
 	map <string, string> params;
 	params["Action"] = "DescribeKeyPairs";
@@ -16,7 +15,7 @@ string describe_key_pairs(http_var &info)
 }
 
 
-string create_key_pair(http_var &info, string key_name)
+string create_key_pair(::http_var &info, string key_name)
 {
 	map <string, string> params;
 	params["Action"] = "CreateKeyPair";
@@ -36,7 +35,7 @@ string create_key_pair(http_var &info, string key_name)
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string delete_key_pairs(http_var &info, string key_name)
+string delete_key_pair(::http_var &info, string key_name)
 {
 	map <string, string> params;
 	params["Action"] = "DeleteKeyPair";
@@ -56,7 +55,7 @@ string delete_key_pairs(http_var &info, string key_name)
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string import_key_pair(http_var &info, string key_name, string public_key_material)
+string import_key_pair(::http_var &info, string key_name, string public_key_material)
 {
 	map <string, string> params;
 	params["Action"] = "ImportKeyPair";

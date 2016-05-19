@@ -1,4 +1,3 @@
-#include "../requestify.cpp"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -6,7 +5,7 @@
 
 using namespace std;
 
-string describe_instances(http_var &info, vector<string> instance_ids  = vector<string>())
+string describe_instances(::http_var &info, vector<string> instance_ids  = vector<string>())
 {
 	map <string, string> params;
 	params["Action"] = "DescribeInstances";
@@ -27,7 +26,7 @@ string describe_instances(http_var &info, vector<string> instance_ids  = vector<
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string start_instances(http_var &info, vector<string> instance_ids)
+string start_instances(::http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
 	params["Action"] = "StartInstances";
@@ -52,7 +51,7 @@ string start_instances(http_var &info, vector<string> instance_ids)
 	return make_request(info, params);	// make_request function in "requestify.cpp"
 }
 
-string stop_instances(http_var &info, vector<string> instance_ids)
+string stop_instances(::http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
 	params["Action"] = "StopInstances";
@@ -78,7 +77,7 @@ string stop_instances(http_var &info, vector<string> instance_ids)
 }
 
 
-string reboot_instances(http_var &info, vector<string> instance_ids)
+string reboot_instances(::http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
 	params["Action"] = "RebootInstances";
@@ -104,7 +103,7 @@ string reboot_instances(http_var &info, vector<string> instance_ids)
 }
 
 
-string terminate_instances(http_var &info, vector<string> instance_ids)
+string terminate_instances(::http_var &info, vector<string> instance_ids)
 {
 	map <string, string> params;
 	params["Action"] = "TerminateInstances";
@@ -130,10 +129,10 @@ string terminate_instances(http_var &info, vector<string> instance_ids)
 }
 
 
-string run_instances(http_var &info, string image_id, string instance_type_id, 
+string run_instances(::http_var &info, string image_id, string instance_type_id, 
 					vector<struct block_device_mapping> blocks = vector<struct block_device_mapping>(),
  					int instance_count = 1, string subnet_id = "", string private_ip_address = "",
- 					vector<string> security_group_ids = vector string(), string key_name = "" )
+ 					vector<string> security_group_ids = vector<string>(), string key_name = "" )
 {
 	map <string, string> params;
 	params["Action"] = "StartInstances";
@@ -163,7 +162,7 @@ string run_instances(http_var &info, string image_id, string instance_type_id,
 
 	if(blocks.size() != 0)
 	{
-		string key = "BlockDeviceMapping."
+		string key = "BlockDeviceMapping.";
 		stringstream ss,ss1;
 		for(int i=0 ; i<blocks.size() ; i++)
 		{
