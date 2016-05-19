@@ -1,19 +1,23 @@
 #include <iostream>
 #include <map>
 #include <string>
-
+#include <fstream>
 // TODO :read from configuration files or hard COde >??
-std::map<std::string,std::string> endpoints = {{"vpc","https://vpc.ind-west-1.jiocloudservices.com/"},
-{"iam","https://iam.ind-west-1.jiocloudservices.com/"},
-{"rds","https://rds.ind-west-1.jiocloudservices.com/"},
-{"dss","https://dss.ind-west-1.jiocloudservices.com/"},
-{"compute","https://compute.ind-west-1.staging.jiocloudservices.com/"}};
+std::map<std::string,std::string> endpoints;
 
 std::string get_service_url(std::string service_name)
 {
-	return endpoints[service_name];
+	return endpoints[service_name].c_str();
 }
 
+void set_up_endpoints()
+{
+	endpoints["vpc"]="https://vpc.ind-west-1.jiocloudservices.com";
+	endpoints["iam"] = "https://iam.ind-west-1.jiocloudservices.com";
+	endpoints["rds"] = "https://rds.ind-west-1.jiocloudservices.com";
+	endpoints["dss"]= "https://dss.ind-west-1.jiocloudservices.com";
+	endpoints["compute"] = "https://compute.ind-west-1.staging.jiocloudservices.com";
+}
 
 class ConfigHandler
 {
@@ -33,14 +37,16 @@ class ConfigHandler
 			secure = true;
 			debug = false;
 			// reading keys from file
-			ifstream infile("config.txt");
-			string line;
+			std::ifstream infile("config.txt");
+			std::string line;
 			getline(infile,line);
 			access_key = line;
 			getline(infile,line);
 			secret_key = line;
 			infile.close();
 
+			//set up endpoints
+			set_up_endpoints();
 			if (access_key.empty() || secret_key.empty())
 			{
 			std::cout<<"Unknown Credentials:Access key or secret key not set";
@@ -66,4 +72,3 @@ class ConfigHandler
 
 
 };
-
