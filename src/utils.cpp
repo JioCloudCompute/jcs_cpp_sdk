@@ -61,6 +61,7 @@ namespace utils{
 		HMAC_Update(&ctx,(unsigned char*)(canonical_string.c_str()), strlen(canonical_string.c_str()));
 		HMAC_Final(&ctx, hmac_256, &len);
 	   	HMAC_CTX_cleanup(&ctx);
+	   	hmac_256[len]='\0';
 	   	return (char *)hmac_256;
 	}
 
@@ -71,7 +72,7 @@ namespace utils{
 		char message[ascii_message.length()];
 		strcpy(message,ascii_message.c_str());
 		
-		const int mlen = 64;	
+		const int mlen = 46;	
 		char b64message[mlen];
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
