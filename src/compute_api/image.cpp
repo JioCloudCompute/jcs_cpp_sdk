@@ -4,9 +4,12 @@
 #include <sstream>
 
 using namespace std;
+using namespace utils;
+using namespace requestify;
+
 namespace image
 {
-	string describe_images(::http_var &info, vector<string> image_ids = vector<string>())
+	string describe_images(utils::http_var &info, vector<string> image_ids = vector<string>())
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeImages";
@@ -20,6 +23,6 @@ namespace image
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in 'requestify.cpp'
+		return requestify::make_request(info, params);	// make_request function in 'requestify.cpp'
 	}
 }

@@ -4,10 +4,12 @@
 #include <map>
 
 using namespace std;
+using namespace utils;
+using namespace requestify;
 
 namespace snapshot
 {
-	string create_snapshot(::http_var &info, string volume_id)
+	string create_snapshot(utils::http_var &info, string volume_id)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateSnapshot";
@@ -22,10 +24,10 @@ namespace snapshot
 			params["VolumeId"] = volume_id;
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_snapshot(::http_var &info, string snapshot_id)
+	string delete_snapshot(utils::http_var &info, string snapshot_id)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteSnapshot";
@@ -40,11 +42,11 @@ namespace snapshot
 			params["SnapshotId"] = snapshot_id;
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
 
-	string describe_snapshots(::http_var &info, vector<string> snapshot_ids  = vector<string>(),
+	string describe_snapshots(utils::http_var &info, vector<string> snapshot_ids  = vector<string>(),
 	 				 int max_results = -1, string next_token = "", bool detail = true)
 	{
 		map <string, string> params;
@@ -82,6 +84,6 @@ namespace snapshot
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 }

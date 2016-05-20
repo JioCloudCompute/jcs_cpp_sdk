@@ -4,19 +4,22 @@
 #include <map>
 
 using namespace std;
+using namespace utils;
+using namespace requestify;
+
 namespace key_pair
 {
-	string describe_key_pairs(::http_var &info)
+	string describe_key_pairs(utils::http_var &info)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeKeyPairs";
 		params["Version"] = info.version;
 		
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
 
-	string create_key_pair(::http_var &info, string key_name)
+	string create_key_pair(utils::http_var &info, string key_name)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateKeyPair";
@@ -31,10 +34,10 @@ namespace key_pair
 			params["KeyName"] = key_name;
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_key_pair(::http_var &info, string key_name)
+	string delete_key_pair(utils::http_var &info, string key_name)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteKeyPair";
@@ -49,10 +52,10 @@ namespace key_pair
 			params["KeyName"] = key_name;
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string import_key_pair(::http_var &info, string key_name, string public_key_material)
+	string import_key_pair(utils::http_var &info, string key_name, string public_key_material)
 	{
 		map <string, string> params;
 		params["Action"] = "ImportKeyPair";
@@ -77,6 +80,6 @@ namespace key_pair
 			params["PublicKeyMaterial"] = public_key_material;
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"	
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"	
 	}
 }

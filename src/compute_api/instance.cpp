@@ -4,9 +4,12 @@
 #include <map>
 
 using namespace std;
+using namespace utils;
+using namespace requestify;
+
 namespace instance
 {
-	string describe_instances(::http_var &info, vector<string> instance_ids  = vector<string>())
+	string describe_instances(utils::http_var &info, vector<string> instance_ids  = vector<string>())
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstances";
@@ -24,10 +27,10 @@ namespace instance
 		//// TODO : Add filters
 		// Right now filters functionality is broken, it works only
 	   	// for cases like --filters "Name=abc,Values=def"
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string describe_instance_types(::http_var &info, vector<string> instance_type_ids  = vector<string>())
+	string describe_instance_types(utils::http_var &info, vector<string> instance_type_ids  = vector<string>())
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstanceTypes";
@@ -45,10 +48,10 @@ namespace instance
 		//// TODO : Add filters
 		// Right now filters functionality is broken, it works only
 	   	// for cases like --filters "Name=abc,Values=def"
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string start_instances(::http_var &info, vector<string> instance_ids)
+	string start_instances(utils::http_var &info, vector<string> instance_ids)
 	{
 		map <string, string> params;
 		params["Action"] = "StartInstances";
@@ -68,10 +71,10 @@ namespace instance
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string stop_instances(::http_var &info, vector<string> instance_ids)
+	string stop_instances(utils::http_var &info, vector<string> instance_ids)
 	{
 		map <string, string> params;
 		params["Action"] = "StopInstances";
@@ -91,11 +94,11 @@ namespace instance
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
 
-	string reboot_instances(::http_var &info, vector<string> instance_ids)
+	string reboot_instances(utils::http_var &info, vector<string> instance_ids)
 	{
 		map <string, string> params;
 		params["Action"] = "RebootInstances";
@@ -115,11 +118,11 @@ namespace instance
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
 
-	string terminate_instances(::http_var &info, vector<string> instance_ids)
+	string terminate_instances(utils::http_var &info, vector<string> instance_ids)
 	{
 		map <string, string> params;
 		params["Action"] = "TerminateInstances";
@@ -139,12 +142,12 @@ namespace instance
 			ss.str("");
 		}
 
-		return make_request(info, params);	// make_request function in "requestify.cpp"
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 }
 
 
-string run_instances(::http_var &info, string image_id, string instance_type_id, 
+string run_instances(utils::http_var &info, string image_id, string instance_type_id, 
 					vector<struct block_device_mapping> blocks = vector<struct block_device_mapping>(),
  					int instance_count = 1, string subnet_id = "", string private_ip_address = "",
  					vector<string> security_group_ids = vector<string>(), string key_name = "" )
@@ -219,5 +222,5 @@ string run_instances(::http_var &info, string image_id, string instance_type_id,
 		params["KeyName"] = key_name;
 	}
 
-	return make_request(info, params);	// make_request function in "requestify.cpp"
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 }

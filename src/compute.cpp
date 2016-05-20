@@ -10,14 +10,21 @@
 #include <map>
 
 using namespace std;
+using namespace image;
+using namespace instance;
+using namespace snapshot;
+using namespace key_pair;
+using namespace volume;
+using namespace utils;
+using namespace config;
 
 class compute{
-	http_var info;
+	utils::http_var info;
 public:
 	compute()
 	{
 		//separate compute from config
-		strcpy(info.url, get_service_url("compute").c_str());
+		strcpy(info.url, config::get_service_url("compute").c_str());
 		strcpy(info.verb, "GET");
 		strcpy(info.headers, "");
 		strcpy(info.version, "2016-03-01");
@@ -61,7 +68,7 @@ public:
 
 	//edit.. block device mapping
 	string run_instances(string image_id, string instance_type_id, 
-						vector<struct block_device_mapping> blocks = vector<struct block_device_mapping>(),
+						vector<struct utils::block_device_mapping> blocks = vector<struct utils::block_device_mapping>(),
  						int instance_count = 1, string subnet_id = "", string private_ip_address = "",
  						vector<string> security_group_ids = vector<string>(), string key_name = "" )
 	{
