@@ -14,9 +14,9 @@ class Authorization
 {	
 	auth_var data_;
 public:
-	Authorization(const struct auth_var data)
+	Authorization(const struct auth_var data) //Use pass by const reference
 	{	
-
+		//Use copy constructor
 		strcpy(data_.url,data.url);
 		strcpy(data_.verb , data.verb);
 		strcpy(data_.access_key , data.access_key);
@@ -29,7 +29,7 @@ public:
 
 		std::string protocol = get_protocol(data_.url);	//utils
 		std::string host = get_host(data_.url);			//utils
-
+		//todo: see how to handle
 		if( protocol.compare("https") && protocol.compare("http"))
 		{
 			std::cout<<"Unsupported protocol present in given url";	
@@ -65,13 +65,14 @@ public:
 
 	std::string _get_utf8_value(std::string value)
 	{
-
-	} 
-
-
+		//todo(devender): To look at string to utf-8.
+	}
 
 
-	std::string sort_params(std::map<std::string ,std::string> &params){
+
+
+	std::string sort_params(std::map<std::string ,std::string> &params)
+	{
 		
 		std::string qs="";
 		CURL *curl = curl_easy_init();
@@ -114,11 +115,12 @@ public:
 	
 		//data
 		std::string canonical_string = string_to_sign(params);
+		//c_str returns const char*. Hence, extra array is not required.
 		char data[canonical_string.length()];
 		strcpy(data,canonical_string.c_str());
 			
 		unsigned char* hmac_256;
-    	unsigned int len = 256;
+    	unsigned int len = 32;
    		cout<<data<<endl;
     	hmac_256 = (unsigned char*)malloc(sizeof(char) * len);
     	
@@ -127,6 +129,7 @@ public:
 
 		HMAC_Init_ex(&ctx, data_.secret_key, strlen(data_.secret_key), EVP_sha256(), NULL);
 		HMAC_Update(&ctx,(unsigned char*)&data, strlen(data));
+	//No need for further processing. Use just len data.
     	HMAC_Final(&ctx, hmac_256, &len);
     	HMAC_CTX_cleanup(&ctx);
     	
@@ -138,27 +141,30 @@ public:
         	sprintf(temp,"%03u", (unsigned int)hmac_256[i]);
         	hmac_256_+= atoi(temp);
         	}
+		printf("hmac_256_: %s\n", hmac_256);	
 		free(hmac_256);
-		
+		printf("hmac_256_: %s\n", hmac_256_.c_str());	
 		//base64 encoding
 		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44
+
+		//move it in a separate function.
 		BIO *bio, *b64;
 		char message[hmac_256_.length()];
 		strcpy(message,hmac_256_.c_str());
-		
-		char message_out[46];
+		const int mlen = 64;	
+		char message_out[mlen];
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
 		//bio = BIO_new_mem_buf(message_out, 100);
 		BIO_push(b64, bio);
 		BIO_write(b64, message, sizeof(message));
 		BIO_flush(b64);
-		BIO_read(bio, message_out,46);
+		len = BIO_read(bio, message_out,mlen);
 		BIO_free_all(b64);
-		message_out[44]='\0';
+		//use len to remove \0
+		message_out[len-1]='\0';
 		
 		//urlencode
-
 		CURL *curl = curl_easy_init();
 		std::string hmac_Signature = curl_easy_escape(curl,message_out,strlen(message_out));
 		params["Signature"]=hmac_Signature;

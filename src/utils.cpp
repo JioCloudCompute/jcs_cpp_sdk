@@ -12,6 +12,8 @@ struct auth_var{
 	char protocol[8];
 	char host[128];
 	char port[8];
+	//copy constructor
+
 };
 
 struct http_var{

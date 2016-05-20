@@ -35,11 +35,11 @@ string make_request(http_var &info, map<string, string> &params , string data ="
 	strcpy(auth_data.headers, info.headers);
 	strcpy(auth_data.access_key, config.get_access_key().c_str());
 	strcpy(auth_data.secret_key, config.get_secret_key().c_str());
-	
+
 	//Set the Path according to your need
 	string path = "";
 	strcpy(auth_data.path,path.c_str());   //
-	
+
 	// Removing '/' from url
 	if(info.url[strlen(info.url)-1] == '/')
 		auth_data.url[strlen(auth_data.url)-1] == '\0';
@@ -58,26 +58,26 @@ string make_request(http_var &info, map<string, string> &params , string data ="
 
 	// TODO: Header handling remaining
 
-    CURL* curl; // curl object
+	CURL* curl; // curl object
 
-    curl_global_init(CURL_GLOBAL_ALL);
-    curl = curl_easy_init();
+	curl_global_init(CURL_GLOBAL_ALL);
+	curl = curl_easy_init();
 
-    struct curl_slist *header_list = NULL;
-    header_list = curl_slist_append(header_list, "Content-Type: application/json");
-    curl_slist_append(header_list, "Accept-Encoding: identity");
-    
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
+	struct curl_slist *header_list = NULL;
+	header_list = curl_slist_append(header_list, "Content-Type: application/json");
+	curl_slist_append(header_list, "Accept-Encoding: identity");
 
-    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 
-    curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
-    // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-    curl_easy_perform(curl);
-    curl_easy_cleanup(curl);
-    curl_global_cleanup();
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
 
-    return response;
+	curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
+	// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
+	curl_easy_perform(curl);
+	curl_easy_cleanup(curl);
+	curl_global_cleanup();
+
+	return response;
 }

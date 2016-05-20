@@ -4,141 +4,143 @@
 #include <map>
 
 using namespace std;
-
-string describe_instances(::http_var &info, vector<string> instance_ids  = vector<string>())
+namespace instance
 {
-	map <string, string> params;
-	params["Action"] = "DescribeInstances";
-	params["Version"] = info.version;
-	
-	string key = "InstanceId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_ids.size() ; i++)
+	string describe_instances(::http_var &info, vector<string> instance_ids  = vector<string>())
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_ids[i];
-		ss.str("");
+		map <string, string> params;
+		params["Action"] = "DescribeInstances";
+		params["Version"] = info.version;
+		
+		string key = "InstanceId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_ids[i];
+			ss.str("");
+		}
+
+		//// TODO : Add filters
+		// Right now filters functionality is broken, it works only
+	   	// for cases like --filters "Name=abc,Values=def"
+		return make_request(info, params);	// make_request function in "requestify.cpp"
 	}
 
-	//// TODO : Add filters
-	// Right now filters functionality is broken, it works only
-   	// for cases like --filters "Name=abc,Values=def"
-	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
-
-string describe_instance_types(::http_var &info, vector<string> instance_type_ids  = vector<string>())
-{
-	map <string, string> params;
-	params["Action"] = "DescribeInstanceTypes";
-	params["Version"] = info.version;
-	
-	string key = "InstanceTypeId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_type_ids.size() ; i++)
+	string describe_instance_types(::http_var &info, vector<string> instance_type_ids  = vector<string>())
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_type_ids[i];
-		ss.str("");
+		map <string, string> params;
+		params["Action"] = "DescribeInstanceTypes";
+		params["Version"] = info.version;
+		
+		string key = "InstanceTypeId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_type_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_type_ids[i];
+			ss.str("");
+		}
+
+		//// TODO : Add filters
+		// Right now filters functionality is broken, it works only
+	   	// for cases like --filters "Name=abc,Values=def"
+		return make_request(info, params);	// make_request function in "requestify.cpp"
 	}
 
-	//// TODO : Add filters
-	// Right now filters functionality is broken, it works only
-   	// for cases like --filters "Name=abc,Values=def"
-	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
-
-string start_instances(::http_var &info, vector<string> instance_ids)
-{
-	map <string, string> params;
-	params["Action"] = "StartInstances";
-	params["Version"] = info.version;
-	
-	if(instance_ids.size() == 0)
-	{	
-		return "Error : Instance-Id needed";
-	}
-
-	string key = "InstanceId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_ids.size() ; i++)
+	string start_instances(::http_var &info, vector<string> instance_ids)
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_ids[i];
-		ss.str("");
+		map <string, string> params;
+		params["Action"] = "StartInstances";
+		params["Version"] = info.version;
+		
+		if(instance_ids.size() == 0)
+		{	
+			return "Error : Instance-Id needed";
+		}
+
+		string key = "InstanceId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_ids[i];
+			ss.str("");
+		}
+
+		return make_request(info, params);	// make_request function in "requestify.cpp"
 	}
 
-	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
-
-string stop_instances(::http_var &info, vector<string> instance_ids)
-{
-	map <string, string> params;
-	params["Action"] = "StopInstances";
-	params["Version"] = info.version;
-
-	if(instance_ids.size() == 0)
-	{	
-		return "Error : Instance-Id needed";
-	}
-
-	string key = "InstanceId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_ids.size() ; i++)
+	string stop_instances(::http_var &info, vector<string> instance_ids)
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_ids[i];
-		ss.str("");
+		map <string, string> params;
+		params["Action"] = "StopInstances";
+		params["Version"] = info.version;
+
+		if(instance_ids.size() == 0)
+		{	
+			return "Error : Instance-Id needed";
+		}
+
+		string key = "InstanceId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_ids[i];
+			ss.str("");
+		}
+
+		return make_request(info, params);	// make_request function in "requestify.cpp"
 	}
 
-	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
 
-
-string reboot_instances(::http_var &info, vector<string> instance_ids)
-{
-	map <string, string> params;
-	params["Action"] = "RebootInstances";
-	params["Version"] = info.version;
-	
-	if(instance_ids.size() == 0)
-	{	
-		return "Error : Instance-Id needed";
-	}
-
-	string key = "InstanceId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_ids.size() ; i++)
+	string reboot_instances(::http_var &info, vector<string> instance_ids)
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_ids[i];
-		ss.str("");
+		map <string, string> params;
+		params["Action"] = "RebootInstances";
+		params["Version"] = info.version;
+		
+		if(instance_ids.size() == 0)
+		{	
+			return "Error : Instance-Id needed";
+		}
+
+		string key = "InstanceId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_ids[i];
+			ss.str("");
+		}
+
+		return make_request(info, params);	// make_request function in "requestify.cpp"
 	}
 
-	return make_request(info, params);	// make_request function in "requestify.cpp"
-}
 
-
-string terminate_instances(::http_var &info, vector<string> instance_ids)
-{
-	map <string, string> params;
-	params["Action"] = "TerminateInstances";
-	params["Version"] = info.version;
-	
-	if(instance_ids.size() == 0)
-	{	
-		return "Error : Instance-Id needed";
-	}
-
-	string key = "InstanceId.";
-	stringstream ss;
-	for(int i=0 ; i<instance_ids.size() ; i++)
+	string terminate_instances(::http_var &info, vector<string> instance_ids)
 	{
-		ss << i+1;
-		params[key + ss.str()] = instance_ids[i];
-		ss.str("");
-	}
+		map <string, string> params;
+		params["Action"] = "TerminateInstances";
+		params["Version"] = info.version;
+		
+		if(instance_ids.size() == 0)
+		{	
+			return "Error : Instance-Id needed";
+		}
 
-	return make_request(info, params);	// make_request function in "requestify.cpp"
+		string key = "InstanceId.";
+		stringstream ss;
+		for(int i=0 ; i<instance_ids.size() ; i++)
+		{
+			ss << i+1;
+			params[key + ss.str()] = instance_ids[i];
+			ss.str("");
+		}
+
+		return make_request(info, params);	// make_request function in "requestify.cpp"
+	}
 }
 
 
