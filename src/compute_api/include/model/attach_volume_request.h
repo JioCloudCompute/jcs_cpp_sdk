@@ -3,14 +3,15 @@
 
 using namespace std;
 
-class detach_volume_request
+class attach_volume_request
 {
 private:
-	string instance_id
+	string instance_id;
 	string volume_id;
 	string device;
 
 public:
+	attach_volume_request();
 	string get_instance_id();
 
 	void set_instance_id(string instance_id_);

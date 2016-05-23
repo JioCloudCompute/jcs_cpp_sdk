@@ -1,9 +1,9 @@
-#include "requestify.cpp"
-#include "compute_api/image.cpp"
-#include "compute_api/instance.cpp"
-#include "compute_api/volume.cpp"
-#include "compute_api/snapshot.cpp"
-#include "compute_api/key_pair.cpp"
+#include "src/requestify.cpp"
+#include "src/compute_api/source/image.cpp"
+#include "src/compute_api/source/instance.cpp"
+#include "src/compute_api/source/volume.cpp"
+#include "src/compute_api/source/snapshot.cpp"
+#include "src/compute_api/source/key_pair.cpp"
 #include <iostream>
 #include <string>
 #include <string.h>

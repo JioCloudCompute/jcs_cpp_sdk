@@ -10,12 +10,12 @@ private:
 	bool delete_on_termination;
 
 public:
+
 	string get_volume_id();
 
 	void set_volume_id(string volume_id_);
-	
-	bool get_delete_on_termination_flag();
-	
-	void get_delete_on_termination_flag(bool delete_on_termination_);
 
+	bool get_delete_ont_termination();
+
+	void set_delete_on_termination(bool delete_on_termination_);
 };
