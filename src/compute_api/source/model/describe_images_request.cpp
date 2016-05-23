@@ -4,17 +4,17 @@
 
 using namespace std;
 
-describe_images_request()
+describe_images_request::describe_images_request()
 {
-	describe_images_request = vector<string>();
+	image_ids = vector<string>();
 }
 
-vector<string> get_image_ids()
+vector<string> describe_images_request::get_image_ids()
 {
 	return image_ids;
 }
 
-void set_image_ids(vector<string>image_id_set);
+void describe_images_request::set_image_ids(vector<string>image_id_set)
 {
 	for(int i=0 ; i<image_id_set.size() ; i++)
 	{

@@ -4,7 +4,7 @@
 using namespace std;
 class Image
 {
-	
+public:
 	bool isPublic;
 	string name;
 	string imageId;
@@ -13,5 +13,4 @@ class Image
 	string imageType;
 	block_device block_device_mapping;
 
-
-}
+};

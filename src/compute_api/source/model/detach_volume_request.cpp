@@ -3,15 +3,28 @@
 
 using namespace std;
 
-class delete_volume_request
+class detach_volume_request
 {
 private:
+	string instance_id
 	string volume_id;
 
 public:
-	delete_volume_request();
+
+	detach_volume_request()
 	{
+		instance_id = "";
 		volume_id = "";
+	}
+
+	string get_instance_id()
+	{
+		return instance_id;
+	}
+
+	void set_instance_id(string instance_id_)
+	{
+		instance_id = instance_id_;
 	}
 
 	string get_volume_id()
@@ -23,4 +36,5 @@ public:
 	{
 		volume_id = volume_id_;
 	}
+
 };

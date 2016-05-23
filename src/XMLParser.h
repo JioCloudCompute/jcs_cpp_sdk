@@ -1,3 +1,3 @@
 
-#include "tinyxml/tinyxml2.h"
-#include "tinyxml/tinyxml2.cpp"
+#include "tinyxml2/tinyxml2.h"
+#include "tinyxml2/tinyxml2.cpp"

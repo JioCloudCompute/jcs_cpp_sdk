@@ -3,28 +3,31 @@
 #include <vector>
 #include <map>
 using namespace std;
-class describe_images_responses
+class describe_images_response
 {
-	describe_images_responses(const string xml_doc);
+	public:
+	map<string,Image> Images;
+	string Request_Id;
+
+	
+	describe_images_response(const string xml_doc);
+	describe_images_response()
+	{
+	}
 	
 	
 	string Get_Request_Id(){
 		return Request_Id;
 	}
 	void Set_Request_Id(string Id){
-		this.Request_Id = Id;
+		Request_Id = Id;
 	}
 
 	void Set_Image(const Image& data){
 
 	}
 	void Add_Image(const Image& data){
-		Images[data.ImageId]=data;
+		Images[data.imageId]=data;
 	}
 
-	private:
-		map<string,Image> Images;
-		string Request_Id;
-
-
-}
+};

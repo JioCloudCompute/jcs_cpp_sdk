@@ -9,6 +9,7 @@ private:
 	string key_name;
 
 public:
+	create_key_pair();
 	string get_key_name();
 
 	void set_key_name(string key_name_);
