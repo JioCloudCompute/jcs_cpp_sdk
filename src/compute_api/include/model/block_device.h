@@ -1,5 +1,6 @@
 #include <string.h>
 using namespace std;
+namespace model{
 class block_device
 {	
 public:
@@ -8,3 +9,4 @@ public:
 	string deviceName;
 	string snapshotId;
 };
+}

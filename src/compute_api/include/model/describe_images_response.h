@@ -3,31 +3,43 @@
 #include <vector>
 #include <map>
 using namespace std;
-class describe_images_response
-{
-	public:
-	map<string,Image> Images;
-	string Request_Id;
 
-	
-	describe_images_response(const string xml_doc);
-	describe_images_response()
+namespace model{
+	class describe_images_response
 	{
-	}
-	
-	
-	string Get_Request_Id(){
-		return Request_Id;
-	}
-	void Set_Request_Id(string Id){
-		Request_Id = Id;
-	}
+	private:
+		int image_number;
+		map<string,Image> Images;
+		string Request_Id;
 
-	void Set_Image(const Image& data){
+	public:
+		describe_images_response(const string xml_doc);
+		describe_images_response(){
+		}
+		
+		string Get_Request_Id() const{
+			return Request_Id;
+		}
+		void Set_Request_Id(string Id){
+			Request_Id = Id;
+		}
 
-	}
-	void Add_Image(const Image& data){
-		Images[data.imageId]=data;
-	}
+		void Add_Image(Image& data){
+			Images[data.Get_imageId()]=data;
+		}
 
-};
+		void Increment()
+		{
+			image_number++;
+		}
+		int Get_NumberOfImages() const
+		{
+			return image_number;
+		}
+		map<string, Image> Get_Images() const
+		{
+			return Images;
+		}
+
+	};
+}
