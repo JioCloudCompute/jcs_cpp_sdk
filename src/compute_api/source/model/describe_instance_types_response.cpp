@@ -1,4 +1,4 @@
-#include "src/compute_api/include/model/update_delete_on_termination_flag_response.h"
+#include "src/compute_api/include/model/describe_instance_types_response.h"
 #include "src/XMLParser.h"
 #include <string>
 
@@ -9,7 +9,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::update_delete_on_termination_flag_response::update_delete_on_termination_flag_response(const string xml_doc)
+model::describe_instance_types_response::describe_instance_types_response(const string xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc);
@@ -35,6 +35,6 @@ model::update_delete_on_termination_flag_response::update_delete_on_termination_
 
 		//Add to map
 		model::instance_type data(vcpus, ram, id);
-		instance_types_set[id] = data;
+		instance_type_set[id] = data;
 	}
 }
