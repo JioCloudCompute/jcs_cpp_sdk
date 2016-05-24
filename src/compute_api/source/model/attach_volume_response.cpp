@@ -16,9 +16,14 @@ attach_volume_response::attach_volume_response(const string xml_doc)
 	//Root
 	XMLNode *RootNode=doc.FirstChild();
 
-	XMLElement *Element = RootNode->FirstChildElement("Status");
-	Set_status(Element->GetText());
+	XMLElement *Element = RootNode->FirstChildElement("requestId");
+	request_id = Element->GetText());
+	
 	Element = Element->NextSiblingElement();
-	Set_device(Element->GetText());
+	status = Element->GetText();
+	
+	Element = Element->NextSiblingElement();
+	device = Element->GetText();
+	
 	
 }

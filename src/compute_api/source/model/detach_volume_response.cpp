@@ -16,7 +16,10 @@ dettach_volume_response::dettach_volume_response(const string xml_doc)
 	//Root
 	XMLNode *RootNode=doc.FirstChild();
 
-	XMLElement *Element = RootNode->FirstChildElement("Status");
-	Set_status(Element->GetText());
+	XMLElement *Element = RootNode->FirstChildElement("requestId");
+	requestId = Element->GetText();
+	
+	Element = Element->NextSiblingElement();
+	status = Element->GetText();
 	
 }
