@@ -1,32 +1,27 @@
 #include <string>
 using namespace std;
-namespace model{
-	
+namespace model
+{
 	class attach_volume_response
 	{
 	private:
+		string request_id;
 		string status;
 		string device;
 	public:
 		attach_volume_response(const string xml_doc);
-		void Set_status(string status)
+		const string get_request_id() 
 		{
-			this->status = status;
+			return request_id;
 		}
-		void Set_device(string device)
-		{
-			this->device = device;
-		}
-
-		string Get_status() const
+		const string get_status() 
 		{
 			return status;
 		}
-		string Get_device() const
+		const string get_device()
 		{
 			return device;
 		}
-
 	};
 
 }

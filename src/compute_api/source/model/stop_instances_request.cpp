@@ -20,4 +20,3 @@ void model::stop_instances_request::set_instance_ids(vector<string>instance_id_s
 		instance_ids.push_back(instance_id_set[i]);
 	}
 }
-int main(){}

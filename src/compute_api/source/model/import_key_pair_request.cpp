@@ -29,4 +29,3 @@ void model::import_key_pair_request::set_public_key_material(string public_key_m
 {
 	public_key_material = public_key_material_;
 }
-int main(){}

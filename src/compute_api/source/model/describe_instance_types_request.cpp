@@ -21,4 +21,3 @@ void model::describe_instance_types_request::set_instance_types_ids(vector<strin
 		instance_type_ids.push_back(instance_type_id_set[i]);
 	}
 }
-int main(){}

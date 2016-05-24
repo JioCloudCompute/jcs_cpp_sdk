@@ -29,4 +29,3 @@ void model::update_delete_on_termination_flag_request::set_delete_on_termination
 {
 	delete_on_termination = delete_on_termination_;
 }
-int main(){}

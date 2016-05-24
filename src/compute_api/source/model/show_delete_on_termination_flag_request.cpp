@@ -18,4 +18,3 @@ void model::show_delete_on_termination_flag_request::set_volume_id(string volume
 {
 	volume_id = volume_id_;
 }
-int main(){}

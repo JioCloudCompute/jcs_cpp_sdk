@@ -17,4 +17,3 @@ void model::delete_snapshot_request::set_snapshot_id(string snapshot_id_)
 {
 	snapshot_id = snapshot_id_;
 }
-int main(){}

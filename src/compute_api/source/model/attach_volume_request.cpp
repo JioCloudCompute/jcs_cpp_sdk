@@ -39,4 +39,3 @@ void attach_volume_request::set_device(string device_)
 {
 	device = device_;
 }
-int main(){}

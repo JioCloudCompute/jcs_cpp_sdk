@@ -17,4 +17,3 @@ void model::delete_volume_request::set_volume_id(string volume_id_)
 {
 	volume_id = volume_id_;
 }
-int main(){}

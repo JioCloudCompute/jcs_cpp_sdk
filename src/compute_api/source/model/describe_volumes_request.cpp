@@ -53,4 +53,3 @@ void model::describe_volumes_request::set_detail(bool detail_)
 {
 	detail = detail_;
 }
-int main(){}

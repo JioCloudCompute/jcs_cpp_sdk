@@ -28,4 +28,3 @@ void model::create_volume_request::set_size(int size_)
 {
 	size = size_;
 }
-int main(){}

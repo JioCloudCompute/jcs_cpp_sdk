@@ -15,4 +15,3 @@ void model::create_key_pair_request::set_key_name(string key_name_)
 {
 	key_name = key_name_;
 }
-int main(){}
