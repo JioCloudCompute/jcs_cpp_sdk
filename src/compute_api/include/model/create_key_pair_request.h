@@ -2,15 +2,18 @@
 #include <string>
 
 using namespace std;
-
-class create_key_pair_request
+namespace model
 {
-private:
-	string key_name;
+	class create_key_pair_request
+	{
+	private:
+		string key_name;
 
-public:
-	create_key_pair();
-	string get_key_name();
+	public:
+		create_key_pair_request();
+		create_key_pair();
+	const string get_key_name();
 
-	void set_key_name(string key_name_);
-};
+		void set_key_name(string key_name_);
+	};
+}

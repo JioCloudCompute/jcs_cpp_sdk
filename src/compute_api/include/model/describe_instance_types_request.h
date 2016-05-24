@@ -2,14 +2,17 @@
 #include <string>
 
 using namespace std;
-
-class describe_instance_types_request
+namespace model
 {
-private:
-	vector<string> instance_type_ids;
+	class describe_instance_types_request
+	{
+	private:
+		vector<string> instance_type_ids;
 
-public:
-	vector<string> get_instance_types_ids();
+	public:
+		describe_instance_types_request();
+	const vector<string> get_instance_types_ids();
 
-	void set_instance_types_ids(vector<string>instance_type_id_set);
-};
+		void set_instance_types_ids(vector<string>instance_type_id_set);
+	};
+}

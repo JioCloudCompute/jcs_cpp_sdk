@@ -1,30 +1,23 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/stop_instances_request.h"
 
 using namespace std;
+using namespace model;
 
-class stop_instances_request
+model::stop_instances_request::stop_instances_request()
 {
-private:
-	vector<string> instance_ids;
+	instance_ids = vector<string>();
+}
 
-public:
+const vector<string> model::stop_instances_request::get_instance_ids()
+{
+	return instance_ids;
+}
 
-	stop_instances_request()
+void model::stop_instances_request::set_instance_ids(vector<string>instance_id_set)
+{
+	for(int i=0 ; i<instance_id_set.size() ; i++)
 	{
-		instance_ids = vector<string>();
+		instance_ids.push_back(instance_id_set[i]);
 	}
-
-	vector<string> get_instance_ids()
-	{
-		return instance_ids;
-	}
-
-	void set_instance_ids(vector<string>instance_id_set)
-	{
-		for(int i=0 ; i<instance_id_set.size() ; i++)
-		{
-			instance_ids.push_back(instance_id_set[i]);
-		}
-	}
-};
+}
+int main(){}

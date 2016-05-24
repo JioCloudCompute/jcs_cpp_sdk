@@ -2,27 +2,29 @@
 #include <string>
 
 using namespace std;
-
-class attach_volume_request
+namespace model
 {
-private:
-	string instance_id;
-	string volume_id;
-	string device;
+	class attach_volume_request
+	{
+	private:
+		string instance_id;
+		string volume_id;
+		string device;
 
-public:
-	attach_volume_request();
-	string get_instance_id();
+	public:
+		attach_volume_request();
+	const string get_instance_id();
 
-	void set_instance_id(string instance_id_);
+		void set_instance_id(string instance_id_);
 
-	string get_volume_id();
+	const string get_volume_id();
 
-	void set_volume_id(string volume_id_);
+		void set_volume_id(string volume_id_);
 
-	string get_device();
+	const string get_device();
 
-	void set_device(string device_);
+		void set_device(string device_);
 
 
-};
+	};
+}

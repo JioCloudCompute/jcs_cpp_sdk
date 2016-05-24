@@ -1,67 +1,56 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/describe_snapshots_request.h"
 
 using namespace std;
+using namespace model;
 
-class describe_snapshots_request
+model::describe_snapshots_request::describe_snapshots_request()
 {
-private:
-	vector<string> snapshot_ids;
-	int max_results;
-	string next_token;
-	bool detail;
+	snapshot_ids = vector<string>();
+	max_results = -1;
+	next_token = "";
+	detail = true;
+}
 
-public:
+const vector<string> model::describe_snapshots_request::get_snapshot_ids()
+{
+	return snapshot_ids;
+}
 
-	describe_snapshots_request()
+void model::describe_snapshots_request::set_snapshot_ids(vector<string> snapshot_id_set)
+{
+	for(int i=0 ; i<snapshot_id_set.size() ; i++)
 	{
-		snapshot_ids = vector<string>();
-		max_results = -1;
-		next_token = "";
-		detail = true;
+		snapshot_ids.push_back(snapshot_id_set[i]);
 	}
+}
 
-	vector<string> get_snapshot_ids()
-	{
-		return snapshot_ids;
-	}
+const int model::describe_snapshots_request::get_max_results()
+{
+	return max_results;
+}
 
-	void set_snapshot_ids(vector<string> snapshot_id_set)
-	{
-		for(int i=0 ; i<snapshot_id_set.size() ; i++)
-		{
-			snapshot_ids.push_back(snapshot_id_set[i]);
-		}
-	}
+void model::describe_snapshots_request::set_max_results(int max_results_)
+{
+	max_results = max_results_;
+}
 
-	int get_max_results()
-	{
-		return max_results;
-	}
+const string model::describe_snapshots_request::get_next_token()
+{
+	return next_token;
+}
 
-	void set_max_results(int max_results_)
-	{
-		max_results = max_results_;
-	}
+void model::describe_snapshots_request::set_next_token(string next_token_)
+{
+	next_token = next_token_;
+}
 
-	string get_next_token()
-	{
-		return next_token;
-	}
+bool model::describe_snapshots_request::set_detail()
+{
+	return detail;
+}
 
-	void set_next_token(string next_token_)
-	{
-		next_token = next_token_;
-	}
-
-	bool set_detail()
-	{
-		return detail;
-	}
-
-	void set_detail(bool detail_)
-	{
-		detail = detail_;
-	}
-
-};
+void model::describe_snapshots_request::set_detail(bool detail_)
+{
+	detail = detail_;
+}
+int main(){}

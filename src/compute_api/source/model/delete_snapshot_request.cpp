@@ -1,27 +1,20 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/delete_snapshot_request.h"
 
 using namespace std;
+using namespace model;
 
-class delete_snapshot_request
+model::delete_snapshot_request::delete_snapshot_request()
 {
-private:
-	string snapshot_id;
+	snapshot_id = "";
+}
 
-public:
+const string model::delete_snapshot_request::get_snapshot_id()
+{
+	return snapshot_id;
+}
 
-	delete_snapshot_request()
-	{
-		snapshot_id = "";
-	}
-
-	string get_snapshot_id()
-	{
-		return snapshot_id;
-	}
-
-	void set_snapshot_id(string snapshot_id_)
-	{
-		snapshot_id = snapshot_id_;
-	}
-};
+void model::delete_snapshot_request::set_snapshot_id(string snapshot_id_)
+{
+	snapshot_id = snapshot_id_;
+}
+int main(){}

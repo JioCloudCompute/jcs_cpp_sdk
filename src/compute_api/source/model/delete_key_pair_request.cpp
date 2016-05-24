@@ -1,27 +1,20 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/delete_key_pair_request.h"
 
 using namespace std;
+using namespace model;
 
-class delete_key_pair_request
+model::delete_key_pair_request::delete_key_pair_request()
 {
-private:
-	string key_name;
+	key_name = "";
+}
 
-public:
+const string model::delete_key_pair_request::get_key_name()
+{
+	return key_name;
+}
 
-	delete_key_pair_request()
-	{
-		key_name = "";
-	}
-
-	string get_key_name()
-	{
-		return key_name;
-	}
-
-	void set_key_name(string key_name_)
-	{
-		key_name = key_name_;
-	}
-};
+void model::delete_key_pair_request::set_key_name(string key_name_)
+{
+	key_name = key_name_;
+}
+int main(){}

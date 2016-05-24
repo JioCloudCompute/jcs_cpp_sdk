@@ -1,39 +1,31 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/create_volume_request.h"
 
 using namespace std;
+using namespace model;
 
-class create_volume_request
+model::create_volume_request::create_volume_request()
 {
-private:
-	string snapshot_id;
-	int size;
+	snapshot_id = "";
+	size = -1;
+}
 
-public:
+const string model::create_volume_request::get_snapshot_id()
+{
+	return snapshot_id;
+}
 
-	create_volume_request()
-	{
-		snapshot_id = "";
-		size = -1;
-	}
+void model::create_volume_request::set_snapshot_id(string snapshot_id_)
+{
+	snapshot_id = snapshot_id_;
+}
 
-	string get_snapshot_id()
-	{
-		return snapshot_id;
-	}
+const int model::create_volume_request::get_size()
+{
+	return size;
+}
 
-	void set_snapshot_id(string snapshot_id_)
-	{
-		snapshot_id = snapshot_id_;
-	}
-
-	int get_size()
-	{
-		return size;
-	}
-	
-	void set_size(int size_)
-	{
-		size = size_;
-	}
-};
+void model::create_volume_request::set_size(int size_)
+{
+	size = size_;
+}
+int main(){}
