@@ -82,8 +82,3 @@ describe_images_response::describe_images_response(const string xml_doc)
 	}
 
 }
-
-int main()
-{
-
-}

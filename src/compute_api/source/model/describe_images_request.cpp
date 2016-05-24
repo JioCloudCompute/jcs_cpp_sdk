@@ -20,4 +20,3 @@ void model::describe_images_request::set_image_ids(vector<string>image_id_set)
 		image_ids.push_back(image_id_set[i]);
 	}
 }
-int main(){}

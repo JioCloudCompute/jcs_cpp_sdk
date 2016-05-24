@@ -4,20 +4,6 @@
 #include <map>
 using namespace std;
 
-namespace model{
-	class describe_images_response
-	{
-	private:
-		int image_number;
-		map<string,Image> Images;
-		string Request_Id;
-
-	public:
-		describe_images_response(const string xml_doc);
-		describe_images_response(){
-		}
-		
-		string Get_Request_Id() const{
 namespace model
 {
 	class describe_images_response
@@ -25,7 +11,7 @@ namespace model
 		public:
 		map<string,Image> Images;
 		string Request_Id;
-
+		int image_number;
 		
 		describe_images_response(const string xml_doc);
 		describe_images_response()
@@ -54,13 +40,12 @@ namespace model
 		}
 		map<string, Image> Get_Images() const
 		{
-			return Images;
-}
+			return Images;}
 		void Set_Image(const Image& data){
 
 		}
 		void Add_Image(const Image& data){
-			Images[data.imageId]=data;
+			Images[data.Get_imageId()]=data;
 		}
 
 	};
