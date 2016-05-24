@@ -1,27 +1,21 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/show_delete_on_termination_flag_request.h"
 
 using namespace std;
+using namespace model;
 
-class show_delete_on_termination_flag_request
+
+model::show_delete_on_termination_flag_request::show_delete_on_termination_flag_request()
 {
-private:
-	string volume_id;
+	volume_id ="";
+}
 
-public:
+const string model::show_delete_on_termination_flag_request::get_volume_id()
+{
+	return volume_id;
+}
 
-	show_delete_on_termination_flag_request()
-	{
-		volume_id "";
-	}
-
-	string get_volume_id()
-	{
-		return volume_id;
-	}
-
-	void set_volume_id(string volume_id_)
-	{
-		volume_id = volume_id_;
-	}
-};
+void model::show_delete_on_termination_flag_request::set_volume_id(string volume_id_)
+{
+	volume_id = volume_id_;
+}
+int main(){}

@@ -2,14 +2,17 @@
 #include <string>
 
 using namespace std;
-
-class show_delete_on_termination_flag_request
+namespace model
 {
-private:
-	string volume_id;
+	class show_delete_on_termination_flag_request
+	{
+	private:
+		string volume_id;
 
-public:
-	string get_volume_id();
+	public:
+		show_delete_on_termination_flag_request();
+	const string get_volume_id();
 
-	void set_volume_id(string volume_id_);
-};
+		void set_volume_id(string volume_id_);
+	};
+}

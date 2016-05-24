@@ -4,19 +4,19 @@
 using namespace std;
 namespace model
 {
-	class describe_snapshots_request
+	class describe_volumes_request
 	{
 	private:
-		vector<string> snapshot_ids;
+		vector<string> volume_ids;
 		int max_results;
 		string next_token;
 		bool detail;
 
 	public:
-		describe_snapshots_request();
-	const vector<string> get_snapshot_ids();
+		describe_volumes_request();
+	const vector<string> get_volume_ids();
 
-		void set_snapshot_ids(vector<string> snapshot_id_set);
+		void set_volume_ids(vector<string> volume_id_set);
 
 	const int get_max_results();
 
@@ -29,6 +29,6 @@ namespace model
 		bool set_detail();
 
 		void set_detail(bool detail_);
-
+		
 	};
 }

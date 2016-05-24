@@ -2,14 +2,17 @@
 #include <string>
 
 using namespace std;
-
-class delete_key_pair_request
+namespace model
 {
-private:
-	string key_name;
+	class delete_key_pair_request
+	{
+	private:
+		string key_name;
 
-public:
-	string get_key_name();
+	public:
+		delete_key_pair_request();
+	const string get_key_name();
 
-	void set_key_name(string key_name_);
-};
+		void set_key_name(string key_name_);
+	};
+}

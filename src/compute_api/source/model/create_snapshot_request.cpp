@@ -1,27 +1,20 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/create_snapshot_request.h"
 
 using namespace std;
+using namespace model;
 
-class create_snapshot_request
+model::create_snapshot_request::create_snapshot_request()
 {
-private:
-	string volume_id;
+	volume_id = "";
+}
 
-public:
+const string model::create_snapshot_request::get_volume_id()
+{
+	return volume_id;
+}
 
-	create_snapshot_request()
-	{
-		volume_id = "";
-	}
-
-	string get_volume_id()
-	{
-		return volume_id;
-	}
-
-	void set_volume_id(string volume_id_)
-	{
-		volume_id = volume_id_;
-	}
-};
+void model::create_snapshot_request::set_volume_id(string volume_id_)
+{
+	volume_id = volume_id_;
+}
+int main(){}

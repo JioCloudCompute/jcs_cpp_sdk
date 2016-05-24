@@ -2,14 +2,18 @@
 #include <string>
 
 using namespace std;
-
-class stop_instances_request
+namespace model
 {
-private:
-	vector<string> instance_ids;
 
-public:
-	vector<string> get_instance_ids();
+	class stop_instances_request
+	{
+	private:
+		vector<string> instance_ids;
 
-	void set_instance_ids(vector<string>instance_id_set);
-};
+	public:
+		stop_instances_request();
+	const vector<string> get_instance_ids();
+
+		void set_instance_ids(vector<string>instance_id_set);
+	};
+}

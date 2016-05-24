@@ -1,40 +1,31 @@
-#include <vector>
-#include <string>
+#include "src/compute_api/include/model/detach_volume_request.h"
 
 using namespace std;
+using namespace model;
 
-class detach_volume_request
+model::detach_volume_request::detach_volume_request()
 {
-private:
-	string instance_id
-	string volume_id;
+	instance_id = "";
+	volume_id = "";
+}
 
-public:
+const string model::detach_volume_request::get_instance_id()
+{
+	return instance_id;
+}
 
-	detach_volume_request()
-	{
-		instance_id = "";
-		volume_id = "";
-	}
+void model::detach_volume_request::set_instance_id(string instance_id_)
+{
+	instance_id = instance_id_;
+}
 
-	string get_instance_id()
-	{
-		return instance_id;
-	}
+const string model::detach_volume_request::get_volume_id()
+{
+	return volume_id;
+}
 
-	void set_instance_id(string instance_id_)
-	{
-		instance_id = instance_id_;
-	}
-
-	string get_volume_id()
-	{
-		return volume_id;
-	}
-
-	void set_volume_id(string volume_id_)
-	{
-		volume_id = volume_id_;
-	}
-
-};
+void model::detach_volume_request::set_volume_id(string volume_id_)
+{
+	volume_id = volume_id_;
+}
+int main(){}
