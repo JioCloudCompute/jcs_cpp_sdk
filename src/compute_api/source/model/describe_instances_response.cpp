@@ -10,29 +10,34 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
+
+
 describe_instances_response::describe_instances_response(const string xml_doc)
-{
+{	
+	NumberOfInstances=0;
+	instance data;
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	Set_requestId(FirstElement->GetText());
+	Set_requestId(Element->GetText());
 	Element = RootNode->FirstChildElement("instancesSet");
 
 	bool temp;
 	block_device_instance block;
+	groupSet group;
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *InstanceElement,*blockListElement,*blockElement;
 	while(ListElement != NULL)
 	{
-		InstanceElement =  ListElement->FirstChildElement("blcokDeviceMapping");
+		InstanceElement =  ListElement->FirstChildElement("blockDeviceMapping");
 
-		blockElement = InstanceElement->FirstChildElement("item");
+		blockListElement = InstanceElement->FirstChildElement("item");
 		while(blockListElement != NULL)
 		{
-			blockElement = FirstChildElement("status");
+			blockElement = blockListElement->FirstChildElement("status");
 			block.status = blockElement->GetText();
 			
 			blockElement = blockElement->NextSiblingElement();
@@ -45,12 +50,57 @@ describe_instances_response::describe_instances_response(const string xml_doc)
 			blockElement = blockElement->NextSiblingElement();
 			block.volumeId = blockElement->GetText();
 
-			Add_blockDevice(block);
-
+			data.Add_blockDevice(block);
+			blockListElement->NextSiblingElement();
 
 		}
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_dnsName(InstanceElement->GetText());
 
-		///
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_instanceId(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_instanceState(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_imageId(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_privateDnsName(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_keyName(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_launchtime(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_subnetId(InstanceElement->GetText());
+
+		XMLElement *GroupListElement,*GroupElement;
+		InstanceElement = InstanceElement->NextSiblingElement();
+		GroupListElement = InstanceElement->FirstChildElement("item");
+		while(GroupListElement != NULL)
+		{
+			GroupElement=GroupListElement->FirstChildElement("groupName");
+			group.groupName = GroupElement->GetText();
+			GroupElement=GroupElement->NextSiblingElement();
+			group.groupId = GroupElement->GetText();
+			data.Add_group(group);
+		}
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_vpcId(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->FirstChildElement();
+		data.Set_instanceType(InstanceElement->GetText());
+
+		InstanceElement=InstanceElement->NextSiblingElement();
+		data.Set_privateIpAddress(InstanceElement->GetText());
+
+		Add_Instance(data);
+		Increment();
+
 	}
 
 
