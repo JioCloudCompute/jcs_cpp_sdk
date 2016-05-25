@@ -30,10 +30,10 @@ namespace instance
 		
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<req.get_instance_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = req.get_instance_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -51,10 +51,10 @@ namespace instance
 		
 		string key = "InstanceTypeId.";
 		stringstream ss;
-		for(int i=0 ; i<instance_type_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_type_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -70,17 +70,17 @@ namespace instance
 		params["Action"] = "StartInstances";
 		params["Version"] = info.version;
 		
-		if(instance_ids.size() == 0)
+		if(req.get_instance_ids().size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<instance_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -93,17 +93,17 @@ namespace instance
 		params["Action"] = "StopInstances";
 		params["Version"] = info.version;
 
-		if(instance_ids.size() == 0)
+		if(req.get_instance_ids().size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<instance_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -117,17 +117,17 @@ namespace instance
 		params["Action"] = "RebootInstances";
 		params["Version"] = info.version;
 		
-		if(instance_ids.size() == 0)
+		if(req.get_instance_ids().size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<instance_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -141,17 +141,17 @@ namespace instance
 		params["Action"] = "TerminateInstances";
 		params["Version"] = info.version;
 		
-		if(instance_ids.size() == 0)
+		if(req.get_instance_ids().size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<instance_ids.size() ; i++)
+		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key + ss.str()] = instance_ids[i];
+			params[key+ss.str()] = (*req.get_instance_ids())[i];
 			ss.str("");
 		}
 
@@ -166,70 +166,70 @@ namespace instance
 		params["Action"] = "StartInstances";
 		params["Version"] = info.version;
 
-		if(image_id.length() == 0)
+		if(req.get_image_id().length() == 0)
 		{	
 			return "Error : Image-Id needed";
 		}
 		else
 		{
-			params["ImageId"] = image_id;
+			params["ImageId"] = req.get_image_id();
 		}
 
-		if(instance_type_id.length() == 0)
+		if(req.get_instance_type_id().length() == 0)
 		{	
 			return "Error : Instance-Type-Id needed";
 		}
 		else
 		{
-			params["InstanceTypeId"] = instance_type_id;
+			params["InstanceTypeId"] = req.get_instance_type_id();
 		}
 
-		if(blocks.size() != 0)
+		if((req.get_block_device_mapping())->size() != 0)
 		{
 			string key = "BlockDeviceMapping.";
 			stringstream ss,ss1;
-			for(int i=0 ; i<blocks.size() ; i++)
+			for(int i=0 ; i<(req.get_block_device_mapping())->size() ; i++)
 			{
 				ss << i+1;
-				params[key+ss.str()+".DeviceName"] = blocks[i].device_name;
-				blocks[i].delete_on_termination ? ss1.str("true") : ss1.str("false");
+				params[key+ss.str()+".DeviceName"] = (*req.get_block_device_mapping())[i].device_name;
+				(*req.get_block_device_mapping())[i].delete_on_termination ? ss1.str("true") : ss1.str("false");
 				params[key+ss.str()+".DeleteOnTermination"] = ss1.str();
 				ss1.str("");
-				ss1 << blocks[i].volume_size;
+				ss1 << (*req.get_block_device_mapping())[i].volume_size;
 				params[key+ss.str()+".VolumeSize"] = ss1.str();
 				ss1.str("");
 				ss.str("");
 			}
 		}
 
-		if(instance_count!=1)
+		if(req.get_instance_count()!=1)
 		{
-			params["InstanceCount"] = instance_count;
+			params["InstanceCount"] = req.get_instance_count();
 		}
 
-		if(subnet_id!="")
+		if(req.get_subnet_id()!="")
 		{
-			params["SubnetId"] = subnet_id;
+			params["SubnetId"] = req.get_subnet_id();
 		}
 
-		if(private_ip_address!="")
+		if(req.get_private_ip_address()!="")
 		{
-			params["PrivateIPAddress"] = private_ip_address;
+			params["PrivateIPAddress"] = req.get_private_ip_address();
 		}
 
-		if(!security_group_ids.empty())
+		if(!(req.security_group_ids())->empty())
 		{
-			for(int i=0 ; i<security_group_ids.size() ; i++)
+			for(int i=0 ; i<(req.security_group_ids())->size() ; i++)
 			{
 				string key = "SecurityGroupId.0";
 				key[key.length()-1] = i+1;
-				params[key] = security_group_ids[i];
+				params[key] = (*req.get_security_group_ids())[i];
 			}		
 		}
 
-		if(key_name!="")
+		if(req.get_key_name()!="")
 		{
-			params["KeyName"] = key_name;
+			params["KeyName"] = req.get_key_name());
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"

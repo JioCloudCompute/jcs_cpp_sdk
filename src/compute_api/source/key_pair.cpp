@@ -33,13 +33,13 @@ namespace key_pair
 		params["Action"] = "CreateKeyPair";
 		params["Version"] = info.version;
 		
-		if(key_name.length() == 0)
+		if(req.get_key_name().length() == 0)
 		{	
 			return "Error : Key-Name needed";
 		}
 		else
 		{
-			params["KeyName"] = key_name;
+			params["KeyName"] = req.get_key_name();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -51,13 +51,13 @@ namespace key_pair
 		params["Action"] = "DeleteKeyPair";
 		params["Version"] = info.version;
 
-		if(key_name.length() == 0)
+		if(req.get_key_name().length() == 0)
 		{	
 			return "Error : KeyName needed";
 		}
 		else
 		{
-			params["KeyName"] = key_name;
+			params["KeyName"] = req.get_key_name();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -69,23 +69,23 @@ namespace key_pair
 		params["Action"] = "ImportKeyPair";
 		params["Version"] = info.version;
 
-		if(key_name.length() == 0)
+		if(req.get_key_name().length() == 0)
 		{	
 			return "Error : KeyName needed";
 		}
 		else
 		{
-			params["KeyName"] = key_name;
+			params["KeyName"] = req.get_key_name();
 		}
 
 
-		if(public_key_material.length() == 0)
+		if(req.get_public_key_material().length() == 0)
 		{	
 			return "Error : Public key material needed";
 		}
 		else
 		{
-			params["PublicKeyMaterial"] = public_key_material;
+			params["PublicKeyMaterial"] = req.get_public_key_material();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"	

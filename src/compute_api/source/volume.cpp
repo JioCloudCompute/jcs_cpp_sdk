@@ -31,30 +31,30 @@ namespace volume
 		params["Version"] = info.version;
 
 		stringstream ss;
-		if(volume_ids.size() != 0)
+		if((req.get_volume_ids())->size() != 0)
 		{
 			string key = "VolumeId.";
-			for(int i=0 ; i<volume_ids.size() ; i++)
+			for(int i=0 ; i<(req.get_volume_ids())->size() ; i++)
 			{
 				ss << i+1;
-				params[key + ss.str()] = volume_ids[i];
+				params[key + ss.str()] = (*req.get_volume_ids())[i];
 				ss.str("");
 			}	
 		}
 
-		if(max_results != -1)
+		if(req.get_max_results() != -1)
 		{	
-			ss << max_results;
+			ss << req.get_max_results();
 			params["MaxResults"] = ss.str();
 			ss.str("");
 		}
 		
-		if(next_token.length() != 0)
+		if(req.get_next_token().length() != 0)
 		{
-			params["NextToken"] = next_token;
+			params["NextToken"] = req.get_next_token();
 		}
 
-		if(!detail)
+		if(!req.get_detail())
 		{
 			ss.str("false");
 			params["Detail"] = ss.str();
@@ -72,31 +72,31 @@ namespace volume
 		params["Action"] = "AttachVolume";
 		params["Version"] = info.version;
 		
-		if(instance_id.length() == 0)
+		if(req.get_instance_id().length() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 		else
 		{
-			params["InstanceId"] = instance_id;	
+			params["InstanceId"] = req.get_instance_id();	
 		}
 
-		if(volume_id.length() == 0)
+		if(req.get_volume_id().length() == 0)
 		{	
 			return "Error : Volume ID needed";
 		}
 		else
 		{
-			params["VolumeId"] = volume_id;
+			params["VolumeId"] = req.get_volume_id();
 		}
 
-		if(device.length() == 0)
+		if(req.get_device().length() == 0)
 		{	
 			return "Error : Device needed";
 		}
 		else
 		{
-			params["Device"] = device;
+			params["Device"] = req.get_device();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -109,22 +109,22 @@ namespace volume
 		params["Action"] = "DetachVolume";
 		params["Version"] = info.version;
 		
-		if(instance_id.length() == 0)
+		if(req.get_instance_id().length() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
 		else
 		{
-			params["InstanceId"] = instance_id;	
+			params["InstanceId"] = req.get_instance_id();	
 		}
 
-		if(volume_id.length() == 0)
+		if(req.get_volume_id().length() == 0)
 		{	
 			return "Error : Volume ID needed";
 		}
 		else
 		{
-			params["VolumeId"] = volume_id;
+			params["VolumeId"] = req.get_volume_id();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -136,16 +136,16 @@ namespace volume
 		params["Action"] = "CreateVolume";
 		params["Version"] = info.version;
 		
-		if(size != -1)
+		if(req.get_size() != -1)
 		{
 			stringstream ss;
-			ss << size;
+			ss << req.get_size();
 			params["Size"] = ss.str();
 		}
 
-		if(snapshot_id.length() != 0)
+		if(req.get_snapshot_id().length() != 0)
 		{	
-			params["SnapshotId"] = snapshot_id;
+			params["SnapshotId"] = req.get_snapshot_id();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -157,13 +157,13 @@ namespace volume
 		params["Action"] = "DeleteVolume";
 		params["Version"] = info.version;
 		
-		if(volume_id.length() == 0)
+		if(req.get_volume_id().length() == 0)
 		{	
 			return "Error : Volume ID needed";
 		}
 		else
 		{
-			params["VolumeId"] = volume_id;
+			params["VolumeId"] = req.get_volume_id();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -176,13 +176,13 @@ namespace volume
 		params["Action"] = "ShowDeleteOnTerminationFlag";
 		params["Version"] = info.version;
 		
-		if(volume_id.length() == 0)
+		if(req.get_volume_id().length() == 0)
 		{	
 			return "Error : Volume ID needed";
 		}
 		else
 		{
-			params["VolumeId"] = volume_id;
+			params["VolumeId"] = req.get_volume_id();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -195,17 +195,17 @@ namespace volume
 		params["Action"] = "UpdateDeleteOnTerminationFlag";
 		params["Version"] = info.version;
 		
-		if(volume_id.length() == 0)
+		if(req.get_volume_id().length() == 0)
 		{	
 			return "Error : Volume ID needed";
 		}
 		else
 		{
-			params["VolumeId"] = volume_id;
+			params["VolumeId"] = req.get_volume_id();
 		}
 
 		stringstream ss;
-		if(delete_on_termination)
+		if(req.get_delete_on_termination())
 		{
 			ss.str("True");
 		}
