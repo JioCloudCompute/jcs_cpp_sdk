@@ -1,3 +1,5 @@
+#ifndef DELETE_KEY_PAIRR_H
+#define DELETE_KEY_PAIRR_H
 #include <string>
 using namespace std;
 namespace model
@@ -8,7 +10,7 @@ namespace model
 		bool result;
 		string request_id;
 	public:
-		delete_key_pair_response(const string xml_doc);
+		delete_key_pair_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -21,5 +23,6 @@ namespace model
 		}
 
 	};
-
 }
+#endif
+

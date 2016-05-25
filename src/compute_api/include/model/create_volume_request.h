@@ -1,3 +1,5 @@
+#ifndef CREATE_VOLUME_H
+#define CREATE_VOLUME_H
 #include <vector>
 #include <string>
 
@@ -21,3 +23,4 @@ namespace model
 		void set_size(int size_);
 	};
 }
+#endif

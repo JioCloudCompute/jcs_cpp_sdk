@@ -9,9 +9,9 @@ model::describe_instance_types_request::describe_instance_types_request()
 	instance_type_ids = vector<string>();
 }
 
-const vector<string> model::describe_instance_types_request::get_instance_types_ids()
+const vector<string> *model::describe_instance_types_request::get_instance_types_ids()
 {
-	return instance_type_ids;
+	return &instance_type_ids;
 }
 
 void model::describe_instance_types_request::set_instance_types_ids(vector<string>instance_type_id_set)

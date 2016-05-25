@@ -1,3 +1,5 @@
+#ifndef IMAGE_H
+#define IMAGE_H
 #include <string.h>
 #include <string>
 #include "block_device.h"
@@ -75,3 +77,4 @@ namespace model{
 
 	};
 }
+#endif

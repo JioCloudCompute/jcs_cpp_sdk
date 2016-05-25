@@ -10,7 +10,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
-model::delete_key_pair_response::delete_key_pair_response(const string xml_doc)
+model::delete_key_pair_response::delete_key_pair_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

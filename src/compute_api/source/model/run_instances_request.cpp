@@ -36,9 +36,9 @@ void model::run_instances_request::set_instance_type_id(string instance_type_id_
 	instance_type_id = instance_type_id_;
 }
 
-const vector<struct utils::block_device_mapping> model::run_instances_request::get_block_device_mapping()
+const vector<struct utils::block_device_mapping> *model::run_instances_request::get_block_device_mapping()
 {
-	return blocks;
+	return &blocks;
 }
 
 void model::run_instances_request::set_block_device_maping(vector <struct utils::block_device_mapping> block_set)
@@ -80,9 +80,9 @@ void model::run_instances_request::set_private_ip_adddress(string private_ip_add
 	private_ip_address = private_ip_adddress_;
 }
 
-const vector<string> model::run_instances_request::get_security_group_id()
+const vector<string> *model::run_instances_request::get_security_group_id()
 {
-	return security_group_ids;
+	return &security_group_ids;
 }
 
 void model::run_instances_request::set_security_group_id(vector<string> security_group_id_set)

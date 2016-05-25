@@ -1,3 +1,5 @@
+#ifndef CREATE_VOLUMER_H
+#define CREATE_VOLUMER_H
 #include <string>
 using namespace std;
 namespace model
@@ -13,7 +15,7 @@ namespace model
 		string create_time;
 
 	public:
-		create_volume_response(const string xml_doc);
+		create_volume_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -42,5 +44,6 @@ namespace model
 		}
 
 	};
-
 }
+#endif
+

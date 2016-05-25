@@ -1,3 +1,5 @@
+#ifndef INSTANCE_H
+#define INSTANCE_H
 #include <vector>
 #include <string>
 #include <map>
@@ -142,3 +144,5 @@ namespace model
 		}
 	};
 }
+#endif
+

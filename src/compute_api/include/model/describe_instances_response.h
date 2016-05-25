@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_INSTANCESR_H
+#define DESCRIBE_INSTANCESR_H
 #include <string>
 #include <map>
 #include <src/compute_api/include/model/instance.h>
@@ -13,7 +15,7 @@ namespace model
 		int NumberOfInstances;
 		string requestId;
 	public:
-		describe_instances_response(const string xml_doc);
+		describe_instances_response(const string &xml_doc);
 		Increment()
 		{
 			NumberOfInstances++;
@@ -37,5 +39,6 @@ namespace model
 
 
 
-
 }
+#endif
+

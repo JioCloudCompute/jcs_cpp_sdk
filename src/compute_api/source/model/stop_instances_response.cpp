@@ -9,7 +9,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::stop_instances_response::stop_instances_response(const string xml_doc)
+model::stop_instances_response::stop_instances_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

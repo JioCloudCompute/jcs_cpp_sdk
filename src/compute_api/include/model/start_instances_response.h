@@ -1,3 +1,5 @@
+#ifndef START_INSTANCER_H
+#define START_INSTANCER_H
 #include <string>
 #include <map>
 #include "src/compute_api/include/model/instance_set.h"
@@ -13,7 +15,7 @@ namespace model
 		map<string, model::instance_set> instances;
 
 	public:
-		start_instances_response(const string xml_doc);
+		start_instances_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -25,5 +27,5 @@ namespace model
 		}
 
 	};
-
 }
+#endif

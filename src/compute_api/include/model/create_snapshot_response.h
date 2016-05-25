@@ -1,3 +1,5 @@
+#ifndef CREATE_SNAPSHOTR_H
+#define CREATE_SNAPSHOTR_H
 #include <string>
 using namespace std;
 namespace model
@@ -13,7 +15,7 @@ namespace model
 		string start_time;
 
 	public:
-		create_snapshot_response(const string xml_doc);
+		create_snapshot_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -41,5 +43,6 @@ namespace model
 		}
 
 	};
-
 }
+#endif
+

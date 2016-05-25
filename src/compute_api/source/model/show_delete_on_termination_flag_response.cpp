@@ -9,7 +9,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::show_delete_on_termination_flag_response::show_delete_on_termination_flag_response(const string xml_doc)
+model::show_delete_on_termination_flag_response::show_delete_on_termination_flag_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

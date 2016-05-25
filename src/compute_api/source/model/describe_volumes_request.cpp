@@ -11,9 +11,9 @@ model::describe_volumes_request::describe_volumes_request()
 	detail = true;
 }
 
-const vector<string> model::describe_volumes_request::get_volume_ids()
+const vector<string> *model::describe_volumes_request::get_volume_ids()
 {
-	return volume_ids;
+	return &volume_ids;
 }
 
 void model::describe_volumes_request::set_volume_ids(vector<string> volume_id_set)

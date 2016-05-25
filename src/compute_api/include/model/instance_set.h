@@ -1,3 +1,5 @@
+#ifndef INSTANCE_SET_H
+#define INSTANCE_SET_H
 #include <string>
 using namespace std;
 
@@ -34,3 +36,4 @@ namespace model
 		}
 	};
 }
+#endif

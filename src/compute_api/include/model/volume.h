@@ -1,3 +1,5 @@
+#ifndef VOLUME_H
+#define VOLUME_H
 #include <string>
 #include <map>
 using namespace std;
@@ -65,3 +67,4 @@ namespace model
 
 	};
 }
+#endif

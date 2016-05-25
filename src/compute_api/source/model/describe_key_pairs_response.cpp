@@ -12,7 +12,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
-model::describe_key_pairs_response::describe_key_pairs_response(const string xml_doc)
+model::describe_key_pairs_response::describe_key_pairs_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

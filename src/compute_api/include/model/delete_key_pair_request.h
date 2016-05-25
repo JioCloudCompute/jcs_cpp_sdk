@@ -1,3 +1,5 @@
+#ifndef DELETE_KEY_PAIR_H
+#define DELETE_KEY_PAIR_H
 #include <vector>
 #include <string>
 
@@ -16,3 +18,5 @@ namespace model
 		void set_key_name(string key_name_);
 	};
 }
+#endif
+

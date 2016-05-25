@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_SNAPSHOTS_H
+#define DESCRIBE_SNAPSHOTS_H
 #include <vector>
 #include <string>
 
@@ -14,7 +16,7 @@ namespace model
 
 	public:
 		describe_snapshots_request();
-	const vector<string> get_snapshot_ids();
+	const vector<string> *get_snapshot_ids();
 
 		void set_snapshot_ids(vector<string> snapshot_id_set);
 
@@ -32,3 +34,4 @@ namespace model
 
 	};
 }
+#endif

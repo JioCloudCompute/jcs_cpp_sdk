@@ -1,3 +1,5 @@
+#ifndef SNAPSHOT_H
+#define SNAPSHOT_H
 #include <string>
 using namespace std;
 
@@ -48,3 +50,4 @@ namespace model
 		}
 	};
 }
+#endif

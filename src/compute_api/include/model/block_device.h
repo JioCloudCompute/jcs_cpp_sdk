@@ -1,3 +1,5 @@
+#ifndef BLOCK_DEVICE_H
+#define BLOCK_DEVICE_H
 #include <string.h>
 using namespace std;
 namespace model{
@@ -9,4 +11,7 @@ public:
 	string deviceName;
 	string snapshotId;
 };
+
 }
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef UPDATE_DELETE_H
+#define UPDATE_DELETE_H
 #include <vector>
 #include <string>
 
@@ -21,3 +23,4 @@ namespace model
 		void set_delete_on_termination(bool delete_on_termination_);
 	};
 }
+#endif
