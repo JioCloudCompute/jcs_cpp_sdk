@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_IMAGESR_H
+#define DESCRIBE_IMAGESR_H
 #include "image.h"
 #include <string>
 #include <vector>
@@ -19,8 +21,8 @@ namespace model
 		}
 		
 		
-		string get_request_Id(){
-			return Request_Id;
+		char *get_request_Id(){
+			return Request_Id.c_str();
 		}
 		void set_Request_Id(string Id){
 			Request_Id = Id;
@@ -34,13 +36,13 @@ namespace model
 		{
 			image_number++;
 		}
-		int get_NumberOfImages() const
+		int* get_NumberOfImages() const
 		{
-			return image_number;
+			return &image_number;
 		}
-		map<string, Image> get_Images() const
+		map<string, Image> *get_Images() const
 		{
-			return Images;}
+			return &Images;}
 		void Set_Image(const Image& data){
 
 		}
@@ -50,3 +52,4 @@ namespace model
 
 	};
 }
+#endif

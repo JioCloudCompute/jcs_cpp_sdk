@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_IMAGES_H
+#define DESCRIBE_IMAGES_H
 #include <vector>
 #include <string>
 
@@ -11,8 +13,10 @@ namespace model
 
 	public:
 		describe_images_request();
-	const vector<string> get_image_ids();
+	const vector<string>* get_image_ids();
 		
 		void set_image_ids(vector<string>image_id_set);
 	};
 }
+
+#endif
