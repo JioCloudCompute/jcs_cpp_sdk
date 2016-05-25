@@ -79,10 +79,16 @@ namespace requestify{
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
 		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-		curl_easy_perform(curl);
+		string curl_code = curl_easy_perform(curl);
+		long http_code = 0;
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
 		curl_global_cleanup();
-
-		return response;
+		
+		if(http_code == 200 && curl_code != "CURLE_ABORTED_BY_CALLBACK")
+		{
+			return response;
+		}
+		return "REQUESTFAILED";
 	}
 }

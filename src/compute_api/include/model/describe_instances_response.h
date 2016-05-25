@@ -12,26 +12,20 @@ namespace model
 	class describe_instances_response{
 	private:
 		map<string, instance> Instances;
-		int NumberOfInstances;
-		string requestId;
+		int number_of_instances;
+		string request_id;
 	public:
 		describe_instances_response(const string &xml_doc);
-		Increment()
+		describe_instances_response(){}
+
+		string get_request_id() const
 		{
-			NumberOfInstances++;
-		}
-		Add_Instance(instance &data)
-		{
-			Instances[data.Get_instanceId()]=data;
-		}
-		void Set_requestId(string requestId)
-		{
-			this->requestId = requestId;
+			return request_id;
 		}
 
-		string Add_requestId() const
+		map<string, instance> get_instances() const
 		{
-			return requestId;
+			return Instances;
 		}
 		
 

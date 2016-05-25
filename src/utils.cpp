@@ -1,3 +1,6 @@
+#ifndef UTILS
+#define UTILS
+
 #include <string>
 #include <map>
 #include <string.h>
@@ -88,5 +91,6 @@ namespace utils{
 	}
 }
 
+#endif
 
 

@@ -80,7 +80,7 @@ void model::run_instances_request::set_private_ip_adddress(string private_ip_add
 	private_ip_address = private_ip_adddress_;
 }
 
-const vector<string> *model::run_instances_request::get_security_group_id()
+const vector<string> *model::run_instances_request::get_security_group_ids()
 {
 	return &security_group_ids;
 }

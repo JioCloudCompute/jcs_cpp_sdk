@@ -14,15 +14,15 @@ using namespace model;
 
 describe_instances_response::describe_instances_response(const string &xml_doc)
 {	
-	NumberOfInstances=0;
-	instance data;
+	number_of_instances=0;
+	
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	Set_requestId(Element->GetText());
+	request_id = Element->GetText();
 	Element = RootNode->FirstChildElement("instancesSet");
 
 	bool temp;
@@ -33,7 +33,7 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 	while(ListElement != NULL)
 	{
 		InstanceElement =  ListElement->FirstChildElement("blockDeviceMapping");
-
+		instance data;
 		blockListElement = InstanceElement->FirstChildElement("item");
 		while(blockListElement != NULL)
 		{
@@ -51,36 +51,38 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 			block.volumeId = blockElement->GetText();
 
 			data.Add_blockDevice(block);
-			blockListElement->NextSiblingElement();
+			blockListElement=blockListElement->NextSiblingElement();
 
 		}
-		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_dnsName(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_instanceId(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_dnsName(InstanceElement->GetText());
+		
+		InstanceElement=InstanceElement->NextSiblingElement();
+		if(InstanceElement->GetText()!=NULL)data.Set_instanceId(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_instanceState(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_instanceState(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_imageId(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_imageId(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_privateDnsName(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_privateDnsName(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_keyName(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_keyName(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_launchtime(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_launchtime(InstanceElement->GetText());
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_subnetId(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_subnetId(InstanceElement->GetText());
 
 		XMLElement *GroupListElement,*GroupElement;
 		InstanceElement = InstanceElement->NextSiblingElement();
 		GroupListElement = InstanceElement->FirstChildElement("item");
+		
 		while(GroupListElement != NULL)
 		{
 			GroupElement=GroupListElement->FirstChildElement("groupName");
@@ -88,18 +90,19 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 			GroupElement=GroupElement->NextSiblingElement();
 			group.groupId = GroupElement->GetText();
 			data.Add_group(group);
+			GroupListElement=GroupListElement->NextSiblingElement();
 		}
+		
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_vpcId(InstanceElement->GetText());
-
-		InstanceElement=InstanceElement->FirstChildElement();
-		data.Set_instanceType(InstanceElement->GetText());
-
+		if(InstanceElement->GetText()!=NULL)data.Set_vpcId(InstanceElement->GetText());
 		InstanceElement=InstanceElement->NextSiblingElement();
-		data.Set_privateIpAddress(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)data.Set_instanceType(InstanceElement->GetText());
+		InstanceElement=InstanceElement->NextSiblingElement();
+		if(InstanceElement->GetText()!=NULL)data.Set_privateIpAddress(InstanceElement->GetText());
 
-		Add_Instance(data);
-		Increment();
+		ListElement=ListElement->NextSiblingElement();
+		Instances[data.Get_instanceId()]=data;
+		number_of_instances++;
 
 	}
 

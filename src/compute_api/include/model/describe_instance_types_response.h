@@ -15,6 +15,7 @@ namespace model
 
 	public:
 		describe_instance_types_response(const string &xml_doc);
+		describe_instance_types_response(){}
 
 		const string get_request_id()
 		{

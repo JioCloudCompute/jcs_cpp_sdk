@@ -37,6 +37,7 @@ describe_images_response::describe_images_response(const string &xml_doc)
 	Image image_data;
 	block_device block_device_mapping;
 	XMLElement *ImageElement,*BlockElement;
+	
 	while(ListElement != NULL )
 	{	
 		
@@ -77,7 +78,6 @@ describe_images_response::describe_images_response(const string &xml_doc)
 		
 		images[image_data.Get_imageId()] = image_data;
 		image_number++;
-		
 		ListElement=ListElement->NextSiblingElement();
 	}
 

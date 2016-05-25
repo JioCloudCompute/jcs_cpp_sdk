@@ -46,7 +46,7 @@ namespace model
 
 		void set_private_ip_adddress(string private_ip_adddress_);
 
-	const vector<string> *get_security_group_id();
+	const vector<string> *get_security_group_ids();
 
 		void set_security_group_id(vector<string> security_group_id_set);
 
