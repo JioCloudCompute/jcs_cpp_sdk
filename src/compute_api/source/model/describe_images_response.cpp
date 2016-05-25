@@ -10,7 +10,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
-describe_images_response::describe_images_response(const string xml_doc)
+describe_images_response::describe_images_response(const string &xml_doc)
 {	
 	image_number = 0;
 	//XML Parse
@@ -24,7 +24,7 @@ describe_images_response::describe_images_response(const string xml_doc)
 	XMLElement *FirstElement = RootNode->FirstChildElement("requestId");
 	//if(FirstElement == NULL) return XML_ERROR_PARSING_ELEMENT;
 
-	Set_Request_Id(FirstElement->GetText());
+	request_id = FirstElement->GetText();
 
 	//ImageSet
 	XMLElement *SecondElement = RootNode->FirstChildElement("imagesSet");
@@ -75,8 +75,8 @@ describe_images_response::describe_images_response(const string xml_doc)
 		ImageElement = ImageElement->NextSiblingElement();
 		image_data.Set_imageType(ImageElement->GetText());
 		
-		Add_Image(image_data);
-		Increment();
+		images[image_data.Get_imageId()] = image_data;
+		image_number++;
 		
 		ListElement=ListElement->NextSiblingElement();
 	}
