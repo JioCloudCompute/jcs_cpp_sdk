@@ -1,4 +1,4 @@
-#include "src/compute_api/include/model/describe_key_pair_response.h"
+#include "src/compute_api/include/model/describe_key_pairs_response.h"
 #include "src/XMLParser.h"
 #include <iostream>
 #include <string>
@@ -12,14 +12,14 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
-model::describe_key_pair_response::describe_key_pair_response(const string xml_doc)
+model::describe_key_pairs_response::describe_key_pairs_response(const string xml_doc)
 {
 	XMLDocument doc;
-	doc.Parse(xml_doc);
+	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	requestId = Element->GetText();
+	request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
 	XMLElement *ListElement = Element->FirstChildElement("item");
@@ -35,8 +35,5 @@ model::describe_key_pair_response::describe_key_pair_response(const string xml_d
 		model::key_pair key(keyname,keyfingerprint);
 		key_pairs[keyname]=key;
 	}
-
-
-
 
 }

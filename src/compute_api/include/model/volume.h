@@ -16,7 +16,20 @@ namespace model
 		float size;
 
 	public:
-		volume(string status, string volume_id, string device, string instance_id, string snapshot_id, string create_time, float size);
+		volume(string status_, string volume_id_, string device_, string instance_id_, string snapshot_id_, string create_time_, float size_)
+		{
+			status = status_;
+			volume_id = volume_id_;
+			device = device_;
+			instance_id = instance_id_;
+			snapshot_id = snapshot_id_;
+			create_time = create_time_;
+			size = size_;
+
+		}
+
+		volume(){}
+		
 		const string get_status()
 		{
 			return status;
@@ -45,7 +58,7 @@ namespace model
 		{
 			return create_time;
 		}
-		float string get_size()
+		const float get_size()
 		{
 			return size;
 		}

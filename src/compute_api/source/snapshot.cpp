@@ -2,6 +2,12 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "src/compute_api/source/model/describe_snapshots_request.cpp"
+#include "src/compute_api/source/model/describe_snapshots_response.cpp"
+#include "src/compute_api/source/model/delete_snapshot_request.cpp"
+#include "src/compute_api/source/model/delete_snapshot_response.cpp"
+#include "src/compute_api/source/model/create_snapshot_request.cpp"
+#include "src/compute_api/source/model/create_snapshot_response.cpp"
 
 using namespace std;
 using namespace utils;

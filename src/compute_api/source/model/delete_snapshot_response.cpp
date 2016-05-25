@@ -13,7 +13,7 @@ using namespace tinyxml2;
 model::delete_snapshot_response::delete_snapshot_response(const string xml_doc)
 {
 	XMLDocument doc;
-	doc.Parse(xml_doc);
+	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");

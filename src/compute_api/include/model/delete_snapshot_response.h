@@ -6,7 +6,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		string result;
+		bool result;
 
 	public:
 		delete_snapshot_response(const string xml_doc);
@@ -15,7 +15,7 @@ namespace model
 		{
 			return request_id;
 		}
-		const string get_result()
+		const bool get_result()
 		{
 			return result;
 		}

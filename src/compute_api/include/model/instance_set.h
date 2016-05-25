@@ -10,7 +10,14 @@ namespace model
 		string current_state;
 		string previous_state;
 	public:
-		instance_set(string instance_id, string current_state, string previous_state);
+		instance_set(string instance_id_, string current_state_, string previous_state_)
+		{
+			instance_id = instance_id_;
+			current_state = current_state_;
+			previous_state = previous_state_;
+		}
+		instance_set(){}
+		
 		const string get_instance_id()
 		{
 			return instance_id;

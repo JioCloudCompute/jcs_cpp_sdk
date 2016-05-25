@@ -2,7 +2,7 @@
 using namespace std;
 namespace model
 {
-	class create_snapshot_response
+	class create_key_pair_response
 	{
 	private:
 		string key_fingerprint;

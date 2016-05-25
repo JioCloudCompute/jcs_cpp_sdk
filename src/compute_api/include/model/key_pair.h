@@ -14,6 +14,7 @@ namespace model
 			key_name = key_name_;
 			key_fingerprint = key_fingerprint_;
 		}
+		key_pair(){}
 
 		const string get_key_name()
 		{

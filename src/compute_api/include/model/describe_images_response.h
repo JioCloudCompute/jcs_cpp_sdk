@@ -19,26 +19,26 @@ namespace model
 		}
 		
 		
-		string get_request_Id(){
+		string Get_Request_Id(){
 			return Request_Id;
 		}
-		void set_Request_Id(string Id){
+		void Set_Request_Id(string Id){
 			Request_Id = Id;
 		}
 
-		void add_Image(Image& data){
+		void Add_Image(Image& data){
 			Images[data.Get_imageId()]=data;
 		}
 
-		void increment()
+		void Increment()
 		{
 			image_number++;
 		}
-		int get_NumberOfImages() const
+		int Get_NumberOfImages() const
 		{
 			return image_number;
 		}
-		map<string, Image> get_Images() const
+		map<string, Image> Get_Images() const
 		{
 			return Images;}
 		void Set_Image(const Image& data){
