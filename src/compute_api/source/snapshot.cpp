@@ -15,7 +15,7 @@ using namespace requestify;
 
 namespace snapshot
 {
-	string create_snapshot(utils::http_var &info, string volume_id)
+	string create_snapshot(utils::http_var &info, model::create_snapshot_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateSnapshot";
@@ -33,7 +33,7 @@ namespace snapshot
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_snapshot(utils::http_var &info, string snapshot_id)
+	string delete_snapshot(utils::http_var &info, model::delete_snapshot_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteSnapshot";
@@ -52,8 +52,7 @@ namespace snapshot
 	}
 
 
-	string describe_snapshots(utils::http_var &info, vector<string> snapshot_ids  = vector<string>(),
-	 				 int max_results = -1, string next_token = "", bool detail = true)
+	string describe_snapshots(utils::http_var &info, model::describe_snapshots_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeSnapshots";

@@ -24,8 +24,7 @@ using namespace model;
 
 namespace volume
 {
-	string describe_volumes(utils::http_var &info, vector<string> volume_ids  = vector<string>(),
-	 				 int max_results = -1, string next_token = "", bool detail = true)
+	string describe_volumes(utils::http_var &info, model::describe_volumes_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeVolumes";
@@ -67,7 +66,7 @@ namespace volume
 
 
 
-	string attach_volume(utils::http_var &info, string instance_id, string volume_id, string device)
+	string attach_volume(utils::http_var &info, model::attach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "AttachVolume";
@@ -104,7 +103,7 @@ namespace volume
 	}
 
 
-	string detach_volume(utils::http_var &info, string instance_id, string volume_id)
+	string detach_volume(utils::http_var &info, model::detach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DetachVolume";
@@ -131,7 +130,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string create_volume(utils::http_var &info, int size  = -1, string snapshot_id = "")
+	string create_volume(utils::http_var &info, model::create_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateVolume";
@@ -152,7 +151,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_volume(utils::http_var &info, string volume_id )
+	string delete_volume(utils::http_var &info, model::delete_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteVolume";
@@ -171,7 +170,7 @@ namespace volume
 	}
 
 
-	string show_delete_on_termination_flag(utils::http_var &info, string volume_id )
+	string show_delete_on_termination_flag(utils::http_var &info, model::show_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ShowDeleteOnTerminationFlag";
@@ -190,7 +189,7 @@ namespace volume
 	}
 
 
-	string update_delete_on_termination_flag(utils::http_var &info, string volume_id, bool delete_on_termination)
+	string update_delete_on_termination_flag(utils::http_var &info, model::update_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "UpdateDeleteOnTerminationFlag";
