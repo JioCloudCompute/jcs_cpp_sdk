@@ -1,3 +1,5 @@
+#ifndef KEY_PAIR_H
+#define KEY_PAIR_H
 #include <string>
 using namespace std;
 namespace model
@@ -27,3 +29,4 @@ namespace model
 		}
 	};
 }
+#endif

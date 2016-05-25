@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_VOLUMES_H
+#define DESCRIBE_VOLUMES_H
 #include <vector>
 #include <string>
 
@@ -14,7 +16,7 @@ namespace model
 
 	public:
 		describe_volumes_request();
-	const vector<string> get_volume_ids();
+	const vector<string> *get_volume_ids();
 
 		void set_volume_ids(vector<string> volume_id_set);
 
@@ -32,3 +34,5 @@ namespace model
 		
 	};
 }
+#endif
+

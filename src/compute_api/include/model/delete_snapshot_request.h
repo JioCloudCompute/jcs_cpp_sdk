@@ -1,3 +1,5 @@
+#ifndef DELETE_SNAPSHOT_H
+#define DELETE_SNAPSHOT_H
 #include <vector>
 #include <string>
 
@@ -16,3 +18,5 @@ namespace model
 		void set_snapshot_id(string snapshot_id_);
 	};
 }
+#endif
+

@@ -9,7 +9,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::create_volume_response::create_volume_response(const string xml_doc)
+model::create_volume_response::create_volume_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

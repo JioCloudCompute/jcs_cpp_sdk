@@ -12,7 +12,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace model;
 
-model::create_snapshot_response::create_snapshot_response(const string xml_doc)
+model::create_snapshot_response::create_snapshot_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

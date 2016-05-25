@@ -11,9 +11,9 @@ model::describe_snapshots_request::describe_snapshots_request()
 	detail = true;
 }
 
-const vector<string> model::describe_snapshots_request::get_snapshot_ids()
+const vector<string> *model::describe_snapshots_request::get_snapshot_ids()
 {
-	return snapshot_ids;
+	return &snapshot_ids;
 }
 
 void model::describe_snapshots_request::set_snapshot_ids(vector<string> snapshot_id_set)

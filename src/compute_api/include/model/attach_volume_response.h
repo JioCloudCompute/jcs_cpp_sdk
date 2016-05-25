@@ -1,3 +1,5 @@
+#ifndef ATTACH_VOLUMER_H
+#define ATTACH_VOLUMER_H
 #include <string>
 using namespace std;
 namespace model
@@ -9,7 +11,7 @@ namespace model
 		string status;
 		string device;
 	public:
-		attach_volume_response(const string xml_doc);
+		attach_volume_response(const string &xml_doc);
 		const string get_request_id() 
 		{
 			return request_id;
@@ -23,5 +25,6 @@ namespace model
 			return device;
 		}
 	};
-
 }
+#endif
+

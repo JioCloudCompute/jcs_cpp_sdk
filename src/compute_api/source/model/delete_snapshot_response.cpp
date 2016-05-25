@@ -10,7 +10,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::delete_snapshot_response::delete_snapshot_response(const string xml_doc)
+model::delete_snapshot_response::delete_snapshot_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

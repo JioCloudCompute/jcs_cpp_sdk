@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_VOLUMESR_H
+#define DESCRIBE_VOLUMESR_H
 #include <map>
 #include "src/compute_api/include/model/volume.h"
 using namespace std;
@@ -12,7 +14,7 @@ namespace model
 		map<string, model::volume>volume_set;
 
 	public:
-		describe_volumes_response(const string xml_doc);
+		describe_volumes_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -23,5 +25,5 @@ namespace model
 			return volume_set;
 		}
 	};
-
 }
+#endif

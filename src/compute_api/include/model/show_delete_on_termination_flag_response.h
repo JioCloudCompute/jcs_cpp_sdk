@@ -1,3 +1,5 @@
+#ifndef SHOW_DELETER_H
+#define SHOW_DELETER_H
 #include <string>
 using namespace std;
 namespace model
@@ -11,7 +13,7 @@ namespace model
 		bool delete_on_termination;
 
 	public:
-		show_delete_on_termination_flag_response(const string xml_doc);
+		show_delete_on_termination_flag_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -31,5 +33,5 @@ namespace model
 		}
 
 	};
-
 }
+#endif

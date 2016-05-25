@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_INSTANCES_TYPES_H
+#define DESCRIBE_INSTANCES_TYPES_H
 #include <vector>
 #include <string>
 
@@ -11,8 +13,10 @@ namespace model
 
 	public:
 		describe_instance_types_request();
-	const vector<string> get_instance_types_ids();
+	const vector<string> *get_instance_types_ids();
 
 		void set_instance_types_ids(vector<string>instance_type_id_set);
 	};
 }
+#endif
+

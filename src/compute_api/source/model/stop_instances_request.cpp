@@ -8,9 +8,9 @@ model::stop_instances_request::stop_instances_request()
 	instance_ids = vector<string>();
 }
 
-const vector<string> model::stop_instances_request::get_instance_ids()
+const vector<string> *model::stop_instances_request::get_instance_ids()
 {
-	return instance_ids;
+	return &instance_ids;
 }
 
 void model::stop_instances_request::set_instance_ids(vector<string>instance_id_set)

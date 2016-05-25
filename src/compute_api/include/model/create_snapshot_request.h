@@ -1,3 +1,5 @@
+#ifndef CREATE_SNAPSHOT_H
+#define CREATE_SNAPSHOT_H
 #include <vector>
 #include <string>
 
@@ -17,3 +19,5 @@ namespace model
 		void set_volume_id(string volume_id_);
 	};
 }
+#endif
+

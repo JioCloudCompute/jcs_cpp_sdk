@@ -12,7 +12,7 @@ using namespace model;
 
 
 
-describe_instances_response::describe_instances_response(const string xml_doc)
+describe_instances_response::describe_instances_response(const string &xml_doc)
 {	
 	NumberOfInstances=0;
 	instance data;

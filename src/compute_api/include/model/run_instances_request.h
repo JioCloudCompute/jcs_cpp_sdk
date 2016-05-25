@@ -1,3 +1,5 @@
+#ifndef RUN_INSTANCES_H
+#define RUN_INSTANCES_H
 #include <vector>
 #include <string>
 #include "../../../utils.cpp"
@@ -28,7 +30,7 @@ namespace model
 
 		void set_instance_type_id(string instance_type_id_);
 
-	const vector<struct utils::block_device_mapping> get_block_device_mapping();
+	const vector<struct utils::block_device_mapping> *get_block_device_mapping();
 
 		void set_block_device_maping(vector <struct utils::block_device_mapping> block_set);
 
@@ -44,7 +46,7 @@ namespace model
 
 		void set_private_ip_adddress(string private_ip_adddress_);
 
-	const vector<string> get_security_group_id();
+	const vector<string> *get_security_group_id();
 
 		void set_security_group_id(vector<string> security_group_id_set);
 
@@ -52,4 +54,6 @@ namespace model
 
 		void set_key_name(string kay_name_);
 	};
+
 }
+#endif

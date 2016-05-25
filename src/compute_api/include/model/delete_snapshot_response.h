@@ -1,3 +1,5 @@
+#ifndef DELETE_SNAPSHOTR_H
+#define DELETE_SNAPSHOTR_H
 #include <string>
 using namespace std;
 namespace model
@@ -9,7 +11,7 @@ namespace model
 		bool result;
 
 	public:
-		delete_snapshot_response(const string xml_doc);
+		delete_snapshot_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -21,5 +23,6 @@ namespace model
 		}
 
 	};
-
 }
+#endif
+

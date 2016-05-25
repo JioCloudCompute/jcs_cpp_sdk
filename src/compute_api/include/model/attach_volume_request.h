@@ -1,3 +1,5 @@
+#ifndef ATTACH_VOLUME_H
+#define ATTACH_VOLUME_H
 #include <vector>
 #include <string>
 
@@ -28,3 +30,5 @@ namespace model
 
 	};
 }
+#endif
+

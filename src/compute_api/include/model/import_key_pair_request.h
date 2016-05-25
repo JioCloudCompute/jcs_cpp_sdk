@@ -1,3 +1,5 @@
+#ifndef IMPORT_KEY_PAIR_H
+#define IMPORT_KEY_PAIR_H
 #include <vector>
 #include <string>
 
@@ -21,3 +23,4 @@ namespace model
 		void set_public_key_material(string public_key_material_);
 	};
 }
+#endif

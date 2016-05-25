@@ -1,3 +1,5 @@
+#ifndef DETACH_VOLUME_H
+#define DETACH_VOLUME_H
 #include <vector>
 #include <string>
 
@@ -23,3 +25,4 @@ namespace model
 
 	};
 }
+#endif

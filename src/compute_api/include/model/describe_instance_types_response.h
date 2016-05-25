@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_INSTANCE_TYPESR_H
+#define DESCRIBE_INSTANCE_TYPESR_H
 #include <map>
 #include "src/compute_api/include/model/instance_type.h"
 using namespace std;
@@ -12,7 +14,7 @@ namespace model
 		map<string, model::instance_type>instance_type_set;
 
 	public:
-		describe_instance_types_response(const string xml_doc);
+		describe_instance_types_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -23,5 +25,6 @@ namespace model
 			return instance_type_set;
 		}
 	};
-
 }
+#endif
+

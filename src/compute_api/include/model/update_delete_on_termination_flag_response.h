@@ -1,3 +1,5 @@
+#ifndef UPDATE_DELETER_H
+#define UPDATE_DELETER_H
 #include <string>
 using namespace std;
 namespace model
@@ -11,7 +13,7 @@ namespace model
 		bool delete_on_termination;
 
 	public:
-		update_delete_on_termination_flag_response(const string xml_doc);
+		update_delete_on_termination_flag_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -31,5 +33,5 @@ namespace model
 		}
 
 	};
-
 }
+#endif

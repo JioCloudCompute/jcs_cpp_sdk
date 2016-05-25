@@ -9,7 +9,7 @@
 using namespace std;
 using namespace tinyxml2;
 
-model::describe_instance_types_response::describe_instance_types_response(const string xml_doc)
+model::describe_instance_types_response::describe_instance_types_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

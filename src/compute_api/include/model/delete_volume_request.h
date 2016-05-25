@@ -1,3 +1,5 @@
+#ifndef DELETE_VOLUME_H
+#define DELETE_VOLUME_H
 #include <vector>
 #include <string>
 
@@ -16,3 +18,5 @@ namespace model
 		void set_volume_id(string volume_id_);
 	};
 }
+#endif
+

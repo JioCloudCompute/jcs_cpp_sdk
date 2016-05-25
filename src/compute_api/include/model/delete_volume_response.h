@@ -1,3 +1,5 @@
+#ifndef DELETE_VOLUMER_H
+#define DELETE_VOLUMER_H
 #include <string>
 using namespace std;
 namespace model
@@ -9,7 +11,7 @@ namespace model
 		bool result;
 
 	public:
-		delete_volume_response(const string xml_doc);
+		delete_volume_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -21,5 +23,6 @@ namespace model
 		}
 
 	};
-
 }
+#endif
+

@@ -1,3 +1,5 @@
+#ifndef DETACH_VOLUMER_H
+#define DETACH_VOLUMER_H
 #include <string>
 using namespace std;
 namespace model
@@ -8,7 +10,7 @@ namespace model
 		string status;
 		string request_id;
 	public:
-		detach_volume_response(const string xml_doc);
+		detach_volume_response(const string &xml_doc);
 
 		const string get_request_id() 
 		{
@@ -20,5 +22,5 @@ namespace model
 			return status;
 		}
 	};
-
 }
+#endif

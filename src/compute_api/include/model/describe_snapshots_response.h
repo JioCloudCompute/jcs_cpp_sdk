@@ -1,3 +1,5 @@
+#ifndef DESCRIBE_SNAPSHOTSR_H
+#define DESCRIBE_SNAPSHOTSR_H
 #include <map>
 #include "src/compute_api/include/model/snapshot.h"
 using namespace std;
@@ -12,7 +14,7 @@ namespace model
 		map<string, model::snapshot>snapshot_set;
 
 	public:
-		describe_snapshots_response(const string xml_doc);
+		describe_snapshots_response(const string &xml_doc);
 
 		const string get_request_id()
 		{
@@ -23,5 +25,6 @@ namespace model
 			return snapshot_set;
 		}
 	};
-
 }
+#endif
+

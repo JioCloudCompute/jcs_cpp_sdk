@@ -1,3 +1,5 @@
+#ifndef CREATE_KEY_PAIRR_H
+#define CREATE_KEY_PAIRR_H
 #include <string>
 using namespace std;
 namespace model
@@ -10,7 +12,7 @@ namespace model
 		string key_name;
 		string request_id;
 	public:
-		create_key_pair_response(const string xml_doc);
+		create_key_pair_response(const string &xml_doc);
 
 		const string get_key_fingerprint()
 		{
@@ -34,3 +36,5 @@ namespace model
 	};
 
 }
+#endif
+
