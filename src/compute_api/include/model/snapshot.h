@@ -1,7 +1,7 @@
 #include <string>
 using namespace std;
 
-model
+namespace model
 {
 	class snapshot
 	{
@@ -13,7 +13,15 @@ model
 		string start_time;
 
 	public:
-		snapshot(string status, string snapshot_id, string volume_size, string volume_id, string start_time);
+		snapshot(string status_, string snapshot_id_, float volume_size_, string volume_id_, string start_time_)
+		{
+			status = status_;
+			snapshot_id = snapshot_id_;
+			volume_size = volume_size_;
+			volume_id = volume_id_;
+			start_time = start_time;
+		}
+		snapshot(){}
 		const string get_snapshot_id()
 		{
 			return snapshot_id;
@@ -31,7 +39,7 @@ model
 
 		const float get_volume_size()
 		{
-			return previous_state;
+			return volume_size;
 		}
 
 		const string get_start_time()

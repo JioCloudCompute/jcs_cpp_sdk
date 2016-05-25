@@ -13,11 +13,11 @@ using namespace model;
 model::create_key_pair_response::create_key_pair_response(const string xml_doc)
 {
 	XMLDocument doc;
-	doc.Parse(xml_doc);
+	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 
-	XMLElement *Element = RootNode->FirstChildELement("requestId");
+	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 	
 	Element->NextSiblingElement();

@@ -24,15 +24,15 @@ namespace model
 		char *get_request_Id(){
 			return Request_Id.c_str();
 		}
-		void set_Request_Id(string Id){
+		void Set_Request_Id(string Id){
 			Request_Id = Id;
 		}
 
-		void add_Image(Image& data){
+		void Add_Image(Image& data){
 			Images[data.Get_imageId()]=data;
 		}
 
-		void increment()
+		void Increment()
 		{
 			image_number++;
 		}

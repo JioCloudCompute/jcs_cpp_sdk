@@ -8,7 +8,7 @@ namespace model
 		bool result;
 		string request_id;
 	public:
-		create_key_pair_response(const string xml_doc);
+		delete_key_pair_response(const string xml_doc);
 
 		const string get_request_id()
 		{

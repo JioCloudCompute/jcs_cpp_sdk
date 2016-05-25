@@ -6,14 +6,14 @@ using namespace model;
 
 namespace model
 {
-	class reboot_instances_response
+	class terminate_instances_response
 	{
 	private:
 		string request_id;
 		map<string, model::instance_set> instances;
 
 	public:
-		reboot_instances_response(const string xml_doc);
+		terminate_instances_response(const string xml_doc);
 
 		const string get_request_id()
 		{

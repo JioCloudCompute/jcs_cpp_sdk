@@ -17,7 +17,7 @@ detach_volume_response::detach_volume_response(const string xml_doc)
 	XMLNode *RootNode=doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	requestId = Element->GetText();
+	request_id = Element->GetText();
 	
 	Element = Element->NextSiblingElement();
 	status = Element->GetText();

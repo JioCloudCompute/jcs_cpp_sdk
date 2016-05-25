@@ -2,14 +2,27 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "src/compute_api/source/model/describe_instances_response.cpp"
+#include "src/compute_api/source/model/describe_instances_request.cpp"
+#include "src/compute_api/source/model/run_instances_response.cpp"
+#include "src/compute_api/source/model/run_instances_request.cpp"
+#include "src/compute_api/source/model/start_instances_response.cpp"
+#include "src/compute_api/source/model/start_instances_request.cpp"
+#include "src/compute_api/source/model/stop_instances_response.cpp"
+#include "src/compute_api/source/model/stop_instances_request.cpp"
+#include "src/compute_api/source/model/terminate_instances_response.cpp"
+#include "src/compute_api/source/model/terminate_instances_request.cpp"
+#include "src/compute_api/source/model/reboot_instances_response.cpp"
+#include "src/compute_api/source/model/reboot_instances_request.cpp"
+#include "src/compute_api/source/model/describe_instance_types_response.cpp"
+#include "src/compute_api/source/model/describe_instance_types_request.cpp"
+
 
 using namespace std;
-using namespace utils;
-using namespace requestify;
 
 namespace instance
 {
-	string describe_instances(utils::http_var &info, vector<string> instance_ids  = vector<string>())
+	string describe_instances(utils::http_var &info, model::describe_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstances";

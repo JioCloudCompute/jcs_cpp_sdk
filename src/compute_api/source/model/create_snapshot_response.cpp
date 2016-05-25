@@ -15,11 +15,11 @@ using namespace model;
 model::create_snapshot_response::create_snapshot_response(const string xml_doc)
 {
 	XMLDocument doc;
-	doc.Parse(xml_doc);
+	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 
-	XMLNode *Element = RootNode->FirstChildElement("requestId");
+	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();

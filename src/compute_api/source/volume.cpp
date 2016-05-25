@@ -2,10 +2,25 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "src/compute_api/source/model/create_volume_request.cpp"
+#include "src/compute_api/source/model/create_volume_response.cpp"
+#include "src/compute_api/source/model/delete_volume_request.cpp"
+#include "src/compute_api/source/model/delete_volume_response.cpp"
+#include "src/compute_api/source/model/attach_volume_request.cpp"
+#include "src/compute_api/source/model/attach_volume_response.cpp"
+#include "src/compute_api/source/model/detach_volume_request.cpp"
+#include "src/compute_api/source/model/detach_volume_response.cpp"
+#include "src/compute_api/source/model/describe_volumes_request.cpp"
+#include "src/compute_api/source/model/describe_volumes_response.cpp"
+#include "src/compute_api/source/model/show_delete_on_termination_flag_request.cpp"
+#include "src/compute_api/source/model/show_delete_on_termination_flag_response.cpp"
+#include "src/compute_api/source/model/update_delete_on_termination_flag_request.cpp"
+#include "src/compute_api/source/model/update_delete_on_termination_flag_response.cpp"
 
 using namespace std;
 using namespace utils;
 using namespace requestify;
+using namespace model;
 
 namespace volume
 {

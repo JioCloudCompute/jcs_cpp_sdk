@@ -12,7 +12,7 @@ namespace model
 		string request_id;
 		map <string, model::key_pair>key_pairs;
 	public:
-		create_key_pair_response(const string xml_doc);
+		describe_key_pairs_response(const string xml_doc);
 
 		const map<string, model::key_pair> get_key_pairs()
 		{
