@@ -17,10 +17,10 @@ namespace image
 		params["Version"] = info.version;
 		stringstream ss;
 		string key = "ImageId.";
-		for(int i=0 ; i<req.get_image_ids().size() ; i++)
+		for(int i=0 ; i<(req.get_image_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key+ss.str()] = req.get_image_ids()[i];
+			params[key+ss.str()] = (*req.get_image_ids())[i];
 			ss.str("");
 		}
 

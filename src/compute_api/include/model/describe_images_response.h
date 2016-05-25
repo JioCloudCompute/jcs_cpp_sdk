@@ -11,44 +11,31 @@ namespace model
 	class describe_images_response
 	{
 		public:
-		map<string,Image> Images;
-		string Request_Id;
+		map<string,Image> images;
+		string request_id;
 		int image_number;
 		
-		describe_images_response(const string xml_doc);
+		describe_images_response(const string &xml_doc);
 		describe_images_response()
 		{
 		}
 		
 		
-		char *get_request_Id(){
-			return Request_Id.c_str();
+		string get_request_id(){
+			return request_id;
 		}
-		void Set_Request_Id(string Id){
-			Request_Id = Id;
-		}
-
-		void Add_Image(Image& data){
-			Images[data.Get_imageId()]=data;
-		}
-
-		void Increment()
+		
+		int get_number_Of_images() const
 		{
-			image_number++;
+			return image_number;
 		}
-		int* get_NumberOfImages() const
+		map<string, Image> get_images() const
 		{
-			return &image_number;
-		}
-		map<string, Image> *get_Images() const
-		{
-			return &Images;}
+			return images;}
 		void Set_Image(const Image& data){
 
 		}
-		void Add_Image(const Image& data){
-			Images[data.Get_imageId()]=data;
-		}
+	
 
 	};
 }

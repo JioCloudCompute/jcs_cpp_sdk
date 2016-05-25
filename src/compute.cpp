@@ -163,6 +163,8 @@ int main(){
 	// result = obj.describe_instance_types();
 	//return obj.show_delete_on_termination_flag("6444474e-8d07-4d39-aa38-11f2dfca9959");
 	// cout<<result<<endl;
-	cout<<res.Images["jmi-e3ba830a"].Get_name() ;
+	map<string, model::Image> tr = res.get_images();
+	cout<<tr["jmi-e3ba830a"].Get_name();
+	//cout<<(res.get_Images())["jmi-e3ba830a"].Get_name() ;
 	return 0;
 }

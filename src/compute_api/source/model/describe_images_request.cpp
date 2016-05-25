@@ -8,7 +8,7 @@ model::describe_images_request::describe_images_request()
 	image_ids = vector<string>();
 }
 
-const vector<string>* model::describe_images_request::get_image_ids()
+const vector<string> * model::describe_images_request::get_image_ids()
 {
 	return &image_ids;
 }

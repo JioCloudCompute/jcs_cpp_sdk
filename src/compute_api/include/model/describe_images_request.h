@@ -15,7 +15,7 @@ namespace model
 		describe_images_request();
 	const vector<string>* get_image_ids();
 		
-		void set_image_ids(vector<string>image_id_set);
+		void set_image_ids(vector<string> &image_id_set);
 	};
 }
 
