@@ -18,7 +18,7 @@ namespace model
 
 		void set_volume_id(string volume_id_);
 
-		const bool get_delete_ont_termination();
+		const bool get_delete_on_termination();
 
 		void set_delete_on_termination(bool delete_on_termination_);
 	};

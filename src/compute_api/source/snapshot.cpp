@@ -59,10 +59,10 @@ namespace snapshot
 		params["Version"] = info.version;
 
 		stringstream ss;
-		if((req.snapshot_ids)->size() != 0)
+		if((req.get_snapshot_ids())->size() != 0)
 		{
 			string key = "SnapshotId.";
-			for(int i=0 ; i<(req.snapshot_ids)->size() ; i++)
+			for(int i=0 ; i<(req.get_snapshot_ids())->size() ; i++)
 			{
 				ss << i+1;
 				params[key + ss.str()] = (*req.get_snapshot_ids())[i];

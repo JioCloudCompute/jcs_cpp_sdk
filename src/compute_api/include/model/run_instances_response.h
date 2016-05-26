@@ -15,6 +15,7 @@ namespace model
 		string request_id;
 	public:
 		run_instances_response(const string &xml_doc);
+		run_instances_response(){}
 
 		const string get_request_id()
 		{

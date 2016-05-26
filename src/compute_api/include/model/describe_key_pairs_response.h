@@ -15,6 +15,7 @@ namespace model
 		vector<model::key_pair>key_pairs;
 	public:
 		describe_key_pairs_response(const string &xml_doc);
+		describe_key_pairs_response(){}
 
 		const vector<model::key_pair> get_key_pairs()
 		{

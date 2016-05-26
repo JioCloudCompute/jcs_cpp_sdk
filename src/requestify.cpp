@@ -61,7 +61,7 @@ namespace requestify{
 		request_string[request_string.length()-1]='\0'; //removing last &
 
 		// TODO: Header handling remaining
-
+		cout<<request_string<<endl;
 		CURL* curl; // curl object
 
 		curl_global_init(CURL_GLOBAL_ALL);
@@ -79,16 +79,18 @@ namespace requestify{
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
 		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-		string curl_code = curl_easy_perform(curl);
+		CURLcode curl_code = curl_easy_perform(curl);
 		long http_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
 		curl_global_cleanup();
-		
-		if(http_code == 200 && curl_code != "CURLE_ABORTED_BY_CALLBACK")
+		cout<<http_code<<endl;
+		cout<<response;
+		if(http_code == 200 && curl_code != CURLE_ABORTED_BY_CALLBACK)
 		{
 			return response;
 		}
+		
 		return "REQUESTFAILED";
 	}
 }

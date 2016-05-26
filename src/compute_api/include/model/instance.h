@@ -18,7 +18,7 @@ namespace model
 	class instance{
 	private:
 		
-		map <string,block_device_instance> block_devices;
+		vector<block_device_instance> block_devices;
 		string dns_name;
 		string instance_id;
 		string instance_state;  //STATE definition
@@ -37,7 +37,7 @@ namespace model
 
 
 		// Constructor used by describe_instances_response
-		instance(map <string,block_device_instance> block_devices_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
+		instance(vector<block_device_instance> block_devices_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
 				string launch_time_, string subnet_id_, vector<group_set>group_ ,string vpc_id_, string instance_type_, string private_ip_address_)
 		{
 			block_devices = block_devices_;
@@ -109,7 +109,7 @@ namespace model
 		{
 			return subnet_id;
 		}
-		const vector<groupSet> get_group()
+		const vector<group_set> get_group()
 		{
 			return group;
 		}

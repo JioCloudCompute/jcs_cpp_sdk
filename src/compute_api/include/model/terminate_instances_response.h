@@ -16,7 +16,7 @@ namespace model
 
 	public:
 		terminate_instances_response(const string &xml_doc);
-
+		terminate_instances_response(){}
 		const string get_request_id()
 		{
 			return request_id;

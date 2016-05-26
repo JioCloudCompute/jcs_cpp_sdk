@@ -15,6 +15,7 @@ namespace model
 
 	public:
 		describe_snapshots_response(const string &xml_doc);
+		describe_snapshots_response(){}
 
 		const string get_request_id()
 		{

@@ -44,7 +44,7 @@ void model::describe_snapshots_request::set_next_token(string next_token_)
 	next_token = next_token_;
 }
 
-bool model::describe_snapshots_request::set_detail()
+bool model::describe_snapshots_request::get_detail()
 {
 	return detail;
 }

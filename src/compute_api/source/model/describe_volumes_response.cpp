@@ -16,7 +16,7 @@ model::describe_volumes_response::describe_volumes_response(const string &xml_do
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
 
@@ -27,25 +27,27 @@ model::describe_volumes_response::describe_volumes_response(const string &xml_do
 	while(ListElement != NULL)
 	{
 		VolumeSet =  ListElement->FirstChildElement("status");
-		status = VolumeSet->GetText();
+		if(VolumeSet->GetText()!=NULL)status = VolumeSet->GetText();
 
 		VolumeSet =VolumeSet->NextSiblingElement();
-		volume_id = VolumeSet->GetText();
+		if(VolumeSet->GetText()!=NULL)volume_id = VolumeSet->GetText();
 
 		VolumeSet = VolumeSet->NextSiblingElement();
-		SubElement = (VolumeSet->FirstChildElement("item"))->FirstChildElement("device");
-		device = SubElement->GetText();
-		SubElement = SubElement->NextSiblingElement();
-		instance_id = SubElement->GetText();
+		if(VolumeSet->GetText()!=NULL)
+		{
+			SubElement = (VolumeSet->FirstChildElement("item"))->FirstChildElement("device");
+			if(SubElement->GetText()!=NULL)device = SubElement->GetText();
+			SubElement = SubElement->NextSiblingElement();
+			if(SubElement->GetText()!=NULL)instance_id = SubElement->GetText();
+		}
+		VolumeSet=VolumeSet->NextSiblingElement();
+		if(VolumeSet->GetText()!=NULL)snapshot_id = VolumeSet->GetText();
 
 		VolumeSet=VolumeSet->NextSiblingElement();
-		snapshot_id = VolumeSet->GetText();
+		if(VolumeSet->GetText()!=NULL)create_time= VolumeSet->GetText();
 
 		VolumeSet=VolumeSet->NextSiblingElement();
-		create_time= VolumeSet->GetText();
-
-		VolumeSet=VolumeSet->NextSiblingElement();
-		VolumeSet->QueryFloatText(&size);
+		if(VolumeSet->GetText()!=NULL)VolumeSet->QueryFloatText(&size);
 
 		model::volume data(status, volume_id, device, instance_id, snapshot_id, create_time, size);
 		volume_set.push_back(data);

@@ -109,11 +109,7 @@ namespace volume
 		params["Action"] = "DetachVolume";
 		params["Version"] = info.version;
 		
-		if(req.get_instance_id().length() == 0)
-		{	
-			return "Error : Instance-Id needed";
-		}
-		else
+		if(req.get_instance_id().length() != 0)
 		{
 			params["InstanceId"] = req.get_instance_id();	
 		}
@@ -135,6 +131,11 @@ namespace volume
 		map <string, string> params;
 		params["Action"] = "CreateVolume";
 		params["Version"] = info.version;
+
+		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)
+		{
+			return "Parameters missing, Atleast one of them needed";
+		}
 		
 		if(req.get_size() != -1)
 		{

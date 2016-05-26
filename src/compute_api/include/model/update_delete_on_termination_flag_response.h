@@ -14,6 +14,7 @@ namespace model
 
 	public:
 		update_delete_on_termination_flag_response(const string &xml_doc);
+		update_delete_on_termination_flag_response(){}
 
 		const string get_request_id()
 		{

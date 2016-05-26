@@ -8,15 +8,19 @@ namespace model
 	{
 	private:
 		string request_id;
-		string status;
 		string device;
+		string instance_id;
+		bool delete_on_termination;
+		string status;
+		string volume_id;
 	public:
 		attach_volume_response(const string &xml_doc);
+		attach_volume_response(){}
 		const string get_request_id() 
 		{
 			return request_id;
 		}
-		const string get_status() 
+		const string get_status()
 		{
 			return status;
 		}
@@ -24,7 +28,20 @@ namespace model
 		{
 			return device;
 		}
+		const string get_instance_id()
+		{
+			return instance_id;
+		}
+		const string get_volume_id()
+		{
+			return  volume_id;
+		}
+		const bool get_delete_on_termination()
+		{
+			return delete_on_termination;
+		}
 	};
+
 }
 #endif
 

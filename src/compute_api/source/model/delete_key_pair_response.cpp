@@ -20,7 +20,7 @@ model::delete_key_pair_response::delete_key_pair_response(const string &xml_doc)
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 	
-	Element->NextSiblingElement();
+	Element = Element->NextSiblingElement();
 	bool temp=false;
 	Element->QueryBoolText(&temp);
 	result = temp;

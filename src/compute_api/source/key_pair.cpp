@@ -7,8 +7,8 @@
 #include "src/compute_api/source/model/create_key_pair_response.cpp"
 #include "src/compute_api/source/model/delete_key_pair_request.cpp"
 #include "src/compute_api/source/model/delete_key_pair_response.cpp"
-//#include "src/compute_api/source/model/import_key_pair_request.cpp"
-//#include "src/compute_api/source/model/import_key_pair_response.cpp"
+#include "src/compute_api/source/model/import_key_pair_request.cpp"
+#include "src/compute_api/source/model/import_key_pair_response.cpp"
 
 using namespace std;
 using namespace utils;

@@ -85,7 +85,7 @@ const vector<string> *model::run_instances_request::get_security_group_ids()
 	return &security_group_ids;
 }
 
-void model::run_instances_request::set_security_group_id(vector<string> security_group_id_set)
+void model::run_instances_request::set_security_group_ids(vector<string> security_group_id_set)
 {
 	for(int i=0 ; i<security_group_id_set.size() ; i++)
 	{

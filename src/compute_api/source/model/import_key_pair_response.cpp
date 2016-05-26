@@ -16,15 +16,15 @@ import_key_pair_response::import_key_pair_response(const string &xml_doc)
 	doc.Parse(xml_doc.c_str());
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
-
+	string key_fingerprint, key_name;
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	if(Element->GetText!=NULL)key_name=Element->GetText();
+	if(Element->GetText()!=NULL)key_name=Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	if(Element->GetText!=NULL)key_fingerprint=Element->GetText();
+	if(Element->GetText()!=NULL)key_fingerprint=Element->GetText();
 
 	key=key_pair(key_name,key_fingerprint);
 

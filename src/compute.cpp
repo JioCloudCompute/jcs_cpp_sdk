@@ -1,9 +1,9 @@
 #include "src/requestify.cpp"
 #include "src/compute_api/source/image.cpp"
 #include "src/compute_api/source/instance.cpp"
-//#include "src/compute_api/source/volume.cpp"
-//#include "src/compute_api/source/snapshot.cpp"
-//#include "src/compute_api/source/key_pair.cpp"
+#include "src/compute_api/source/volume.cpp"
+#include "src/compute_api/source/snapshot.cpp"
+#include "src/compute_api/source/key_pair.cpp"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace image;
-// using namespace instance;
+using namespace instance;
 // using namespace snapshot;
 // using namespace key_pair;
 // using namespace volume;
@@ -57,96 +57,91 @@ public:
 		return stop_instances_response(instance::stop_instances(info,req));
 	}
 
-	// string reboot_instances(vector<string> instance_ids)
-	// {
-	// 	return instance::reboot_instances(info,instance_ids);
-	// }
+	reboot_instances_response reboot_instances(reboot_instances_request &req)
+	{
+		return reboot_instances_response(instance::reboot_instances(info,req));
+	}
 
-	// string terminate_instances(vector<string> instance_ids)
-	// {
-	// 	return instance::terminate_instances(info,instance_ids);
-	// }
+	terminate_instances_response terminate_instances(terminate_instances_request &req)
+	{
+		return terminate_instances_response(instance::terminate_instances(info,req));
+	}
 
 	// //edit.. block device mapping
-	// string run_instances(string image_id, string instance_type_id, 
-	// 					vector<struct utils::block_device_mapping> blocks = vector<struct utils::block_device_mapping>(),
- // 						int instance_count = 1, string subnet_id = "", string private_ip_address = "",
- // 						vector<string> security_group_ids = vector<string>(), string key_name = "" )
-	// {
-	// 	return instance::run_instances(info, image_id, instance_type_id, blocks, instance_count, subnet_id, private_ip_address, security_group_ids, key_name);
-	// }
+	run_instances_response run_instances(run_instances_request &req)
+	{
+		return run_instances_response(instance::run_instances(info, req));
+	}
 
-	// string describe_key_pairs()
-	// {
-	// 	return key_pair::describe_key_pairs(info);
-	// }
+	describe_key_pairs_response describe_key_pairs()
+	{
+		return describe_key_pairs_response(key_pair::describe_key_pairs(info));
+	}
 
-	// string create_key_pair(string key_name)
-	// {
-	// 	return key_pair::create_key_pair(info,key_name);
-	// }
+	create_key_pair_response create_key_pair(create_key_pair_request &req)
+	{
+		return create_key_pair_response(key_pair::create_key_pair(info,req));
+	}
 
-	// string delete_key_pair(string key_name)
-	// {
-	// 	return key_pair::delete_key_pair(info,key_name);
-	// }
+	delete_key_pair_response delete_key_pair(delete_key_pair_request &req)
+	{
+		return delete_key_pair_response(key_pair::delete_key_pair(info,req));
+	}
 
-	// string import_key_pair(string key_name, string public_key_material)
-	// {
-	// 	return key_pair::import_key_pair(info,key_name,public_key_material);
-	// }
+	import_key_pair_response import_key_pair(import_key_pair_request &req)
+	{
+		return import_key_pair_response(key_pair::import_key_pair(info,req));
+	}
 
-	// string delete_snapshot(string snapshot_id)
-	// {
-	// 	return snapshot::delete_snapshot(info,snapshot_id);
-	// }
+	delete_snapshot_response delete_snapshot(delete_snapshot_request &req)
+	{
+		return delete_snapshot_response(snapshot::delete_snapshot(info,req));
+	}
 
-	// string create_snapshot(string volume_id)
-	// {
-	// 	return snapshot::create_snapshot(info,volume_id);
-	// }
+	create_snapshot_response create_snapshot(create_snapshot_request &req)
+	{
+		return create_snapshot_response(snapshot::create_snapshot(info,req));
+	}
 
-	// string describe_snapshots(vector<string> snapshot_ids  = vector<string>(),
- // 				 int max_results = -1, string next_token = "", bool detail = true)
-	// {
-	// 	return snapshot::describe_snapshots(info, snapshot_ids, max_results, next_token, detail);
-	// }
+	describe_snapshots_response describe_snapshots(describe_snapshots_request &req)
+	{
+		return describe_snapshots_response(snapshot::describe_snapshots(info,req));
+	}
 
-	// string create_volume(int size  = -1, string snapshot_id = "")
-	// {
-	// 	return volume::create_volume(info, size, snapshot_id);
-	// }
+	create_volume_response create_volume(create_volume_request &req)
+	{
+		return create_volume_response(volume::create_volume(info, req));
+	}
 
-	// string delete_volume(string volume_id)
-	// {
-	// 	return volume::delete_volume(info,volume_id);
-	// }
+	delete_volume_response delete_volume(delete_volume_request &req)
+	{
+		return delete_volume_response(volume::delete_volume(info,req));
+	}
 
-	// string detach_volume(string instance_id, string volume_id)
-	// {
-	// 	return volume::detach_volume(info, instance_id, volume_id);
-	// }
+	detach_volume_response detach_volume(detach_volume_request &req)
+	{
+		return detach_volume_response(volume::detach_volume(info, req));
+	}
 
-	// string attach_volume(string instance_id, string volume_id, string device)
-	// {
-	// 	return volume::attach_volume(info, instance_id, volume_id, device);
-	// }
+	attach_volume_response attach_volume(attach_volume_request &req)
+	{
+		return attach_volume_response(volume::attach_volume(info, req));
+	}
 
-	// string describe_volumes(vector<string> volume_ids  = vector<string>(),
- // 					 int max_results = -1, string next_token = "", bool detail = true)
-	// {
-	// 	return volume::describe_volumes(info, volume_ids, max_results, next_token, detail);
-	// }
+	describe_volumes_response describe_volumes(describe_volumes_request &req)
+	{
+		return describe_volumes_response (volume::describe_volumes(info,req));
+	}
 
-	// string show_delete_on_termination_flag(string volume_id )
-	// {
-	// 	return volume::show_delete_on_termination_flag(info, volume_id);
-	// }
+	show_delete_on_termination_flag_response show_delete_on_termination_flag(show_delete_on_termination_flag_request &req )
+	{
+		return show_delete_on_termination_flag_response(volume::show_delete_on_termination_flag(info, req));
+	}
 
-	// string update_delete_on_termination_flag(string volume_id, bool delete_on_termination )
-	// {
-	// 	return volume::update_delete_on_termination_flag(info, volume_id, delete_on_termination);
-	// }
+	update_delete_on_termination_flag_response update_delete_on_termination_flag(update_delete_on_termination_flag_request &req)
+	{
+		return update_delete_on_termination_flag_response(volume::update_delete_on_termination_flag(info, req));
+	}
 
 };
 
@@ -175,8 +170,8 @@ int main(){
 	// describe_instance_types_request req;
 	// describe_instance_types_response res;
 	// res = obj.describe_instance_types(req);
-	// map<string, model::instance_type> tr = res.get_instance_types();
-	// for(map<string, model::instance_type>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_vcpus()<<endl;
+	// vector<model::instance_type> tr = res.get_instance_types();
+	// for(int i=0 ; i<tr.size() ; i++)cout<<tr[i].get_ram	()<<endl;
 	
 	// Stop instances
 	/*stop_instances_request req;
@@ -189,21 +184,160 @@ int main(){
 
 	for(map<string, model::instance_set>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_current_state()<<endl;
 */
-	//Start Instances
-	start_instances_request req;
-	start_instances_response res;
-	vector<string>instance_ids;
-	instance_ids.push_back("i-5f238d8d");
-	req.set_instance_ids(instance_ids);
-	res = obj.start_instances(req);
-	map<string, model::instance_set> tr = res.get_instances();
 
-	for(map<string, model::instance_set>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_current_state()<<endl;
+	//start Instances
+	// start_instances_request req;
+	// start_instances_response res;
+	// vector<string>instance_ids;
+	// instance_ids.push_back("i-b825503d");
+	// instance_ids.push_back("i-a1e14a93");
+	// req.set_instance_ids(instance_ids);
+	// res = obj.start_instances(req);
+	// vector< model::instance_set> tr = res.get_instances();
+
+	// for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
+
+	//Reboot Instances
+	// reboot_instances_request req;
+	// reboot_instances_response res;
+	// vector<string>instance_ids;
+	// instance_ids.push_back("i-b825503d");
+	// instance_ids.push_back("i-a1e14a93");
+	// req.set_instance_ids(instance_ids);
+	// res = obj.reboot_instances(req);
+	// vector< model::instance_set> tr = res.get_instances();
+
+	// for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
 
 
+	//terminate Instances
+	// terminate_instances_request req;
+	// terminate_instances_response res;
+	// vector<string>instance_ids;
+	// instance_ids.push_back("i-b825503d");
+	// instance_ids.push_back("i-a1e14a93");
+	// req.set_instance_ids(instance_ids);
+	// res = obj.terminate_instances(req);
+	// vector< model::instance_set> tr = res.get_instances();
+
+	// for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
+
+	// Run Instances
+	// run_instances_request req;
+	// run_instances_response res;
+	// req.set_image_id("jmi-bc345d58");
+	// req.set_instance_type_id("c1.large");
+	// res = obj.run_instances(req);
+	// vector< model::instance> tr = res.get_instances();
+
+	// for(int i =0;i<tr.size();i++)cout<<tr[i].get_instance_id()<<endl;	
 
 
-	//cout<<tr["jmi-e3ba830a"].Get_name();
-	//cout<<(res.get_Images())["jmi-e3ba830a"].Get_name() ;
+	//describe key pairs 
+	// describe_key_pairs_request req;
+	// describe_key_pairs_response res;
+	// res = obj.describe_key_pairs();
+	// vector<model::key_pair> tr = res.get_key_pairs();
+	// for(int i=0 ; i<tr.size() ; i++)cout<<tr[i].get_key_name()<<endl;	
+
+
+	//create key pair 
+	// create_key_pair_request req;
+	// create_key_pair_response res;
+	// req.set_key_name("cpp_test4");
+	// res = obj.create_key_pair(req);
+	// cout<<res.get_key_material()<<endl;
+	// cout<<res.get_key_fingerprint()<<endl;
+	// cout<<"a"<<res.get_key_material()[31]<<"b";
+	// cout<<res.get_key_name()<<endl;
+
+	// Delete key pair
+	// delete_key_pair_request req;
+	// delete_key_pair_response res;
+	// req.set_key_name("cpp_test3");
+	// res = obj.delete_key_pair(req);
+	// cout<<res.get_result()<<endl;
+
+	// create snapshot
+	// create_snapshot_request req;
+	// create_snapshot_response res;
+	// req.set_volume_id("c62c289e-e9a8-4251-bb47-85305352904a");
+	// res = obj.create_snapshot(req);
+	// cout<<res.get_status()<<endl;
+	// cout<<res.get_snapshot_id()<<endl;
+	// cout<<res.get_volume_size()<<endl;
+	// cout<<res.get_volume_id()<<endl;
+	// cout<<res.get_start_time()<<endl;
+
+	//Delete snapshot
+	// delete_snapshot_request req;
+	// delete_snapshot_response res;
+	// req.set_snapshot_id("755bea03-ecde-46d3-b92e-6e4eb9367254");
+	// res = obj.delete_snapshot(req);
+	// cout<<res.get_result()<<endl;
+
+	//describe snapshots 
+	// describe_snapshots_request req;
+	// describe_snapshots_response res;
+	// res = obj.describe_snapshots(req);
+	// vector<model::snapshot> tr = res.get_snapshot_set();
+	// for(int i=0 ; i<tr.size() ; i++){cout<<tr[i].get_snapshot_id()<<endl;cout<<tr[i].get_volume_id()<<endl;cout<<tr[i].get_volume_size()<<endl;}
+
+	// Create volume
+	// create_volume_request req;
+	// create_volume_response res;
+	// req.set_snapshot_id("54790b1f-0d24-4375-9d33-1437036ef877");
+	// res = obj.create_volume(req);
+	// cout<<res.get_status()<<endl;
+	// cout<<res.get_volume_id()<<endl;
+	// cout<<res.get_snapshot_id()<<endl;
+
+	// delete volume
+	// delete_volume_request req;
+	// delete_volume_response res;
+	// req.set_volume_id("69ab9944-64f5-467d-b3f9-fccd3b5d593d");
+	// res = obj.delete_volume(req);
+	// cout<<res.get_status()<<endl;
+
+	//attach volume
+	// attach_volume_request req;
+	// attach_volume_response res;
+	// req.set_volume_id("3e6b832f-755f-42eb-b346-d209628a6ce7");
+	// req.set_instance_id("i-407bb8fb");
+	// req.set_device("/dev/vdb");
+	// res = obj.attach_volume(req);
+	// cout<<res.get_status()<<endl;
+
+	//detach volume
+	// detach_volume_request req;
+	// detach_volume_response res;
+	// req.set_volume_id("3e6b832f-755f-42eb-b346-d209628a6ce7");
+	// res = obj.detach_volume(req);
+	// cout<<res.get_status()<<endl;
+
+	// Describe volumes
+	describe_volumes_request req;
+	describe_volumes_response res;
+	res = obj.describe_volumes(req);
+	vector<model::volume> tr = res.get_volume_set();
+	for(int i=0 ; i<tr.size() ; i++){cout<<tr[i].get_snapshot_id()<<endl;cout<<tr[i].get_volume_id()<<endl;cout<<tr[i].get_size()<<endl;}
+
+	// show delete on termination flag
+	// show_delete_on_termination_flag_request req;
+	// show_delete_on_termination_flag_response res;
+	// req.set_volume_id("421d256b-541f-4baa-940e-2c023804b0a6");
+	// res = obj.show_delete_on_termination_flag(req);
+	// cout<<res.get_volume_id()<<endl;
+	// cout<<res.get_delete_on_termination()<<endl;
+
+
+	// update delete on termination flag
+	// update_delete_on_termination_flag_request req;
+	// update_delete_on_termination_flag_response res;
+	// req.set_volume_id("421d256b-541f-4baa-940e-2c023804b0a6");
+	// req.set_delete_on_termination(1);
+	// res = obj.update_delete_on_termination_flag(req);
+	// cout<<res.get_volume_id()<<endl;
+	// cout<<res.get_delete_on_termination()<<endl;
 	return 0;
 }

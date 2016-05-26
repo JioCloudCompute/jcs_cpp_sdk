@@ -25,7 +25,7 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 
 	bool temp;
 	block_device_instance block;
-	groupSet group;
+	group_set group;
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *InstanceElement,*blockListElement,*blockElement;
 
@@ -35,9 +35,8 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 	while(ListElement != NULL)
 	{
 		InstanceElement =  ListElement->FirstChildElement("blockDeviceMapping");
-		instance data;
 		blocks.clear();
-		grooups.clear();
+		groups.clear();
 		
 		blockListElement = InstanceElement->FirstChildElement("item");
 		while(blockListElement != NULL)
@@ -46,14 +45,14 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 			block.status = blockElement->GetText();
 			
 			blockElement = blockElement->NextSiblingElement();
-			block.deviceName = blockElement->GetText();
+			block.device_name = blockElement->GetText();
 
 			blockElement = blockElement->NextSiblingElement();
 			blockElement->QueryBoolText(&temp);
-			block.deleteOnTermination = temp;
+			block.delete_on_termination = temp;
 
 			blockElement = blockElement->NextSiblingElement();
-			block.volumeId = blockElement->GetText();
+			block.volume_id = blockElement->GetText();
 
 			blocks.push_back(block);
 			blockListElement=blockListElement->NextSiblingElement();
@@ -82,7 +81,7 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		if(InstanceElement->GetText()!=NULL)launch_time=InstanceElement->GetText();
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)subent_id=InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)subnet_id=InstanceElement->GetText();
 
 		XMLElement *GroupListElement,*GroupElement;
 		InstanceElement = InstanceElement->NextSiblingElement();
@@ -91,9 +90,9 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		while(GroupListElement != NULL)
 		{
 			GroupElement=GroupListElement->FirstChildElement("groupName");
-			group.groupName = GroupElement->GetText();
+			group.group_name = GroupElement->GetText();
 			GroupElement=GroupElement->NextSiblingElement();
-			group.groupId = GroupElement->GetText();
+			group.group_id = GroupElement->GetText();
 			groups.push_back(group);
 			GroupListElement=GroupListElement->NextSiblingElement();
 		}
@@ -107,7 +106,7 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 
 		ListElement=ListElement->NextSiblingElement();
 		
-		instance data(blocks,dnsName, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address);
+		instance data(blocks,dns_name, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address);
 		instances.push_back(data);
 
 	}

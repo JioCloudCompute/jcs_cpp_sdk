@@ -21,8 +21,8 @@ namespace model{
 		
 		image(){}
 
-		image(bool is_public_, string name_, string image_id_, string image_state_, string architecture_, 
-				string image_type_,model::block_device block_device_mapping_)
+		image(model::block_device block_device_mapping_,string name_, bool is_public_,  string image_id_, string image_state_, string architecture_, 
+				string image_type_)
 		{
 			is_public = is_public_;
 			name = name_;

@@ -15,6 +15,7 @@ namespace model
 
 	public:
 		describe_volumes_response(const string &xml_doc);
+		describe_volumes_response(){}
 
 		const string get_request_id()
 		{

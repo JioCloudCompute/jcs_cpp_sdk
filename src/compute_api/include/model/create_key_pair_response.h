@@ -13,6 +13,7 @@ namespace model
 		string request_id;
 	public:
 		create_key_pair_response(const string &xml_doc);
+		create_key_pair_response(){}
 
 		const string get_key_fingerprint()
 		{

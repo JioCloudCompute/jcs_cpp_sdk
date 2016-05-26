@@ -14,7 +14,7 @@ namespace model
 	public:
 		describe_instance_types_request();
 
-		const vector<string> *get_instance_types_ids();
+		const vector<string> *get_instance_type_ids();
 
 		void set_instance_types_ids(vector<string>instance_type_id_set);
 	};

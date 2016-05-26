@@ -12,7 +12,8 @@ namespace model
 
 	public:
 		delete_snapshot_response(const string &xml_doc);
-
+		delete_snapshot_response(){}
+		
 		const string get_request_id()
 		{
 			return request_id;

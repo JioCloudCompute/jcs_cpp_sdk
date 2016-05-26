@@ -28,7 +28,7 @@ namespace model
 
 		void set_next_token(string next_token_);
 
-		bool set_detail();
+		bool get_detail();
 
 		void set_detail(bool detail_);
 		

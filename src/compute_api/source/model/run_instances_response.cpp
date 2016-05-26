@@ -66,19 +66,17 @@ run_instances_response::run_instances_response(const string &xml_doc)
 		while(GroupListElement != NULL)
 		{
 			GroupElement=GroupListElement->FirstChildElement("groupName");
-			group.groupName = GroupElement->GetText();
+			group.group_name = GroupElement->GetText();
 			GroupElement=GroupElement->NextSiblingElement();
-			group.groupId = GroupElement->GetText();
+			group.group_id = GroupElement->GetText();
 			groups.push_back(group);
 			GroupListElement=GroupListElement->NextSiblingElement();
 		}
 		
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)data.Set_vpcId(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)instance_type=(InstanceElement->GetText());
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)data.Set_instanceType(InstanceElement->GetText());
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)data.Set_privateIpAddress(InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)private_ip_address=(InstanceElement->GetText());
 
 		ListElement=ListElement->NextSiblingElement();
 		

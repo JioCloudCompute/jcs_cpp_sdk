@@ -11,6 +11,7 @@ namespace model
 		string request_id;
 	public:
 		delete_key_pair_response(const string &xml_doc);
+		delete_key_pair_response(){}
 
 		const string get_request_id()
 		{

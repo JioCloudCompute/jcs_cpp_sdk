@@ -12,6 +12,7 @@ namespace model
 
 	public:
 		delete_volume_response(const string &xml_doc);
+		delete_volume_response(){}
 
 		const string get_request_id()
 		{

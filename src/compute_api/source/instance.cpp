@@ -4,7 +4,7 @@
 #include <map>
 #include "src/compute_api/source/model/describe_instances_response.cpp"
 #include "src/compute_api/source/model/describe_instances_request.cpp"
-//#include "src/compute_api/source/model/run_instances_response.cpp"
+#include "src/compute_api/source/model/run_instances_response.cpp"
 #include "src/compute_api/source/model/run_instances_request.cpp"
 #include "src/compute_api/source/model/start_instances_response.cpp"
 #include "src/compute_api/source/model/start_instances_request.cpp"
@@ -163,7 +163,7 @@ namespace instance
 	string run_instances(utils::http_var &info, model::run_instances_request &req )
 	{
 		map <string, string> params;
-		params["Action"] = "StartInstances";
+		params["Action"] = "RunInstances";
 		params["Version"] = info.version;
 
 		if(req.get_image_id().length() == 0)
@@ -202,7 +202,7 @@ namespace instance
 			}
 		}
 
-		if(req.get_instance_count()!=1)
+		if(req.get_instance_count()!=-1)
 		{
 			params["InstanceCount"] = req.get_instance_count();
 		}

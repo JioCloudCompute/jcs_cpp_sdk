@@ -20,7 +20,7 @@ void model::update_delete_on_termination_flag_request::set_volume_id(string volu
 	volume_id = volume_id_;
 }
 
-const bool model::update_delete_on_termination_flag_request::get_delete_ont_termination()
+const bool model::update_delete_on_termination_flag_request::get_delete_on_termination()
 {
 	return delete_on_termination;
 }

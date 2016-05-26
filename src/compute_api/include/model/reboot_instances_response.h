@@ -16,6 +16,7 @@ namespace model
 
 	public:
 		reboot_instances_response(const string &xml_doc);
+		reboot_instances_response(){}
 
 		const string get_request_id()
 		{
