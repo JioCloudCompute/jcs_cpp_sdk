@@ -31,10 +31,12 @@ model::describe_instance_types_response::describe_instance_types_response(const 
 		InstanceTypeElement->QueryFloatText(&ram);
 
 		InstanceTypeElement = InstanceTypeElement->NextSiblingElement();
-		id = InstanceTypeElement->GetText();
+		if(InstanceTypeElement->GetText() != NULL)id = InstanceTypeElement->GetText();
 
 		//Add to map
 		model::instance_type data(vcpus, ram, id);
-		instance_type_set[id] = data;
+		instance_type_set.push_back(data);
+
+		ListElement=ListElement->NextSiblingElement();
 	}
 }

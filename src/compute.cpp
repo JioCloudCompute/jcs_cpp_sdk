@@ -1,9 +1,9 @@
 #include "src/requestify.cpp"
 #include "src/compute_api/source/image.cpp"
-// #include "src/compute_api/source/instance.cpp"
-// #include "src/compute_api/source/volume.cpp"
-// #include "src/compute_api/source/snapshot.cpp"
-// #include "src/compute_api/source/key_pair.cpp"
+#include "src/compute_api/source/instance.cpp"
+//#include "src/compute_api/source/volume.cpp"
+//#include "src/compute_api/source/snapshot.cpp"
+//#include "src/compute_api/source/key_pair.cpp"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -33,28 +33,29 @@ public:
 	//Use C++ structures and class instead of string for result
 	describe_images_response describe_images(describe_images_request &req)
 	{
-		return describe_images_response(image::describe_images(info, req));
+		string xmlresponse = image::describe_images(info, req);
+		
+		return describe_images_response(xmlresponse);
 	}
 
-	// string describe_instances(vector<string>instance_ids = vector<string>())
-	// {
-	// 	return instance::describe_instances(info,instance_ids);
-	// }
+	 describe_instances_response describe_instances(describe_instances_request &req)
+	{
+		return describe_instances_response(instance::describe_instances(info,req));
+	}
 
-	// string describe_instance_types(vector<string>instance_type_ids = vector<string>())
-	// {
-	// 	return instance::describe_instance_types(info,instance_type_ids);
-	// }
+	describe_instance_types_response describe_instance_types(describe_instance_types_request &req)
+	{
+		return describe_instance_types_response(instance::describe_instance_types(info,req));
+	}
 
-	// string start_instances(const vector<string> & instance_ids)
-	// {
-	// 	return instance::start_instances(info,instance_ids);
-	// }
-
-	// string stop_instances(vector<string> instance_ids)
-	// {
-	// 	return instance::stop_instances(info,instance_ids);
-	// }
+	start_instances_response start_instances(start_instances_request &req)
+	{
+		return start_instances_response(instance::start_instances(info,req));
+	}
+	stop_instances_response stop_instances(stop_instances_request &req)
+	{
+		return stop_instances_response(instance::stop_instances(info,req));
+	}
 
 	// string reboot_instances(vector<string> instance_ids)
 	// {
@@ -154,17 +155,55 @@ int main(){
 	// string result;
 	// string instance_id;
 	// vector<string>image_ids;
-	describe_images_request req;
-	describe_images_response res;
-	res = obj.describe_images(req);
+	
 	// image_ids.push_back("i-ec554304");
 	// image_ids.push_back("i-cbf85c81");
 	// return obj.attach_volume("i-cbf85c81","6444474e-8d07-4d39-aa38-11f2dfca9959", "/dev/vdb");
 	// result = obj.describe_instance_types();
 	//return obj.show_delete_on_termination_flag("6444474e-8d07-4d39-aa38-11f2dfca9959");
 	// cout<<result<<endl;
-	map<string, model::Image> tr = res.get_images();
-	cout<<tr["jmi-e3ba830a"].Get_name();
+
+	//describe Instance 
+	/*describe_instances_request req;
+	describe_instances_response res;
+	res = obj.describe_instances(req);
+	map<string, model::instance> tr = res.get_instances();
+	for(map<string, model::instance>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.Get_instanceId()<<endl;
+	*/
+
+	//describe instance types
+	// describe_instance_types_request req;
+	// describe_instance_types_response res;
+	// res = obj.describe_instance_types(req);
+	// map<string, model::instance_type> tr = res.get_instance_types();
+	// for(map<string, model::instance_type>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_vcpus()<<endl;
+	
+	// Stop instances
+	/*stop_instances_request req;
+	stop_instances_response res;
+	vector<string>instance_ids;
+	instance_ids.push_back("i-5f238d8d");
+	req.set_instance_ids(instance_ids);
+	res = obj.stop_instances(req);
+	map<string, model::instance_set> tr = res.get_instances();
+
+	for(map<string, model::instance_set>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_current_state()<<endl;
+*/
+	//Start Instances
+	start_instances_request req;
+	start_instances_response res;
+	vector<string>instance_ids;
+	instance_ids.push_back("i-5f238d8d");
+	req.set_instance_ids(instance_ids);
+	res = obj.start_instances(req);
+	map<string, model::instance_set> tr = res.get_instances();
+
+	for(map<string, model::instance_set>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.get_current_state()<<endl;
+
+
+
+
+	//cout<<tr["jmi-e3ba830a"].Get_name();
 	//cout<<(res.get_Images())["jmi-e3ba830a"].Get_name() ;
 	return 0;
 }

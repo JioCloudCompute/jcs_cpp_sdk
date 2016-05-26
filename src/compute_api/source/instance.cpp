@@ -4,7 +4,7 @@
 #include <map>
 #include "src/compute_api/source/model/describe_instances_response.cpp"
 #include "src/compute_api/source/model/describe_instances_request.cpp"
-#include "src/compute_api/source/model/run_instances_response.cpp"
+//#include "src/compute_api/source/model/run_instances_response.cpp"
 #include "src/compute_api/source/model/run_instances_request.cpp"
 #include "src/compute_api/source/model/start_instances_response.cpp"
 #include "src/compute_api/source/model/start_instances_request.cpp"
@@ -51,10 +51,10 @@ namespace instance
 		
 		string key = "InstanceTypeId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(int i=0 ; i<(req.get_instance_type_ids())->size() ; i++)
 		{
 			ss << i+1;
-			params[key+ss.str()] = (*req.get_instance_ids())[i];
+			params[key+ss.str()] = (*req.get_instance_type_ids())[i];
 			ss.str("");
 		}
 
@@ -70,7 +70,7 @@ namespace instance
 		params["Action"] = "StartInstances";
 		params["Version"] = info.version;
 		
-		if(req.get_instance_ids().size() == 0)
+		if((req.get_instance_ids())->size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
@@ -93,7 +93,7 @@ namespace instance
 		params["Action"] = "StopInstances";
 		params["Version"] = info.version;
 
-		if(req.get_instance_ids().size() == 0)
+		if((req.get_instance_ids())->size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
@@ -117,7 +117,7 @@ namespace instance
 		params["Action"] = "RebootInstances";
 		params["Version"] = info.version;
 		
-		if(req.get_instance_ids().size() == 0)
+		if((req.get_instance_ids())->size()== 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
@@ -141,7 +141,7 @@ namespace instance
 		params["Action"] = "TerminateInstances";
 		params["Version"] = info.version;
 		
-		if(req.get_instance_ids().size() == 0)
+		if((req.get_instance_ids())->size() == 0)
 		{	
 			return "Error : Instance-Id needed";
 		}
@@ -217,9 +217,9 @@ namespace instance
 			params["PrivateIPAddress"] = req.get_private_ip_address();
 		}
 
-		if(!(req.security_group_ids())->empty())
+		if(!(req.get_security_group_ids())->empty())
 		{
-			for(int i=0 ; i<(req.security_group_ids())->size() ; i++)
+			for(int i=0 ; i<(req.get_security_group_ids())->size() ; i++)
 			{
 				string key = "SecurityGroupId.0";
 				key[key.length()-1] = i+1;
@@ -229,7 +229,7 @@ namespace instance
 
 		if(req.get_key_name()!="")
 		{
-			params["KeyName"] = req.get_key_name());
+			params["KeyName"] = req.get_key_name();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"

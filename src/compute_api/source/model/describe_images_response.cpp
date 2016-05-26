@@ -12,7 +12,6 @@ using namespace model;
 
 describe_images_response::describe_images_response(const string &xml_doc)
 {	
-	image_number = 0;
 	//XML Parse
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
@@ -34,9 +33,9 @@ describe_images_response::describe_images_response(const string &xml_doc)
 	//if(ListElement == NULL)return XML_ERROR_PARSING_ELEMENT;
 
 	//iterating over the list
-	Image image_data;
 	block_device block_device_mapping;
 	XMLElement *ImageElement,*BlockElement;
+	string name,image_id, image_state, architecture, image_type;
 	while(ListElement != NULL )
 	{	
 		
@@ -52,32 +51,31 @@ describe_images_response::describe_images_response(const string &xml_doc)
 		BlockElement->QueryFloatText(&block_device_mapping.volumeSize);
 		BlockElement = BlockElement->NextSiblingElement();
 		block_device_mapping.snapshotId = BlockElement->GetText();
-		image_data.Set_block_device(block_device_mapping);
+		
 
 		//
 		ImageElement = ImageElement->NextSiblingElement();
-		image_data.Set_name(ImageElement->GetText());
+		if(ImageElement->GetText()!=NULL)name=ImageElement->GetText();
 		
 		ImageElement = ImageElement->NextSiblingElement();
 		bool isPublic;
-		ImageElement->QueryBoolText(&isPublic);
-		image_data.Set_isPublic(isPublic);
+		if(ImageElement->GetText()!=NULL)ImageElement->QueryBoolText(&isPublic);
 		
 		ImageElement = ImageElement->NextSiblingElement();
-		image_data.Set_imageId(ImageElement->GetText());
+		if(ImageElement->GetText()!=NULL)image_id = (ImageElement->GetText());
 		
 		ImageElement = ImageElement->NextSiblingElement();
-		image_data.Set_imageState(ImageElement->GetText());
+		if(ImageElement->GetText()!=NULL)image_state = (ImageElement->GetText());
 		
 		ImageElement = ImageElement->NextSiblingElement();
-		image_data.Set_architecture(ImageElement->GetText());
+		if(ImageElement->GetText()!=NULL)architecture = (ImageElement->GetText());
 		
 		ImageElement = ImageElement->NextSiblingElement();
-		image_data.Set_imageType(ImageElement->GetText());
+		if(ImageElement->GetText()!=NULL)image_type = (ImageElement->GetText());
 		
-		images[image_data.Get_imageId()] = image_data;
-		image_number++;
-		
+		image image_data(block_device_mapping, name, isPublic, image_id, image_state, architecture, image_type);
+		images.push_back(image_data);
+
 		ListElement=ListElement->NextSiblingElement();
 	}
 

@@ -35,7 +35,7 @@ model::start_instances_response::start_instances_response(const string &xml_doc)
 
 		//Add to the map;
 		model::instance_set data(instance_id, current_state, previous_state);
-		instances[instance_id]=data;
+		instances.push_back(data);
 		
 		ListElement=ListElement->NextSiblingElement();
 	}
