@@ -13,7 +13,6 @@ model::stop_instances_response::stop_instances_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
-	cout<<xml_doc<<endl;
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
@@ -35,7 +34,7 @@ model::stop_instances_response::stop_instances_response(const string &xml_doc)
 		previous_state = InstanceSetElement->GetText();
 		//Add to the map
 		model::instance_set data(instance_id, current_state, previous_state);
-		instances[instance_id]=data;
+		instances.push_back(data);
 		
 		ListElement=ListElement->NextSiblingElement();
 	}

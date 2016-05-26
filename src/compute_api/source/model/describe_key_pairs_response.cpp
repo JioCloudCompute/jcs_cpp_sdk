@@ -33,7 +33,7 @@ model::describe_key_pairs_response::describe_key_pairs_response(const string &xm
 		KeyPairElement=KeyPairElement->NextSiblingElement();
 		keyfingerprint=KeyPairElement->GetText();
 		model::key_pair key(keyname,keyfingerprint);
-		key_pairs[keyname]=key;
+		key_pairs.push_back(key);
 	}
 
 }

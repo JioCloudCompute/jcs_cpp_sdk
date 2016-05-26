@@ -48,7 +48,7 @@ model::describe_volumes_response::describe_volumes_response(const string &xml_do
 		VolumeSet->QueryFloatText(&size);
 
 		model::volume data(status, volume_id, device, instance_id, snapshot_id, create_time, size);
-		volume_set[volume_id]= data;
+		volume_set.push_back(data);
 
 		ListElement=ListElement->NextSiblingElement();
 

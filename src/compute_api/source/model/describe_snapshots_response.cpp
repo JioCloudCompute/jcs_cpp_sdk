@@ -42,7 +42,7 @@ model::describe_snapshots_response::describe_snapshots_response(const string &xm
 
 		//add to map
 		model::snapshot data(status,snapshot_id,volume_size,volume_id,start_time);
-		snapshot_set[snapshot_id] = data;
+		snapshot_set,push_back(data);
 		ListElement=ListElement->NextSiblingElement();
 	}
 

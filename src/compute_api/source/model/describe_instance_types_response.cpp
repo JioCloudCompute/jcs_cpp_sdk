@@ -35,7 +35,7 @@ model::describe_instance_types_response::describe_instance_types_response(const 
 
 		//Add to map
 		model::instance_type data(vcpus, ram, id);
-		instance_type_set[id] = data;
+		instance_type_set.push_back(data);
 
 		ListElement=ListElement->NextSiblingElement();
 	}

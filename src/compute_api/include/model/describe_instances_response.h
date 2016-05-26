@@ -11,7 +11,7 @@ namespace model
 
 	class describe_instances_response{
 	private:
-		map<string, instance> Instances;
+		map<string, instance> instances;
 		int number_of_instances;
 		string request_id;
 	public:
@@ -25,7 +25,7 @@ namespace model
 
 		map<string, instance> get_instances() const
 		{
-			return Instances;
+			return instances;
 		}
 		
 

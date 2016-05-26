@@ -1,4 +1,4 @@
-#include "src/compute_api/include/model/describe_instances_response.h"
+#include "src/compute_api/include/model/run_instances_response.h"
 #include "src/XMLParser.h"
 #include <iostream>
 
@@ -12,8 +12,9 @@ using namespace model;
 
 
 
-describe_instances_response::describe_instances_response(const string &xml_doc)
+run_instances_response::run_instances_response(const string &xml_doc)
 {	
+	
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
@@ -22,46 +23,20 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 	Element = RootNode->FirstChildElement("instancesSet");
-
 	bool temp;
 	block_device_instance block;
-	groupSet group;
+	group_set group;
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *InstanceElement,*blockListElement,*blockElement;
-
-	vector<group_set> groups;
-	vector<block_device_instance> blocks;
-	string vpc_id, dns_name, instance_id, instance_state,image_id,private_dns_name,key_name, launch_time, subnet_id, instance_type, private_ip_address;
+	vector< group_set > groups;
+	string vpc_id, dnsName, instance_id, instance_state,image_id,private_dns_name,key_name, launch_time, subnet_id, instance_type, private_ip_address;
 	while(ListElement != NULL)
 	{
-		InstanceElement =  ListElement->FirstChildElement("blockDeviceMapping");
-		instance data;
-		blocks.clear();
-		grooups.clear();
-		
-		blockListElement = InstanceElement->FirstChildElement("item");
-		while(blockListElement != NULL)
-		{
-			blockElement = blockListElement->FirstChildElement("status");
-			block.status = blockElement->GetText();
-			
-			blockElement = blockElement->NextSiblingElement();
-			block.deviceName = blockElement->GetText();
-
-			blockElement = blockElement->NextSiblingElement();
-			blockElement->QueryBoolText(&temp);
-			block.deleteOnTermination = temp;
-
-			blockElement = blockElement->NextSiblingElement();
-			block.volumeId = blockElement->GetText();
-
-			blocks.push_back(block);
-			blockListElement=blockListElement->NextSiblingElement();
-
-		}
+		InstanceElement =  ListElement->FirstChildElement("vpcId");
+		if(InstanceElement->GetText()!=NULL)vpc_id=InstanceElement->GetText();
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)dns_name=InstanceElement->GetText();
+		if(InstanceElement->GetText()!=NULL)dnsName=InstanceElement->GetText();
 		
 		InstanceElement=InstanceElement->NextSiblingElement();
 		if(InstanceElement->GetText()!=NULL)instance_id=InstanceElement->GetText();
@@ -82,12 +57,12 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		if(InstanceElement->GetText()!=NULL)launch_time=InstanceElement->GetText();
 
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)subent_id=InstanceElement->GetText());
+		if(InstanceElement->GetText()!=NULL)subnet_id=InstanceElement->GetText();
 
 		XMLElement *GroupListElement,*GroupElement;
 		InstanceElement = InstanceElement->NextSiblingElement();
 		GroupListElement = InstanceElement->FirstChildElement("item");
-		
+		groups.clear();
 		while(GroupListElement != NULL)
 		{
 			GroupElement=GroupListElement->FirstChildElement("groupName");
@@ -99,18 +74,20 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		}
 		
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)vpc_id=InstanceElement->GetText();
+		if(InstanceElement->GetText()!=NULL)data.Set_vpcId(InstanceElement->GetText());
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)instance_type=InstanceElement->GetText();
+		if(InstanceElement->GetText()!=NULL)data.Set_instanceType(InstanceElement->GetText());
 		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)private_ip_address=InstanceElement->GetText();
+		if(InstanceElement->GetText()!=NULL)data.Set_privateIpAddress(InstanceElement->GetText());
 
 		ListElement=ListElement->NextSiblingElement();
 		
-		instance data(blocks,dnsName, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address);
+		instance data(vpc_id,dnsName, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, instance_type, private_ip_address);
 		instances.push_back(data);
 
 	}
 
 
 }
+
+
