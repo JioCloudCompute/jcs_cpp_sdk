@@ -14,7 +14,7 @@ namespace model
 	public:
 		create_snapshot_request();
 		
-	const string get_volume_id();
+		const string get_volume_id();
 
 		void set_volume_id(string volume_id_);
 	};

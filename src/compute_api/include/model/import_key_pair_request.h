@@ -14,11 +14,11 @@ namespace model
 
 	public:
 		import_key_pair_request();
-	const string get_key_name();
+		const string get_key_name();
 
 		void set_key_name(string key_name_);
 
-	const string get_public_key_material();
+		const string get_public_key_material();
 
 		void set_public_key_material(string public_key_material_);
 	};

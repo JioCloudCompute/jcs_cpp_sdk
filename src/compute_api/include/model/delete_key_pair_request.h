@@ -13,7 +13,7 @@ namespace model
 
 	public:
 		delete_key_pair_request();
-	const string get_key_name();
+		const string get_key_name();
 
 		void set_key_name(string key_name_);
 	};

@@ -8,139 +8,122 @@
 using namespace std;
 namespace model
 {
-	class groupSet
+	class group_set
 	{
 	public:
-		string groupName;
-		string groupId;
+		string group_name;
+		string group_id;
 	};
 
 	class instance{
 	private:
 		
-		map <string,block_device_instance> blockDevices;
-		string dnsName;
-		string instanceId;
-		string instanceState;  //STATE definition
-		string imageId;
-		string privateDnsName;
-		string keyName;
+		map <string,block_device_instance> block_devices;
+		string dns_name;
+		string instance_id;
+		string instance_state;  //STATE definition
+		string image_id;
+		string private_dns_name;
+		string key_name;
 
-		string launchtime;
-		string subnetId;
-		vector< groupSet > group;
-		string vpcId;
-		string instanceType;
-		string privateIpAddress;
+		string launch_time;
+		string subnet_id;
+		vector< group_set > group;
+		string vpc_id;
+		string instance_type;
+		string private_ip_address;
 	public:
-		void Add_blockDevice(const block_device_instance &data)
+		instance(){}
+
+
+		// Constructor used by describe_instances_response
+		instance(map <string,block_device_instance> block_devices_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
+				string launch_time_, string subnet_id_, vector<group_set>group_ ,string vpc_id_, string instance_type_, string private_ip_address_)
 		{
-			blockDevices[data.volumeId]=data;
+			block_devices = block_devices_;
+			dns_name = dns_name_;
+			instance_id = instance_id_;
+			instance_state = instance_state_;
+			image_id = image_id_;
+			private_dns_name_ = private_dns_name_;
+			key_name = key_name_;
+			launch_time = launch_time_;
+			subnet_id = subnet_id_;
+			group = group_;
+			vpc_id = vpc_id_;
+			instance_type = instance_type_;
+			private_ip_address = private_ip_address_;
 		}
+
+		// Constructor used by run_instances_response
+		instance(string vpc_id_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
+				string launch_time_, string subnet_id_, vector<group_set>group_ , string instance_type_, string private_ip_address_)
+		{
+			dns_name = dns_name_;
+			instance_id = instance_id_;
+			instance_state = instance_state_;
+			image_id = image_id_;
+			private_dns_name_ = private_dns_name_;
+			key_name = key_name_;
+			launch_time = launch_time_;
+			subnet_id = subnet_id_;
+			group = group_;
+			vpc_id = vpc_id_;
+			instance_type = instance_type_;
+			private_ip_address = private_ip_address_;
+		}
+
+
+
 		
-		void Set_dnsName(string dnsName)
+		const string get_dns_name()
 		{
-			this->dnsName = dnsName;
+			return dns_name;
 		}
-		void Set_instanceId(string instanceId)
+		const string get_instance_id()
 		{
-			this->instanceId = instanceId;
+			return instance_id;
 		}
-		void Set_instanceState(string instanceState)
+		const string get_instance_state()
 		{
-			this->instanceState = instanceState;
+			return instance_state;
 		}
-		void Set_imageId(string imageId)
+		const string get_image_id()
 		{
-			this->imageId = imageId;
-		}
-
-		void Set_privateDnsName(string privateDnsName)
-		{
-			this->privateDnsName = privateDnsName;
-		}
-		void Set_keyName(string keyName)
-		{
-			this->keyName=keyName;
-		}
-		void Set_launchtime(string launchtime)
-		{
-			this->launchtime = launchtime;
-		}
-		void Set_subnetId(string subnetId)
-		{
-			this->subnetId = subnetId;
-		}
-		void Add_group(groupSet &data)
-		{
-			group.push_back(data);
-		}
-		void Set_vpcId(string vpcId)
-		{
-			this->vpcId=vpcId;
-		}
-		void Set_instanceType(string instanceType)
-		{
-			this->instanceType=instanceType;
-		}
-		void Set_privateIpAddress(string privateIpAddress)
-		{
-			this->privateIpAddress=privateIpAddress;
+			return image_id;
 		}
 
-		map<string,block_device_instance> Add_blockDevice() const
+		const string get_private_dns_name()
 		{
-			return blockDevices;
+			return private_dns_name;
 		}
-		
-		string Get_dnsName() const
+		const string get_key_name()
 		{
-			return dnsName;
+			return key_name;
 		}
-		string Get_instanceId() const
+		const string get_launch_time()
 		{
-			return instanceId;
+			return launch_time;
 		}
-		string Get_instanceState() const
+		const string get_subnet_id()
 		{
-			return instanceState;
+			return subnet_id;
 		}
-		string Get_imageId() const
-		{
-			return imageId;
-		}
-
-		string Get_privateDnsName() const
-		{
-			return privateDnsName;
-		}
-		string Get_keyName() const
-		{
-			return keyName;
-		}
-		string Get_launchtime() const
-		{
-			return launchtime;
-		}
-		string Get_subnetId() const
-		{
-			return subnetId;
-		}
-		vector<groupSet> Get_group() const
+		const vector<groupSet> get_group()
 		{
 			return group;
 		}
-		string Get_vpcId() const
+		const string get_vpc_id()
 		{
-			return vpcId;
+			return vpc_id;
 		}
-		string Get_instanceType() const
+		const string get_instance_type()
 		{
-			return instanceType;
+			return instance_type;
 		}
-		string Get_privateIpAddress() const
+		const string get_private_ip_address()
 		{
-			return privateIpAddress;
+			return private_ip_address;
 		}
 	};
 }

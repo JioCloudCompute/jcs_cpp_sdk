@@ -15,15 +15,15 @@ namespace model
 
 	public:
 		attach_volume_request();
-	const string get_instance_id();
+		const string get_instance_id();
 
 		void set_instance_id(string instance_id_);
 
-	const string get_volume_id();
+		const string get_volume_id();
 
 		void set_volume_id(string volume_id_);
 
-	const string get_device();
+		const string get_device();
 
 		void set_device(string device_);
 

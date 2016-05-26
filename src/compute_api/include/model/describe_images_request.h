@@ -13,7 +13,7 @@ namespace model
 
 	public:
 		describe_images_request();
-	const vector<string>* get_image_ids();
+		const vector<string>* get_image_ids();
 		
 		void set_image_ids(vector<string> &image_id_set);
 	};

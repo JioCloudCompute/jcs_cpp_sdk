@@ -13,7 +13,7 @@ namespace model
 
 	public:
 		delete_snapshot_request();
-	const string get_snapshot_id();
+		const string get_snapshot_id();
 
 		void set_snapshot_id(string snapshot_id_);
 	};

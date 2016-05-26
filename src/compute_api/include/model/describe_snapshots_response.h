@@ -11,7 +11,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		map<string, model::snapshot>snapshot_set;
+		vector<model::snapshot>snapshot_set;
 
 	public:
 		describe_snapshots_response(const string &xml_doc);
@@ -20,7 +20,7 @@ namespace model
 		{
 			return request_id;
 		}
-		const map<string, model::snapshot> get_snapshot_set()
+		const vector<model::snapshot> get_snapshot_set()
 		{
 			return snapshot_set;
 		}

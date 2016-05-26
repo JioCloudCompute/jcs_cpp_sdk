@@ -11,32 +11,22 @@ namespace model
 	class describe_images_response
 	{
 		public:
-		map<string,Image> images;
+		vector<image> images;
 		string request_id;
-		int image_number;
 		
 		describe_images_response(const string &xml_doc);
-		describe_images_response()
+		describe_images_response(){}
+		
+		
+		string get_request_id()
 		{
-		}
-		
-		
-		string get_request_id(){
 			return request_id;
 		}
 		
-		int get_number_Of_images() const
+		vector<image> get_images() const
 		{
-			return image_number;
+			return images;
 		}
-		map<string, Image> get_images() const
-		{
-			return images;}
-		void Set_Image(const Image& data){
-
-		}
-	
-
 	};
 }
 #endif

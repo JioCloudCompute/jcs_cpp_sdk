@@ -14,11 +14,11 @@ namespace model
 
 	public:
 		create_volume_request();
-	const string get_snapshot_id();
+		const string get_snapshot_id();
 
 		void set_snapshot_id(string snapshot_id_);
 
-	const int get_size();
+		const int get_size();
 		
 		void set_size(int size_);
 	};

@@ -1,5 +1,5 @@
-#ifndef DESCRIBE_INSTANCESR_H
-#define DESCRIBE_INSTANCESR_H
+#ifndef RUN_INSTANCESR_H
+#define RUN_INSTANCESR_H
 #include <string>
 #include <map>
 #include <src/compute_api/include/model/instance.h>
@@ -9,12 +9,12 @@ using namespace model;
 namespace model
 {
 
-	class describe_instances_response{
+	class run_instances_response{
 	private:
 		vector<instance> instances;
 		string request_id;
 	public:
-		describe_instances_response(const string &xml_doc);
+		run_instances_response(const string &xml_doc);
 
 		const string get_request_id()
 		{

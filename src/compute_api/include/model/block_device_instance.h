@@ -4,13 +4,14 @@
 using namespace std;
 namespace model{
 
-class block_device_instance{
+	class block_device_instance
+	{
 	public:
-		bool deleteOnTermination;
 		string status;
-		string deviceName;
-		string volumeId;
-};
+		string device_name;
+		bool delete_on_termination;
+		string volume_id;
+	};
 }
 
 #endif

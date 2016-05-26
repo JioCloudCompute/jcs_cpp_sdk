@@ -12,7 +12,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		map<string, model::instance_set> instances;
+		vector<model::instance_set> instances;
 
 	public:
 		stop_instances_response(const string &xml_doc);
@@ -21,7 +21,7 @@ namespace model
 		{
 			return request_id;
 		}
-		const map<string,model::instance_set> get_instances()
+		const vector<model::instance_set> get_instances()
 		{
 			return instances;
 		}

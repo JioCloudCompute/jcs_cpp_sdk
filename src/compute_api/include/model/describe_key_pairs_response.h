@@ -12,11 +12,11 @@ namespace model
 	{
 	private:
 		string request_id;
-		map <string, model::key_pair>key_pairs;
+		vector<model::key_pair>key_pairs;
 	public:
 		describe_key_pairs_response(const string &xml_doc);
 
-		const map<string, model::key_pair> get_key_pairs()
+		const vector<model::key_pair> get_key_pairs()
 		{
 			return key_pairs;
 		}

@@ -11,7 +11,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		map<string, model::volume>volume_set;
+		vector< model::volume>volume_set;
 
 	public:
 		describe_volumes_response(const string &xml_doc);
@@ -20,7 +20,7 @@ namespace model
 		{
 			return request_id;
 		}
-		const map<string, model::volume> get_volume_set()
+		const vector<model::volume> get_volume_set()
 		{
 			return volume_set;
 		}

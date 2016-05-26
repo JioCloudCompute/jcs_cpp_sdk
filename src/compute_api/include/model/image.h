@@ -6,75 +6,62 @@
 using namespace std;
 
 namespace model{
-	class Image
+	class image
 	{
 	private:
-		bool isPublic;
+		bool is_public;
 		string name;
-		string imageId;
-		string imageState;
+		string image_id;
+		string image_state;
 		string architecture;
-		string imageType;
+		string image_type;
 		model::block_device block_device_mapping;
+
 	public:
-		void Set_isPublic(bool &value)
+		
+		image(){}
+
+		image(bool is_public_, string name_, string image_id_, string image_state_, string architecture_, 
+				string image_type_,model::block_device block_device_mapping_)
 		{
-			this->isPublic = value; 
-		}
-		void Set_name(string name){
-			this->name = name;
-		}
-		void Set_imageId(string imageId)
-		{
-			this->imageId = imageId;
-		}
-		void Set_imageState(string imageState)
-		{
-			this->imageState = imageState;
-		}
-		void Set_architecture(string architecture)
-		{
-			this->architecture = architecture;
-		}
-		void Set_imageType(string imageType)
-		{
-			this->imageType = imageType;
-		}
-		void Set_block_device(model::block_device &block_device_mapping)
-		{
-			this->block_device_mapping = block_device_mapping;
+			is_public = is_public_;
+			name = name_;
+			image_id = image_id_;
+			image_state = image_state_;
+			architecture = architecture_;
+			image_type = image_type_;
+			block_device_mapping = block_device_mapping_;
 		}
 
-		bool Get_isPublic() const
+		const bool get_is_public()
 		{
-			return isPublic;
+			return is_public;
 		}
-		string Get_name() const{
+		const string get_name()
+		{
 			return name;
 		}
-		string Get_imageId() const
+		const string get_image_id()
 		{
-			return imageId;
+			return image_id;
 		}
-		string Get_imageState() const
+		const string get_image_state()
 		{
-			return imageState;
+			return image_state;
 		}
-		string Get_architecture() const
+		const string get_architecture()
 		{
 			return architecture;
 		}
-		string Get_imageType() const
+		const string get_image_type()
 		{
-			return imageType;
+			return image_type;
 		}
 
-		model::block_device Get_block_device_mapping() const
+		const model::block_device get_block_device_mapping()
 		{
 			return block_device_mapping;
 		}
-
-
 	};
 }
 #endif

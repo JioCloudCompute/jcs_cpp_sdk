@@ -11,7 +11,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		map<string, model::instance_type>instance_type_set;
+		vector<model::instance_type>instance_type_set;
 
 	public:
 		describe_instance_types_response(const string &xml_doc);
@@ -20,7 +20,7 @@ namespace model
 		{
 			return request_id;
 		}
-		const map<string, model::instance_type> get_instance_types()
+		const vector<model::instance_type> get_instance_types()
 		{
 			return instance_type_set;
 		}

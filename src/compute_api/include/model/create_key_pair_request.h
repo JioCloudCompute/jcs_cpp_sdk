@@ -14,7 +14,7 @@ namespace model
 	public:
 		create_key_pair_request();
 		create_key_pair();
-	const string get_key_name();
+		const string get_key_name();
 
 		void set_key_name(string key_name_);
 	};
