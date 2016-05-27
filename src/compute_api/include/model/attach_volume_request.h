@@ -5,7 +5,10 @@
 
 using namespace std;
 namespace model
-{
+{	/// Class to handle attach volume request
+	/**
+		This class manages the request for attach volume. User can create an object and and initialize the needed arguments.
+	*/
 	class attach_volume_request
 	{
 	private:
@@ -14,17 +17,43 @@ namespace model
 		string device;
 
 	public:
+		/// Constructor
 		attach_volume_request();
+
+		/// Getter for the private variable instance_id
+		/**
+			\return const string
+		*/ 
 		const string get_instance_id();
 
+		/// Setter for the private variable instance_id 
+		/**
+			\param instance_id_ : instance id  with which volume will be attached(unique for each instance)
+		*/
 		void set_instance_id(string instance_id_);
 
+		/// Getter for the private variable volume_id 
+		/**
+			\return const string
+		*/
 		const string get_volume_id();
 
+		/// Setter for the private variable volume
+		/**
+			\param volume_id_ : volume id which will be attached(unique for each volume)
+		*/
 		void set_volume_id(string volume_id_);
 
+		/// Getter for the private variable device 
+		/**
+			\return const string
+		*/
 		const string get_device();
 
+		/// Setter for the private variable device 
+		/**
+			\param device_ : device where the vlume will be attached(/dev/vdb, /dev/vdc)
+		*/
 		void set_device(string device_);
 
 

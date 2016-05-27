@@ -379,7 +379,12 @@ int main()
 				res1 = obj.describe_instances(req1);
 				if(res1!=NULL){
 					vector<model::instance> tr = res1->get_instances();
-					for(int i = 0;i<tr.size();i++)cout<<tr[i].get_instance_id()<<endl;
+					for(int i = 0;i<tr.size();i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;
+						cout<<tr[i].get_instance_state()<<endl;
+						cout<<endl;
+					}
 				}
 				delete res1;
 				break;
@@ -408,7 +413,12 @@ int main()
 				if(res3!=NULL){
 					vector<model::instance_set> tr = res3->get_instances();
 
-					for(int i=0 ; i<tr.size() ; i++)cout<<tr[i].get_current_state()<<endl;
+					for(int i=0 ; i<tr.size() ; i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;
+						cout<<tr[i].get_current_state()<<endl;
+						cout<<endl;
+					}
 				}
 				delete res3;
 				break;
@@ -424,7 +434,12 @@ int main()
 				if(res4!=NULL){	
 					vector< model::instance_set> tr = res4->get_instances();
 
-					for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
+					for(int i =0;i<tr.size();i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;
+						cout<<tr[i].get_current_state()<<endl;
+						cout<<endl;
+					}
 				}
 				delete res4;
 				break;
@@ -440,8 +455,12 @@ int main()
 				res5 = obj.reboot_instances(req5);
 				if(res5!=NULL){
 					vector< model::instance_set> tr = res5->get_instances();
-
-					for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
+					for(int i =0;i<tr.size();i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;
+						cout<<tr[i].get_current_state()<<endl;
+						cout<<endl;
+					}
 				}
 				delete res5;
 				break;
@@ -457,8 +476,12 @@ int main()
 				res6 = obj.terminate_instances(req6);
 				if(res6!=NULL){
 					vector< model::instance_set> tr = res6->get_instances();
-
-					for(int i =0;i<tr.size();i++)cout<<tr[i].get_current_state()<<tr[i].get_previous_state()<<endl;	
+					for(int i =0;i<tr.size();i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;
+						cout<<tr[i].get_current_state()<<endl;
+						cout<<endl;
+					}
 				}
 				delete res6;
 				break;
@@ -474,7 +497,11 @@ int main()
 				if(res7!=NULL){
 					vector< model::instance> tr = res7->get_instances();
 
-					for(int i =0;i<tr.size();i++)cout<<tr[i].get_instance_id()<<endl;	
+					for(int i =0;i<tr.size();i++)
+					{
+						cout<<tr[i].get_instance_id()<<endl;	
+						cout<<tr[i].get_instance_state()<<endl;
+					}
 				}
 				delete res7;
 				break;
@@ -486,7 +513,10 @@ int main()
 				res8 = obj.describe_key_pairs();
 				if(res8!=NULL){
 					vector<model::key_pair> tr = res8->get_key_pairs();
-					for(int i=0 ; i<tr.size() ; i++)cout<<tr[i].get_key_name()<<endl;	
+					for(int i=0 ; i<tr.size() ; i++)
+					{
+						cout<<tr[i].get_key_name()<<endl;	
+					}
 				}
 				delete res8;
 				break;
@@ -501,7 +531,6 @@ int main()
 				if(res9!=NULL){
 					cout<<res9->get_key_material()<<endl;
 					cout<<res9->get_key_fingerprint()<<endl;
-					cout<<"a"<<res9->get_key_material()[31]<<"b";
 					cout<<res9->get_key_name()<<endl;
 				}
 				delete res9;
@@ -532,7 +561,6 @@ int main()
 					cout<<res11->get_snapshot_id()<<endl;
 					cout<<res11->get_volume_size()<<endl;
 					cout<<res11->get_volume_id()<<endl;
-					cout<<res11->get_start_time()<<endl;
 				}
 				delete res11;
 				break;
@@ -558,7 +586,12 @@ int main()
 				res13 = obj.describe_snapshots(req13);
 				if(res13!=NULL){
 					vector<model::snapshot> tr = res13->get_snapshot_set();
-					for(int i=0 ; i<tr.size() ; i++){cout<<tr[i].get_snapshot_id()<<endl;cout<<tr[i].get_volume_id()<<endl;cout<<tr[i].get_volume_size()<<endl;}
+					for(int i=0 ; i<tr.size() ; i++)
+					{
+						cout<<tr[i].get_snapshot_id()<<endl;
+						cout<<tr[i].get_volume_id()<<endl;
+						cout<<tr[i].get_volume_size()<<endl;
+					}
 				}
 				delete res13;
 				break;
@@ -624,7 +657,13 @@ int main()
 				res18 = obj.describe_volumes(req18);
 				if(res18!=NULL){
 					vector<model::volume> tr = res18->get_volume_set();
-					for(int i=0 ; i<tr.size() ; i++){cout<<tr[i].get_snapshot_id()<<endl;cout<<tr[i].get_volume_id()<<endl;cout<<tr[i].get_size()<<endl;}
+					for(int i=0 ; i<tr.size() ; i++)
+					{
+						cout<<tr[i].get_volume_id()<<endl;
+						cout<<tr[i].get_status()<<endl;
+						cout<<tr[i].get_size()<<endl;
+						cout<<tr[i].get_instance_id()<<endl;
+					}
 				}
 				delete res18;
 				break;
