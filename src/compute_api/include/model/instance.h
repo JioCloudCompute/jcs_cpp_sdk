@@ -7,7 +7,7 @@
 
 using namespace std;
 namespace model
-{
+{	///Class Describing Details of Instance
 	class group_set
 	{
 	public:
@@ -35,7 +35,11 @@ namespace model
 	public:
 		instance(){}
 
+		///Constructor 
+		/**
+			This constructor is used to instantiate instances objects from the response of decribe instances request
 
+		*/
 		// Constructor used by describe_instances_response
 		instance(vector<block_device_instance> block_devices_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
 				string launch_time_, string subnet_id_, vector<group_set>group_ ,string vpc_id_, string instance_type_, string private_ip_address_)
@@ -54,7 +58,10 @@ namespace model
 			instance_type = instance_type_;
 			private_ip_address = private_ip_address_;
 		}
-
+		///Constructor 
+		/**
+			This constructor is used to instantiate instances objects from the response of run instances request
+		*/
 		// Constructor used by run_instances_response
 		instance(string vpc_id_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
 				string launch_time_, string subnet_id_, vector<group_set>group_ , string instance_type_, string private_ip_address_)
@@ -72,27 +79,42 @@ namespace model
 			instance_type = instance_type_;
 			private_ip_address = private_ip_address_;
 		}
-
-
-
-		
+		///Getter for the DNS Name 
+		/**
+			\return const string
+		*/		
 		const string get_dns_name()
 		{
 			return dns_name;
 		}
+		///Getter for the Unique Instance ID of the instance
+		/**
+			\return const string
+		*/
 		const string get_instance_id()
 		{
 			return instance_id;
 		}
+		///Getter for the State of the instance
+		/**
+			\return const string
+		*/
 		const string get_instance_state()
 		{
 			return instance_state;
 		}
+		///Getter for the Image Id to which the Instance belongs
+		/**
+			\return const string
+		*/
 		const string get_image_id()
 		{
 			return image_id;
 		}
-
+		///Getter for the Private DNS Name
+		/**
+			\return const string
+		*/
 		const string get_private_dns_name()
 		{
 			return private_dns_name;
@@ -101,26 +123,51 @@ namespace model
 		{
 			return key_name;
 		}
+		///Getter for the Launch Time of the Instance
+		/**
+			\return const string
+		*/
 		const string get_launch_time()
 		{
 			return launch_time;
 		}
+		///Getter for the Subet ID to which the Instance belongs
+		/**
+			\return const string
+		*/
 		const string get_subnet_id()
 		{
 			return subnet_id;
 		}
+		///Getter for the Groups to which instance belongs to.
+		/**
+			\return const vector<group>
+			A vector of objects of class group_set
+		*/
 		const vector<group_set> get_group()
 		{
 			return group;
 		}
+		///Getter for the VPC ID of the Instance
+		/**
+			\return const string
+		*/
 		const string get_vpc_id()
 		{
 			return vpc_id;
 		}
+		///Getter for the Type of the Instance
+		/**
+			\return const string
+		*/
 		const string get_instance_type()
 		{
 			return instance_type;
 		}
+		///Getter for the Private IP address of the Instance
+		/**
+			\return const string
+		*/
 		const string get_private_ip_address()
 		{
 			return private_ip_address;
