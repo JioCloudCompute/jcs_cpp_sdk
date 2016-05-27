@@ -4,7 +4,10 @@
 using namespace std;
 
 namespace model
-{
+{	///Class Describing the Details of a Instance
+	/**
+		
+	*/
 	class instance_set
 	{
 	private:
@@ -12,6 +15,8 @@ namespace model
 		string current_state;
 		string previous_state;
 	public:
+		///Constructor
+		
 		instance_set(string instance_id_, string current_state_, string previous_state_)
 		{
 			instance_id = instance_id_;
@@ -19,17 +24,29 @@ namespace model
 			previous_state = previous_state_;
 		}
 		instance_set(){}
-		
+		///Getter for the Instance ID
+		/**
+			\return const string
+		*/
 		const string get_instance_id()
 		{
 			return instance_id;
 		}
+		///Getter for the Current State of the Instance
+		/**
+			\return const string
+			pending, running, shutting-down, terminated, stopping, stopped
+		*/
 
 		const string get_current_state()
 		{
 			return current_state;
 		}
-
+		///Getter for the Previous State of the Instance
+		/**
+			\return const string
+			pending, running, shutting-down, terminated, stopping, stopped
+		*/
 		const string get_previous_state()
 		{
 			return previous_state;

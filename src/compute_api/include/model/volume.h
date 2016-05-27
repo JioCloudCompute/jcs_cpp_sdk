@@ -6,6 +6,7 @@ using namespace std;
 
 namespace model
 {
+	///Class to Handle Volume Oject
 	class volume
 	{
 	private:
@@ -18,6 +19,7 @@ namespace model
 		float size;
 
 	public:
+		///Constructor
 		volume(string status_, string volume_id_, string device_, string instance_id_, string snapshot_id_, string create_time_, float size_)
 		{
 			status = status_;
@@ -31,35 +33,58 @@ namespace model
 		}
 
 		volume(){}
-		
+		///Getter for the Current Status of the Volume Object
+		/**
+			\return const string
+		*/
 		const string get_status()
 		{
 			return status;
 		}
-
+		///Getter for the current volume ID
+		/**
+			\return const string
+		*/
 		const string get_volume_id()
 		{
 			return volume_id;
 		}
-
+		///Getter for the Device ID of the Volume Storage
+		/**
+			\return const string
+		*/
 		const string get_device()
 		{
 			return device;
 		}
-
+		///Getter for the Instance ID to which the Volume is attached
+		/**
+			return const string
+		*/
 		const string get_instance_id()
 		{
 			return instance_id;
 		}
-
+		///Getter for the Snapshot ID 
+		/**
+			\return const string
+		*/
 		const string get_snapshot_id()
 		{
 			return snapshot_id;
 		}
+		///Getter for the Create Time of the Volume
+		/**
+			\return const string
+		*/
 		const string get_create_time()
 		{
 			return create_time;
 		}
+		///Getter for the Size of the Volume
+		/**
+			\return const float
+		*/
 		const float get_size()
 		{
 			return size;
