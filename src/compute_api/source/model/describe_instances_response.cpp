@@ -22,7 +22,6 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	request_id = Element->GetText();
 	Element = RootNode->FirstChildElement("instancesSet");
-
 	bool temp;
 	block_device_instance block;
 	group_set group;
@@ -110,6 +109,5 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		instances.push_back(data);
 
 	}
-
 
 }

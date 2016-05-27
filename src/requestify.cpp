@@ -29,7 +29,7 @@ namespace requestify{
 	pair<string, long> make_request(utils::http_var &info, map<string, string> &params , string data ="")
 	{
 		utils::auth_var auth_data;
-
+		response.clear();
 		//Access Key ,Secret Key, Debug Mode, Secure Mode Config
 		config::ConfigHandler config;
 
@@ -84,8 +84,6 @@ namespace requestify{
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
 		curl_global_cleanup();
-		cout<<http_code<<endl;
-		cout<<response;		
 		return make_pair(response,http_code);
 		
 		

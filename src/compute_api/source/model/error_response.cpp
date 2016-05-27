@@ -14,13 +14,24 @@ void error_report_parse(const string &xml_doc)
 
 	XMLNode *RootNode = doc.FirstChild();
 
-	XMLElement *Element = RootNode->FirstChildElement("Response");
+	XMLElement *Element = RootNode->NextSiblingElement();
+	if(Element == NULL)
+		return;
+
 	for(int i = 0;i<3;i++)
 	{
 		if(Element != NULL )Element = Element->FirstChildElement();
-		else cout<<"Error Occured while Parsing XML or Server Didn't Respond";
+		else {cout<<"Error Occured while Parsing XML or Server Didn't Respond";return;}
+
 	}
-	if(Element!=NULL )Element=Element->NextSiblingElement();
+
+	if(Element != NULL & Element->GetText() !=NULL)
+	{
+		cout<<Element->GetText()<<endl;Element=Element->NextSiblingElement();
+	}
+	else 
+		return;
+
 	if(Element->GetText() != NULL)
 		cout<<Element->GetText();
 	else
