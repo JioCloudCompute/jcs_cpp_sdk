@@ -21,7 +21,7 @@ namespace model
 			return request_id;
 		}
 
-		const vector<instance> get_instances()
+		const vector<model::instance> get_instances()
 		{
 			return instances;
 		}

@@ -10,7 +10,7 @@ using namespace std;
 
 namespace image
 {
-	string describe_images(utils::http_var &info, model::describe_images_request &req)
+	pair<string, long> describe_images(utils::http_var &info, model::describe_images_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeImages";

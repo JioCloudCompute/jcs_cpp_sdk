@@ -6,7 +6,7 @@
 #include <fstream>
 #include <curl/curl.h>
 #include "config.cpp"
-
+#include <utility>
 using namespace std;
 using namespace utils;
 using namespace config;
@@ -26,7 +26,7 @@ namespace requestify{
 	}
 
 
-	string make_request(utils::http_var &info, map<string, string> &params , string data ="")
+	pair<string, long> make_request(utils::http_var &info, map<string, string> &params , string data ="")
 	{
 		utils::auth_var auth_data;
 
@@ -85,12 +85,9 @@ namespace requestify{
 		curl_easy_cleanup(curl);
 		curl_global_cleanup();
 		cout<<http_code<<endl;
-		cout<<response;
-		if(http_code == 200 && curl_code != CURLE_ABORTED_BY_CALLBACK)
-		{
-			return response;
-		}
+		cout<<response;		
+		return make_pair(response,http_code);
 		
-		return "REQUESTFAILED";
+		
 	}
 }

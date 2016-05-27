@@ -22,7 +22,7 @@ using namespace std;
 
 namespace instance
 {
-	string describe_instances(utils::http_var &info, model::describe_instances_request &req)
+	pair<string,long> describe_instances(utils::http_var &info, model::describe_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstances";
@@ -43,7 +43,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string describe_instance_types(utils::http_var &info, model::describe_instance_types_request &req)
+	pair<string,long> describe_instance_types(utils::http_var &info, model::describe_instance_types_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstanceTypes";
@@ -64,7 +64,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string start_instances(utils::http_var &info, model::start_instances_request &req)
+	pair<string,long> start_instances(utils::http_var &info, model::start_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "StartInstances";
@@ -72,7 +72,7 @@ namespace instance
 		
 		if((req.get_instance_ids())->size() == 0)
 		{	
-			return "Error : Instance-Id needed";
+			cout << "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
@@ -87,7 +87,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string stop_instances(utils::http_var &info, model::stop_instances_request &req)
+	pair<string,long> stop_instances(utils::http_var &info, model::stop_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "StopInstances";
@@ -95,7 +95,7 @@ namespace instance
 
 		if((req.get_instance_ids())->size() == 0)
 		{	
-			return "Error : Instance-Id needed";
+			cout << "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
@@ -111,7 +111,7 @@ namespace instance
 	}
 
 
-	string reboot_instances(utils::http_var &info, model::reboot_instances_request &req)
+	pair<string,long> reboot_instances(utils::http_var &info, model::reboot_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "RebootInstances";
@@ -119,7 +119,7 @@ namespace instance
 		
 		if((req.get_instance_ids())->size()== 0)
 		{	
-			return "Error : Instance-Id needed";
+			cout << "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
@@ -135,7 +135,7 @@ namespace instance
 	}
 
 
-	string terminate_instances(utils::http_var &info, model::terminate_instances_request &req)
+	pair<string,long> terminate_instances(utils::http_var &info, model::terminate_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "TerminateInstances";
@@ -143,7 +143,7 @@ namespace instance
 		
 		if((req.get_instance_ids())->size() == 0)
 		{	
-			return "Error : Instance-Id needed";
+			cout << "Error : Instance-Id needed";
 		}
 
 		string key = "InstanceId.";
@@ -160,7 +160,7 @@ namespace instance
 
 
 
-	string run_instances(utils::http_var &info, model::run_instances_request &req )
+	pair<string,long> run_instances(utils::http_var &info, model::run_instances_request &req )
 	{
 		map <string, string> params;
 		params["Action"] = "RunInstances";
@@ -168,7 +168,7 @@ namespace instance
 
 		if(req.get_image_id().length() == 0)
 		{	
-			return "Error : Image-Id needed";
+			cout << "Error : Image-Id needed";
 		}
 		else
 		{
@@ -177,7 +177,7 @@ namespace instance
 
 		if(req.get_instance_type_id().length() == 0)
 		{	
-			return "Error : Instance-Type-Id needed";
+			cout << "Error : Instance-Type-Id needed";
 		}
 		else
 		{

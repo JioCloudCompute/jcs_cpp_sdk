@@ -16,7 +16,7 @@ using namespace requestify;
 
 namespace key_pair
 {
-	string describe_key_pairs(utils::http_var &info)
+	pair<string,long> describe_key_pairs(utils::http_var &info)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeKeyPairs";
@@ -26,7 +26,7 @@ namespace key_pair
 	}
 
 
-	string create_key_pair(utils::http_var &info, model::create_key_pair_request &req)
+	pair<string,long> create_key_pair(utils::http_var &info, model::create_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateKeyPair";
@@ -34,7 +34,7 @@ namespace key_pair
 		
 		if(req.get_key_name().length() == 0)
 		{	
-			return "Error : Key-Name needed";
+			cout <<  "Error : Key-Name needed";
 		}
 		else
 		{
@@ -44,7 +44,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_key_pair(utils::http_var &info, model::delete_key_pair_request &req)
+	pair<string,long> delete_key_pair(utils::http_var &info, model::delete_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteKeyPair";
@@ -52,7 +52,7 @@ namespace key_pair
 
 		if(req.get_key_name().length() == 0)
 		{	
-			return "Error : KeyName needed";
+			cout <<  "Error : KeyName needed";
 		}
 		else
 		{
@@ -62,7 +62,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string import_key_pair(utils::http_var &info, model::import_key_pair_request &req)
+	pair<string,long> import_key_pair(utils::http_var &info, model::import_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ImportKeyPair";
@@ -70,7 +70,7 @@ namespace key_pair
 
 		if(req.get_key_name().length() == 0)
 		{	
-			return "Error : KeyName needed";
+			cout <<  "Error : KeyName needed";
 		}
 		else
 		{
@@ -80,7 +80,7 @@ namespace key_pair
 
 		if(req.get_public_key_material().length() == 0)
 		{	
-			return "Error : Public key material needed";
+			cout <<  "Error : Public key material needed";
 		}
 		else
 		{

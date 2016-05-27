@@ -4,6 +4,7 @@
 #include "src/compute_api/source/volume.cpp"
 #include "src/compute_api/source/snapshot.cpp"
 #include "src/compute_api/source/key_pair.cpp"
+#include "src/compute_api/source/model/error_response.cpp"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -20,6 +21,7 @@ using namespace config;
 
 class compute{
 	utils::http_var info;
+
 public:
 	compute()
 	{
@@ -28,21 +30,40 @@ public:
 		strcpy(info.verb, "GET");
 		strcpy(info.headers, "");
 		strcpy(info.version, "2016-03-01");
+
 	}
 
-	//Use C++ structures and class instead of string for result
-	describe_images_response describe_images(describe_images_request &req)
+	describe_images_response *describe_images(describe_images_request &req)
 	{
-		string xmlresponse = image::describe_images(info, req);
-		
-		return describe_images_response(xmlresponse);
+		pair<string, long> response = image::describe_images(info, req);
+		if(response.second == 200)
+		{ 
+			describe_images_response *res = new describe_images_response(response.first);
+			return res;
+		}
+		else
+		{	
+			error_report_parse(response.first);
+			return NULL;
+		}
+
 	}
 
-	 describe_instances_response describe_instances(describe_instances_request &req)
+	describe_instances_response *describe_instances(describe_instances_request &req)
 	{
-		return describe_instances_response(instance::describe_instances(info,req));
+		pair<string, long> response = instance::describe_instances(info, req);
+		if(response.second == 200)
+		{ 
+			describe_instances_response *res = new describe_instances_response(response.first);
+			return res;
+		}
+		else
+		{	
+			error_report_parse(response.first);
+			return NULL;
+		}
 	}
-
+	/*
 	describe_instance_types_response describe_instance_types(describe_instance_types_request &req)
 	{
 		return describe_instance_types_response(instance::describe_instance_types(info,req));
@@ -142,7 +163,7 @@ public:
 	{
 		return update_delete_on_termination_flag_response(volume::update_delete_on_termination_flag(info, req));
 	}
-
+*/
 };
 
 int main(){
@@ -151,6 +172,13 @@ int main(){
 	// string instance_id;
 	// vector<string>image_ids;
 	
+	//describe Images
+	/*describe_images_request req;
+	describe_images_response *res;
+	res = obj.describe_images(req);
+	if(res != NULL)cout << res->get_images()[0].get_image_id();
+*/
+
 	// image_ids.push_back("i-ec554304");
 	// image_ids.push_back("i-cbf85c81");
 	// return obj.attach_volume("i-cbf85c81","6444474e-8d07-4d39-aa38-11f2dfca9959", "/dev/vdb");
@@ -159,13 +187,15 @@ int main(){
 	// cout<<result<<endl;
 
 	//describe Instance 
-	/*describe_instances_request req;
-	describe_instances_response res;
+	describe_instances_request req;
+	describe_instances_response *res;
 	res = obj.describe_instances(req);
-	map<string, model::instance> tr = res.get_instances();
-	for(map<string, model::instance>::iterator it = tr.begin();it!=tr.end();it++)cout<<it->second.Get_instanceId()<<endl;
-	*/
-
+	if(res!=NULL){
+		vector<model::instance> tr = res->get_instances();
+		for(int i = 0;i<tr.size();i++)cout<<tr[i].get_instance_id()<<endl;
+	}
+	
+	
 	//describe instance types
 	// describe_instance_types_request req;
 	// describe_instance_types_response res;
@@ -316,12 +346,12 @@ int main(){
 	// cout<<res.get_status()<<endl;
 
 	// Describe volumes
-	describe_volumes_request req;
+	/*describe_volumes_request req;
 	describe_volumes_response res;
 	res = obj.describe_volumes(req);
 	vector<model::volume> tr = res.get_volume_set();
 	for(int i=0 ; i<tr.size() ; i++){cout<<tr[i].get_snapshot_id()<<endl;cout<<tr[i].get_volume_id()<<endl;cout<<tr[i].get_size()<<endl;}
-
+*/
 	// show delete on termination flag
 	// show_delete_on_termination_flag_request req;
 	// show_delete_on_termination_flag_response res;

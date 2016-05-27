@@ -24,7 +24,7 @@ using namespace model;
 
 namespace volume
 {
-	string describe_volumes(utils::http_var &info, model::describe_volumes_request &req)
+	pair<string,long> describe_volumes(utils::http_var &info, model::describe_volumes_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeVolumes";
@@ -66,7 +66,7 @@ namespace volume
 
 
 
-	string attach_volume(utils::http_var &info, model::attach_volume_request &req)
+	pair<string,long> attach_volume(utils::http_var &info, model::attach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "AttachVolume";
@@ -74,7 +74,7 @@ namespace volume
 		
 		if(req.get_instance_id().length() == 0)
 		{	
-			return "Error : Instance-Id needed";
+			cout <<  "Error : Instance-Id needed";
 		}
 		else
 		{
@@ -83,7 +83,7 @@ namespace volume
 
 		if(req.get_volume_id().length() == 0)
 		{	
-			return "Error : Volume ID needed";
+			cout <<  "Error : Volume ID needed";
 		}
 		else
 		{
@@ -92,7 +92,7 @@ namespace volume
 
 		if(req.get_device().length() == 0)
 		{	
-			return "Error : Device needed";
+			cout <<  "Error : Device needed";
 		}
 		else
 		{
@@ -103,7 +103,7 @@ namespace volume
 	}
 
 
-	string detach_volume(utils::http_var &info, model::detach_volume_request &req)
+	pair<string,long> detach_volume(utils::http_var &info, model::detach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DetachVolume";
@@ -116,7 +116,7 @@ namespace volume
 
 		if(req.get_volume_id().length() == 0)
 		{	
-			return "Error : Volume ID needed";
+			cout <<  "Error : Volume ID needed";
 		}
 		else
 		{
@@ -126,7 +126,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string create_volume(utils::http_var &info, model::create_volume_request &req)
+	pair<string,long> create_volume(utils::http_var &info, model::create_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateVolume";
@@ -134,7 +134,7 @@ namespace volume
 
 		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)
 		{
-			return "Parameters missing, Atleast one of them needed";
+			cout <<  "Parameters missing, Atleast one of them needed";
 		}
 		
 		if(req.get_size() != -1)
@@ -152,7 +152,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	string delete_volume(utils::http_var &info, model::delete_volume_request &req)
+	pair<string,long> delete_volume(utils::http_var &info, model::delete_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteVolume";
@@ -160,7 +160,7 @@ namespace volume
 		
 		if(req.get_volume_id().length() == 0)
 		{	
-			return "Error : Volume ID needed";
+			cout <<  "Error : Volume ID needed";
 		}
 		else
 		{
@@ -171,7 +171,7 @@ namespace volume
 	}
 
 
-	string show_delete_on_termination_flag(utils::http_var &info, model::show_delete_on_termination_flag_request &req)
+	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, model::show_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ShowDeleteOnTerminationFlag";
@@ -179,7 +179,7 @@ namespace volume
 		
 		if(req.get_volume_id().length() == 0)
 		{	
-			return "Error : Volume ID needed";
+			cout <<  "Error : Volume ID needed";
 		}
 		else
 		{
@@ -190,7 +190,7 @@ namespace volume
 	}
 
 
-	string update_delete_on_termination_flag(utils::http_var &info, model::update_delete_on_termination_flag_request &req)
+	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, model::update_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "UpdateDeleteOnTerminationFlag";
@@ -198,7 +198,7 @@ namespace volume
 		
 		if(req.get_volume_id().length() == 0)
 		{	
-			return "Error : Volume ID needed";
+			cout <<  "Error : Volume ID needed";
 		}
 		else
 		{
