@@ -3,7 +3,6 @@
 using namespace std;
 using namespace model;
 
-create_snapshot_request(){}
 
 const string model::create_snapshot_request::get_volume_id() const
 {

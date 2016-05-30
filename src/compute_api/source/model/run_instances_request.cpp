@@ -54,7 +54,7 @@ const string model::run_instances_request::get_subnet_id() const
 	return subnet_id;
 }
 
-void model::run_instances_request::set_subnet_id(const string subnet_id_)
+void model::run_instances_request::set_subnet_id(const string& subnet_id_)
 {
 	subnet_id = subnet_id_;
 }

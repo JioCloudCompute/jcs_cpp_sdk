@@ -31,13 +31,6 @@ namespace utils{
 		char verb[8];
 		char version[16];
 		char headers[128];
-		http_var(std::string &url_, std::string &verb_, std::string &header_, std::string &version_)
-		{
-			strcpy(url,url_.c_str())
-			strcpy(verb, verb_.c_str());
-			strcpy(header, header_.c_str());
-			strcpy(version, version_.c_str());
-		}
 		
 	};
 
@@ -82,7 +75,7 @@ namespace utils{
 		char message[ascii_message.length()];
 		strcpy(message,ascii_message.c_str());
 		
-		const int mlen = 46;	
+		const int mlen = 256;	
 		char b64message[mlen];
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());

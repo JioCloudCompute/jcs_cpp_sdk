@@ -12,5 +12,5 @@ const vector<string> *model::terminate_instances_request::get_instance_ids() con
 
 void model::terminate_instances_request::set_instance_ids(const vector<string>& instance_id_set)
 {
-	instance_ids.insert(instance_id_set.end(), instance_id_set.begin(), instance_id_set.end());
+	instance_ids.insert(instance_ids.end(), instance_id_set.begin(), instance_id_set.end());
 }

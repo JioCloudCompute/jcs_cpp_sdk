@@ -126,7 +126,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> create_volume(utils::http_var &info, model::create_volume_request &req)
+	pair<string,long> create_volume(utils::http_var &info, const model::create_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateVolume";

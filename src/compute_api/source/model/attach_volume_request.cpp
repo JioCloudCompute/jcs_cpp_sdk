@@ -3,7 +3,6 @@
 using namespace std;
 using namespace model;
 
-attach_volume_request(){}
 
 const string model::attach_volume_request::get_instance_id() const
 {
