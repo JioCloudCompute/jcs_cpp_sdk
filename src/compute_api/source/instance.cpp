@@ -29,7 +29,7 @@ namespace instance
 		params["Version"] = info.version;
 		
 		string key = "InstanceId.";
-		stringstream ss;
+		stringstream ss;	// To convert int to string
 		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;

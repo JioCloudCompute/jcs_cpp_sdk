@@ -39,7 +39,7 @@ namespace config{
 			ConfigHandler()
 			{	
 				//read this from configuration file
-				secure = true;
+				secure = false;
 				debug = false;
 				// reading keys from file
 				std::ifstream infile("config.txt");

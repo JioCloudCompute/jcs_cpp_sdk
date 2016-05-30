@@ -58,7 +58,7 @@ namespace snapshot
 		params["Action"] = "DescribeSnapshots";
 		params["Version"] = info.version;
 
-		stringstream ss;
+		stringstream ss;	// to convert int into string
 		if((req.get_snapshot_ids())->size() != 0)
 		{
 			string key = "SnapshotId.";
@@ -70,7 +70,7 @@ namespace snapshot
 			}	
 		}
 
-		if(req.get_max_results() != -1)
+		if(req.get_max_results() != -1)		// Default value -1
 		{	
 			ss << req.get_max_results();
 			params["MaxResults"] = ss.str();
