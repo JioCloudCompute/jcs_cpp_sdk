@@ -16,7 +16,7 @@ namespace model
 
 	public:
 		/// Constructor
-		create_key_pair_request();
+		create_key_pair_request(){}
 		/// Getter for the private variable key_name
 		/**
 			\return const string

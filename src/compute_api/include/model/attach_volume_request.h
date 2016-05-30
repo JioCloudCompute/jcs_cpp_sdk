@@ -18,7 +18,7 @@ namespace model
 
 	public:
 		/// Constructor
-		attach_volume_request();
+		attach_volume_request(){}
 
 		/// Getter for the private variable instance_id
 		/**

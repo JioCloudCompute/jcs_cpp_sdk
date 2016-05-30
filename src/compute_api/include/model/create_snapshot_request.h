@@ -16,7 +16,7 @@ namespace model
 
 	public:
 		/// Constructor
-		create_snapshot_request();
+		create_snapshot_request(){}
 		/// Getter for the private variable volume_id
 		/**
 			\return const string
