@@ -22,7 +22,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name()
+		const string get_key_name() const
 		{
 			return key_name;
 		}
@@ -30,7 +30,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_fingerprint()
+		const string get_key_fingerprint() const
 		{
 			return key_fingerprint;
 		}

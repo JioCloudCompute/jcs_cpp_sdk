@@ -28,16 +28,16 @@ namespace model
 		/**
 			\return const string
 		*/
-		string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
 		///Getter for the Description of Images requested
 		/**
-			\return vector<image> 
+			\return vector<image> *
 			A vector of objects of class image
 		*/
-		vector<image> get_images() const
+		const vector<image> get_images() const
 		{
 			return images;
 		}

@@ -25,7 +25,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
@@ -34,7 +34,7 @@ namespace model
 			\return bool
 			True if Volume was successfully Deleted
 		*/
-		const bool get_result()
+		const bool get_result() const
 		{
 			return result;
 		}

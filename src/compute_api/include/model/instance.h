@@ -83,7 +83,7 @@ namespace model
 		/**
 			\return const string
 		*/		
-		const string get_dns_name()
+		const string get_dns_name() const
 		{
 			return dns_name;
 		}
@@ -91,7 +91,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id()
+		const string get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -99,7 +99,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_state()
+		const string get_instance_state() const
 		{
 			return instance_state;
 		}
@@ -107,7 +107,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_image_id()
+		const string get_image_id() const
 		{
 			return image_id;
 		}
@@ -115,11 +115,11 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_dns_name()
+		const string get_private_dns_name() const
 		{
 			return private_dns_name;
 		}
-		const string get_key_name()
+		const string get_key_name() const
 		{
 			return key_name;
 		}
@@ -127,7 +127,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_launch_time()
+		const string get_launch_time() const
 		{
 			return launch_time;
 		}
@@ -135,7 +135,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_subnet_id()
+		const string get_subnet_id() const
 		{
 			return subnet_id;
 		}
@@ -144,7 +144,7 @@ namespace model
 			\return const vector<group>
 			A vector of objects of class group_set
 		*/
-		const vector<group_set> get_group()
+		const vector<group_set> get_group() const
 		{
 			return group;
 		}
@@ -152,7 +152,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_vpc_id()
+		const string get_vpc_id() const
 		{
 			return vpc_id;
 		}
@@ -160,7 +160,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_type()
+		const string get_instance_type() const
 		{
 			return instance_type;
 		}
@@ -168,7 +168,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_ip_address()
+		const string get_private_ip_address() const
 		{
 			return private_ip_address;
 		}

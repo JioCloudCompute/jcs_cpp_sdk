@@ -25,7 +25,7 @@ namespace model
 		/**
 			\return const float
 		*/
-		const float get_vcpus()
+		const float get_vcpus() const
 		{
 			return vcpus;
 		}
@@ -33,7 +33,7 @@ namespace model
 		/**
 			\return const float
 		*/
-		const float get_ram()
+		const float get_ram() const
 		{
 			return ram;
 		}
@@ -41,7 +41,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_id()
+		const string get_id() const
 		{
 			return id;
 		}

@@ -31,6 +31,13 @@ namespace utils{
 		char verb[8];
 		char version[16];
 		char headers[128];
+		http_var(std::string &url_, std::string &verb_, std::string &header_, std::string &version_)
+		{
+			strcpy(url,url_.c_str())
+			strcpy(verb, verb_.c_str());
+			strcpy(header, header_.c_str());
+			strcpy(version, version_.c_str());
+		}
 		
 	};
 

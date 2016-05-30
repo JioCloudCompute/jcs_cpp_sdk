@@ -12,8 +12,7 @@ using namespace utils;
 using namespace config;
 
 namespace requestify{
-	string response; //will hold the url's contents
-
+	string response;
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 	{ //callback must have this declaration
 	    //buf is a pointer to the data that curl has for us
@@ -25,8 +24,38 @@ namespace requestify{
 	    return size*nmemb; //tell curl how many bytes we handled
 	}
 
+	pair<string, long> CURL_REQUEST(const string &request_string)
+	{
+		CURL* curl; // curl object
 
-	pair<string, long> make_request(utils::http_var &info, map<string, string> &params , string data ="")
+		curl_global_init(CURL_GLOBAL_ALL);
+		curl = curl_easy_init();
+
+		//headers
+		struct curl_slist *header_list = NULL;
+		header_list = curl_slist_append(header_list, "Content-Type: application/json");
+		curl_slist_append(header_list, "Accept-Encoding: identity");
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
+		
+		//SSL verifiation off
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+		
+		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
+		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
+		CURLcode curl_code = curl_easy_perform(curl);
+		long http_code = 0;
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+		curl_easy_cleanup(curl);
+		curl_global_cleanup();
+
+		return make_pair(response, http_code);
+		
+	}
+
+
+	pair<string, long> make_request(const utils::http_var &info, map<string, string> &params , string data ="")
 	{
 		utils::auth_var auth_data;
 		response.clear();
@@ -62,29 +91,8 @@ namespace requestify{
 
 		// TODO: Header handling remaining
 		cout<<request_string<<endl;
-		CURL* curl; // curl object
 
-		curl_global_init(CURL_GLOBAL_ALL);
-		curl = curl_easy_init();
-
-		struct curl_slist *header_list = NULL;
-		header_list = curl_slist_append(header_list, "Content-Type: application/json");
-		curl_slist_append(header_list, "Accept-Encoding: identity");
-
-		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
-		//SSL verifiation off
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
-		
-		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
-		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-		CURLcode curl_code = curl_easy_perform(curl);
-		long http_code = 0;
-		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-		curl_easy_cleanup(curl);
-		curl_global_cleanup();
-		return make_pair(response,http_code);
+		return CURL_REQUEST(request_string);
 		
 		
 	}
