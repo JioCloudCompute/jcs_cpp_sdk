@@ -1,5 +1,0 @@
-1. Use namespace jcs_sdk.
-2. Use constants instead of magic number.
-3. Write function for common utils like removing last characaters.
-4. Use const reference and const pointers whereever possible
-5. Keep user visible functions in header files.

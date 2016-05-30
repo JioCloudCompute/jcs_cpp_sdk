@@ -24,7 +24,7 @@ namespace requestify{
 	    return size*nmemb; //tell curl how many bytes we handled
 	}
 
-	pair<string, long> CURL_REQUEST(const string &request_string)
+	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config)
 	{
 		CURL* curl; // curl object
 
@@ -38,8 +38,8 @@ namespace requestify{
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 		
 		//SSL verifiation off
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, config.check_secure());
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, config.check_secure());
 		
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
@@ -92,7 +92,7 @@ namespace requestify{
 		// TODO: Header handling remaining
 		cout<<request_string<<endl;
 
-		return CURL_REQUEST(request_string);
+		return CURL_REQUEST(request_string, config);
 		
 		
 	}
