@@ -21,12 +21,12 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id();
+		const string get_volume_id() const;
 		/// Setter for the private variable volume_id
 		/**
 			\param volume_id_ : volume id  to be deleted(unique for each volume)
 		*/
-		void set_volume_id(string volume_id_);
+		void set_volume_id(const string& volume_id_);
 	};
 }
 #endif

@@ -24,42 +24,42 @@ namespace model
 		/**
 			\return const vector<string> *
 		*/
-		const vector<string> *get_snapshot_ids();
+		const vector<string> *get_snapshot_ids() const;
 		/// Setter for the private variable snapshots_id
 		/**
 			\param snapshot_id_set (optional): reference to a vector of snapshot ids
 		*/
-		void set_snapshot_ids(vector<string> snapshot_id_set);
+		void set_snapshot_ids(const vector<string>& snapshot_id_set);
 		/// Getter for the private variable max_results
 		/**
 			\return const int
 		*/
-		const int get_max_results();
+		const int get_max_results() const;
 		/// Setter for the private variable max_results
 		/**
 			\param max_results_ (optional): Max number of results to be shown in response.
 		*/
-		void set_max_results(int max_results_);
+		void set_max_results(const int& max_results_);
 		/// Getter for the private variable next_token
 		/**
 			\return const string
 		*/
-		const string get_next_token();
+		const string get_next_token() const;
 		/// Setter for the private variable next_token
 		/**
 			\param next_token_ (optional): NextToken - Id of last snapshot seen if max number of results is less than total snapshots
 		*/
-		void set_next_token(string next_token_);
+		void set_next_token(const string& next_token_);
 		/// Getter for the private variable detail
 		/**
 			\return const bool
 		*/
-		const bool get_detail();
+		const bool get_detail() const;
 		/// Setter for the private variable detail
 		/**
 			\param detail_ (optional): Detail - by default this is true. Set to false to will supress detailed response
 		*/
-		void set_detail(bool detail_);
+		void set_detail(const bool& detail_);
 
 	};
 }

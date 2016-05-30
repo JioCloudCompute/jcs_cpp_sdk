@@ -26,7 +26,7 @@ namespace key_pair
 	}
 
 
-	pair<string,long> create_key_pair(utils::http_var &info, model::create_key_pair_request &req)
+	pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateKeyPair";
@@ -44,7 +44,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> delete_key_pair(utils::http_var &info, model::delete_key_pair_request &req)
+	pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteKeyPair";
@@ -62,7 +62,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> import_key_pair(utils::http_var &info, model::import_key_pair_request &req)
+	pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ImportKeyPair";

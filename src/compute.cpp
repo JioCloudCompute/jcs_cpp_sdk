@@ -21,20 +21,11 @@ using namespace config;
 
 class compute
 {
-	utils::http_var info;
+	utils::http_var info(config::get_service_url("compute").c_str(), "GET", "", "2016-03-01");
 
 public:
-	compute()
-	{
-		//separate compute from config
-		strcpy(info.url, config::get_service_url("compute").c_str());
-		strcpy(info.verb, "GET");
-		strcpy(info.headers, "");
-		strcpy(info.version, "2016-03-01");
-
-	}
-
-	describe_images_response *describe_images(describe_images_request &req)
+	//make req const
+	describe_images_response *describe_images(const describe_images_request &req)
 	{
 		pair<string, long> response = image::describe_images(info, req);
 		if(response.second == 200)
@@ -50,7 +41,7 @@ public:
 
 	}
 
-	describe_instances_response *describe_instances(describe_instances_request &req)
+	describe_instances_response *describe_instances(const describe_instances_request &req)
 	{
 		pair<string, long> response = instance::describe_instances(info, req);
 		if(response.second == 200)
@@ -65,7 +56,7 @@ public:
 		}
 	}
 
-	describe_instance_types_response *describe_instance_types(describe_instance_types_request &req)
+	describe_instance_types_response *describe_instance_types(const describe_instance_types_request &req)
 	{
 		pair<string, long> response = instance::describe_instance_types(info, req);
 		if(response.second == 200)
@@ -79,7 +70,7 @@ public:
 			return NULL;
 		}
 	}
-	start_instances_response *start_instances(start_instances_request &req)
+	start_instances_response *start_instances(const start_instances_request &req)
 	{
 		pair<string, long> response = instance::start_instances(info, req);
 		if(response.second == 200)
@@ -93,7 +84,7 @@ public:
 			return NULL;
 		}
 	}
-	stop_instances_response *stop_instances(stop_instances_request &req)
+	stop_instances_response *stop_instances(const stop_instances_request &req)
 	{
 		pair<string, long> response = instance::stop_instances(info, req);
 		if(response.second == 200)
@@ -107,7 +98,7 @@ public:
 			return NULL;
 		}
 	}
-	reboot_instances_response *reboot_instances(reboot_instances_request &req)
+	reboot_instances_response *reboot_instances(const reboot_instances_request &req)
 	{
 		pair<string, long> response = instance::reboot_instances(info, req);
 		if(response.second == 200)
@@ -121,7 +112,7 @@ public:
 			return NULL;
 		}
 	}
-	terminate_instances_response *terminate_instances(terminate_instances_request &req)
+	terminate_instances_response *terminate_instances(const terminate_instances_request &req)
 	{
 		pair<string, long> response = instance::terminate_instances(info, req);
 		if(response.second == 200)
@@ -135,7 +126,7 @@ public:
 			return NULL;
 		}
 	}
-	run_instances_response *run_instances(run_instances_request &req)
+	run_instances_response *run_instances(const run_instances_request &req)
 	{
 		pair<string, long> response = instance::run_instances(info, req);
 		if(response.second == 200)
@@ -163,7 +154,7 @@ public:
 			return NULL;
 		}
 	}
-	create_key_pair_response *create_key_pair(create_key_pair_request &req)
+	create_key_pair_response *create_key_pair(const create_key_pair_request &req)
 	{
 		pair<string, long> response = key_pair::create_key_pair(info, req);
 		if(response.second == 200)
@@ -177,7 +168,7 @@ public:
 			return NULL;
 		}
 	}
-	delete_key_pair_response *delete_key_pair(delete_key_pair_request &req)
+	delete_key_pair_response *delete_key_pair(const delete_key_pair_request &req)
 	{
 		pair<string, long> response = key_pair::delete_key_pair(info, req);
 		if(response.second == 200)
@@ -191,7 +182,7 @@ public:
 			return NULL;
 		}
 	}
-	import_key_pair_response *import_key_pair(import_key_pair_request &req)
+	import_key_pair_response *import_key_pair(const import_key_pair_request &req)
 	{
 		pair<string, long> response = key_pair::import_key_pair(info, req);
 		if(response.second == 200)
@@ -205,7 +196,7 @@ public:
 			return NULL;
 		}
 	}
-	describe_snapshots_response *describe_snapshots(describe_snapshots_request &req)
+	describe_snapshots_response *describe_snapshots(const describe_snapshots_request &req)
 	{
 		pair<string, long> response = snapshot::describe_snapshots(info, req);
 		if(response.second == 200)
@@ -219,7 +210,7 @@ public:
 			return NULL;
 		}
 	}
-	create_snapshot_response *create_snapshot(create_snapshot_request &req)
+	create_snapshot_response *create_snapshot(const create_snapshot_request &req)
 	{
 		pair<string, long> response = snapshot::create_snapshot(info, req);
 		if(response.second == 200)
@@ -233,7 +224,7 @@ public:
 			return NULL;
 		}
 	}
-	delete_snapshot_response *delete_snapshot(delete_snapshot_request &req)
+	delete_snapshot_response *delete_snapshot(const delete_snapshot_request &req)
 	{
 		pair<string, long> response = snapshot::delete_snapshot(info, req);
 		if(response.second == 200)
@@ -247,7 +238,7 @@ public:
 			return NULL;
 		}
 	}
-	describe_volumes_response *describe_volumes(describe_volumes_request &req)
+	describe_volumes_response *describe_volumes(const describe_volumes_request &req)
 	{
 		pair<string, long> response = volume::describe_volumes(info, req);
 		if(response.second == 200)
@@ -261,7 +252,7 @@ public:
 			return NULL;
 		}
 	}
-	create_volume_response *create_volume(create_volume_request &req)
+	create_volume_response *create_volume(const create_volume_request &req)
 	{
 		pair<string, long> response = volume::create_volume(info, req);
 		if(response.second == 200)
@@ -275,7 +266,7 @@ public:
 			return NULL;
 		}
 	}
-	delete_volume_response *delete_volume(delete_volume_request &req)
+	delete_volume_response *delete_volume(const delete_volume_request &req)
 	{
 		pair<string, long> response = volume::delete_volume(info, req);
 		if(response.second == 200)
@@ -289,7 +280,7 @@ public:
 			return NULL;
 		}
 	}
-	attach_volume_response *attach_volume(attach_volume_request &req)
+	attach_volume_response *attach_volume(const attach_volume_request &req)
 	{
 		pair<string, long> response = volume::attach_volume(info, req);
 		if(response.second == 200)
@@ -303,7 +294,7 @@ public:
 			return NULL;
 		}
 	}
-	detach_volume_response *detach_volume(detach_volume_request &req)
+	detach_volume_response *detach_volume(const detach_volume_request &req)
 	{
 		pair<string, long> response = volume::detach_volume(info, req);
 		if(response.second == 200)
@@ -317,7 +308,7 @@ public:
 			return NULL;
 		}
 	}
-	show_delete_on_termination_flag_response *show_delete_on_termination_flag(show_delete_on_termination_flag_request &req)
+	show_delete_on_termination_flag_response *show_delete_on_termination_flag(const show_delete_on_termination_flag_request &req)
 	{
 		pair<string, long> response = volume::show_delete_on_termination_flag(info, req);
 		if(response.second == 200)
@@ -331,7 +322,7 @@ public:
 			return NULL;
 		}
 	}
-	update_delete_on_termination_flag_response *update_delete_on_termination_flag(update_delete_on_termination_flag_request &req)
+	update_delete_on_termination_flag_response *update_delete_on_termination_flag(const update_delete_on_termination_flag_request &req)
 	{
 		pair<string, long> response = volume::update_delete_on_termination_flag(info, req);
 		if(response.second == 200)
@@ -352,7 +343,7 @@ int main()
 	compute obj;
 	vector<string>instance_ids;
 	int option;
-	cin>>option;
+	option=1;
 	while(option!=-1)
 	{
 		
@@ -531,7 +522,7 @@ int main()
 				if(res9!=NULL){
 					cout<<res9->get_key_material()<<endl;
 					cout<<res9->get_key_fingerprint()<<endl;
-					cout<<res9->get_key_name()<<endl;
+					cout<<res9->get_key_name()<<endl	;
 				}
 				delete res9;
 				break;
@@ -617,7 +608,7 @@ int main()
 				req15.set_volume_id("69ab9944-64f5-467d-b3f9-fccd3b5d593d");
 				res15 = obj.delete_volume(req15);
 				if(res15!=NULL){
-					cout<<res15->get_status()<<endl;
+					cout<<res15->get_result()<<endl;
 				}
 				delete res15;
 				break;
@@ -699,7 +690,7 @@ int main()
 			default:
 				break;
 		}
-		cin>>option;
+		option=-1;
 	}
 	return 0;
 }

@@ -22,22 +22,22 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name();
+		const string get_key_name() const;
 		/// Setter for the private variable key_name
 		/**
 			\param key_name_ : key name (unique for each key)
 		*/
-		void set_key_name(string key_name_);
+		void set_key_name(const string& key_name_);
 		/// Getter for the private variable public_key_material
 		/**
 			\return const string
 		*/
-		const string get_public_key_material();
+		const string get_public_key_material() const;
 		/// Setter for the private variable public_key_material
 		/**
 			\param public_key_material_ : The public key contents creaed by a third party software. If not base64 encoded the public key material import would fail
 		*/
-		void set_public_key_material(string public_key_material_);
+		void set_public_key_material(const string& public_key_material_);
 	};
 }
 #endif

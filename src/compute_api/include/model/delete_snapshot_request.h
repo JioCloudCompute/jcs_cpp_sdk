@@ -21,12 +21,12 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id();
+		const string get_snapshot_id() const;
 		/// Setter for the private variable snapshot_id
 		/**
 			\param snapshot_id_ : snapshot id to be deleted(unique for each snapshot)
 		*/
-		void set_snapshot_id(string snapshot_id_);
+		void set_snapshot_id(const string& snapshot_id_);
 	};
 }
 #endif

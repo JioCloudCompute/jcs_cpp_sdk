@@ -21,12 +21,12 @@ namespace model
 		/**
 			\return const vector<string> *
 		*/
-		const vector<string> *get_instance_type_ids();
+		const vector<string> *get_instance_type_ids() const;
 		/// Setter for the private variable instance_type_ids
 		/**
 			\param instance_type_id_set (optional) : reference to a vector of instance type ids
 		*/
-		void set_instance_types_ids(vector<string>instance_type_id_set);
+		void set_instance_types_ids(const vector<string>& instance_type_id_set);
 	};
 }
 #endif

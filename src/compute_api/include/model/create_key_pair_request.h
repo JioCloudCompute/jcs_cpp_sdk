@@ -21,12 +21,12 @@ namespace model
 		/**
 			\return const string
 		*/ 
-		const string get_key_name();
+		const string get_key_name() const;
 		/// Setter for the private variable key_name
 		/**
 			\param key_name_ : key name of the key pair created (unique for each key pair)
 		*/ 
-		void set_key_name(string key_name_);
+		void set_key_name(const string& key_name_);
 	};
 }
 #endif

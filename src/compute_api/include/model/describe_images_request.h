@@ -21,14 +21,13 @@ namespace model
 		/**
 			\return const vector<string> *
 		*/
-		const vector<string>* get_image_ids();
+		const vector<string>* get_image_ids() const;
 		/// Setter for the private variable image_ids
 		/**
 			\param image_id_set (optional) : reference to a vector of image ids
 		*/
-		void set_image_ids(vector<string> &image_id_set);
+		void set_image_ids(const vector<string> &image_id_set);
 	};
 }
 
 #endif
-

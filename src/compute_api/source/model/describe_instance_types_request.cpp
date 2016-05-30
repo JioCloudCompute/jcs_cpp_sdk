@@ -4,20 +4,14 @@ using namespace std;
 using namespace model;
 
 
-model::describe_instance_types_request::describe_instance_types_request()
-{
-	instance_type_ids = vector<string>();
-}
+model::describe_instance_types_request::describe_instance_types_request(){}
 
-const vector<string> *model::describe_instance_types_request::get_instance_type_ids()
+const vector<string> *model::describe_instance_types_request::get_instance_type_ids() const
 {
 	return &instance_type_ids;
 }
 
-void model::describe_instance_types_request::set_instance_types_ids(vector<string>instance_type_id_set)
+void model::describe_instance_types_request::set_instance_types_ids(const vector<string>& instance_type_id_set)
 {
-	for(int i=0 ; i<instance_type_id_set.size() ; i++)
-	{
-		instance_type_ids.push_back(instance_type_id_set[i]);
-	}
+	instance_type_ids.insert(instance_type_ids.end(), instance_type_id_set.begin(), instance_type_id_set.end());
 }

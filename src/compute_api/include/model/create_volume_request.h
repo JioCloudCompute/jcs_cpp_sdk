@@ -22,22 +22,22 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id();
+		const string get_snapshot_id() const;
 		/// Setter for the private variable snapshot_id
 		/**
 			\param snapshot_id_ (optional) : snapshot id to create volume similar to the volume from which snapshot is created(unique for each snapshot). Not necessary if size is given
 		*/
-		void set_snapshot_id(string snapshot_id_);
+		void set_snapshot_id(const string& snapshot_id_);
 		/// Getter for the private variable size
 		/**
 			\return const string
 		*/
-		const int get_size();
+		const int get_size() const;
 		/// Setter for the private variable size
 		/**
 			\param size_(optional) : size of the volume. Not necessary if snapshot id is given
 		*/
-		void set_size(int size_);
+		void set_size(const int& size_);
 	};
 }
 #endif

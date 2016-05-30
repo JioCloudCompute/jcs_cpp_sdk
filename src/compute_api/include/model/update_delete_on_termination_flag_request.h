@@ -22,22 +22,22 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id();
+		const string get_volume_id() const;
 		/// Setter for the private variable volume_id
 		/**
 			\param volume_id_ : Particular volume id to be updated for DeleteOnTermination flag.
 		*/
-		void set_volume_id(string volume_id_);
+		void set_volume_id(const string& volume_id_);
 		/// Getter for the private variable delete_on_termination
 		/**
 			\return const bool
 		*/
-		const bool get_delete_on_termination();
+		const bool get_delete_on_termination() const;
 		/// Setter for the private variable delete_on_termination
 		/**
 			\param delete_on_termination_ : Boolean value for the DeleteOnTermination flag 
 		*/
-		void set_delete_on_termination(bool delete_on_termination_);
+		void set_delete_on_termination(const bool& delete_on_termination_);
 	};
 }
 #endif

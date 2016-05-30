@@ -24,7 +24,7 @@ using namespace model;
 
 namespace volume
 {
-	pair<string,long> describe_volumes(utils::http_var &info, model::describe_volumes_request &req)
+	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeVolumes";
@@ -66,7 +66,7 @@ namespace volume
 
 
 
-	pair<string,long> attach_volume(utils::http_var &info, model::attach_volume_request &req)
+	pair<string,long> attach_volume(utils::http_var &info, const model::attach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "AttachVolume";
@@ -103,7 +103,7 @@ namespace volume
 	}
 
 
-	pair<string,long> detach_volume(utils::http_var &info, model::detach_volume_request &req)
+	pair<string,long> detach_volume(utils::http_var &info, const model::detach_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DetachVolume";
@@ -152,7 +152,7 @@ namespace volume
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> delete_volume(utils::http_var &info, model::delete_volume_request &req)
+	pair<string,long> delete_volume(utils::http_var &info, const model::delete_volume_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteVolume";
@@ -171,7 +171,7 @@ namespace volume
 	}
 
 
-	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, model::show_delete_on_termination_flag_request &req)
+	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, const model::show_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ShowDeleteOnTerminationFlag";
@@ -190,7 +190,7 @@ namespace volume
 	}
 
 
-	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, model::update_delete_on_termination_flag_request &req)
+	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, const model::update_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "UpdateDeleteOnTerminationFlag";

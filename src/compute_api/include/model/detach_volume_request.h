@@ -23,22 +23,22 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id();
+		const string get_instance_id() const;
 		/// Setter for the private variable instance_id
 		/**
 			\param instance_id_ (optional): instance id (unique for each instance)
 		*/
-		void set_instance_id(string instance_id_);
+		void set_instance_id(const string& instance_id_);
 		/// Getter for the private variable volume_id
 		/**
 			\return const string
 		*/
-		const string get_volume_id();
+		const string get_volume_id() const;
 		/// Setter for the private variable volume_id
 		/**
 			\param volume_id_ : volume id (unique for each volume)
 		*/
-		void set_volume_id(string volume_id_);
+		void set_volume_id(const string& volume_id_);
 
 	};
 }
