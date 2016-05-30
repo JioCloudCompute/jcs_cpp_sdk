@@ -24,7 +24,7 @@ namespace model
 			\return const vector<key_pair>
 			A vector of objects of class key_pair
 		*/
-		const model::key_pair get_key()
+		const model::key_pair get_key() const
 		{
 			return key;
 		}
@@ -32,7 +32,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}

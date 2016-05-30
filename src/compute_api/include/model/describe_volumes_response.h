@@ -28,7 +28,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
@@ -37,7 +37,7 @@ namespace model
 			\return const vector<model::volume>  
 			A vector of objects of class volume
 		*/
-		const vector<model::volume> get_volume_set()
+		const vector<model::volume> get_volume_set() const
 		{
 			return volume_set;
 		}

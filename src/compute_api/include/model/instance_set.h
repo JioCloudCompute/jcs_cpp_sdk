@@ -28,7 +28,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id()
+		const string get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -38,7 +38,7 @@ namespace model
 			pending, running, shutting-down, terminated, stopping, stopped
 		*/
 
-		const string get_current_state()
+		const string get_current_state() const
 		{
 			return current_state;
 		}
@@ -47,7 +47,7 @@ namespace model
 			\return const string
 			pending, running, shutting-down, terminated, stopping, stopped
 		*/
-		const string get_previous_state()
+		const string get_previous_state() const
 		{
 			return previous_state;
 		}

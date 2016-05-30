@@ -26,7 +26,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
@@ -35,7 +35,7 @@ namespace model
 			\return const vector<model::instance>  
 			A vector of objects of class instance
 		*/
-		const vector<model::instance> get_instances()
+		const vector<model::instance> get_instances() const
 		{
 			return instances;
 		}

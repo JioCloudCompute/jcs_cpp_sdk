@@ -28,7 +28,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
@@ -37,7 +37,7 @@ namespace model
 			\return const vector<model::snapshot>  
 			A vector of objects of class snapshot
 		*/
-		const vector<model::snapshot> get_snapshot_set()
+		const vector<model::snapshot> get_snapshot_set() const
 		{
 			return snapshot_set;
 		}

@@ -29,7 +29,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}
@@ -37,7 +37,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_status()
+		const string get_status() const
 		{
 			return status;
 		}
@@ -45,7 +45,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id()
+		const string get_volume_id() const
 		{
 			return volume_id;
 		}
@@ -53,7 +53,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id()
+		const string get_snapshot_id() const
 		{
 			return snapshot_id;
 		}
@@ -61,7 +61,7 @@ namespace model
 		/**
 			\return float
 		*/
-		const float get_size()
+		const float get_size() const
 		{
 			return size;
 		}
@@ -69,7 +69,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_create_time()
+		const string get_create_time() const
 		{
 			return create_time;
 		}

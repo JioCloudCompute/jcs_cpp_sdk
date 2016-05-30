@@ -27,7 +27,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_fingerprint()
+		const string get_key_fingerprint() const
 		{
 			return key_fingerprint;
 		}
@@ -35,7 +35,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_material()
+		const string get_key_material() const
 		{
 			return key_material;
 		}
@@ -43,7 +43,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name()
+		const string get_key_name() const
 		{
 			return key_name;
 		}
@@ -51,7 +51,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id()
+		const string get_request_id() const
 		{
 			return request_id;
 		}

@@ -31,7 +31,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_request_id() 
+		const string get_request_id() const 
 		{
 			return request_id;
 		}
@@ -39,7 +39,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_status()
+		const string get_status() const
 		{
 			return status;
 		}
@@ -47,7 +47,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_device()
+		const string get_device() const
 		{
 			return device;
 		}
@@ -55,7 +55,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_instance_id()
+		const string get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -63,7 +63,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_volume_id()
+		const string get_volume_id() const
 		{
 			return  volume_id;
 		}
@@ -71,7 +71,7 @@ namespace model
 		/**
 			\return  Bool
 		*/
-		const bool get_delete_on_termination()
+		const bool get_delete_on_termination() const
 		{
 			return delete_on_termination;
 		}
