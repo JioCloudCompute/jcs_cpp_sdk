@@ -1,7 +1,7 @@
 #include "compute.cpp"
 int main()
 {
-	compute obj;
+	JIOCOMPUTE::compute obj;
 	vector<string>instance_ids;
 	int option;
 	cin>>option;
