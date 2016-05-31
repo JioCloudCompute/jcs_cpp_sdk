@@ -319,5 +319,26 @@ update_delete_on_termination_flag_response *compute::update_delete_on_terminatio
 			return NULL;
 		}
 	}
+get_password_data_response *compute::get_password_data(const get_password_data_request &req)
+	{
+		pair<string , long > response = instance::get_password_data(info,req);
+		if(response.second == 200)
+		{
+			get_password_data_response *res = new get_password_data_response(response.first);
+			
+			if(res!=NULL)
+			{
+				string decrypted_password = utils::decrypt_password(res.get_password_data, req.get_private_key_file, req.get_passphrase);
+
+			}
+
+			return res;
+		}
+		else
+		{
+			error_report_parse(response.first);
+			return NULL;
+		}
+	}
 
 

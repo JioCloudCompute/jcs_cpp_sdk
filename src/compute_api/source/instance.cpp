@@ -235,4 +235,19 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
+	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data &req)
+
+	{	
+		map<string , string > params;
+		params['Action'] = "GetPasswordData";
+		params['Version'] = info.version;
+
+		if(req.get_instance_id().length() == 0)
+			cout<<"Instance-ID is Required"<<endl;
+		else params['InstanceID'] = req.get_instance_id();
+
+		return requestify::make_request(info,params);
+
+	}
+
 }

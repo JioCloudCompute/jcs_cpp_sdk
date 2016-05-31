@@ -154,7 +154,10 @@ namespace JIOCOMPUTE{
 		/**
 		*/
 		update_delete_on_termination_flag_response *update_delete_on_termination_flag(const update_delete_on_termination_flag_request &req);
-	
+		///Method to get password data of the requested instance
+		/**
+		*/
+		get_password_data response *get_password_data(const get_password_data &req);	
 
 		
 	};
