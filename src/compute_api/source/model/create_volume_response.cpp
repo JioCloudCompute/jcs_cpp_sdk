@@ -16,20 +16,21 @@ model::create_volume_response::create_volume_response(const string &xml_doc)
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 
 	Element = Element->NextSiblingElement();
-	status=Element->GetText();
+	if(Element->GetText()!=NULL)status=Element->GetText();
+	
 	Element = Element->NextSiblingElement();
-	volume_id = Element->GetText();
+	if(Element->GetText()!=NULL)volume_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
 
 	Element=Element->NextSiblingElement();
-	snapshot_id = Element->GetText();
+	if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	create_time = Element->GetText();
+	if(Element->GetText()!=NULL)create_time = Element->GetText();
 
 	Element=Element->NextSiblingElement();
 	Element->QueryFloatText(&size);

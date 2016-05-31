@@ -23,7 +23,7 @@ describe_images_response::describe_images_response(const string &xml_doc)
 	XMLElement *FirstElement = RootNode->FirstChildElement("requestId");
 	//if(FirstElement == NULL) return XML_ERROR_PARSING_ELEMENT;
 
-	request_id = FirstElement->GetText();
+	if(Element->GetText()!=NULL)request_id = FirstElement->GetText();
 
 	//ImageSet
 	XMLElement *SecondElement = RootNode->FirstChildElement("imagesSet");
@@ -44,13 +44,16 @@ describe_images_response::describe_images_response(const string &xml_doc)
 
 		//Set the block device
 		BlockElement = ImageElement->FirstChildElement("deviceName");
-		block_device_mapping.deviceName = BlockElement->GetText();
+		if(BlockElement->GetText()!=NULL)block_device_mapping.deviceName = BlockElement->GetText();
+
 		BlockElement = BlockElement->NextSiblingElement();
-		block_device_mapping.deleteOnTermination = (bool)BlockElement->GetText();
+		if(BlockElement->GetText()!=NULL)block_device_mapping.deleteOnTermination = (bool)BlockElement->GetText();
+
 		BlockElement = BlockElement->NextSiblingElement();
-		BlockElement->QueryFloatText(&block_device_mapping.volumeSize);
+		if(BlockElement->GetText()!=NULL)BlockElement->QueryFloatText(&block_device_mapping.volumeSize);
+		
 		BlockElement = BlockElement->NextSiblingElement();
-		block_device_mapping.snapshotId = BlockElement->GetText();
+		if(BlockElement->GetText()!=NULL)block_device_mapping.snapshotId = BlockElement->GetText();
 		
 
 		//

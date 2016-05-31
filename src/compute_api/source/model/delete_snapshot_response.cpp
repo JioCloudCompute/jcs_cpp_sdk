@@ -17,7 +17,7 @@ model::delete_snapshot_response::delete_snapshot_response(const string &xml_doc)
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
 	Element->QueryBoolText(&result);

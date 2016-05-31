@@ -20,22 +20,22 @@ model::create_snapshot_response::create_snapshot_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	status = Element->GetText();
+	if(Element->GetText()!=NULL)status = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	snapshot_id = Element->GetText();
+	if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	Element->QueryFloatText(&volume_size);
+	if(Element->GetText()!=NULL)Element->QueryFloatText(&volume_size);
 
 	Element=Element->NextSiblingElement();
-	volume_id = Element->GetText();
+	if(Element->GetText()!=NULL)volume_id = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	start_time = Element->GetText();
+	if(Element->GetText()!=NULL)start_time = Element->GetText();
 
 
 }

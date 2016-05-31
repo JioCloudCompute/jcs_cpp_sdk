@@ -18,17 +18,20 @@ model::create_key_pair_response::create_key_pair_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element!=NULL)
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 	
 	Element=Element->NextSiblingElement();
-	key_material = Element->GetText();
+	if(Element!=NULL)
+	if(Element->GetText()!=NULL)key_material = Element->GetText();
 	key_material.erase(key_material.begin(), key_material.begin()+31);
 	key_material.erase(key_material.end()-31,key_material.end());
+	
 	Element=Element->NextSiblingElement();
-	key_name = Element->GetText();
+	if(Element->GetText()!=NULL)key_name = Element->GetText();
 
 	Element=Element->NextSiblingElement();
-	key_fingerprint = Element->GetText();
+	if(Element->GetText()!=NULL)key_fingerprint = Element->GetText();
 
 
 }
