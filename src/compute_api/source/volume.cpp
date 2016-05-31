@@ -27,10 +27,10 @@ namespace volume
 	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)
 	{
 		map <string, string> params;
-		params["Action"] = "DescribeVolumes";
-		params["Version"] = info.version;
+		params["Action"] = "DescribeVolumes";	// Adding action to map params
+		params["Version"] = info.version;	// Adding version to map params
 
-		stringstream ss;
+		stringstream ss;					// To convert int int string
 		if((req.get_volume_ids())->size() != 0)
 		{
 			string key = "VolumeId.";
@@ -38,11 +38,11 @@ namespace volume
 			{
 				ss << i+1;
 				params[key + ss.str()] = (*req.get_volume_ids())[i];
-				ss.str("");
+				ss.str("");					// To prevent appending// To convert int int string
 			}	
 		}
 
-		if(req.get_max_results() != -1)
+		if(req.get_max_results() != -1)		// Default value set as -1
 		{	
 			ss << req.get_max_results();
 			params["MaxResults"] = ss.str();
@@ -132,12 +132,12 @@ namespace volume
 		params["Action"] = "CreateVolume";
 		params["Version"] = info.version;
 
-		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)
+		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)		// Atleast one o size or snapshot is required
 		{
 			cout <<  "Parameters missing, Atleast one of them needed";
 		}
 		
-		if(req.get_size() != -1)
+		if(req.get_size() != -1)	// Default size = -1
 		{
 			stringstream ss;
 			ss << req.get_size();

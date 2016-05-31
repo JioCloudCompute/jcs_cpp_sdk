@@ -38,7 +38,7 @@ namespace config{
 			ConfigHandler()
 			{	
 				//read this from configuration file
-				secure = true;
+				secure = false;
 				debug = false;
 
 				// reading keys from file 
