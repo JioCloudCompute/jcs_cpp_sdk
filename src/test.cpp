@@ -59,7 +59,7 @@ int main()
 				// Stop instances
 				stop_instances_request req3;
 				stop_instances_response *res3;
-				instance_ids.push_back("i-54dbd6a2");
+				instance_ids.push_back("i-b95493fa");
 				req3.set_instance_ids(instance_ids);
 				res3 = obj.stop_instances(req3);
 				if(res3!=NULL){
@@ -79,7 +79,7 @@ int main()
 			{	//start Instances
 				start_instances_request req4;
 				start_instances_response *res4;
-				instance_ids.push_back("i-54dbd6a2");
+				instance_ids.push_back("i-b95493fa");
 				req4.set_instance_ids(instance_ids);
 				res4 = obj.start_instances(req4);
 				if(res4!=NULL){	
@@ -100,7 +100,7 @@ int main()
 				//Reboot Instances
 				reboot_instances_request req5;
 				reboot_instances_response *res5;
-				instance_ids.push_back("i-54dbd6a2");
+				instance_ids.push_back("i-b95493fa");
 				req5.set_instance_ids(instance_ids);
 				res5 = obj.reboot_instances(req5);
 				if(res5!=NULL){
@@ -120,7 +120,7 @@ int main()
 				//terminate Instances
 				terminate_instances_request req6;
 				terminate_instances_response *res6;
-				instance_ids.push_back("i-54dbd6a2");
+				instance_ids.push_back("i-b95493fa");
 				req6.set_instance_ids(instance_ids);
 				res6 = obj.terminate_instances(req6);
 				if(res6!=NULL){
@@ -175,7 +175,7 @@ int main()
 				//create key pair 
 				create_key_pair_request req9;
 				create_key_pair_response *res9;
-				req9.set_key_name("cpp_test3");
+				req9.set_key_name("cpp_test");
 				res9 = obj.create_key_pair(req9);
 				if(res9!=NULL){
 					cout<<res9->get_key_material()<<endl;
@@ -190,7 +190,7 @@ int main()
 				// Delete key pair
 				delete_key_pair_request req10;
 				delete_key_pair_response *res10;
-				req10.set_key_name("cpp_test3");
+				req10.set_key_name("cpp_test");
 				res10 = obj.delete_key_pair(req10);
 				if(res10!=NULL){
 					cout<<res10->get_result()<<endl;
@@ -203,7 +203,7 @@ int main()
 				// create snapshot
 				create_snapshot_request req11;
 				create_snapshot_response *res11;
-				req11.set_volume_id("7ed67cb4-0ce6-45d9-9a07-4a0ae168912a");
+				req11.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
 				res11 = obj.create_snapshot(req11);
 				if(res11!=NULL){
 					cout<<res11->get_status()<<endl;
@@ -219,7 +219,7 @@ int main()
 				//Delete snapshot
 				delete_snapshot_request req12;
 				delete_snapshot_response *res12;
-				req12.set_snapshot_id("54790b1f-0d24-4375-9d33-1437036ef877");
+				req12.set_snapshot_id("9832ef5b-f139-4727-95da-bd558414618e");
 				res12 = obj.delete_snapshot(req12);
 				if(res12!=NULL){
 					cout<<res12->get_result()<<endl;
@@ -264,7 +264,7 @@ int main()
 			{	// delete volume
 				delete_volume_request req15;
 				delete_volume_response *res15;
-				req15.set_volume_id("24721771-d20b-4e31-8b8e-cdcf873017fe");
+				req15.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
 				res15 = obj.delete_volume(req15);
 				if(res15!=NULL){
 					cout<<res15->get_result()<<endl;
@@ -276,8 +276,8 @@ int main()
 			{	//attach volume
 				attach_volume_request req16;
 				attach_volume_response *res16;
-				req16.set_volume_id("24721771-d20b-4e31-8b8e-cdcf873017fe");
-				req16.set_instance_id("i-407bb8fb");
+				req16.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
+				req16.set_instance_id("i-b95493fa");
 				req16.set_device("/dev/vdb");
 				res16 = obj.attach_volume(req16);
 				if(res16!=NULL){
@@ -291,7 +291,7 @@ int main()
 				//detach volume
 				detach_volume_request req17;
 				detach_volume_response *res17;
-				req17.set_volume_id("24721771-d20b-4e31-8b8e-cdcf873017fe");
+				req17.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
 				res17 = obj.detach_volume(req17);
 				if(res17!=NULL){
 					cout<<res17->get_status()<<endl;
@@ -322,7 +322,7 @@ int main()
 			{	// show delete on termination flag
 				show_delete_on_termination_flag_request req19;
 				show_delete_on_termination_flag_response *res19;
-				req19.set_volume_id("24721771-d20b-4e31-8b8e-cdcf873017fe");
+				req19.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
 				res19 = obj.show_delete_on_termination_flag(req19);
 				if(res19!=NULL){
 					cout<<res19->get_volume_id()<<endl;
@@ -336,7 +336,7 @@ int main()
 				// update delete on termination flag
 				update_delete_on_termination_flag_request req20;
 				update_delete_on_termination_flag_response *res20;
-				req20.set_volume_id("24721771-d20b-4e31-8b8e-cdcf873017fe");
+				req20.set_volume_id("97fe21a3-7310-4428-80ec-f88eb7ec8e95");
 				req20.set_delete_on_termination(1);
 				res20 = obj.update_delete_on_termination_flag(req20);
 				if(res20!=NULL){
@@ -346,6 +346,26 @@ int main()
 				delete res20;
 				break;
 			}
+			case 21:
+			{
+				// import key pair
+				import_key_pair_request req21;
+				import_key_pair_response *res21;
+				ifstream f("key.pub");
+				string s;
+				getline(f,s);
+				f.close();		
+				req21.set_key_name("importTest");
+				req21.set_public_key_material(utils::base64encode(s.c_str(), s.size()));
+				res21 = obj.import_key_pair(req21);
+				if(res21!=NULL){
+					cout<<(res21->get_key()).get_key_fingerprint()<<endl;
+					cout<<(res21->get_key()).get_key_name()<<endl;
+				}
+				delete res21;
+				break;
+			}
+
 			default:
 				break;
 		}
