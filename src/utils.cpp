@@ -54,9 +54,8 @@ namespace utils{
 	}
 	std::string hmac_sha256(std::string canonical_string ,const char *secret_key)
 	{
-		unsigned char* hmac_256;
-	    unsigned int len = 32;
-	   	hmac_256 = (unsigned char*)malloc(sizeof(char) * len);
+		unsigned len = 32;
+		unsigned char hmac_256[len+1];
 	    
 	    HMAC_CTX ctx;
 	    HMAC_CTX_init(&ctx);
@@ -64,28 +63,27 @@ namespace utils{
 		HMAC_Update(&ctx,(unsigned char*)(canonical_string.c_str()), strlen(canonical_string.c_str()));
 		HMAC_Final(&ctx, hmac_256, &len);
 	   	HMAC_CTX_cleanup(&ctx);
-	   	hmac_256[len]='\0';
-	   	return (char *)hmac_256;
+	   	//hmac_256[len]='\0';
+	   	return std::string((const char*)hmac_256, len);
 	}
 
-	std::string base64encode(std::string ascii_message)
+	std::string base64encode(const char * instring, size_t len)
 	{	
 		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
 		BIO *bio, *b64;
-		char message[ascii_message.length()];
-		strcpy(message,ascii_message.c_str());
 		
-		const int mlen = 256;	
-		char b64message[mlen];
+		const size_t mlen = len*8/6 + len%6;	
+		char b64message[mlen+1];
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
 		BIO_push(b64, bio);
-		BIO_write(b64, message, sizeof(message));
+		BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
+		BIO_write(b64, instring, len);
 		BIO_flush(b64);
-		int len = BIO_read(bio, b64message,mlen);
+		int length = BIO_read(bio, b64message, mlen);
 		BIO_free_all(b64);
 		//use len to remove \n
-		b64message[len-1]='\0';
+		b64message[length]='\0';
 		return b64message;
 
 	}

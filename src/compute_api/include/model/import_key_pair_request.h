@@ -35,7 +35,7 @@ namespace model
 		const string get_public_key_material() const;
 		/// Setter for the private variable public_key_material
 		/**
-			\param public_key_material_ : The public key contents creaed by a third party software. If not base64 encoded the public key material import would fail
+			\param public_key_material_ : The public key contents created by a third party software. If not base64 encoded the public key material import would fail
 		*/
 		void set_public_key_material(const string& public_key_material_);
 	};

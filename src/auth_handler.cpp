@@ -35,10 +35,11 @@ namespace auth{
 			strcpy(data_.port,"None"); // default to http port
 			
 			int pos = host.find(":"); // if port specified in url
+
 			if(pos != std::string::npos)
 			{
 				strcpy(data_.port,host.substr(pos+1).c_str());
-				strcpy(data_.host, host.substr(0,pos+1).c_str());	
+				strcpy(data_.host, host.substr(0,pos).c_str());	
 			}
 
 		}
@@ -50,7 +51,7 @@ namespace auth{
 			params["SignatureVersion"] = "2";
 			params["SignatureMethod"] = "HmacSHA256";
 			//Time Stamp
-			time_t now = time(0);
+			time_t now = time(NULL);
 			tm *gmtm = gmtime(&now);
 			char stamp[64];
 			//utf-8 encoding
@@ -114,8 +115,10 @@ namespace auth{
 			std::string hmac_256 = utils::hmac_sha256(canonical_string,data_.secret_key);
 	    	//base64 and urlencode
 			CURL *curl = curl_easy_init();
-			char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(hmac_256).c_str(),0);
+			char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(&hmac_256[0], hmac_256.length()).c_str(),0);
 			params["Signature"]=hmac_Signature;
+			std::cout<<"HMAC SIGNATURE 0: " << utils::base64encode(&hmac_256[0], hmac_256.length())<<"\n";
+			std::cout<<"HMAC SIGNATURE:  " << hmac_Signature<<"\n";
 			free(hmac_Signature);
 
 		}
