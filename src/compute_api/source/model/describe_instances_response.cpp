@@ -41,17 +41,17 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		while(blockListElement != NULL)
 		{
 			blockElement = blockListElement->FirstChildElement("status");
-			block.status = blockElement->GetText();
+			if(blockElement->GetText()!=NULL)block.status = blockElement->GetText();
 			
 			blockElement = blockElement->NextSiblingElement();
-			block.device_name = blockElement->GetText();
+			if(blockElement->GetText()!=NULL)block.device_name = blockElement->GetText();
 
 			blockElement = blockElement->NextSiblingElement();
 			blockElement->QueryBoolText(&temp);
 			block.delete_on_termination = temp;
 
 			blockElement = blockElement->NextSiblingElement();
-			block.volume_id = blockElement->GetText();
+			if(blockElement->GetText()!=NULL)block.volume_id = blockElement->GetText();
 
 			blocks.push_back(block);
 			blockListElement=blockListElement->NextSiblingElement();

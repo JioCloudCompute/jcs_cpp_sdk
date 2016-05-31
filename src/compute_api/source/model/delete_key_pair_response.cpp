@@ -18,7 +18,7 @@ model::delete_key_pair_response::delete_key_pair_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element->GetText()!=NULL)request_id = Element->GetText();
 	
 	Element = Element->NextSiblingElement();
 	bool temp=false;
