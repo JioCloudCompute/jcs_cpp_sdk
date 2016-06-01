@@ -23,8 +23,7 @@ model::create_key_pair_response::create_key_pair_response(const string &xml_doc)
 		if(Element->GetText()!=NULL)request_id = Element->GetText();
 		Element=Element->NextSiblingElement();
 	}
-	else 
-		cout<<"Error Parsing Request Id from XML Create Key Pair Response\n";
+	else cout<<"Error Parsing Request Id from XML Create Key Pair Response\n";
 	
 	if(Element!=NULL)
 	{
@@ -37,13 +36,12 @@ model::create_key_pair_response::create_key_pair_response(const string &xml_doc)
 	key_material.erase(key_material.begin(), key_material.begin()+31);
 	key_material.erase(key_material.end()-31,key_material.end());
 	
-	if(Element!=NULL)Element=Element->NextSiblingElement();
+	if(Element!=NULL)
 	{
 		if(Element->GetText()!=NULL)key_name = Element->GetText();
 		Element=Element->NextSiblingElement();
 	}
-	else
-		cout<<"Error Parsing key name from XML Create Key Pair Response\n";
+	else cout<<"Error Parsing key name from XML Create Key Pair Response\n";
 	
 	if(Element!=NULL)
 		if(Element->GetText()!=NULL)key_fingerprint = Element->GetText();

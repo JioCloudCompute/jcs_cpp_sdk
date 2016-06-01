@@ -328,7 +328,7 @@ get_password_data_response *compute::get_password_data(const get_password_data_r
 			
 			if(res!=NULL)
 			{
-				string decrypted_password = utils::decrypt_password(res.get_password_data, req.get_private_key_file, req.get_passphrase);
+				string decrypted_password = utils::decrypt_password(res->get_password_data(), req.get_private_key_file(), req.get_passphrase());
 
 			}
 
@@ -340,5 +340,4 @@ get_password_data_response *compute::get_password_data(const get_password_data_r
 			return NULL;
 		}
 	}
-
 

@@ -15,7 +15,7 @@ using namespace model;
 get_password_data_response::get_password_data_response(const string &xml_doc)
 {
 	XMLDocument doc;
-	doc.Parse(xml_doc.str());
+	doc.Parse(xml_doc.c_str());
 
 	XMLNode *RootNode = doc.FirstChild();
 
@@ -25,21 +25,21 @@ get_password_data_response::get_password_data_response(const string &xml_doc)
 	else
 		cout<<"Request ID could not be parsed from XML Get Password Response\n"<<endl;
 
-	ELement = Element->NextSiblingElement();
+	Element = Element->NextSiblingElement();
 	if(Element!=NULL)
-		if(ELement->GetText!=NULL)instance_id = Element->GetText();
+		if(Element->GetText()!=NULL)instance_id = Element->GetText();
 	else
 		cout<<"Error Parsing Instance ID from XML GET Password Response\n"<<endl;
 
-	ELement = ELement->NextSiblingElement();
+	Element = Element->NextSiblingElement();
 	if(Element!=NULL)
-		if(Element_>GetText()!=NULL)timestamp = ELement->GetText();
+		if(Element->GetText()!=NULL)timestamp = Element->GetText();
 	else
 		cout<<"Error Parsing Time Stamp from XML GET Password Response\n";
 
-	Element = ELement->NextSiblingElement();
-	if(ELement!=NULL)
-		if(ELement->GetText()!=NULL)password_data = Element->GetText();
+	Element = Element->NextSiblingElement();
+	if(Element!=NULL)
+		if(Element->GetText()!=NULL)password_data = Element->GetText();
 	else
 		cout<<"Error Parsing Password Data from XML GEt Password Response\n";
 

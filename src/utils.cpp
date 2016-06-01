@@ -37,11 +37,11 @@ namespace utils{
 		
 	};
 
-	struct block_device_mapping{
+	/*struct block_device_mapping{
 		std::string device_name;
 		bool delete_on_termination;
 		int volume_size;
-	};
+	};*/
 
 	std::string get_protocol(char url[512])
 	{	
@@ -90,7 +90,7 @@ namespace utils{
 		return b64message;
 
 	}
-
+	
 	std::string base64decode(const char * instring, size_t len)
 	{	
 		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
@@ -160,10 +160,10 @@ namespace utils{
 		else
 		{
 			cout<<"Error"<<endl;
-		}*/
+		}
+		*/
 
-	}	
-
+	} 	
 
 }
 #endif

@@ -32,7 +32,7 @@ model::describe_snapshots_response::describe_snapshots_response(const string &xm
 		if(SnapshotElement!=NULL)
 		{
 			status = SnapshotElement->GetText();
-			SnaphotElement = SnapshotElement->NextSiblingElement();
+			SnapshotElement = SnapshotElement->NextSiblingElement();
 		}
 		else cout<<"Error Parsing status from XML describe_snapshots_response\n";
 

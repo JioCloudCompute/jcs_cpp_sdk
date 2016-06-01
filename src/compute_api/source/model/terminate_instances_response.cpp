@@ -17,8 +17,10 @@ model::terminate_instances_response::terminate_instances_response(const string &
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	if(Element!=NULL)
+	{
 		if(Element->GetText()!=NULL)request_id = Element->GetText();
 		Element = Element->NextSiblingElement();
+	}
 	else cout<<"Error Parsing request_id from XML terminate_instances_response";
 
 	XMLElement *ListElement = Element->FirstChildElement("item");

@@ -16,7 +16,8 @@
 #include "src/compute_api/source/model/reboot_instances_request.cpp"
 #include "src/compute_api/source/model/describe_instance_types_response.cpp"
 #include "src/compute_api/source/model/describe_instance_types_request.cpp"
-
+#include "src/compute_api/source/model/get_password_data_request.cpp"
+#include "src/compute_api/source/model/get_password_data_response.cpp"
 
 using namespace std;
 
@@ -235,16 +236,16 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data &req)
+	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data_request &req)
 
 	{	
 		map<string , string > params;
-		params['Action'] = "GetPasswordData";
-		params['Version'] = info.version;
+		params["Action"] = "GetPasswordData";
+		params["Version"] = info.version;
 
 		if(req.get_instance_id().length() == 0)
 			cout<<"Instance-ID is Required"<<endl;
-		else params['InstanceID'] = req.get_instance_id();
+		else params["InstanceID"] = req.get_instance_id();
 
 		return requestify::make_request(info,params);
 

@@ -51,9 +51,7 @@ model::create_volume_response::create_volume_response(const string &xml_doc)
 		if(Element->GetText()!=NULL)create_time = Element->GetText();
 		Element=Element->NextSiblingElement();
 	}
-	else cout<<"Error Parsing create_time data from create_volume_response XML\n"
-	if(Element!=NULL)
-		Element->QueryFloatText(&size);
+	else cout<<"Error Parsing create_time data from create_volume_response XML\n";
+	if(Element!=NULL)Element->QueryFloatText(&size);
 	else cout<<"Error Parsing Size data from create_volume_response XML\n";
-	
 }

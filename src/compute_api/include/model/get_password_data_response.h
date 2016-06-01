@@ -8,7 +8,7 @@ namespace model
 	/// Class to handle Get Password Request's Response
 	/**
 	*/
-	class attach_volume_response
+	class get_password_data_response
 	{
 	private:
 		string request_id;
@@ -36,7 +36,7 @@ namespace model
 		*/
 		const string get_password_data() const
 		{
-			return pasword_data;
+			return password_data;
 		}
 		///Getter for the Instance ID
 		/**

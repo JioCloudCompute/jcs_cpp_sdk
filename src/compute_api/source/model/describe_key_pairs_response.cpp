@@ -39,7 +39,7 @@ model::describe_key_pairs_response::describe_key_pairs_response(const string &xm
 		}
 		else cout<<"Error Parsing keyname from XML describe_key_pairs_response\n";
 		if(KeyPairElement!=NULL)
-			{if(keyfingerprint->GetText()!=NULL)keyfingerprint=KeyPairElement->GetText();}
+			{if(KeyPairElement->GetText()!=NULL)keyfingerprint=KeyPairElement->GetText();}
 		else
 			cout<<"Error Parsing keyfingerprint from XML describe_key_pairs_response\n";
 		

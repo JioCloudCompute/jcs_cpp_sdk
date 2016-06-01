@@ -58,7 +58,7 @@ attach_volume_response::attach_volume_response(const string &xml_doc)
 		cout<< "Error Parsing Status from XML Attach Response\n";
 
 	if(Element!=NULL)
-		if(Element->GetText()!=NULL)volume_id = Element->GetText();
+		{if(Element->GetText()!=NULL)volume_id = Element->GetText();}
 	else
 		cout<<"Error Parsing Volume ID from XML ATTACH Response\n";
 		

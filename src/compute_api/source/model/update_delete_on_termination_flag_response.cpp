@@ -24,18 +24,18 @@ model::update_delete_on_termination_flag_response::update_delete_on_termination_
 	
 	if(VolumeElement!=NULL)
 	{
-		if(VolumeElement_>GetText()!=NULL)instance_id = VolumeElement->GetText();
+		if(VolumeElement->GetText()!=NULL)instance_id = VolumeElement->GetText();
 		VolumeElement=VolumeElement->NextSiblingElement();
 	}
-	else cout<<"Error Parsing instance_id from XML update_delete_on_termination_flag_response";
+	else cout<<"Error Parsing instance_id from XML update_delete_on_termination_flag_response\n";
 	if(VolumeElement!=NULL)
 		{
 			volume_id = VolumeElement->GetText();
 			VolumeElement=VolumeElement->NextSiblingElement();
 		}
 	else
-		cout<<"Erro Parsing volume_id from XML update_delete_on_termination_flag_response";
+		cout<<"Erro Parsing volume_id from XML update_delete_on_termination_flag_response\n";
 	if(VolumeElement!=NULL)
 		VolumeElement->QueryBoolText(&delete_on_termination);
-	else cout<<"Error Parsing delete_on_termination from XML update_delete_on_termination_flag_response"
+	else cout<<"Error Parsing delete_on_termination from XML update_delete_on_termination_flag_response\n";
 }

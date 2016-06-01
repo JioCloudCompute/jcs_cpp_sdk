@@ -21,21 +21,24 @@ model::show_delete_on_termination_flag_response::show_delete_on_termination_flag
 		if(Element->GetText())request_id = Element->GetText();
 		Element = Element->NextSiblingElement();
 	}
-	else cout<<"Error Parsing request_id from XML show_delete_on_termination_flag_response";
-	
+	else cout<<"Error Parsing request_id from XML show_delete_on_termination_flag_response\n";
+	XMLElement *VolumeElement;
 	if(Element!=NULL)
 	{
-		if(Element->GetText()!=NULL)XMLElement *VolumeElement = Element->FirstChildElement("instanceId");
-		instance_id = VolumeElement->GetText();
+		if(Element->GetText()!=NULL)VolumeElement = Element->FirstChildElement("instanceId");
+		if(VolumeElement!=NULL){
+			instance_id = VolumeElement->GetText();
+			VolumeElement=VolumeElement->NextSiblingElement();
+		}
+		else cout<< "Error Parsing instance_id from show_delete_on_termination_flag_response XML\n";
 	}
-	if(VolumeElement!=NULL)VolumeElement=VolumeElement->NextSiblingElement();
 	
 	if(VolumeElement!=NULL)
 	{
-		if(VolumeELement->GetTExt()!=NULL)volume_id = VolumeElement->GetText();
+		if(VolumeElement->GetText()!=NULL)volume_id = VolumeElement->GetText();
 		VolumeElement=VolumeElement->NextSiblingElement();
 	}
-	else cout<<"Error Parsing volume_id from XML show_delete_on_termination_flag_response";
+	else cout<<"Error Parsing volume_id from XML show_delete_on_termination_flag_response\n";
 
 	VolumeElement->QueryBoolText(&delete_on_termination);
 }
