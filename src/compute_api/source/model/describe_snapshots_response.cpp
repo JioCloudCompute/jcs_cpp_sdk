@@ -16,9 +16,12 @@ model::describe_snapshots_response::describe_snapshots_response(const string &xm
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
+	if(Element!=NULL)
+	{
+		request_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing Request ID from XML describe_snapshots_response\n";
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *SnapshotElement;
 	string status, snapshot_id,  start_time, volume_id;
@@ -26,20 +29,37 @@ model::describe_snapshots_response::describe_snapshots_response(const string &xm
 	while(ListElement != NULL)
 	{
 		SnapshotElement = ListElement->FirstChildElement("status");
-		status = SnapshotElement->GetText();
+		if(SnapshotElement!=NULL)
+		{
+			status = SnapshotElement->GetText();
+			SnaphotElement = SnapshotElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing status from XML describe_snapshots_response\n";
+
+		if(SnapshotElement!=NULL)
+		{	
+			snapshot_id = SnapshotElement->GetText();
+			SnapshotElement=SnapshotElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing snapshot_id from XML describe_snapshots_response\n";
+
+		if(SnapshotElement!=NULL)
+		{
+			SnapshotElement->QueryFloatText(&volume_size);
+			SnapshotElement=SnapshotElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing volume_size from XML describe_snapshots_response\n";
 		
-		SnapshotElement = SnapshotElement->NextSiblingElement();
-		snapshot_id = SnapshotElement->GetText();
-
-		SnapshotElement=SnapshotElement->NextSiblingElement();
-		SnapshotElement->QueryFloatText(&volume_size);
-
-		SnapshotElement=SnapshotElement->NextSiblingElement();
-		volume_id=SnapshotElement->GetText();
-
-		SnapshotElement=SnapshotElement->NextSiblingElement();
-		start_time = SnapshotElement->GetText();
-
+		if(SnapshotElement!=NULL)
+		{
+			volume_id=SnapshotElement->GetText();
+			SnapshotElement=SnapshotElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing volume_id from XML describe_snapshots_response\n";
+		
+		if(SnapshotElement!=NULL)
+			if(SnapshotElement->GetText()!=NULL) start_time = SnapshotElement->GetText();
+		else cout<<"Error Parsing start_time from XML describe_snapshots_response\n";
 		//add to map
 		model::snapshot data(status,snapshot_id,volume_size,volume_id,start_time);
 		snapshot_set.push_back(data);

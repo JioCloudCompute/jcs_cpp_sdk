@@ -16,15 +16,26 @@ model::show_delete_on_termination_flag_response::show_delete_on_termination_flag
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element!=NULL)
+	{
+		if(Element->GetText())request_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML show_delete_on_termination_flag_response";
 	
-	Element = Element->NextSiblingElement();
-	XMLElement *VolumeElement = Element->FirstChildElement("instanceId");
-	instance_id = VolumeElement->GetText();
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)XMLElement *VolumeElement = Element->FirstChildElement("instanceId");
+		instance_id = VolumeElement->GetText();
+	}
+	if(VolumeElement!=NULL)VolumeElement=VolumeElement->NextSiblingElement();
+	
+	if(VolumeElement!=NULL)
+	{
+		if(VolumeELement->GetTExt()!=NULL)volume_id = VolumeElement->GetText();
+		VolumeElement=VolumeElement->NextSiblingElement();
+	}
+	else cout<<"Error Parsing volume_id from XML show_delete_on_termination_flag_response";
 
-	VolumeElement=VolumeElement->NextSiblingElement();
-	volume_id = VolumeElement->GetText();
-
-	VolumeElement=VolumeElement->NextSiblingElement();
 	VolumeElement->QueryBoolText(&delete_on_termination);
 }

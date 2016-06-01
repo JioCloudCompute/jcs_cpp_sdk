@@ -19,19 +19,35 @@ model::create_key_pair_response::create_key_pair_response(const string &xml_doc)
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
 	if(Element!=NULL)
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
+	{
+		if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else 
+		cout<<"Error Parsing Request Id from XML Create Key Pair Response\n";
 	
-	Element=Element->NextSiblingElement();
 	if(Element!=NULL)
-	if(Element->GetText()!=NULL)key_material = Element->GetText();
+	{
+		if(Element->GetText()!=NULL)key_material = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else
+		cout<<"Error Parsing key_material from XML Create Key Pair Response\n";
+	
 	key_material.erase(key_material.begin(), key_material.begin()+31);
 	key_material.erase(key_material.end()-31,key_material.end());
 	
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)key_name = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)key_fingerprint = Element->GetText();
-
+	if(Element!=NULL)Element=Element->NextSiblingElement();
+	{
+		if(Element->GetText()!=NULL)key_name = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else
+		cout<<"Error Parsing key name from XML Create Key Pair Response\n";
+	
+	if(Element!=NULL)
+		if(Element->GetText()!=NULL)key_fingerprint = Element->GetText();
+	else
+		cout<<"Error Parsing Key FingerPrint from XML Create Key Pair Response\n";
 
 }
