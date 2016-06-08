@@ -16,22 +16,42 @@ model::create_volume_response::create_volume_response(const string &xml_doc)
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
-
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)status=Element->GetText();
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else
+		cout<<"Error Parsing request_id from XML create_volume_response\n";
 	
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)volume_id = Element->GetText();
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)status=Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else
+		cout<<"Error Parsing status from XML create_volume_response\n";
 
-	Element=Element->NextSiblingElement();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)create_time = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	Element->QueryFloatText(&size);
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)volume_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+		Element = Element->NextSiblingElement();
+	}
+	else
+		cout<<"Error Parsing volume_id from XML create_volume_response\n";
+	if(Element!= NULL)
+	{
+		if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing snapshot_id from create_volume_response XML\n";
+	if(Element!=NULL)
+	{	
+		if(Element->GetText()!=NULL)create_time = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing create_time data from create_volume_response XML\n";
+	if(Element!=NULL)Element->QueryFloatText(&size);
+	else cout<<"Error Parsing Size data from create_volume_response XML\n";
 }

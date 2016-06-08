@@ -18,14 +18,25 @@ import_key_pair_response::import_key_pair_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 	string key_fingerprint, key_name;
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)key_name=Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)key_fingerprint=Element->GetText();
-
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML import_key_pair_response\n";
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)key_name=Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing key_name from XML import_key_pair_response\n";
+	
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)key_fingerprint=Element->GetText();
+	}
+	else cout<<"Error Parsing key_fingerprint from import_key_pair_response\n";
+	
 	key=key_pair(key_name,key_fingerprint);
 
 }

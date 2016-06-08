@@ -77,4 +77,6 @@ namespace config{
 			}
 
 
-	};
+};
+
+}

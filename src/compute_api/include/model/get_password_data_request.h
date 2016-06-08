@@ -9,7 +9,7 @@ namespace model
 	/**
 		This class manages the request for attach volume. User can create an object and and initialize the needed arguments.
 	*/
-	class get_password_data
+	class get_password_data_request
 	{
 	private:
 		string instance_id;
@@ -18,7 +18,7 @@ namespace model
 
 	public:
 		/// Constructor
-		get_password_data(){}
+		get_password_data_request(){}
 
 		/// Getter for the private variable instance_id
 		/**

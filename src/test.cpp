@@ -1,4 +1,5 @@
 #include "compute.cpp"
+
 int main()
 {
 	JIOCOMPUTE::compute obj;

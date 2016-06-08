@@ -88,6 +88,7 @@ namespace requestify{
 			request_string+=it->first+"="+it->second+"&";
 		}
 		request_string[request_string.length()-1]='\0'; //removing last &
+
 #ifdef CLI_DEBUG
 		// TODO: Header handling remaining
 		cout<<request_string<<endl;

@@ -157,7 +157,7 @@ namespace JIOCOMPUTE{
 		///Method to get password data of the requested instance
 		/**
 		*/
-		get_password_data response *get_password_data(const get_password_data &req);	
+		get_password_data_response *get_password_data(const get_password_data_request &req);	
 
 		
 	};

@@ -20,22 +20,52 @@ model::create_snapshot_response::create_snapshot_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
+	if(Element!=NULL)
+		{
+			if(Element->GetText()!=NULL)request_id = Element->GetText();
+			Element=Element->NextSiblingElement();
+		}
+	else
+		cout<<"Error Parsing request_id from XML Create Snapshot Response\n";
 
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)status = Element->GetText();
+	
+	if(Element != NULL)
+		{
+			if(Element->GetText()!=NULL)status = Element->GetText();
+			Element=Element->NextSiblingElement();
+		}
+	else
+		cout<<"Error Parsing Status from XML Create Snapshot Response\n";
+	
+	if(Element != NULL)
+		{
+			if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
+			Element=Element->NextSiblingElement();
+		}
+	else
+		cout<<"Error Parsing Snapshot ID from XML Create Snapshot Response\n";
+	
+	if(Element!=NULL)
+		{
+			if(Element->GetText()!=NULL)Element->QueryFloatText(&volume_size);
+			Element=Element->NextSiblingElement();
+		}
+	else
+		cout<<"Error Parsing Volume Size from XML create_snapshot_response\n";
 
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)Element->QueryFloatText(&volume_size);
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)volume_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)start_time = Element->GetText();
+	
+	if(Element!=NULL)
+	{	
+		if(Element->GetText()!=NULL)volume_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else 
+		cout<<"Error Parsing Volume Id from XMl create_snapshot_response\n";
+	
+	if(Element!=NULL)
+		if(Element->GetText()!=NULL)start_time = Element->GetText();	
+	else
+		cout<<"Error Parsing start_time from XML Create Snapshot Response\n";
 
 
 }

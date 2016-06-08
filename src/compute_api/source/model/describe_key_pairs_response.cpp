@@ -19,19 +19,30 @@ model::describe_key_pairs_response::describe_key_pairs_response(const string &xm
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element!=NULL)
+	{
+		request_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML describe_key_pairs_response\n";
 
-	Element=Element->NextSiblingElement();
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *KeyPairElement;
 	string keyname,keyfingerprint;
 	while(ListElement != NULL)
 	{	
 		KeyPairElement = ListElement->FirstChildElement("keyName");
-		keyname=KeyPairElement->GetText();
+		if(KeyPairElement!=NULL)
+		{
+			if(KeyPairElement->GetText()!=NULL) keyname=KeyPairElement->GetText();
+			KeyPairElement=KeyPairElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing keyname from XML describe_key_pairs_response\n";
+		if(KeyPairElement!=NULL)
+			{if(KeyPairElement->GetText()!=NULL)keyfingerprint=KeyPairElement->GetText();}
+		else
+			cout<<"Error Parsing keyfingerprint from XML describe_key_pairs_response\n";
 		
-		KeyPairElement=KeyPairElement->NextSiblingElement();
-		keyfingerprint=KeyPairElement->GetText();
 		model::key_pair key(keyname,keyfingerprint);
 		key_pairs.push_back(key);
 		ListElement=ListElement->NextSiblingElement();

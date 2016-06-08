@@ -18,11 +18,16 @@ model::delete_key_pair_response::delete_key_pair_response(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
-	
-	Element = Element->NextSiblingElement();
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML delete_key_pair_response\n";
 	bool temp=false;
+	if(Element!=NULL)
 	Element->QueryBoolText(&temp);
+	else cout<<"Error Parsing result from delete_key_pair_response XML\n";
 	result = temp;
 
 }

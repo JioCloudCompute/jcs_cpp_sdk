@@ -117,8 +117,10 @@ namespace auth{
 			CURL *curl = curl_easy_init();
 			char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(&hmac_256[0], hmac_256.length()).c_str(),0);
 			params["Signature"]=hmac_Signature;
+		#ifdef CLI_DEBUG
 			std::cout<<"HMAC SIGNATURE 0: " << utils::base64encode(&hmac_256[0], hmac_256.length())<<"\n";
 			std::cout<<"HMAC SIGNATURE:  " << hmac_Signature<<"\n";
+		#endif
 			free(hmac_Signature);
 
 		}

@@ -16,22 +16,37 @@ model::reboot_instances_response::reboot_instances_response(const string &xml_do
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	request_id = Element->GetText();
+	if(Element!=NULL)
+	{	
+		if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML reboot_instances_response\n";
 
-	Element = Element->NextSiblingElement();
 	XMLElement *ListElement = Element->FirstChildElement("item");
 	XMLElement *InstanceSetElement;
 	string instance_id, current_state, previous_state; 
+	
 	while(ListElement != NULL)
 	{
 		InstanceSetElement = ListElement->FirstChildElement("instanceId");
-		instance_id = InstanceSetElement->GetText();
+		
+		if(InstanceSetElement!=NULL)
+		{
+			instance_id = InstanceSetElement->GetText();
+			InstanceSetElement=InstanceSetElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing instance_id from XML reboot_instances_response\n";
+		
+		if(InstanceSetElement!=NULL)
+		{	
+			if(InstanceSetElement->GetText()!=NULL) current_state = InstanceSetElement->GetText();
+			InstanceSetElement=InstanceSetElement->NextSiblingElement();
+		}
+		else cout <<"Error Parsing current_state from XML reboot_instances_response\n";
 
-		InstanceSetElement=InstanceSetElement->NextSiblingElement();
-		current_state = InstanceSetElement->GetText();
-
-		InstanceSetElement=InstanceSetElement->NextSiblingElement();
-		previous_state = InstanceSetElement->GetText();
+		if(InstanceSetElement!=NULL)
+		if(InstanceSetElement->GetText()!=NULL)previous_state = InstanceSetElement->GetText();
 
 		//Add to the map;
 		model::instance_set data(instance_id, current_state, previous_state);

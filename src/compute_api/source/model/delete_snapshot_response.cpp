@@ -17,8 +17,13 @@ model::delete_snapshot_response::delete_snapshot_response(const string &xml_doc)
 	//Root
 	XMLNode *RootNode = doc.FirstChild();
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
-
-	Element=Element->NextSiblingElement();
-	Element->QueryBoolText(&result);
-}
+	if(Element!=NULL)
+	{	if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element=Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from XML delete_snapshot_response\n";
+	
+	if(Element!=NULL)
+		Element->QueryBoolText(&result);
+	else cout<<"Error Parsing result from XML delete_snapshot_response\n";
+}	

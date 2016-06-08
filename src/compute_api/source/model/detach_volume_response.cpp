@@ -17,21 +17,39 @@ detach_volume_response::detach_volume_response(const string &xml_doc)
 	XMLNode *RootNode=doc.FirstChild();
 
 	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element->GetText()!=NULL)request_id = Element->GetText();
+	if(Element!=NULL)
+	{	if(Element->GetText()!=NULL)request_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing request_id from detach_volume_response\n";
 	
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)device = Element->GetText();
-	
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)instance_id = Element->GetText();
-	
-	Element = Element->NextSiblingElement();
-	Element->QueryBoolText(&delete_on_termination);
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)device = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing device name from detach_volume_response\n";
 
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)status = Element->GetText();
-
-	Element = Element->NextSiblingElement();
-	if(Element->GetText()!=NULL)volume_id = Element->GetText();
+	if(Element!=NULL)
+	{	
+		if(Element->GetText()!=NULL)instance_id = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing instance_id from XML detach_volume_response\n";
+	if(Element!=NULL)
+	{
+		Element->QueryBoolText(&delete_on_termination);
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing delete_on_termination from XML detach_volume_response\n";
 	
+	if(Element!=NULL)
+	{
+		if(Element->GetText()!=NULL)status = Element->GetText();
+		Element = Element->NextSiblingElement();
+	}
+	else cout<<"Error Parsing status from XML detach_volume_response\n";
+	if(Element!=NULL)
+		{if(Element->GetText()!=NULL)volume_id = Element->GetText();}
+	else cout<<"Error Parsing volume_id from detach_volume_response\n";
 }
