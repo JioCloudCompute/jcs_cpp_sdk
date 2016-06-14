@@ -55,6 +55,11 @@ namespace model
 			return  timestamp;
 		}
 
+		void set_data(string password_data)
+		{
+			this->password_data=password_data;
+		}	
+
 	};
 
 }

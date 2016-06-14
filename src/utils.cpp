@@ -84,67 +84,36 @@ namespace utils{
 		BIO_flush(b64);
 		int length = BIO_read(bio, b64message, mlen);
 		BIO_free_all(b64);
-		//use len to remove \n
 		b64message[length]='\0';
 		return b64message;
 
 	}
 
-	char *base64decode(const char *decode, size_t len)
+	int base64decode(const char *decode, char *decoded, size_t len)
 	{ 
-		BIO *bio, *b64, *bio_out;
-
-		const size_t mlen = 512;
-		char *inbuf = new char[mlen];
+		BIO *bio, *b64;
+		const size_t mlen = (len*6)/8 + len%8;
+		
 		int inlen;
-		char decode_[len+1];
-		strcpy(decode_, decode);
-		decode_[len]='\n';
 		b64 = BIO_new(BIO_f_base64());
 		bio = BIO_new(BIO_s_mem());
-		BIO_puts(bio,decode_);
-		BIO_push(b64, bio);
-		cout<<"decoding    "<<decode_;
 		
-		 while((inlen = BIO_read(b64, inbuf, mlen)) > 0)
-		{	
-		   	inbuf[inlen]='\0';
-		   	cout<<inbuf<<endl;
-		   	cout<<inlen<<endl;
-	    }
-	    cout<<inlen<<endl;;
+		BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
+		BIO_write(bio, decode, len+1);
+		BIO_push(b64, bio);
+		
+		inlen = BIO_read(b64, decoded, mlen);
+		decoded[inlen]='\0';
+
 		BIO_flush(b64);
 		BIO_free_all(b64);
 		 
-		 return inbuf;
+		return inlen;
 	}
 
 
 
-	
-	// std::string base64decode(const char * instring, size_t len)
-	// {	
-	// 	//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
 
-
-	// 	BIO *b64, *bmem;
-	// 	cout<<"inside"<<endl;
-	// 	cout<<len<<endl;
-	// 	cout<<instring<<endl;
-	// 	char *buffer = (char *)malloc(len);
-	// 	memset(buffer, 0, len);
-
-	// 	b64 = BIO_new(BIO_f_base64());
-	// 	bmem = BIO_new_mem_buf(instring, len);
-	// 	bmem = BIO_push(b64, bmem);
-
-	// 	BIO_read(bmem, buffer, len);
-
-	// 	BIO_free_all(bmem);
-
-	// 	return buffer;
-
-	// }
 
 	RSA *import_ssh_key(std::string private_key_file, std::string passphrase= "")
 	{
@@ -165,50 +134,8 @@ namespace utils{
 		RSA* rsa = EVP_PKEY_get1_RSA( pkey );
 		if(rsa!=NULL) return rsa;
 
-
-
-		// FILE* fp = fopen (private_key_file.c_str() , "rb");;
-		// EVP_PKEY* pkey;
-		// // pem_password_cb *cb = (pem_password_cb *)passphrase;
-		// pkey = PEM_read_PrivateKey(fp, 0, 0, 0);
-		// std::cout<<pkey<<std::endl;
-		// RSA *key;
-		// EVP_PKEY_set1_RSA(pkey,key);
-		// return key;
-
 	}
-
-	const std::string decrypt_password(const std::string password_data, const std::string &private_key_file, const std::string passphrase)
-	{
-		RSA *rsa = import_ssh_key(private_key_file, passphrase);
-		
-		//std::string encrypted_data = utils::base64decode(password_data , password_data.length();
-		//encrypted_data = utils::base64decode(encrypted_data, encrypted_data.length());
-		std::string encrypted_data = "hello";
-
-		char ciphertext[512];
-		//convert binascii to hexadecimal
-		for(int i = 0;i<encrypted_data.length();i++)
-		{
-			sprintf(&ciphertext[i*2], "%02x", encrypted_data[i]);	
-		}
-		std::cout<<ciphertext;
-		//convert hex representation to decimal string
-
-
-		return ciphertext;
-		/*unsigned char *plaintext;
-		if(RSA_public_decrypt(ciphertext.length(), ciphertext.c_str(), rsa, RSA_PKCS1_PADDING) != -1)
-		{
-
-		}
-		else
-		{
-			cout<<"Error"<<endl;
-		}
-		*/
-
-	} 	
+ 	
 
 }
 #endif
