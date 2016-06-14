@@ -11,7 +11,7 @@
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/rsa.h>
-
+using namespace std;
 namespace utils{
 	
 	struct auth_var{
@@ -74,7 +74,6 @@ namespace utils{
 	{	
 		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
 		BIO *bio, *b64;
-		
 		const size_t mlen = len*8/6 + len%6;	
 		char b64message[mlen+1];
 		b64 = BIO_new(BIO_f_base64());
@@ -90,27 +89,62 @@ namespace utils{
 		return b64message;
 
 	}
+
+	char *base64decode(const char *decode, size_t len)
+	{ 
+		BIO *bio, *b64, *bio_out;
+
+		const size_t mlen = 512;
+		char *inbuf = new char[mlen];
+		int inlen;
+		char decode_[len+1];
+		strcpy(decode_, decode);
+		decode_[len]='\n';
+		b64 = BIO_new(BIO_f_base64());
+		bio = BIO_new(BIO_s_mem());
+		BIO_puts(bio,decode_);
+		BIO_push(b64, bio);
+		cout<<"decoding    "<<decode_;
+		
+		 while((inlen = BIO_read(b64, inbuf, mlen)) > 0)
+		{	
+		   	inbuf[inlen]='\0';
+		   	cout<<inbuf<<endl;
+		   	cout<<inlen<<endl;
+	    }
+	    cout<<inlen<<endl;;
+		BIO_flush(b64);
+		BIO_free_all(b64);
+		 
+		 return inbuf;
+	}
+
+
+
 	
-	std::string base64decode(const char * instring, size_t len)
-	{	
-		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
-		BIO *bio, *b64;
-		
-		const size_t mlen = len*8/6 + len%6;	
-		char b64message[mlen+1];
-		b64 = BIO_new(BIO_f_base64());
-		bio = BIO_new(BIO_s_mem());
-		BIO_push(b64, bio);
-		BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
-		BIO_write(b64, instring, len);
-		BIO_flush(b64);
-		int length = BIO_read(bio, b64message, mlen);
-		BIO_free_all(b64);
-		//use len to remove \n
-		b64message[length]='\0';
-		return b64message;
+	// std::string base64decode(const char * instring, size_t len)
+	// {	
+	// 	//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
 
-	}
+
+	// 	BIO *b64, *bmem;
+	// 	cout<<"inside"<<endl;
+	// 	cout<<len<<endl;
+	// 	cout<<instring<<endl;
+	// 	char *buffer = (char *)malloc(len);
+	// 	memset(buffer, 0, len);
+
+	// 	b64 = BIO_new(BIO_f_base64());
+	// 	bmem = BIO_new_mem_buf(instring, len);
+	// 	bmem = BIO_push(b64, bmem);
+
+	// 	BIO_read(bmem, buffer, len);
+
+	// 	BIO_free_all(bmem);
+
+	// 	return buffer;
+
+	// }
 
 	RSA *import_ssh_key(std::string private_key_file, std::string passphrase= "")
 	{
@@ -130,6 +164,17 @@ namespace utils{
 
 		RSA* rsa = EVP_PKEY_get1_RSA( pkey );
 		if(rsa!=NULL) return rsa;
+
+
+
+		// FILE* fp = fopen (private_key_file.c_str() , "rb");;
+		// EVP_PKEY* pkey;
+		// // pem_password_cb *cb = (pem_password_cb *)passphrase;
+		// pkey = PEM_read_PrivateKey(fp, 0, 0, 0);
+		// std::cout<<pkey<<std::endl;
+		// RSA *key;
+		// EVP_PKEY_set1_RSA(pkey,key);
+		// return key;
 
 	}
 

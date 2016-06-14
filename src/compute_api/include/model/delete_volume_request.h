@@ -12,10 +12,10 @@ namespace model
 	class delete_volume_request
 	{
 	private:
-		/// Constructor
 		string volume_id;
 
 	public:
+		/// Constructor
 		delete_volume_request();
 		/// Getter for the private variable volume_id
 		/**

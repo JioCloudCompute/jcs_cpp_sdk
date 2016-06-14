@@ -52,7 +52,7 @@ namespace model
 
 		/// Setter for the private variable device 
 		/**
-			\param device_ : device where the vlume will be attached(/dev/vdb, /dev/vdc)
+			\param device_ : device where the volume will be attached(/dev/vdb, /dev/vdc)
 		*/
 		void set_device(const string& device_);
 

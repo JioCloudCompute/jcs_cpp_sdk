@@ -24,7 +24,7 @@ namespace model
 		const string get_volume_id() const;
 		/// Setter for the private variable volume_id
 		/**
-			\param volume_id_ : volume id of the volume for hich snapshot will be created(unique for each volume)
+			\param volume_id_ : volume id of the volume for which snapshot will be created(unique for each volume)
 		*/
 		void set_volume_id(const string& volume_id_);
 	};
