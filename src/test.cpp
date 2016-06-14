@@ -4,6 +4,12 @@ int main()
 {
 	JIOCOMPUTE::compute obj;
 	vector<string>instance_ids;
+
+	// string s=utils::base64encode((utils::base64encode("hello",5)).c_str(),(size_t) (utils::base64encode("hello",5)).length());
+	
+	// utils::decode64(s);
+
+	
 	int option;
 	cin>>option;
 	while(option!=-1)
@@ -366,7 +372,21 @@ int main()
 				delete res21;
 				break;
 			}
-
+			case 22:
+			{
+				// get password request
+				get_password_data_request req22;
+				get_password_data_response *res22;
+				req22.set_instance_id("i-4218c456");
+				req22.set_private_key_file("/home/gowtham/Desktop/reliance/jcs_cpp_sdk/src/key.pem");
+				req22.set_passphrase("");
+				res22 = obj.get_password_data(req22);
+				if(res22!=NULL){
+					cout<<(res22->get_password_data())<<endl;
+				}
+				delete res22;
+				break;
+			}
 			default:
 				break;
 		}

@@ -29,12 +29,12 @@ void model::run_instances_request::set_instance_type_id(const string& instance_t
 	instance_type_id = instance_type_id_;
 }
 
-const vector<struct utils::block_device_mapping> *model::run_instances_request::get_block_device_mapping() const
+const vector<struct model::block_device_mapping> *model::run_instances_request::get_block_device_mapping() const
 {
 	return &blocks;
 }
 
-void model::run_instances_request::set_block_device_maping(const vector <struct utils::block_device_mapping>& block_set)
+void model::run_instances_request::set_block_device_maping(const vector <struct model::block_device_mapping>& block_set)
 {
 	blocks.insert(blocks.end(), block_set.begin(), block_set.end());
 }

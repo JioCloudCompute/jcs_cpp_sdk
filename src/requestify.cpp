@@ -93,6 +93,7 @@ namespace requestify{
 		// TODO: Header handling remaining
 		cout<<request_string<<endl;
 #endif
+		cout<<request_string<<endl;
 		return CURL_REQUEST(request_string, config);
 		
 		

@@ -24,7 +24,7 @@ namespace model
 		const vector<string>* get_image_ids() const;
 		/// Setter for the private variable image_ids
 		/**
-			\param image_id_set (optional) : reference to a vector of image ids
+			\param image_id_set (optional) : reference to a vector of image ids for which description is needed
 		*/
 		void set_image_ids(const vector<string> &image_id_set);
 	};

@@ -134,7 +134,7 @@ namespace volume
 
 		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)		// Atleast one o size or snapshot is required
 		{
-			cout <<  "Parameters missing, Atleast one of them needed";
+			cout <<  "Parameters missing, Atleast one of snapshotId or size is needed";
 		}
 		
 		if(req.get_size() != -1)	// Default size = -1

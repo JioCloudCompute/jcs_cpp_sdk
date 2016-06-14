@@ -2,7 +2,7 @@
 #define RUN_INSTANCES_H
 #include <vector>
 #include <string>
-#include "../../../utils.cpp"
+#include "src/compute_api/include/model/block_device_mapping.h"
 
 using namespace std;
 using namespace utils;
@@ -16,7 +16,7 @@ namespace model
 	private:
 		string image_id;
 		string instance_type_id;
-		vector<struct utils::block_device_mapping> blocks;
+		vector<struct model::block_device_mapping> blocks;
 		int instance_count;
 		string subnet_id;
 		string private_ip_address;
@@ -50,7 +50,7 @@ namespace model
 		/**
 			\return vector<block_device_mapping> *
 		*/
-		const vector<struct utils::block_device_mapping> *get_block_device_mapping() const;
+		const vector<struct model::block_device_mapping> *get_block_device_mapping() const;
 		/// Setter for the private variable blocks
 		/**
 			\param blockset (optional): List of settings to be used for volumes being created during
@@ -63,8 +63,9 @@ namespace model
     		Please refer to the Compute help guide for more information on
 		    how to work with these parameters.
 		    If not specified, JCS takes the boot volume information from the
-		    OS image properties.		*/
-		void set_block_device_maping(const vector <struct utils::block_device_mapping>& block_set);
+		    OS image properties.		
+		*/
+		void set_block_device_maping(const vector <struct model::block_device_mapping>& block_set);
 		/// Getter for the private variable instance_count
 		/**
 			\return const int

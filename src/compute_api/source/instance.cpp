@@ -18,6 +18,12 @@
 #include "src/compute_api/source/model/describe_instance_types_request.cpp"
 #include "src/compute_api/source/model/get_password_data_request.cpp"
 #include "src/compute_api/source/model/get_password_data_response.cpp"
+#include <openssl/pem.h>
+#include <openssl/ssl.h>
+#include <openssl/rsa.h>
+#include <openssl/evp.h>
+#include <openssl/bio.h>
+#include <openssl/err.h>
 
 using namespace std;
 
@@ -243,11 +249,51 @@ namespace instance
 		params["Action"] = "GetPasswordData";
 		params["Version"] = info.version;
 
-		if(req.get_instance_id().length() == 0)
+		if(req.get_instance_id().length() == 0){
 			cout<<"Instance-ID is Required"<<endl;
-		else params["InstanceID"] = req.get_instance_id();
+		}
+		else{
+			params["InstanceId"] = req.get_instance_id();
+		} 
 
 		return requestify::make_request(info,params);
+
+	}
+
+	void decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string passphrase)
+	{
+		//cout<<encrypted_password<<endl;
+		
+		RSA *rsa = utils::import_ssh_key(private_key_file, passphrase);
+		// cout<<"back"<<endl;
+		//unsigned char* password_data = (unsigned char*)utils::base64decode(encrypted_password , strlen(encrypted_password));
+		// unsigned char* password_data = (unsigned char*)"UrJ4L8yhqbdRzMdkw162sHqJd792ksIQnku8e8+hR6uTFGC7Iqra95OIepsjdlzPNt8rs906EUroEw40aK9j9Y0J4odXH3RuZr3sG/DMvc7AdQlfCd4LKd5c2HM4yMRsySWRaR31rM8Ke8GSzDcjDypy5QOFyMUD0cSUdCZTKP0vE7Kzd6m7vBQguo/NcZK/2gFC1vX3ZWNlpgjr8FioAZScoK5TRkXq/MqQo5PlPr2WVFhMZyPQxAZh/boy0/j0QRqSrZeKTCzPJ0xBWYLWKAdq4xLi9XinJonyaNJ/W9tJRgsOdFourncG6jB9iM1KQ1isbhPh2buysFG4g/NoIw==";
+		
+		unsigned char * password_data =(unsigned char*) utils::base64decode("p05Oey3oqtQOuQhL8VzbbYA8N7cpP9fzeklGEekcvUI9DYbCXioSRbZFoP3ef2IGtggWe7TJVLy3ErzlXOHoyfSF4YF8M2g2WOq7+FlBmfhIOyfGpjmBczn08zorCRrP+yUDPo3wQ4Rt7nvFheDZPli7ttdOXwBJAie/RMvyGLG8QvPYqrjTonZe5i3KLraYgQlBdJRSTyZfcu6q2qiLWxrH5pzFQeVsF25DqQeUorjtnoqy9D5/pC+7LtU5BXl4OnpHkVif5PjAJ2tOaDPAurQI67+EyxI9ydQk/7t3VRk7dHE57NHkltigVkkgUS3KWGvYW0erQfFNr6dwqr5uig==\n",344);
+		unsigned char* to = new unsigned char[strlen((const char*)password_data)+1];
+		int padding = RSA_PKCS1_PADDING;
+		
+		// cout<<RSA_size(rsa) - 11<<endl;
+		// cout<<strlen((const char*)password_data)<<endl;	
+		int res = RSA_private_decrypt(strlen((const char*)password_data),password_data,to, rsa, padding);
+		//cout<<res<<endl;
+		
+		printf("final: %s\n : final\n",to);
+		// std::string encrypted_data = "hello";
+
+		// char ciphertext[512];
+
+		// return ciphertext;
+		/*unsigned char *plaintext;
+		if(RSA_public_decrypt(ciphertext.length(), ciphertext.c_str(), rsa, RSA_PKCS1_PADDING) != -1)
+		{
+
+		}
+		else
+		{
+			cout<<"Error"<<endl;
+		}
+		*/
 
 	}
 
