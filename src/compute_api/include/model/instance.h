@@ -119,6 +119,10 @@ namespace model
 		{
 			return private_dns_name;
 		}
+		///Getter for Key Name
+		/**
+			\return const string
+		*/
 		const string get_key_name() const
 		{
 			return key_name;
