@@ -1,3 +1,25 @@
+/*****************************************************************************
+* Copyright (c) 2016 Jiocloud.com, Inc. or its affiliates.  All Rights Reserved
+*
+* Permission is hereby granted, free of charge, to any person obtaining a
+* copy of this software and associated documentation files (the
+* "Software"), to deal in the Software without restriction, including
+* without limitation the rights to use, copy, modify, merge, publish, dis-
+* tribute, sublicense, and/or sell copies of the Software, and to permit
+* persons to whom the Software is furnished to do so, subject to the fol-
+* lowing conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL-
+* ITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+* SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+* IN THE SOFTWARE.
+******************************************************************************/
 #include <iostream>
 #include <time.h>
 #include "utils.cpp"
@@ -5,7 +27,7 @@
 #include <string.h>
 #include <map>
 #include <curl/curl.h>
-
+#include <sstream>
 using namespace std;
 using namespace utils;
 namespace auth{
@@ -70,7 +92,7 @@ namespace auth{
 		std::string sort_params(std::map<std::string ,std::string> &params)
 		{
 			
-			std::string qs="";
+			stringstream qs;
 			CURL *curl = curl_easy_init();
 			char *value; 
 			for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
@@ -79,11 +101,12 @@ namespace auth{
 				// utf encoding on values left
 				//url encoding
 				value = curl_easy_escape(curl,it->second.c_str(),0);
-				qs+=it->first+"="+value+"&";
+				qs<<it->first<<"="<<value<<"&";
 			}
-			qs[qs.length()-1]='\0'; //removing last &
+			string qs_ = qs.str();
+			qs_[qs_.length()-1]='\0'; //removing last &
 			curl_free(value);
-			return qs;
+			return qs_;
 
 
 		}
@@ -91,18 +114,19 @@ namespace auth{
 		{
 			//Calculate the canonical string for the request
 			std::string verb_ = data_.verb;
-			std::string ss = verb_ + "\n" + data_.host;
+			stringstream ss;
+			ss<<verb_<<"\n"<<data_.host;
 			
 			if(strcmp(data_.port,"None"))
 			{
-				ss += ":";
-				ss+=data_.port;
+				ss<<":";
+				ss<<data_.port;
 			}
 
-			ss= ss + "\n" + data_.path + "\n";
+			ss<<"\n"<<data_.path<<"\n";
 			add_params(params);
-			ss+=sort_params(params);
-			return ss;
+			ss<<sort_params(params);
+			return ss.str();
 
 		}
 
