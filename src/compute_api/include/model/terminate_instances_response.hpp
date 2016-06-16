@@ -20,32 +20,33 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef DESCRIBE_VOLUMESR_H
-#define DESCRIBE_VOLUMESR_H
+#ifndef TERMINATE_INSTANCER_H
+#define TERMINATE_INSTANCER_H
+#include <string>
 #include <map>
-#include "src/compute_api/include/model/volume.h"
+#include "src/compute_api/include/model/instance_set.hpp"
 using namespace std;
 using namespace model;
 
 namespace model
-{	
-	/// Class to handle Describe Volume Request's Response
+{
+	/// Class to handle Terminate Instance Request's Response
 	/**
-		This Response Class has member functions that returns the description of the Volumes requested.  
+		This Response Class has member functions that returns the description of the Instances requested to Terminate.  
 	*/
-	class describe_volumes_response
+	class terminate_instances_response
 	{
 	private:
 		string request_id;
-		vector< model::volume>volume_set;
+		vector<model::instance_set> instances;
 
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		describe_volumes_response(const string &xml_doc);
-		describe_volumes_response(){}
+		terminate_instances_response(const string &xml_doc);
+		terminate_instances_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -54,15 +55,16 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of Volumes Requested
+		///Getter for the Description of the instances that were terminated
 		/**
-			\return const vector<model::volume>  
-			A vector of objects of class volume
+			\return const vector<model::instance_set>
+			A vector of objects of class instance_set
 		*/
-		const vector<model::volume> get_volume_set() const
+		const vector<model::instance_set> get_instances() const
 		{
-			return volume_set;
+			return instances;
 		}
+
 	};
 }
 #endif

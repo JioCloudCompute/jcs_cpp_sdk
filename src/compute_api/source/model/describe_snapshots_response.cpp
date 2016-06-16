@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_snapshots_response.h"
+#include "src/compute_api/include/model/describe_snapshots_response.hpp"
 #include "src/XMLParser.h"
 #include <string>
 

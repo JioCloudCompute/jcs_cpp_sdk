@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_images_request.h"
+#include "src/compute_api/include/model/describe_images_request.hpp"
 
 using namespace std;
 using namespace model;

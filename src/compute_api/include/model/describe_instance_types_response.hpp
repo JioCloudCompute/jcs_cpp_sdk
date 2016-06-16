@@ -20,32 +20,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef RUN_INSTANCESR_H
-#define RUN_INSTANCESR_H
-#include <string>
+#ifndef DESCRIBE_INSTANCE_TYPESR_H
+#define DESCRIBE_INSTANCE_TYPESR_H
 #include <map>
-#include <src/compute_api/include/model/instance.h>
-
+#include "src/compute_api/include/model/instance_type.hpp"
 using namespace std;
 using namespace model;
-namespace model
-{
-	/// Class to handle Run Instance Request's Response
-	/**
-		This Response Class has member functions that returns the description of the Instances requested to run(create).  
-	*/
 
-	class run_instances_response{
+namespace model
+{	
+	/// Class to handle Describe Instance Type Request's Response
+	/**
+		This Response Class has member functions that returns the description of instance types requested for.  
+	*/
+	class describe_instance_types_response
+	{
 	private:
-		vector<instance> instances;
 		string request_id;
+		vector<model::instance_type>instance_type_set;
+
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		run_instances_response(const string &xml_doc);
-		run_instances_response(){}
+		describe_instance_types_response(const string &xml_doc);
+		describe_instance_types_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -54,18 +54,16 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of the instances that were requested to run
+		///Getter for the Description of Intance Types requested
 		/**
-			\return const vector<instance>
-			A vector of objects of class instance
+			\return const vector<model::instance_type>  
+			A vector of objects of class instance_type
 		*/
-		const vector<instance> get_instances() const
+		const vector<model::instance_type> get_instance_types() const
 		{
-			return instances;
+			return instance_type_set;
 		}
-
 	};
-
 }
 #endif
 

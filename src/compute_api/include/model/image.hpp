@@ -24,7 +24,7 @@
 #define IMAGE_H
 #include <string.h>
 #include <string>
-#include "block_device.h"
+#include "block_device.hpp"
 using namespace std;
 
 namespace model{

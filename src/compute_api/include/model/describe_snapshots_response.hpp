@@ -20,33 +20,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef STOP_INSTANCER_H
-#define STOP_INSTANCER_H
-#include <string>
+#ifndef DESCRIBE_SNAPSHOTSR_H
+#define DESCRIBE_SNAPSHOTSR_H
 #include <map>
-#include "src/compute_api/include/model/instance_set.h"
+#include "src/compute_api/include/model/snapshot.hpp"
 using namespace std;
 using namespace model;
 
 namespace model
 {
-	/// Class to handle Stop Instances Request's Response
+	/// Class to handle Describe Snapshots Request's Response
 	/**
-		This Response Class has member functions that returns the description of the Instances requested to stop.  
+		This Response Class has member functions that returns the description of the Snapshots requested.  
 	*/
-	class stop_instances_response
+	class describe_snapshots_response
 	{
 	private:
 		string request_id;
-		vector<model::instance_set> instances;
+		vector<model::snapshot>snapshot_set;
 
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		stop_instances_response(const string &xml_doc);
-		stop_instances_response(){}
+		describe_snapshots_response(const string &xml_doc);
+		describe_snapshots_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -55,16 +54,16 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of the instances that were requested to stop
+		///Getter for the Description of Snapshots
 		/**
-			\return const vector<model::instance_set>
-			A vector of objects of class instance_set
+			\return const vector<model::snapshot>  
+			A vector of objects of class snapshot
 		*/
-		const vector<model::instance_set> get_instances() const
+		const vector<model::snapshot> get_snapshot_set() const
 		{
-			return instances;
+			return snapshot_set;
 		}
-
 	};
 }
 #endif
+

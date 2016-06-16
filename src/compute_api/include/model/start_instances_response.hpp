@@ -20,21 +20,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef TERMINATE_INSTANCER_H
-#define TERMINATE_INSTANCER_H
+#ifndef START_INSTANCER_H
+#define START_INSTANCER_H
 #include <string>
 #include <map>
-#include "src/compute_api/include/model/instance_set.h"
+#include "src/compute_api/include/model/instance_set.hpp"
 using namespace std;
 using namespace model;
 
 namespace model
 {
-	/// Class to handle Terminate Instance Request's Response
+	/// Class to handle Start Instances Request's Response
 	/**
-		This Response Class has member functions that returns the description of the Instances requested to Terminate.  
+		This Response Class has member functions that returns the description of the Instances requested to start.  
 	*/
-	class terminate_instances_response
+	class start_instances_response
 	{
 	private:
 		string request_id;
@@ -45,8 +45,8 @@ namespace model
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		terminate_instances_response(const string &xml_doc);
-		terminate_instances_response(){}
+		start_instances_response(const string &xml_doc);
+		start_instances_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -55,7 +55,7 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of the instances that were terminated
+		///Getter for the Description of the instances that were requested to start
 		/**
 			\return const vector<model::instance_set>
 			A vector of objects of class instance_set

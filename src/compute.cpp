@@ -21,7 +21,7 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 
-#include "compute.h"
+#include "compute.hpp"
 using namespace JIOCOMPUTE;
 
 compute::compute(){

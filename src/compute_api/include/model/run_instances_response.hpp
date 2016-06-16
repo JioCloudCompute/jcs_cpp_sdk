@@ -20,33 +20,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef START_INSTANCER_H
-#define START_INSTANCER_H
+#ifndef RUN_INSTANCESR_H
+#define RUN_INSTANCESR_H
 #include <string>
 #include <map>
-#include "src/compute_api/include/model/instance_set.h"
+#include <src/compute_api/include/model/instance.hpp>
+
 using namespace std;
 using namespace model;
-
 namespace model
 {
-	/// Class to handle Start Instances Request's Response
+	/// Class to handle Run Instance Request's Response
 	/**
-		This Response Class has member functions that returns the description of the Instances requested to start.  
+		This Response Class has member functions that returns the description of the Instances requested to run(create).  
 	*/
-	class start_instances_response
-	{
-	private:
-		string request_id;
-		vector<model::instance_set> instances;
 
+	class run_instances_response{
+	private:
+		vector<instance> instances;
+		string request_id;
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		start_instances_response(const string &xml_doc);
-		start_instances_response(){}
+		run_instances_response(const string &xml_doc);
+		run_instances_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -55,16 +54,18 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of the instances that were requested to start
+		///Getter for the Description of the instances that were requested to run
 		/**
-			\return const vector<model::instance_set>
-			A vector of objects of class instance_set
+			\return const vector<instance>
+			A vector of objects of class instance
 		*/
-		const vector<model::instance_set> get_instances() const
+		const vector<instance> get_instances() const
 		{
 			return instances;
 		}
 
 	};
+
 }
 #endif
+

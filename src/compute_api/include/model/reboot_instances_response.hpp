@@ -20,32 +20,33 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef DESCRIBE_IMAGESR_H
-#define DESCRIBE_IMAGESR_H
-#include "image.h"
+#ifndef REBOOT_INSTANCER_H
+#define REBOOT_INSTANCER_H
 #include <string>
-#include <vector>
 #include <map>
+#include "src/compute_api/include/model/instance_set.hpp"
 using namespace std;
+using namespace model;
 
 namespace model
-{	
-	/// Class to handle Describe Image Request's Response
+{
+	/// Class to handle Reboot Instance Request's Response
 	/**
-		This Response Class has member functions that returns the description of images requested.
+		This Response Class has member functions that returns the description of the Instances requested to Reboot.  
 	*/
-	class describe_images_response
+	class reboot_instances_response
 	{
-
-		vector<image> images;
+	private:
 		string request_id;
-		public:
+		vector<model::instance_set> instances;
+
+	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
-		*/		
-		describe_images_response(const string &xml_doc);
-		describe_images_response(){}
+		*/
+		reboot_instances_response(const string &xml_doc);
+		reboot_instances_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -54,15 +55,16 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of Images requested
+		///Getter for the Description of the instances that were requested to reboot
 		/**
-			\return vector<image> *
-			A vector of objects of class image
+			\return const vector<instance_set>
+			A vector of objects of class instance_set
 		*/
-		const vector<image> get_images() const
+		const vector<model::instance_set> get_instances() const
 		{
-			return images;
+			return instances;
 		}
+
 	};
 }
 #endif

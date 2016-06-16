@@ -20,33 +20,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef REBOOT_INSTANCER_H
-#define REBOOT_INSTANCER_H
-#include <string>
+#ifndef DESCRIBE_VOLUMESR_H
+#define DESCRIBE_VOLUMESR_H
 #include <map>
-#include "src/compute_api/include/model/instance_set.h"
+#include "src/compute_api/include/model/volume.hpp"
 using namespace std;
 using namespace model;
 
 namespace model
-{
-	/// Class to handle Reboot Instance Request's Response
+{	
+	/// Class to handle Describe Volume Request's Response
 	/**
-		This Response Class has member functions that returns the description of the Instances requested to Reboot.  
+		This Response Class has member functions that returns the description of the Volumes requested.  
 	*/
-	class reboot_instances_response
+	class describe_volumes_response
 	{
 	private:
 		string request_id;
-		vector<model::instance_set> instances;
+		vector< model::volume>volume_set;
 
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
-		reboot_instances_response(const string &xml_doc);
-		reboot_instances_response(){}
+		describe_volumes_response(const string &xml_doc);
+		describe_volumes_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
@@ -55,16 +54,15 @@ namespace model
 		{
 			return request_id;
 		}
-		///Getter for the Description of the instances that were requested to reboot
+		///Getter for the Description of Volumes Requested
 		/**
-			\return const vector<instance_set>
-			A vector of objects of class instance_set
+			\return const vector<model::volume>  
+			A vector of objects of class volume
 		*/
-		const vector<model::instance_set> get_instances() const
+		const vector<model::volume> get_volume_set() const
 		{
-			return instances;
+			return volume_set;
 		}
-
 	};
 }
 #endif
