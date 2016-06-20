@@ -24,6 +24,8 @@
 #define DESCRIBE_INSTANCE_TYPESR_H
 #include <map>
 #include "src/compute_api/include/model/instance_type.hpp"
+#include <vector>
+
 using namespace std;
 using namespace model;
 

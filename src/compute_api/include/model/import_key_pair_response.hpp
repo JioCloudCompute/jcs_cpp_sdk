@@ -23,6 +23,8 @@
 #ifndef IMPORT_KEY_PAIRR_H
 #define IMPORT_KEY_PAIRR_H
 #include <string>
+#include <vector>
+#include "src/compute_api/include/model/key_pair.hpp"
 using namespace std;
 namespace model
 {

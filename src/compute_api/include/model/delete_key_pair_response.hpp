@@ -23,6 +23,7 @@
 #ifndef DELETE_KEY_PAIRR_H
 #define DELETE_KEY_PAIRR_H
 #include <string>
+#include <vector>
 using namespace std;
 namespace model
 {	

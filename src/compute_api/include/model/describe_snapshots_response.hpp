@@ -23,6 +23,7 @@
 #ifndef DESCRIBE_SNAPSHOTSR_H
 #define DESCRIBE_SNAPSHOTSR_H
 #include <map>
+#include <vector>
 #include "src/compute_api/include/model/snapshot.hpp"
 using namespace std;
 using namespace model;

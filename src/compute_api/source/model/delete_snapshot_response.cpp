@@ -22,7 +22,7 @@
 ******************************************************************************/
 #include "src/compute_api/include/model/delete_snapshot_response.hpp"
 #include "src/XMLParser.h"
-
+#include <iostream>
 
 
 #ifndef XMLCheckResult

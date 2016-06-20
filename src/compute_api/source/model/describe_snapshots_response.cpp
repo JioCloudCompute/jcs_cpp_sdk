@@ -23,6 +23,7 @@
 #include "src/compute_api/include/model/describe_snapshots_response.hpp"
 #include "src/XMLParser.h"
 #include <string>
+#include <iostream>
 
 #ifndef XMLCheckResult
 	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }

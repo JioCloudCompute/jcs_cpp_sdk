@@ -27,7 +27,6 @@
 #include "src/compute_api/include/model/block_device_mapping.hpp"
 
 using namespace std;
-using namespace utils;
 namespace model
 {	/// Class to handle run instances request
 	/**

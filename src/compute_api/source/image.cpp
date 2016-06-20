@@ -24,8 +24,10 @@
 #include <string>
 #include <map>
 #include <sstream>
-#include "src/compute_api/source/model/describe_images_request.cpp"
-#include "src/compute_api/source/model/describe_images_response.cpp"
+#include "src/compute_api/include/model/describe_images_request.hpp"
+#include "src/compute_api/include/model/describe_images_response.hpp"
+#include "src/utils.cpp"
+#include "src/requestify.cpp"
 
 
 using namespace std;

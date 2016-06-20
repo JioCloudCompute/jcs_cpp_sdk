@@ -24,12 +24,14 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "src/compute_api/source/model/describe_snapshots_request.cpp"
-#include "src/compute_api/source/model/describe_snapshots_response.cpp"
-#include "src/compute_api/source/model/delete_snapshot_request.cpp"
-#include "src/compute_api/source/model/delete_snapshot_response.cpp"
-#include "src/compute_api/source/model/create_snapshot_request.cpp"
-#include "src/compute_api/source/model/create_snapshot_response.cpp"
+#include "src/compute_api/include/model/describe_snapshots_request.hpp"
+#include "src/compute_api/include/model/describe_snapshots_response.hpp"
+#include "src/compute_api/include/model/delete_snapshot_request.hpp"
+#include "src/compute_api/include/model/delete_snapshot_response.hpp"
+#include "src/compute_api/include/model/create_snapshot_request.hpp"
+#include "src/compute_api/include/model/create_snapshot_response.hpp"
+#include "src/utils.cpp"
+#include "src/requestify.cpp"
 
 using namespace std;
 using namespace utils;

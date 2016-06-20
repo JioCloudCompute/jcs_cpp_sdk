@@ -24,7 +24,7 @@
 #define DESCRIBE_INSTANCESR_H
 #include <string>
 #include <map>
-#include <src/compute_api/include/model/instance.h>
+#include <src/compute_api/include/model/instance.hpp>
 
 using namespace std;
 using namespace model;

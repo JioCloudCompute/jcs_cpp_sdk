@@ -25,6 +25,8 @@
 #include <string>
 #include <map>
 #include "src/compute_api/include/model/instance_set.hpp"
+#include <vector>
+
 using namespace std;
 using namespace model;
 

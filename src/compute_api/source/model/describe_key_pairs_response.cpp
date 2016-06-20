@@ -24,6 +24,7 @@
 #include "src/XMLParser.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 
 #ifndef XMLCheckResult

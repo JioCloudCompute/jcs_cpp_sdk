@@ -20,6 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
+#ifndef CONFIG
+#define CONFIG
 #include <iostream>
 #include <map>
 #include <string>
@@ -102,3 +104,4 @@ namespace config{
 };
 
 }
+#endif

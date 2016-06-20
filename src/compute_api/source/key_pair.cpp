@@ -24,13 +24,16 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "src/compute_api/source/model/describe_key_pairs_response.cpp"
-#include "src/compute_api/source/model/create_key_pair_request.cpp"
-#include "src/compute_api/source/model/create_key_pair_response.cpp"
-#include "src/compute_api/source/model/delete_key_pair_request.cpp"
-#include "src/compute_api/source/model/delete_key_pair_response.cpp"
-#include "src/compute_api/source/model/import_key_pair_request.cpp"
-#include "src/compute_api/source/model/import_key_pair_response.cpp"
+#include <vector>
+#include "src/compute_api/include/model/describe_key_pairs_response.hpp"
+#include "src/compute_api/include/model/create_key_pair_request.hpp"
+#include "src/compute_api/include/model/create_key_pair_response.hpp"
+#include "src/compute_api/include/model/delete_key_pair_request.hpp"
+#include "src/compute_api/include/model/delete_key_pair_response.hpp"
+#include "src/compute_api/include/model/import_key_pair_request.hpp"
+#include "src/compute_api/include/model/import_key_pair_response.hpp"
+#include "src/utils.cpp"
+#include "src/requestify.cpp"
 
 using namespace std;
 using namespace utils;

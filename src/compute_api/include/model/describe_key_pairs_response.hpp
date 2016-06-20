@@ -24,6 +24,7 @@
 #define DESCRIBE_KEYR_H
 #include <string>
 #include <map>
+#include <vector>
 #include "src/compute_api/include/model/key_pair.hpp"
 using namespace std;
 using namespace model;

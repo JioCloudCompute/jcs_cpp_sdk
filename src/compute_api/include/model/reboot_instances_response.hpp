@@ -24,6 +24,7 @@
 #define REBOOT_INSTANCER_H
 #include <string>
 #include <map>
+#include <vector>
 #include "src/compute_api/include/model/instance_set.hpp"
 using namespace std;
 using namespace model;

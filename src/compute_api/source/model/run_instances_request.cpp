@@ -23,7 +23,6 @@
 #include "src/compute_api/include/model/run_instances_request.hpp"
 
 using namespace std;
-using namespace utils;
 using namespace model;
 
 model::run_instances_request::run_instances_request()

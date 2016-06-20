@@ -20,10 +20,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "compute.cpp"
+#include "src/compute.hpp"
+#include <bits/stdc++.h>
+
+using namespace JIOCOMPUTE;
+using namespace std;
 int main()
 {
-	JIOCOMPUTE::compute obj;
+	compute obj;
 	vector<string>instance_ids;
 
 	int option;
