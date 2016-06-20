@@ -20,227 +20,202 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <map>
-#include "src/compute_api/include/model/create_volume_request.hpp"
-#include "src/compute_api/include/model/create_volume_response.hpp"
-#include "src/compute_api/include/model/delete_volume_request.hpp"
-#include "src/compute_api/include/model/delete_volume_response.hpp"
-#include "src/compute_api/include/model/attach_volume_request.hpp"
-#include "src/compute_api/include/model/attach_volume_response.hpp"
-#include "src/compute_api/include/model/detach_volume_request.hpp"
-#include "src/compute_api/include/model/detach_volume_response.hpp"
-#include "src/compute_api/include/model/describe_volumes_request.hpp"
-#include "src/compute_api/include/model/describe_volumes_response.hpp"
-#include "src/compute_api/include/model/show_delete_on_termination_flag_request.hpp"
-#include "src/compute_api/include/model/show_delete_on_termination_flag_response.hpp"
-#include "src/compute_api/include/model/update_delete_on_termination_flag_request.hpp"
-#include "src/compute_api/include/model/update_delete_on_termination_flag_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/compute_api/include/volume.hpp"
 
-using namespace std;
-using namespace utils;
-using namespace requestify;
-using namespace model;
+using namespace volume;
 
-namespace volume
+pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)
 {
-	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)
+	map <string, string> params;
+	params["Action"] = "DescribeVolumes";	// Adding action to map params
+	params["Version"] = info.version;	// Adding version to map params
+
+	stringstream ss;					// To convert int int string
+	if((req.get_volume_ids())->size() != 0)
 	{
-		map <string, string> params;
-		params["Action"] = "DescribeVolumes";	// Adding action to map params
-		params["Version"] = info.version;	// Adding version to map params
-
-		stringstream ss;					// To convert int int string
-		if((req.get_volume_ids())->size() != 0)
+		string key = "VolumeId.";
+		for(int i=0 ; i<(req.get_volume_ids())->size() ; i++)
 		{
-			string key = "VolumeId.";
-			for(int i=0 ; i<(req.get_volume_ids())->size() ; i++)
-			{
-				ss << i+1;
-				params[key + ss.str()] = (*req.get_volume_ids())[i];
-				ss.str("");					// To prevent appending// To convert int int string
-			}	
-		}
-
-		if(req.get_max_results() != -1)		// Default value set as -1
-		{	
-			ss << req.get_max_results();
-			params["MaxResults"] = ss.str();
-			ss.str("");
-		}
-		
-		if(req.get_next_token().length() != 0)
-		{
-			params["NextToken"] = req.get_next_token();
-		}
-
-		if(!req.get_detail())
-		{
-			ss.str("false");
-			params["Detail"] = ss.str();
-			ss.str("");
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+			ss << i+1;
+			params[key + ss.str()] = (*req.get_volume_ids())[i];
+			ss.str("");					// To prevent appending// To convert int int string
+		}	
 	}
 
-
-
-	pair<string,long> attach_volume(utils::http_var &info, const model::attach_volume_request &req)
+	if(req.get_max_results() != -1)		// Default value set as -1
+	{	
+		ss << req.get_max_results();
+		params["MaxResults"] = ss.str();
+		ss.str("");
+	}
+	
+	if(req.get_next_token().length() != 0)
 	{
-		map <string, string> params;
-		params["Action"] = "AttachVolume";
-		params["Version"] = info.version;
-		
-		if(req.get_instance_id().length() == 0)
-		{	
-			cout <<  "Error : Instance-Id needed";
-		}
-		else
-		{
-			params["InstanceId"] = req.get_instance_id();	
-		}
-
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
-		{
-			params["VolumeId"] = req.get_volume_id();
-		}
-
-		if(req.get_device().length() == 0)
-		{	
-			cout <<  "Error : Device needed";
-		}
-		else
-		{
-			params["Device"] = req.get_device();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["NextToken"] = req.get_next_token();
 	}
 
-
-	pair<string,long> detach_volume(utils::http_var &info, const model::detach_volume_request &req)
+	if(!req.get_detail())
 	{
-		map <string, string> params;
-		params["Action"] = "DetachVolume";
-		params["Version"] = info.version;
-		
-		if(req.get_instance_id().length() != 0)
-		{
-			params["InstanceId"] = req.get_instance_id();	
-		}
-
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
-		{
-			params["VolumeId"] = req.get_volume_id();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		ss.str("false");
+		params["Detail"] = ss.str();
+		ss.str("");
 	}
 
-	pair<string,long> create_volume(utils::http_var &info, const model::create_volume_request &req)
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+
+
+pair<string,long> attach_volume(utils::http_var &info, const model::attach_volume_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "AttachVolume";
+	params["Version"] = info.version;
+	
+	if(req.get_instance_id().length() == 0)
+	{	
+		cout <<  "Error : Instance-Id needed";
+	}
+	else
 	{
-		map <string, string> params;
-		params["Action"] = "CreateVolume";
-		params["Version"] = info.version;
-
-		if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)		// Atleast one o size or snapshot is required
-		{
-			cout <<  "Parameters missing, Atleast one of snapshotId or size is needed";
-		}
-		
-		if(req.get_size() != -1)	// Default size = -1
-		{
-			stringstream ss;
-			ss << req.get_size();
-			params["Size"] = ss.str();
-		}
-
-		if(req.get_snapshot_id().length() != 0)
-		{	
-			params["SnapshotId"] = req.get_snapshot_id();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["InstanceId"] = req.get_instance_id();	
 	}
 
-	pair<string,long> delete_volume(utils::http_var &info, const model::delete_volume_request &req)
+	if(req.get_volume_id().length() == 0)
+	{	
+		cout <<  "Error : Volume ID needed";
+	}
+	else
 	{
-		map <string, string> params;
-		params["Action"] = "DeleteVolume";
-		params["Version"] = info.version;
-		
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
-		{
-			params["VolumeId"] = req.get_volume_id();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["VolumeId"] = req.get_volume_id();
 	}
 
-
-	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, const model::show_delete_on_termination_flag_request &req)
+	if(req.get_device().length() == 0)
+	{	
+		cout <<  "Error : Device needed";
+	}
+	else
 	{
-		map <string, string> params;
-		params["Action"] = "ShowDeleteOnTerminationFlag";
-		params["Version"] = info.version;
-		
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
-		{
-			params["VolumeId"] = req.get_volume_id();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["Device"] = req.get_device();
 	}
 
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
 
-	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, const model::update_delete_on_termination_flag_request &req)
+
+pair<string,long> detach_volume(utils::http_var &info, const model::detach_volume_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "DetachVolume";
+	params["Version"] = info.version;
+	
+	if(req.get_instance_id().length() != 0)
 	{
-		map <string, string> params;
-		params["Action"] = "UpdateDeleteOnTerminationFlag";
-		params["Version"] = info.version;
-		
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
-		{
-			params["VolumeId"] = req.get_volume_id();
-		}
+		params["InstanceId"] = req.get_instance_id();	
+	}
 
+	if(req.get_volume_id().length() == 0)
+	{	
+		cout <<  "Error : Volume ID needed";
+	}
+	else
+	{
+		params["VolumeId"] = req.get_volume_id();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+pair<string,long> create_volume(utils::http_var &info, const model::create_volume_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "CreateVolume";
+	params["Version"] = info.version;
+
+	if(req.get_size() == -1 && req.get_snapshot_id().length() == 0)		// Atleast one o size or snapshot is required
+	{
+		cout <<  "Parameters missing, Atleast one of snapshotId or size is needed";
+	}
+	
+	if(req.get_size() != -1)	// Default size = -1
+	{
 		stringstream ss;
-		if(req.get_delete_on_termination())
-		{
-			ss.str("True");
-		}
-		else
-		{
-			ss.str("False");
-		}
-
-		params["DeleteOnTermination"] = ss.str();
-		
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		ss << req.get_size();
+		params["Size"] = ss.str();
 	}
+
+	if(req.get_snapshot_id().length() != 0)
+	{	
+		params["SnapshotId"] = req.get_snapshot_id();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+pair<string,long> delete_volume(utils::http_var &info, const model::delete_volume_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "DeleteVolume";
+	params["Version"] = info.version;
+	
+	if(req.get_volume_id().length() == 0)
+	{	
+		cout <<  "Error : Volume ID needed";
+	}
+	else
+	{
+		params["VolumeId"] = req.get_volume_id();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+
+pair<string,long> show_delete_on_termination_flag(utils::http_var &info, const model::show_delete_on_termination_flag_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "ShowDeleteOnTerminationFlag";
+	params["Version"] = info.version;
+	
+	if(req.get_volume_id().length() == 0)
+	{	
+		cout <<  "Error : Volume ID needed";
+	}
+	else
+	{
+		params["VolumeId"] = req.get_volume_id();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+
+pair<string,long> update_delete_on_termination_flag(utils::http_var &info, const model::update_delete_on_termination_flag_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "UpdateDeleteOnTerminationFlag";
+	params["Version"] = info.version;
+	
+	if(req.get_volume_id().length() == 0)
+	{	
+		cout <<  "Error : Volume ID needed";
+	}
+	else
+	{
+		params["VolumeId"] = req.get_volume_id();
+	}
+
+	stringstream ss;
+	if(req.get_delete_on_termination())
+	{
+		ss.str("True");
+	}
+	else
+	{
+		ss.str("False");
+	}
+
+	params["DeleteOnTermination"] = ss.str();
+	
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 }

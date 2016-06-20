@@ -20,98 +20,80 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <map>
-#include <vector>
-#include "src/compute_api/include/model/describe_key_pairs_response.hpp"
-#include "src/compute_api/include/model/create_key_pair_request.hpp"
-#include "src/compute_api/include/model/create_key_pair_response.hpp"
-#include "src/compute_api/include/model/delete_key_pair_request.hpp"
-#include "src/compute_api/include/model/delete_key_pair_response.hpp"
-#include "src/compute_api/include/model/import_key_pair_request.hpp"
-#include "src/compute_api/include/model/import_key_pair_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/compute_api/include/key_pair.hpp"
 
-using namespace std;
-using namespace utils;
-using namespace requestify;
+using namespace key_pair;
 
-namespace key_pair
+pair<string,long> describe_key_pairs(utils::http_var &info)
 {
-	pair<string,long> describe_key_pairs(utils::http_var &info)
+	map <string, string> params;
+	params["Action"] = "DescribeKeyPairs";
+	params["Version"] = info.version;
+	
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+
+pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "CreateKeyPair";
+	params["Version"] = info.version;
+	
+	if(req.get_key_name().length() == 0)
+	{	
+		cout <<  "Error : Key-Name needed";
+	}
+	else
 	{
-		map <string, string> params;
-		params["Action"] = "DescribeKeyPairs";
-		params["Version"] = info.version;
-		
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["KeyName"] = req.get_key_name();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "DeleteKeyPair";
+	params["Version"] = info.version;
+
+	if(req.get_key_name().length() == 0)
+	{	
+		cout <<  "Error : KeyName needed";
+	}
+	else
+	{
+		params["KeyName"] = req.get_key_name();
+	}
+
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+}
+
+pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req)
+{
+	map <string, string> params;
+	params["Action"] = "ImportKeyPair";
+	params["Version"] = info.version;
+
+	if(req.get_key_name().length() == 0)
+	{	
+		cout <<  "Error : KeyName needed";
+	}
+	else
+	{
+		params["KeyName"] = req.get_key_name();
 	}
 
 
-	pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req)
+	if(req.get_public_key_material().length() == 0)
+	{	
+		cout <<  "Error : Public key material needed";
+	}
+	else
 	{
-		map <string, string> params;
-		params["Action"] = "CreateKeyPair";
-		params["Version"] = info.version;
-		
-		if(req.get_key_name().length() == 0)
-		{	
-			cout <<  "Error : Key-Name needed";
-		}
-		else
-		{
-			params["KeyName"] = req.get_key_name();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+		params["PublicKeyMaterial"] = req.get_public_key_material();
 	}
 
-	pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req)
-	{
-		map <string, string> params;
-		params["Action"] = "DeleteKeyPair";
-		params["Version"] = info.version;
-
-		if(req.get_key_name().length() == 0)
-		{	
-			cout <<  "Error : KeyName needed";
-		}
-		else
-		{
-			params["KeyName"] = req.get_key_name();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
-	}
-
-	pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req)
-	{
-		map <string, string> params;
-		params["Action"] = "ImportKeyPair";
-		params["Version"] = info.version;
-
-		if(req.get_key_name().length() == 0)
-		{	
-			cout <<  "Error : KeyName needed";
-		}
-		else
-		{
-			params["KeyName"] = req.get_key_name();
-		}
-
-
-		if(req.get_public_key_material().length() == 0)
-		{	
-			cout <<  "Error : Public key material needed";
-		}
-		else
-		{
-			params["PublicKeyMaterial"] = req.get_public_key_material();
-		}
-
-		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"	
-	}
+	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"	
 }

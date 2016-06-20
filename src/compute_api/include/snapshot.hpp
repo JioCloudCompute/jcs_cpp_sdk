@@ -20,24 +20,34 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/image.hpp"
+#ifndef SNAPSHOT_DEFINER_H
+#define SNAPSHOT_DEFINER_H
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <map>
+#include "src/compute_api/include/model/describe_snapshots_request.hpp"
+#include "src/compute_api/include/model/describe_snapshots_response.hpp"
+#include "src/compute_api/include/model/delete_snapshot_request.hpp"
+#include "src/compute_api/include/model/delete_snapshot_response.hpp"
+#include "src/compute_api/include/model/create_snapshot_request.hpp"
+#include "src/compute_api/include/model/create_snapshot_response.hpp"
+#include "src/utils.cpp"
+#include "src/requestify.cpp"
 
-using namespace image;
+using namespace std;
+using namespace utils;
+using namespace requestify;
 
-pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
+namespace snapshot
 {
-	map <string, string> params;
-	params["Action"] = "DescribeImages"; // Adding action to the map params 
-	params["Version"] = info.version;	// Adding version to the map params
-	stringstream ss;
-	string key = "ImageId.";
-	for(int i=0 ; i<(req.get_image_ids())->size() ; i++)
-	{
-		ss << i+1;
-		params[key+ss.str()] = (*req.get_image_ids())[i];	//Adding images ids in params
-		ss.str("");
-	}
+	pair<string,long> create_snapshot(utils::http_var &info, const model::create_snapshot_request &req);
+	
 
-	return requestify::make_request(info, params);	// make_request function in 'requestify.cpp'
+	pair<string,long> delete_snapshot(utils::http_var &info, const model::delete_snapshot_request &req);
+	
+
+	pair<string,long> describe_snapshots(utils::http_var &info, const model::describe_snapshots_request &req);
 	
 }
+#endif

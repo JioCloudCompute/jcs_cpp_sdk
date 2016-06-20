@@ -20,24 +20,36 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/image.hpp"
+#ifndef KEY_PAIR_DEFINER_H
+#define KEY_PAIR_DEFINER_H
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <map>
+#include <vector>
+#include "src/compute_api/include/model/describe_key_pairs_response.hpp"
+#include "src/compute_api/include/model/create_key_pair_request.hpp"
+#include "src/compute_api/include/model/create_key_pair_response.hpp"
+#include "src/compute_api/include/model/delete_key_pair_request.hpp"
+#include "src/compute_api/include/model/delete_key_pair_response.hpp"
+#include "src/compute_api/include/model/import_key_pair_request.hpp"
+#include "src/compute_api/include/model/import_key_pair_response.hpp"
+#include "src/utils.cpp"
+#include "src/requestify.cpp"
 
-using namespace image;
+using namespace std;
+using namespace utils;
+using namespace requestify;
 
-pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
+namespace key_pair
 {
-	map <string, string> params;
-	params["Action"] = "DescribeImages"; // Adding action to the map params 
-	params["Version"] = info.version;	// Adding version to the map params
-	stringstream ss;
-	string key = "ImageId.";
-	for(int i=0 ; i<(req.get_image_ids())->size() ; i++)
-	{
-		ss << i+1;
-		params[key+ss.str()] = (*req.get_image_ids())[i];	//Adding images ids in params
-		ss.str("");
-	}
+	pair<string,long> describe_key_pairs(utils::http_var &info);
 
-	return requestify::make_request(info, params);	// make_request function in 'requestify.cpp'
-	
+	pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req);
+
+	pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req);
+
+	pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req);
+
 }
+#endif
