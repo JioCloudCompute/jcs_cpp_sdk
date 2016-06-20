@@ -1,0 +1,70 @@
+/*****************************************************************************
+* Copyright (c) 2016 Jiocloud.com, Inc. or its affiliates.  All Rights Reserved
+*
+* Permission is hereby granted, free of charge, to any person obtaining a
+* copy of this software and associated documentation files (the
+* "Software"), to deal in the Software without restriction, including
+* without limitation the rights to use, copy, modify, merge, publish, dis-
+* tribute, sublicense, and/or sell copies of the Software, and to permit
+* persons to whom the Software is furnished to do so, subject to the fol-
+* lowing conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL-
+* ITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+* SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+* IN THE SOFTWARE.
+******************************************************************************/
+#ifndef UTILS
+#define UTILS
+
+#include <string>
+#include <map>
+#include <string.h>
+#include <iostream>
+#include <fstream>
+#include <openssl/hmac.h>
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/pem.h>
+#include <openssl/rsa.h>
+using namespace std;
+namespace utils{
+	
+	struct auth_var{
+		char url[512];
+		char verb[8];
+		char access_key[128];
+		char secret_key[128];
+		char headers[128];
+		char path[128];
+		char protocol[8];
+		char host[128];
+		char port[8];
+		//copy constructor
+
+
+	};
+
+	struct http_var{
+		char url[512];
+		char verb[8];
+		char version[16];
+		char headers[128];
+		
+	};
+	std::string get_protocol(char url[512]);
+	std::string get_host(char url[128]);
+	std::string hmac_sha256(std::string canonical_string ,const char *secret_key);
+	std::string base64encode(const char * instring, size_t len);
+	int base64decode(const char *decode, char *decoded, size_t len);
+	RSA *import_ssh_key(std::string private_key_file, std::string passphrase= "");
+ }
+#endif
+
+

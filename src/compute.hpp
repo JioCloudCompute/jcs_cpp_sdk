@@ -23,13 +23,13 @@
 #ifndef COMPUTE_H
 #define COMPUTE_H
 
-#include "src/requestify.cpp"
-#include "src/compute_api/source/image.cpp"
-#include "src/compute_api/source/instance.cpp"
-#include "src/compute_api/source/volume.cpp"
-#include "src/compute_api/source/snapshot.cpp"
-#include "src/compute_api/source/key_pair.cpp"
-#include "src/compute_api/source/model/error_response.cpp"
+#include "src/requestify.hpp"
+#include "src/compute_api/include/image.hpp"
+#include "src/compute_api/include/instance.hpp"
+#include "src/compute_api/include/volume.hpp"
+#include "src/compute_api/include/snapshot.hpp"
+#include "src/compute_api/include/key_pair.hpp"
+#include "src/compute_api/include/model/error_response.hpp"
 #include <iostream>
 #include <string>
 #include <string.h>
