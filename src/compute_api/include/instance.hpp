@@ -42,8 +42,8 @@
 #include "src/compute_api/include/model/describe_instance_types_request.hpp"
 #include "src/compute_api/include/model/get_password_data_request.hpp"
 #include "src/compute_api/include/model/get_password_data_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/utils.hpp"
+#include "src/requestify.hpp"
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <openssl/rsa.h>

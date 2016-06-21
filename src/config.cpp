@@ -22,19 +22,17 @@
 ******************************************************************************/
 #include "src/config.hpp"
 using namespace config;
-void set_up_endpoints()
-{	
 
+// Setting up the various endpoints of the API.
+std::map<std::string,std::string> endpoints;
+	
+std::string get_service_url(std::string service_name)
+{	
 	endpoints["vpc"]="https://vpc.ind-west-1.jiocloudservices.com"; // Virtual Private Cloud Endpoint
 	endpoints["iam"] = "https://iam.ind-west-1.jiocloudservices.com"; // Authentication Endpoint
 	endpoints["rds"] = "https://rds.ind-west-1.jiocloudservices.com"; // Data Storage Enpoint
 	endpoints["dss"]= "https://dss.ind-west-1.jiocloudservices.com";// Durable Data Storage Endpoint
 	endpoints["compute"] = "https://compute.ind-west-1.staging.jiocloudservices.com"; // Compute Endpoint
-}
-
-std::string get_service_url(std::string service_name)
-{	
-	set_up_endpoints();
 	return endpoints[service_name]; // return the respective service's endpoint url 
 }
 ConfigHandler::ConfigHandler()
@@ -65,7 +63,7 @@ std::string ConfigHandler::get_access_key() const
 	return access_key;
 }
 //Getter for secret Key
-std::string ConfigHanler::get_secret_key() const
+std::string ConfigHandler::get_secret_key() const
 {
 	return secret_key;
 }

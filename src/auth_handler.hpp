@@ -25,7 +25,7 @@
 
 #include <iostream>
 #include <time.h>
-#include "utils.cpp"
+#include "utils.hpp"
 #include <string>
 #include <string.h>
 #include <map>
@@ -39,7 +39,7 @@ namespace auth{
 	{	
 		utils::auth_var data_;
 	public:
-		Authorization(const struct utils::auth_var data) : data_(data); //Use pass by const reference
+		Authorization(const struct utils::auth_var data); //Use pass by const reference
 		void add_params(std::map <std::string,std::string > &params);
 		std::string _get_utf8_value(std::string value);
 		std::string sort_params(std::map<std::string ,std::string> &params);

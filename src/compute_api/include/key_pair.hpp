@@ -34,8 +34,8 @@
 #include "src/compute_api/include/model/delete_key_pair_response.hpp"
 #include "src/compute_api/include/model/import_key_pair_request.hpp"
 #include "src/compute_api/include/model/import_key_pair_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/utils.hpp"
+#include "src/requestify.hpp"
 
 using namespace std;
 using namespace utils;

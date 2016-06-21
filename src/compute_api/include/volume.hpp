@@ -41,8 +41,8 @@
 #include "src/compute_api/include/model/show_delete_on_termination_flag_response.hpp"
 #include "src/compute_api/include/model/update_delete_on_termination_flag_request.hpp"
 #include "src/compute_api/include/model/update_delete_on_termination_flag_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/utils.hpp"
+#include "src/requestify.hpp"
 
 using namespace std;
 using namespace utils;

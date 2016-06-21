@@ -28,14 +28,18 @@
 #include <sstream>
 #include "src/compute_api/include/model/describe_images_request.hpp"
 #include "src/compute_api/include/model/describe_images_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/utils.hpp"
+#include "src/requestify.hpp"
 
 
 using namespace std;
 
 namespace image
 {
-	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req);
+	class im
+	{
+	public:
+		pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req);
+	};
 }
 #endif

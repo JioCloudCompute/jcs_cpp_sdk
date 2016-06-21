@@ -33,7 +33,7 @@ compute::compute(){
 
 describe_images_response *compute::describe_images(const describe_images_request &req)
 {
-	pair<string, long> response = image::describe_images(info, req);
+	pair<string, long> response = i.describe_images(info, req);
 	if(response.second == 200)
 	{ 
 		describe_images_response *res = new describe_images_response(response.first);

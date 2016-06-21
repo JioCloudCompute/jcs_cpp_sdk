@@ -28,9 +28,7 @@
 #include <fstream>
 // TODO :read from configuration files or hard COde >??
 namespace config{
-	// Setting up the various endpoints of the API.
-	std::map<std::string,std::string> endpoints;
-	void set_up_endpoints();
+	//void set_up_endpoints();
 	std::string get_service_url(std::string service_name);
 
 
@@ -44,7 +42,7 @@ namespace config{
 			// read this from config file 
 			std::string access_key;	
 			std::string secret_key;
-
+			
 		public:
 			ConfigHandler();
 			// Getter for access Key

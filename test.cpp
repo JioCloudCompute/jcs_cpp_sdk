@@ -383,7 +383,7 @@ int main()
 				getline(f,s);
 				f.close();		
 				req21.set_key_name("importTest");
-				req21.set_public_key_material(utils::base64encode(s.c_str(), s.size()));
+				// req21.set_public_key_material(utils::base64encode(s.c_str(), s.size()));
 				res21 = obj.import_key_pair(req21);
 				if(res21!=NULL){
 					cout<<(res21->get_key()).get_key_fingerprint()<<endl;

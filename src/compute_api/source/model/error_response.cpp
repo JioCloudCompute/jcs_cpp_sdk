@@ -20,15 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/XMLParser.h"
-#include <iostream>
 
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
-
-using namespace std;
-using namespace tinyxml2;
+#include "src/compute_api/include/model/error_response.hpp"
 
 void error_report_parse(const string &xml_doc)
 {

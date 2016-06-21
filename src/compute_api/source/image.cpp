@@ -24,7 +24,7 @@
 
 using namespace image;
 
-pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
+pair<string, long> im::describe_images(utils::http_var &info, const model::describe_images_request &req)
 {
 	map <string, string> params;
 	params["Action"] = "DescribeImages"; // Adding action to the map params 

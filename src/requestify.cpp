@@ -20,24 +20,10 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include <iostream>
-#include <string>
-#include <vector>
-#include <string.h>
-#include <fstream>
-#include <curl/curl.h>
-#include "config.hpp"
-#include <utility>
-#include <sstream>
-#include "auth_handler.hpp"
 #include "requestify.hpp"
-
-using namespace std;
-using namespace utils;
-using namespace config;
 using namespace requestify;
-
-size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
+string response;
+size_t requestify::writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 { //callback must have this declaration
     //buf is a pointer to the data that curl has for us
     //size*nmemb is the size of the buffer
@@ -48,7 +34,7 @@ size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
     return size*nmemb; //tell curl how many bytes we handled
 }
 
-pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config)
+pair<string, long> requestify::CURL_REQUEST(const string &request_string, ConfigHandler& config)
 {
 	CURL* curl; // curl object
 
@@ -78,14 +64,13 @@ pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& con
 	
 }
 
-
-pair<string, long> make_request(const utils::http_var &info, map<string, string> &params , string data ="")
+pair<string, long> make_request(const utils::http_var &info, map<string, string> &params)
 {
 	utils::auth_var auth_data;
 	response.clear();
 	//Access Key ,Secret Key, Debug Mode, Secure Mode Config
 	config::ConfigHandler config;
-
+	string data;
 	strcpy(auth_data.url, info.url);
 	strcpy(auth_data.verb, info.verb);
 	strcpy(auth_data.headers, info.headers);
@@ -125,3 +110,6 @@ pair<string, long> make_request(const utils::http_var &info, map<string, string>
 	
 	
 }
+
+
+

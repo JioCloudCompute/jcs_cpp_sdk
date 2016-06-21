@@ -20,10 +20,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef COMPUTE_H
-#define COMPUTE_H
+#ifndef COMPUTEM_H
+#define COMPUTEM_H
 
 #include "src/requestify.hpp"
+#include "src/config.hpp"
+#include "src/utils.hpp"
 #include "src/compute_api/include/image.hpp"
 #include "src/compute_api/include/instance.hpp"
 #include "src/compute_api/include/volume.hpp"
@@ -49,6 +51,7 @@ namespace JIOCOMPUTE{
 	class compute
 	{
 		utils::http_var info;
+		im i;
 
 		public:
 		///Constructor

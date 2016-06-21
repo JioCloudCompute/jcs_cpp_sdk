@@ -20,27 +20,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#ifndef REQUESTIFY
-#define REQUESTIFY
-
+#ifndef ERRORRESPONSE
+#define ERRORRESPONSE
+#include "src/XMLParser.h"
 #include <iostream>
-#include <string>
-#include <vector>
-#include <string.h>
-#include "auth_handler.hpp"
-#include <fstream>
-#include <curl/curl.h>
-#include "config.hpp"
-#include <utility>
-#include <sstream>
-using namespace std;
-using namespace utils;
-using namespace config;
 
-namespace requestify{
-	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up);
-	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config);
-	pair<string, long> make_request(const utils::http_var &info, map<string, string> &params);
-	
-}
+#ifndef XMLCheckResult
+	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
+#endif
+
+using namespace std;
+using namespace tinyxml2;
+
+void error_report_parse(const string &xml_doc);
 #endif

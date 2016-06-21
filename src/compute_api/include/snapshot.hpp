@@ -32,8 +32,8 @@
 #include "src/compute_api/include/model/delete_snapshot_response.hpp"
 #include "src/compute_api/include/model/create_snapshot_request.hpp"
 #include "src/compute_api/include/model/create_snapshot_response.hpp"
-#include "src/utils.cpp"
-#include "src/requestify.cpp"
+#include "src/utils.hpp"
+#include "src/requestify.hpp"
 
 using namespace std;
 using namespace utils;
