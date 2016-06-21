@@ -32,19 +32,7 @@
 #include "src/compute_api/include/snapshot.hpp"
 #include "src/compute_api/include/key_pair.hpp"
 #include "src/compute_api/include/model/error_response.hpp"
-#include <iostream>
-#include <string>
-#include <string.h>
-#include <map>
 
-using namespace std;
-using namespace image;
-// using namespace instance;
-using namespace snapshot;
-using namespace key_pair;
-using namespace volume;
-using namespace utils;
-using namespace config;
 
 namespace JIOCOMPUTE{
 	class compute

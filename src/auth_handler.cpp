@@ -21,7 +21,13 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/auth_handler.hpp"
+#include <iostream>
+#include <time.h>
+#include "src/utils.hpp"
+#include <curl/curl.h>
+#include <sstream>
 
+using namespace std;
 auth::Authorization::Authorization(const struct utils::auth_var data) : data_(data) //Use pass by const reference
 {	
 

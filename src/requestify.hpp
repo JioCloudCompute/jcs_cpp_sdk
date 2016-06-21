@@ -23,25 +23,19 @@
 #ifndef REQUESTIFY
 #define REQUESTIFY
 
-#include <iostream>
+
 #include <string>
-#include <vector>
 #include <string.h>
-#include "auth_handler.hpp"
-#include <fstream>
-#include <curl/curl.h>
-#include "config.hpp"
+#include <map>
+#include "src/config.hpp"
+#include "src/utils.hpp"
 #include <utility>
-#include <sstream>
-using namespace std;
-using namespace utils;
-using namespace config;
 
 namespace requestify
 {
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up);
-	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config);
-	pair<string, long> make_request(const utils::http_var &info, map<string, string> &params);
+	std::pair<std::string, long> CURL_REQUEST(const std::string &request_string, config::ConfigHandler& config);
+	std::pair<std::string, long> make_request(const utils::http_var &info, std::map<std::string, std::string> &params);
 	
 }
 #endif

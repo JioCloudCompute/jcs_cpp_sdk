@@ -23,16 +23,10 @@
 #ifndef AUTHHANDLER_H
 #define AUTHHANDLER_H
 
-#include <iostream>
-#include <time.h>
-#include "utils.hpp"
+#include "src/utils.hpp"
 #include <string>
 #include <string.h>
 #include <map>
-#include <curl/curl.h>
-#include <sstream>
-using namespace std;
-using namespace utils;
 
 namespace auth{
 	class Authorization

@@ -24,16 +24,7 @@
 #define UTILS
 
 #include <string>
-#include <map>
-#include <string.h>
-#include <iostream>
-#include <fstream>
-#include <openssl/hmac.h>
-#include <openssl/bio.h>
-#include <openssl/evp.h>
-#include <openssl/pem.h>
 #include <openssl/rsa.h>
-using namespace std;
 namespace utils{
 	
 	struct auth_var{

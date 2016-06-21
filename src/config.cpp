@@ -21,6 +21,9 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/config.hpp"
+#include <iostream>
+#include <map>
+#include <fstream>
 namespace config
 {
 	// Setting up the various endpoints of the API.
