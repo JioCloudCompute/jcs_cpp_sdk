@@ -25,8 +25,6 @@
 #define VOLUME_DEFINER_H
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
 #include "src/compute_api/include/model/create_volume_request.hpp"
 #include "src/compute_api/include/model/create_volume_response.hpp"
 #include "src/compute_api/include/model/delete_volume_request.hpp"
@@ -42,12 +40,8 @@
 #include "src/compute_api/include/model/update_delete_on_termination_flag_request.hpp"
 #include "src/compute_api/include/model/update_delete_on_termination_flag_response.hpp"
 #include "src/utils.hpp"
-#include "src/requestify.hpp"
 
 using namespace std;
-using namespace utils;
-using namespace requestify;
-using namespace model;
 
 namespace volume
 {

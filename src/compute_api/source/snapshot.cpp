@@ -21,6 +21,9 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/compute_api/include/snapshot.hpp"
+#include "src/requestify.hpp"
+#include <sstream>
+#include <map>
 
 namespace snapshot
 {

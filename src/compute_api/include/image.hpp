@@ -24,8 +24,6 @@
 #define IMAGE_DEFINER_H
 #include <iostream>
 #include <string>
-#include <map>
-#include <sstream>
 #include "src/compute_api/include/model/describe_images_request.hpp"
 #include "src/compute_api/include/model/describe_images_response.hpp"
 #include "src/utils.hpp"

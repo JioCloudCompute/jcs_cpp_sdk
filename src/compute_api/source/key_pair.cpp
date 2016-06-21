@@ -21,6 +21,10 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/compute_api/include/key_pair.hpp"
+#include "src/requestify.hpp"
+#include <sstream>
+#include <map>
+#include <vector>
 
 namespace key_pair
 {

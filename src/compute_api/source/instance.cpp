@@ -21,7 +21,15 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/compute_api/include/instance.hpp"
-
+#include <openssl/pem.h>
+#include <openssl/ssl.h>
+#include <openssl/rsa.h>
+#include <openssl/evp.h>
+#include <openssl/bio.h>
+#include <openssl/err.h>
+#include "src/requestify.hpp"
+#include <sstream>
+#include <map>
 
 namespace instance 
 {

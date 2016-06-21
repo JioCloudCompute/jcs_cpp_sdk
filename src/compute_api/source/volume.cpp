@@ -1,4 +1,4 @@
-/*****************************************************************************
+/*`****************************************************************************
 * Copyright (c) 2016 Jiocloud.com, Inc. or its affiliates.  All Rights Reserved
 *
 * Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,8 +21,11 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/compute_api/include/volume.hpp"
+#include "src/requestify.hpp"
+#include <sstream>
+#include <map>
 
-using namespace volume;
+
 namespace volume{
 
 	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)

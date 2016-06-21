@@ -24,8 +24,6 @@
 #define INSTANCE_DEFINER_H
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
 #include "src/compute_api/include/model/describe_instances_response.hpp"
 #include "src/compute_api/include/model/describe_instances_request.hpp"
 #include "src/compute_api/include/model/run_instances_response.hpp"
@@ -43,13 +41,7 @@
 #include "src/compute_api/include/model/get_password_data_request.hpp"
 #include "src/compute_api/include/model/get_password_data_response.hpp"
 #include "src/utils.hpp"
-#include "src/requestify.hpp"
-#include <openssl/pem.h>
-#include <openssl/ssl.h>
-#include <openssl/rsa.h>
-#include <openssl/evp.h>
-#include <openssl/bio.h>
-#include <openssl/err.h>
+
 
 using namespace std;
 

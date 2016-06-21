@@ -24,8 +24,6 @@
 #define SNAPSHOT_DEFINER_H
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
 #include "src/compute_api/include/model/describe_snapshots_request.hpp"
 #include "src/compute_api/include/model/describe_snapshots_response.hpp"
 #include "src/compute_api/include/model/delete_snapshot_request.hpp"
@@ -33,11 +31,9 @@
 #include "src/compute_api/include/model/create_snapshot_request.hpp"
 #include "src/compute_api/include/model/create_snapshot_response.hpp"
 #include "src/utils.hpp"
-#include "src/requestify.hpp"
+
 
 using namespace std;
-using namespace utils;
-using namespace requestify;
 
 namespace snapshot
 {

@@ -21,6 +21,8 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "src/compute_api/include/image.hpp"
+#include <map>
+#include <sstream>
 
 namespace image
 {

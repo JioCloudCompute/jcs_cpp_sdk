@@ -24,9 +24,6 @@
 #define KEY_PAIR_DEFINER_H
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
-#include <vector>
 #include "src/compute_api/include/model/describe_key_pairs_response.hpp"
 #include "src/compute_api/include/model/create_key_pair_request.hpp"
 #include "src/compute_api/include/model/create_key_pair_response.hpp"
@@ -35,11 +32,9 @@
 #include "src/compute_api/include/model/import_key_pair_request.hpp"
 #include "src/compute_api/include/model/import_key_pair_response.hpp"
 #include "src/utils.hpp"
-#include "src/requestify.hpp"
+
 
 using namespace std;
-using namespace utils;
-using namespace requestify;
 
 namespace key_pair
 {
