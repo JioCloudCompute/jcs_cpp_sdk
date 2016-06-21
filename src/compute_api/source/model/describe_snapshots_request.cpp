@@ -38,7 +38,7 @@ const vector<string> *model::describe_snapshots_request::get_snapshot_ids() cons
 
 void model::describe_snapshots_request::set_snapshot_ids(const vector<string>& snapshot_id_set)
 {
-	for(int i=0 ; i<snapshot_id_set.size() ; i++)
+	for(size_t i=0 ; i<snapshot_id_set.size() ; i++)
 	{
 		snapshot_ids.push_back(snapshot_id_set[i]);
 	}

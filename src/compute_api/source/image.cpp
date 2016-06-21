@@ -33,7 +33,7 @@ namespace image
 		params["Version"] = info.version;	// Adding version to the map params
 		stringstream ss;
 		string key = "ImageId.";
-		for(int i=0 ; i<(req.get_image_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_image_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_image_ids())[i];	//Adding images ids in params

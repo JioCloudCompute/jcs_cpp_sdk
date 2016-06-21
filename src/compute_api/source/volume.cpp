@@ -38,7 +38,7 @@ namespace volume{
 		if((req.get_volume_ids())->size() != 0)
 		{
 			string key = "VolumeId.";
-			for(int i=0 ; i<(req.get_volume_ids())->size() ; i++)
+			for(size_t i=0 ; i<(req.get_volume_ids())->size() ; i++)
 			{
 				ss << i+1;
 				params[key + ss.str()] = (*req.get_volume_ids())[i];

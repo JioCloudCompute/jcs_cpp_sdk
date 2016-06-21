@@ -123,5 +123,7 @@ namespace utils
 		RSA* rsa = EVP_PKEY_get1_RSA( pkey );
 		if(rsa!=NULL) return rsa;
 
+		return NULL;
+
 	}
 }

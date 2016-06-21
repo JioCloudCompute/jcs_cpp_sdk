@@ -5,21 +5,21 @@ SHELL 	= bash
 CC     	= g++
 LD	= ld
 RM 	= rm
-ECHO	= /bin/echo
+ECHO = /bin/echo
 CAT	= cat
 PRINTF	= printf
 SED	= sed
 DOXYGEN = doxygen
 ######################################
 # Project Name (generate executable with this name)
-TARGET = libcompute.a
-
+TARGETSTATIC = libcompute.a
+TARGETSHARED = libcompute.so
 # Project Paths
 PROJECT_ROOT=.
-SRC = 
+SRC = $(PROJECT_ROOT)/src
 EXTERNAL_ROOT=$(PROJECT_ROOT)/external
-SRCDIR = $(PROJECT_ROOT)/src $(PROJECT_ROOT)/src/compute_api/source $(PROJECT_ROOT)/src/compute_api/source/model $(PROJECT_ROOT)/src/tinyxml2
-INCDIR = $(PROJECT_ROOT)/src $(PROJECT_ROOT)/src/compute_api/include/model
+SRCDIR = $(SRC) $(PROJECT_ROOT)/src/compute_api/source $(PROJECT_ROOT)/src/compute_api/source/model $(PROJECT_ROOT)/src/tinyxml2
+INCDIR = $(SRC) $(PROJECT_ROOT)/src/compute_api/include/model
 OBJDIR = $(PROJECT_ROOT)/obj
 BINDIR = $(PROJECT_ROOT)/bin
 DOCDIR = $(PROJECT_ROOT)/doc
@@ -31,7 +31,7 @@ DOCDIR = $(PROJECT_ROOT)/doc
 LIBS = -lcrypto -lcurl
 
 # Compiler and Linker flags
-CPPFLAGS =-g 
+CPPFLAGS =-g
 
 ######################################
 
@@ -53,21 +53,32 @@ WARN_FMT="${WARN_COLOR}%30s\n${NO_COLOR}"
 SRCS := $(foreach dir,$(SRCDIR),$(wildcard $(dir)/*.cpp))
 INCS := $(foreach dir,$(INCDIR),$(wildcard $(dir)/*.hpp))
 TEMP := $(SRCS:.cpp=.o)
-OBJS := $(TEMP:./src/%=./obj/%)
-
+OBJSTATIC := $(TEMP:./src/%=./obj/static/%)
+OBJSHARED := $(TEMP:./src/%=./obj/shared/%)
 .PHONY: all setup doc clean distclean
 
-all: setup $(BINDIR)/$(TARGET)
+all: setup $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
 
 setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
-	@mkdir -p $(SRCDIR:./src/%=./obj/%)
+	@mkdir -p $(SRCDIR:$(SRC)/%=$(OBJDIR)/static/%) $(SRCDIR:$(SRC)/%=$(OBJDIR)/shared/%)
 
-$(BINDIR)/$(TARGET): $(OBJS)
-	@$(PRINTF) "$(MESG_COLOR)Building Static Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
+$(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
+	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
 	@ar rcs $@ $^ 2> temp.log || touch temp.err
+	@if test -e temp.err; \
+	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
+	elif test -s temp.log; \
+	then $(PRINTF) $(WARN_FMT) $(WARN_STRING) && $(CAT) temp.log; \
+	else $(PRINTF) $(OK_FMT) $(OK_STRING); \
+	fi;
+	@$(RM) -f temp.log temp.err
+
+$(BINDIR)/$(TARGETSHARED): $(OBJSHARED)
+	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
+	@$(CC) -shared -o $@ $^ 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -78,9 +89,20 @@ $(BINDIR)/$(TARGET): $(OBJS)
 
 -include -include $(OBJS:.o=.d)
 
-$(OBJS): obj/%.o : src/%.cpp 
+$(OBJSTATIC): obj/static/%.o : src/%.cpp 
 	@$(PRINTF) "$(MESG_COLOR)Compiling: $(NO_COLOR) $(FILE_COLOR) %25s$(NO_COLOR)" "$(notdir $<)"
 	@$(CC) $(CPPFLAGS) -c $< -o $@ -MD 2> temp.log || touch temp.err
+	@if test -e temp.err; \
+	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
+	elif test -s temp.log; \
+	then $(PRINTF) $(WARN_FMT) $(WARN_STRING) && $(CAT) temp.log; \
+	else printf "${OK_COLOR}%30s\n${NO_COLOR}" "[OK]"; \
+	fi;
+	@$(RM) -f temp.log temp.err
+
+$(OBJSHARED): obj/shared/%.o : src/%.cpp 
+	@$(PRINTF) "$(MESG_COLOR)Compiling: $(NO_COLOR) $(FILE_COLOR) %25s$(NO_COLOR)" "$(notdir $<)"
+	@$(CC) $(CPPFLAGS) -c -fPIC $< -o $@ -MD 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \

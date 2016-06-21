@@ -39,7 +39,7 @@ namespace requestify
 	{ //callback must have this declaration
 	    //buf is a pointer to the data that curl has for us
 	    //size*nmemb is the size of the buffer
-	    for (int c = 0; c<size*nmemb; c++)
+	    for (size_t c = 0; c<size*nmemb; c++)
 	    {
 	        response.push_back(buf[c]);
 	    }
@@ -66,7 +66,7 @@ namespace requestify
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
 		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-		CURLcode curl_code = curl_easy_perform(curl);
+		curl_easy_perform(curl);
 		long http_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
@@ -95,7 +95,7 @@ namespace requestify
 
 		// Removing '/' from url
 		if(info.url[strlen(info.url)-1] == '/')
-			auth_data.url[strlen(auth_data.url)-1] == '\0';
+			auth_data.url[strlen(auth_data.url)-1] = '\0';
 
 		//Sending the url info to authorization to generate signature. 
 		auth::Authorization object(auth_data);

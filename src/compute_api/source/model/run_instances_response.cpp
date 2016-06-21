@@ -46,11 +46,10 @@ run_instances_response::run_instances_response(const string &xml_doc)
 	if(Element!=NULL)request_id = Element->GetText();
 	Element = RootNode->FirstChildElement("instancesSet");
 	
-	bool temp;
 	block_device_instance block;
 	group_set group;
 	XMLElement *ListElement = Element->FirstChildElement("item");
-	XMLElement *InstanceElement,*blockListElement,*blockElement;
+	XMLElement *InstanceElement;
 	vector< group_set > groups;
 	string vpc_id, dnsName, instance_id, instance_state,image_id,private_dns_name,key_name, launch_time, subnet_id, instance_type, private_ip_address;
 	while(ListElement != NULL)

@@ -49,7 +49,7 @@ auth::Authorization::Authorization(const struct utils::auth_var data) : data_(da
 	strcpy(data_.host, host.c_str());
 	strcpy(data_.port,"None"); // default to http port
 	
-	int pos = host.find(":"); // if port specified in url
+	size_t pos = host.find(":"); // if port specified in url
 
 	if(pos != std::string::npos)
 	{
@@ -77,6 +77,7 @@ void auth::Authorization::add_params(std::map <std::string,std::string > &params
 std::string auth::Authorization::_get_utf8_value(std::string value)
 {
 	//todo(devender): To look at string to utf-8.
+	return value;
 }
 
 std::string auth::Authorization::sort_params(std::map<std::string ,std::string> &params)

@@ -76,7 +76,7 @@ namespace snapshot
 		if((req.get_snapshot_ids())->size() != 0)
 		{
 			string key = "SnapshotId.";
-			for(int i=0 ; i<(req.get_snapshot_ids())->size() ; i++)
+			for(size_t i=0 ; i<(req.get_snapshot_ids())->size() ; i++)
 			{
 				ss << i+1;
 				params[key + ss.str()] = (*req.get_snapshot_ids())[i];

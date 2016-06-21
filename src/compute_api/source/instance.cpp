@@ -42,7 +42,7 @@ namespace instance
 		
 		string key = "InstanceId.";
 		stringstream ss;	// To convert int to string
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_ids())[i];
@@ -63,7 +63,7 @@ namespace instance
 		
 		string key = "InstanceTypeId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_type_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_type_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_type_ids())[i];
@@ -89,7 +89,7 @@ namespace instance
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_ids())[i];
@@ -112,7 +112,7 @@ namespace instance
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_ids())[i];
@@ -136,7 +136,7 @@ namespace instance
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_ids())[i];
@@ -160,7 +160,7 @@ namespace instance
 
 		string key = "InstanceId.";
 		stringstream ss;
-		for(int i=0 ; i<(req.get_instance_ids())->size() ; i++)
+		for(size_t i=0 ; i<(req.get_instance_ids())->size() ; i++)
 		{
 			ss << i+1;
 			params[key+ss.str()] = (*req.get_instance_ids())[i];
@@ -200,7 +200,7 @@ namespace instance
 		{
 			string key = "BlockDeviceMapping.";
 			stringstream ss,ss1;
-			for(int i=0 ; i<(req.get_block_device_mapping())->size() ; i++)
+			for(size_t i=0 ; i<(req.get_block_device_mapping())->size() ; i++)
 			{
 				ss << i+1;
 				params[key+ss.str()+".DeviceName"] = (*req.get_block_device_mapping())[i].device_name;
@@ -231,7 +231,7 @@ namespace instance
 
 		if(!(req.get_security_group_ids())->empty())
 		{
-			for(int i=0 ; i<(req.get_security_group_ids())->size() ; i++)
+			for(size_t i=0 ; i<(req.get_security_group_ids())->size() ; i++)
 			{
 				string key = "SecurityGroupId.0";
 				key[key.length()-1] = i+1;
