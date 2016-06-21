@@ -21,6 +21,17 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "requestify.hpp"
+#include <vector>
+#include "auth_handler.hpp"
+#include <fstream>
+#include <curl/curl.h>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+using namespace config;
+using namespace utils;
+
 namespace requestify
 {
 	string response;

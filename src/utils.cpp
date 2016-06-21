@@ -22,6 +22,18 @@
 ******************************************************************************/
 
 #include <src/utils.hpp>
+#include <map>
+#include <string.h>
+#include <iostream>
+#include <fstream>
+#include <openssl/hmac.h>
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/pem.h>
+
+
+using namespace std;
+
 namespace utils
 {
 

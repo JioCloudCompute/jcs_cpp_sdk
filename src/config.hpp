@@ -22,10 +22,7 @@
 ******************************************************************************/
 #ifndef CONFIG
 #define CONFIG
-#include <iostream>
-#include <map>
 #include <string>
-#include <fstream>
 // TODO :read from configuration files or hard COde >??
 namespace config{
 	//void set_up_endpoints();

@@ -22,6 +22,18 @@
 ******************************************************************************/
 
 #include "src/compute.hpp"
+#include <iostream>
+#include <string>
+#include <string.h>
+#include <map>
+
+using namespace std;
+using namespace image;
+using namespace instance;
+using namespace snapshot;
+using namespace key_pair;
+using namespace volume;
+using namespace config;
 using namespace JIOCOMPUTE;
 
 compute::compute(){
