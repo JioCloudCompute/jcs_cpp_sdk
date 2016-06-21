@@ -39,19 +39,17 @@
 
 using namespace std;
 using namespace image;
-using namespace instance;
+// using namespace instance;
 using namespace snapshot;
 using namespace key_pair;
 using namespace volume;
 using namespace utils;
 using namespace config;
 
-/// \namespace JIOCOMPUTE
 namespace JIOCOMPUTE{
 	class compute
 	{
 		utils::http_var info;
-		im i;
 
 		public:
 		///Constructor

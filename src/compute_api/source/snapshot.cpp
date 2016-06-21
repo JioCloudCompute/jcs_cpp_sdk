@@ -22,81 +22,84 @@
 ******************************************************************************/
 #include "src/compute_api/include/snapshot.hpp"
 
-using namespace snapshot;
-
-pair<string,long> create_snapshot(utils::http_var &info, const model::create_snapshot_request &req)
+namespace snapshot
 {
-	map <string, string> params;
-	params["Action"] = "CreateSnapshot";
-	params["Version"] = info.version;
-	
-	if(req.get_volume_id().length() == 0)
-	{	
-		cout <<  "Error : Volume ID needed";
-	}
-	else
+
+
+	pair<string,long> create_snapshot(utils::http_var &info, const model::create_snapshot_request &req)
 	{
-		params["VolumeId"] = req.get_volume_id();
-	}
-
-	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
-}
-
-pair<string,long> delete_snapshot(utils::http_var &info, const model::delete_snapshot_request &req)
-{
-	map <string, string> params;
-	params["Action"] = "DeleteSnapshot";
-	params["Version"] = info.version;
-	
-	if(req.get_snapshot_id().length() == 0)
-	{	
-		cout <<  "Error : Snapshot ID needed";
-	}
-	else
-	{
-		params["SnapshotId"] = req.get_snapshot_id();
-	}
-
-	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
-}
-
-
-pair<string,long> describe_snapshots(utils::http_var &info, const model::describe_snapshots_request &req)
-{
-	map <string, string> params;
-	params["Action"] = "DescribeSnapshots";
-	params["Version"] = info.version;
-
-	stringstream ss;	// to convert int into string
-	if((req.get_snapshot_ids())->size() != 0)
-	{
-		string key = "SnapshotId.";
-		for(int i=0 ; i<(req.get_snapshot_ids())->size() ; i++)
+		map <string, string> params;
+		params["Action"] = "CreateSnapshot";
+		params["Version"] = info.version;
+		
+		if(req.get_volume_id().length() == 0)
+		{	
+			cout <<  "Error : Volume ID needed";
+		}
+		else
 		{
-			ss << i+1;
-			params[key + ss.str()] = (*req.get_snapshot_ids())[i];
+			params["VolumeId"] = req.get_volume_id();
+		}
+
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+	}
+
+	pair<string,long> delete_snapshot(utils::http_var &info, const model::delete_snapshot_request &req)
+	{
+		map <string, string> params;
+		params["Action"] = "DeleteSnapshot";
+		params["Version"] = info.version;
+		
+		if(req.get_snapshot_id().length() == 0)
+		{	
+			cout <<  "Error : Snapshot ID needed";
+		}
+		else
+		{
+			params["SnapshotId"] = req.get_snapshot_id();
+		}
+
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
+	}
+
+
+	pair<string,long> describe_snapshots(utils::http_var &info, const model::describe_snapshots_request &req)
+	{
+		map <string, string> params;
+		params["Action"] = "DescribeSnapshots";
+		params["Version"] = info.version;
+
+		stringstream ss;	// to convert int into string
+		if((req.get_snapshot_ids())->size() != 0)
+		{
+			string key = "SnapshotId.";
+			for(int i=0 ; i<(req.get_snapshot_ids())->size() ; i++)
+			{
+				ss << i+1;
+				params[key + ss.str()] = (*req.get_snapshot_ids())[i];
+				ss.str("");
+			}	
+		}
+
+		if(req.get_max_results() != -1)		// Default value -1
+		{	
+			ss << req.get_max_results();
+			params["MaxResults"] = ss.str();
 			ss.str("");
-		}	
-	}
+		}
+		
+		if(req.get_next_token().length() != 0)
+		{
+			params["NextToken"] = req.get_next_token();
+		}
 
-	if(req.get_max_results() != -1)		// Default value -1
-	{	
-		ss << req.get_max_results();
-		params["MaxResults"] = ss.str();
-		ss.str("");
-	}
-	
-	if(req.get_next_token().length() != 0)
-	{
-		params["NextToken"] = req.get_next_token();
-	}
+		if(!req.get_detail())
+		{
+			ss.str("false");
+			params["Detail"] = ss.str();
+			ss.str("");
+		}
 
-	if(!req.get_detail())
-	{
-		ss.str("false");
-		params["Detail"] = ss.str();
-		ss.str("");
+		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
-
-	return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 }

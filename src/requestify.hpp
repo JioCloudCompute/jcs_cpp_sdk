@@ -37,7 +37,8 @@ using namespace std;
 using namespace utils;
 using namespace config;
 
-namespace requestify{
+namespace requestify
+{
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up);
 	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config);
 	pair<string, long> make_request(const utils::http_var &info, map<string, string> &params);

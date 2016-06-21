@@ -36,10 +36,6 @@ using namespace std;
 
 namespace image
 {
-	class im
-	{
-	public:
-		pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req);
-	};
+	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req);
 }
 #endif
