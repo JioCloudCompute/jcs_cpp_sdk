@@ -12,8 +12,11 @@ CAT	= cat
 PRINTF	= printf
 SED	= sed
 DOXYGEN = doxygen
+INSTALL = apt-get install
+OPENSSL = libssl-dev
+CURL = libcurl4-openssl-dev
 ######################################
-# Project Name (generate executable with this name)
+# Project Name (generate Libraries with this name)
 TARGETSTATIC = libcompute.a
 TARGETSHARED = libcompute.so
 # Project Paths
@@ -59,13 +62,15 @@ OBJSTATIC := $(TEMP:./src/%=./obj/static/%)
 OBJSHARED := $(TEMP:./src/%=./obj/shared/%)
 .PHONY: all setup doc clean distclean install
 
-all: setup $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED) install
+all: $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
 
 setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
 	@mkdir -p $(SRCDIR:$(SRC)/%=$(OBJDIR)/static/%) $(SRCDIR:$(SRC)/%=$(OBJDIR)/shared/%)
+	@sudo $(INSTALL) $(OPENSSL)
+	@sudo $(INSTALL) $(CURL)
 
 install:
 	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" 
@@ -119,10 +124,10 @@ $(OBJSHARED): obj/shared/%.o : src/%.cpp
 	@$(RM) -f temp.log temp.err
 
 doc:
-	@$(ECHO) -n "Generating Doxygen Documentation ...  "
+	@$(PRINTF) "$(MESG_COLOR)Generating Doxygen Documentation ...  "
 	@$(RM) -rf doc/html
-	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null
-	@$(ECHO) "Done"
+	@$(DOXYGEN) Doxyfile  > /dev/null 2>&1
+	@$(PRINTF) "$(OK_COLOR)Done\n"
 
 clean:
 	@$(ECHO) -n "Cleaning up..."
@@ -130,4 +135,4 @@ clean:
 	@$(ECHO) "Done"
 
 distclean: clean
-	@$(RM) -rf $(BINDIR)
+	@$(RM) -rf $(BINDIR) $(DOCDIR)

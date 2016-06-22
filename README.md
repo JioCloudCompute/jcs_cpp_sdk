@@ -8,7 +8,9 @@ $ cd jcs_cpp_sdk/
 $ make setup (For installing libraries libcurl and openssl libraries)  
 $ make  
 $ make install (install static and shared library in /usr/lib)  
-  
+$ make doc (to create Documentation of the project)  
+To view Documentation goto doc/html/index.html  
+
 ###Configuration  
   
 Open config.txt and set access key, secret key, secure (1 to make secure connection), debug (1 for debug mode).  
