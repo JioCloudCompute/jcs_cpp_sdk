@@ -67,7 +67,7 @@ setup:
 
 $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
 	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@ar rcs $@ $^ 2> temp.log || touch temp.err
+	@ar rcs $(LIBS) $@ $^ 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -78,7 +78,7 @@ $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
 
 $(BINDIR)/$(TARGETSHARED): $(OBJSHARED)
 	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) -shared -o $@ $^ 2> temp.log || touch temp.err
+	@$(CC) -shared -o $@ $^ -lcurl 	-lcrypto  2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -102,7 +102,7 @@ $(OBJSTATIC): obj/static/%.o : src/%.cpp
 
 $(OBJSHARED): obj/shared/%.o : src/%.cpp 
 	@$(PRINTF) "$(MESG_COLOR)Compiling: $(NO_COLOR) $(FILE_COLOR) %25s$(NO_COLOR)" "$(notdir $<)"
-	@$(CC) $(CPPFLAGS) -c -fPIC $< -o $@ -MD 2> temp.log || touch temp.err
+	@$(CC) $(CPPFLAGS) -c -fPIC $< -o $@ -lcurl -lcrypto -MD 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \

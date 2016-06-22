@@ -43,13 +43,20 @@ namespace config
 		//read this from configuration file
 		secure = false;
 		debug = false;
+		int pos1,pos2;
 
 		// reading keys from file 
 		std::ifstream infile("config.txt");
 		std::string line;
 		getline(infile,line); // First Line is the access Key
+		pos1 = line.find("\"");
+		pos2 = line.find("\"",pos1+1);
+		line = line.substr(pos1+1,pos2-pos1-1);
 		access_key = line;
 		getline(infile,line); // Second Line is the secret Key
+		pos1 = line.find("\"");
+		pos2 = line.find("\"",pos1+1);
+		line = line.substr(pos1+1,pos2-pos1-1);
 		secret_key = line; 
 		infile.close();
 
