@@ -22,8 +22,10 @@
 ******************************************************************************/
 #include "src/config.hpp"
 #include <iostream>
+#include <cstdlib>
 #include <map>
 #include <fstream>
+using namespace std;
 namespace config
 {
 	// Setting up the various endpoints of the API.
@@ -45,8 +47,17 @@ namespace config
 		debug = false;
 		int pos1,pos2;
 
-		// reading keys from file 
-		std::ifstream infile("config.txt");
+		// reading keys from file
+		// TODO : for windows "/" shuld be substituted with "\" 
+		string config_path(getenv("CPLUS_INCLUDE_PATH"));
+
+		if(config_path[config_path.length()-1] == '/')
+		{
+			config_path = config_path.substr(0,config_path.length()-1);
+		}
+
+		config_path = config_path + "/config.txt";  
+		std::ifstream infile(config_path.c_str());
 		std::string line;
 
 		getline(infile,line); // First Line is the access Key
@@ -54,7 +65,6 @@ namespace config
 		pos2 = line.find("\"",pos1+1);
 		line = line.substr(pos1+1,pos2-pos1-1);
 		access_key = line;
-
 		getline(infile,line); // Second Line is the secret Key
 		pos1 = line.find("\"");
 		pos2 = line.find("\"",pos1+1);

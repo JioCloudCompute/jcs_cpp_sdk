@@ -73,7 +73,7 @@ setup:
 	@sudo $(INSTALL) $(CURL)
 
 install:
-	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" 
+	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries\n" 
 	@sudo $(CP) $(BINDIR)/{$(TARGETSTATIC),$(TARGETSHARED)} $(LIBPATH) 
 
 $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
