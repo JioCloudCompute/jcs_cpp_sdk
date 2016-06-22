@@ -48,16 +48,37 @@ namespace config
 		// reading keys from file 
 		std::ifstream infile("config.txt");
 		std::string line;
+
 		getline(infile,line); // First Line is the access Key
 		pos1 = line.find("\"");
 		pos2 = line.find("\"",pos1+1);
 		line = line.substr(pos1+1,pos2-pos1-1);
 		access_key = line;
+
 		getline(infile,line); // Second Line is the secret Key
 		pos1 = line.find("\"");
 		pos2 = line.find("\"",pos1+1);
 		line = line.substr(pos1+1,pos2-pos1-1);
-		secret_key = line; 
+		secret_key = line;
+
+		getline(infile,line); // Third Line is the secure
+		pos1 = line.find("\"");
+		pos2 = line.find("\"",pos1+1);
+		line = line.substr(pos1+1,pos2-pos1-1);
+		if(line == "1")
+		{
+			secure = true;
+		}
+		
+		getline(infile,line); // Forth Line is the debug
+		pos1 = line.find("\"");
+		pos2 = line.find("\"",pos1+1);
+		line = line.substr(pos1+1,pos2-pos1-1);
+		if(line == "1")
+		{
+			debug = true;
+		}
+
 		infile.close();
 
 		//set up endpoints

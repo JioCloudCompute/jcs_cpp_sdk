@@ -1,0 +1,4 @@
+ACCESS KEY = ""
+SECRET KEY = ""
+secure = "0" (1 for secure connection)
+debug = "0" (1 for debug mode)
