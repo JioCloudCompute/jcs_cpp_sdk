@@ -3,8 +3,10 @@
 # Programs
 SHELL 	= bash
 CC     	= g++
+CP = cp
 LD	= ld
 RM 	= rm
+AR = ar rcs
 ECHO = /bin/echo
 CAT	= cat
 PRINTF	= printf
@@ -25,7 +27,7 @@ BINDIR = $(PROJECT_ROOT)/bin
 DOCDIR = $(PROJECT_ROOT)/doc
 
 # Library Paths
-
+LIBPATH = /usr/lib/
 
 #Libraries
 LIBS = -lcrypto -lcurl
@@ -55,9 +57,9 @@ INCS := $(foreach dir,$(INCDIR),$(wildcard $(dir)/*.hpp))
 TEMP := $(SRCS:.cpp=.o)
 OBJSTATIC := $(TEMP:./src/%=./obj/static/%)
 OBJSHARED := $(TEMP:./src/%=./obj/shared/%)
-.PHONY: all setup doc clean distclean
+.PHONY: all setup doc clean distclean install
 
-all: setup $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
+all: setup $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED) install
 
 setup:
 	@$(ECHO) "Setting up compilation..."
@@ -65,9 +67,13 @@ setup:
 	@mkdir -p bin
 	@mkdir -p $(SRCDIR:$(SRC)/%=$(OBJDIR)/static/%) $(SRCDIR:$(SRC)/%=$(OBJDIR)/shared/%)
 
+install:
+	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" 
+	@sudo $(CP) $(BINDIR)/{$(TARGETSTATIC),$(TARGETSHARED)} $(LIBPATH) 
+
 $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
-	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@ar rcs $(LIBS) $@ $^ 2> temp.log || touch temp.err
+	@$(PRINTF) "$(MESG_COLOR)Building Static Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
+	@$(AR) $@ $^ 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -75,10 +81,11 @@ $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
 	else $(PRINTF) $(OK_FMT) $(OK_STRING); \
 	fi;
 	@$(RM) -f temp.log temp.err
+	@$(PRINTF) "$(OK_COLOR)------------------------------------------------------------------------------\n"
 
 $(BINDIR)/$(TARGETSHARED): $(OBJSHARED)
 	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) -shared -o $@ $^ -lcurl 	-lcrypto  2> temp.log || touch temp.err
+	@$(CC) -shared -o $@ $^ $(LIBS)  2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
