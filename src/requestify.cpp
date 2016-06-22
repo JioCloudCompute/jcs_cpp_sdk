@@ -34,7 +34,7 @@ using namespace utils;
 
 namespace requestify
 {
-	string response;
+	string response ;
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
 	{ //callback must have this declaration
 	    //buf is a pointer to the data that curl has for us
@@ -49,7 +49,7 @@ namespace requestify
 	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config)
 	{
 		CURL* curl; // curl object
-
+		CURLcode res;
 		curl_global_init(CURL_GLOBAL_ALL);
 		curl = curl_easy_init();
 
@@ -66,7 +66,16 @@ namespace requestify
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
 		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
-		curl_easy_perform(curl);
+		res = curl_easy_perform(curl);
+
+		// Connection was not successful or timed out
+		if(res!=0)
+		{
+			curl_easy_cleanup(curl);
+			curl_global_cleanup();
+			return make_pair("", 1);
+		}
+
 		long http_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
@@ -117,10 +126,7 @@ namespace requestify
 				// TODO: Header handling remaining
 				cout<<request_string<<endl;
 		#endif
-		cout<<request_string<<endl;
 		return CURL_REQUEST(request_string, config);
-		
-		
 	}
 
 }
