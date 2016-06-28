@@ -3,15 +3,20 @@
 # Programs
 SHELL 	= bash
 CC     	= g++
+CP = cp
 LD	= ld
 RM 	= rm
+AR = ar rcs
 ECHO = /bin/echo
 CAT	= cat
 PRINTF	= printf
 SED	= sed
 DOXYGEN = doxygen
+INSTALL = apt-get install
+OPENSSL = libssl-dev
+CURL = libcurl4-openssl-dev
 ######################################
-# Project Name (generate executable with this name)
+# Project Name (generate Libraries with this name)
 TARGETSTATIC = libcompute.a
 TARGETSHARED = libcompute.so
 # Project Paths
@@ -25,7 +30,7 @@ BINDIR = $(PROJECT_ROOT)/bin
 DOCDIR = $(PROJECT_ROOT)/doc
 
 # Library Paths
-
+LIBPATH = /usr/lib/
 
 #Libraries
 LIBS = -lcrypto -lcurl
@@ -55,19 +60,25 @@ INCS := $(foreach dir,$(INCDIR),$(wildcard $(dir)/*.hpp))
 TEMP := $(SRCS:.cpp=.o)
 OBJSTATIC := $(TEMP:./src/%=./obj/static/%)
 OBJSHARED := $(TEMP:./src/%=./obj/shared/%)
-.PHONY: all setup doc clean distclean
+.PHONY: all setup doc clean distclean install
 
-all: setup $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
+all: $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
 
 setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
 	@mkdir -p $(SRCDIR:$(SRC)/%=$(OBJDIR)/static/%) $(SRCDIR:$(SRC)/%=$(OBJDIR)/shared/%)
+	@sudo $(INSTALL) $(OPENSSL)
+	@sudo $(INSTALL) $(CURL)
+
+install:
+	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries\n" 
+	@sudo $(CP) $(BINDIR)/{$(TARGETSTATIC),$(TARGETSHARED)} $(LIBPATH) 
 
 $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
-	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@ar rcs $(LIBS) $@ $^ 2> temp.log || touch temp.err
+	@$(PRINTF) "$(MESG_COLOR)Building Static Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
+	@$(AR) $@ $^ 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -75,10 +86,11 @@ $(BINDIR)/$(TARGETSTATIC): $(OBJSTATIC)
 	else $(PRINTF) $(OK_FMT) $(OK_STRING); \
 	fi;
 	@$(RM) -f temp.log temp.err
+	@$(PRINTF) "$(OK_COLOR)------------------------------------------------------------------------------\n"
 
 $(BINDIR)/$(TARGETSHARED): $(OBJSHARED)
 	@$(PRINTF) "$(MESG_COLOR)Building Shared Library:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) -shared -o $@ $^ -lcurl 	-lcrypto  2> temp.log || touch temp.err
+	@$(CC) -shared -o $@ $^ $(LIBS)  2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -112,10 +124,10 @@ $(OBJSHARED): obj/shared/%.o : src/%.cpp
 	@$(RM) -f temp.log temp.err
 
 doc:
-	@$(ECHO) -n "Generating Doxygen Documentation ...  "
+	@$(PRINTF) "$(MESG_COLOR)Generating Doxygen Documentation ...  "
 	@$(RM) -rf doc/html
-	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null
-	@$(ECHO) "Done"
+	@$(DOXYGEN) Doxyfile  > /dev/null 2>&1
+	@$(PRINTF) "$(OK_COLOR)Done\n"
 
 clean:
 	@$(ECHO) -n "Cleaning up..."
@@ -123,4 +135,4 @@ clean:
 	@$(ECHO) "Done"
 
 distclean: clean
-	@$(RM) -rf $(BINDIR)
+	@$(RM) -rf $(BINDIR) $(DOCDIR)
