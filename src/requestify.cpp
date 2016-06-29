@@ -107,8 +107,8 @@ namespace requestify
 			auth_data.url[strlen(auth_data.url)-1] = '\0';
 
 		//Sending the url info to authorization to generate signature. 
-		auth::Authorization object(auth_data);
-		object.add_authorization(params);
+		
+		auth::Authorization::add_authorization(params, auth_data);
 
 		string request_string = info.url; 
 		stringstream ss;

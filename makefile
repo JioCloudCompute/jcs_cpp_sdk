@@ -62,16 +62,16 @@ OBJSTATIC := $(TEMP:./src/%=./obj/static/%)
 OBJSHARED := $(TEMP:./src/%=./obj/shared/%)
 .PHONY: all setup doc clean distclean install
 
-all: $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
+all: initial $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
 
 setup:
 	@$(ECHO) "Setting up compilation..."
+	@sudo $(INSTALL) $(OPENSSL)
+	@sudo $(INSTALL) $(CURL)
+initial:
 	@mkdir -p obj
 	@mkdir -p bin
 	@mkdir -p $(SRCDIR:$(SRC)/%=$(OBJDIR)/static/%) $(SRCDIR:$(SRC)/%=$(OBJDIR)/shared/%)
-	@sudo $(INSTALL) $(OPENSSL)
-	@sudo $(INSTALL) $(CURL)
-
 install:
 	@$(PRINTF) "$(MESG_COLOR)Installing Required Libraries\n" 
 	@sudo $(CP) $(BINDIR)/{$(TARGETSTATIC),$(TARGETSHARED)} $(LIBPATH) 
