@@ -52,7 +52,7 @@ describe_images_response *compute::describe_images(const describe_images_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_images_response *res = new describe_images_response(response.first);
 		return res;
@@ -73,7 +73,7 @@ describe_instances_response *compute::describe_instances(const describe_instance
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_instances_response *res = new describe_instances_response(response.first);
 		return res;
@@ -93,7 +93,7 @@ describe_instance_types_response *compute::describe_instance_types(const describ
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_instance_types_response *res = new describe_instance_types_response(response.first);
 		return res;
@@ -112,7 +112,7 @@ start_instances_response *compute::start_instances(const start_instances_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		start_instances_response *res = new start_instances_response(response.first);
 		return res;
@@ -131,7 +131,7 @@ stop_instances_response *compute::stop_instances(const stop_instances_request &r
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		stop_instances_response *res = new stop_instances_response(response.first);
 		return res;
@@ -150,7 +150,7 @@ reboot_instances_response *compute::reboot_instances(const reboot_instances_requ
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		reboot_instances_response *res = new reboot_instances_response(response.first);
 		return res;
@@ -169,7 +169,7 @@ terminate_instances_response *compute::terminate_instances(const terminate_insta
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		terminate_instances_response *res = new terminate_instances_response(response.first);
 		return res;
@@ -188,7 +188,7 @@ run_instances_response *compute::run_instances(const run_instances_request &req)
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		run_instances_response *res = new run_instances_response(response.first);
 		return res;
@@ -207,7 +207,7 @@ describe_key_pairs_response *compute::describe_key_pairs()
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_key_pairs_response *res = new describe_key_pairs_response(response.first);
 		return res;
@@ -226,7 +226,7 @@ create_key_pair_response *compute::create_key_pair(const create_key_pair_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		create_key_pair_response *res = new create_key_pair_response(response.first);
 		return res;
@@ -245,7 +245,7 @@ delete_key_pair_response *compute::delete_key_pair(const delete_key_pair_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		delete_key_pair_response *res = new delete_key_pair_response(response.first);
 		return res;
@@ -264,7 +264,7 @@ import_key_pair_response *compute::import_key_pair(const import_key_pair_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		import_key_pair_response *res = new import_key_pair_response(response.first);
 		return res;
@@ -283,7 +283,7 @@ describe_snapshots_response *compute::describe_snapshots(const describe_snapshot
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_snapshots_response *res = new describe_snapshots_response(response.first);
 		return res;
@@ -302,7 +302,7 @@ create_snapshot_response *compute::create_snapshot(const create_snapshot_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		create_snapshot_response *res = new create_snapshot_response(response.first);
 		return res;
@@ -321,7 +321,7 @@ delete_snapshot_response *compute::delete_snapshot(const delete_snapshot_request
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		delete_snapshot_response *res = new delete_snapshot_response(response.first);
 		return res;
@@ -340,7 +340,7 @@ describe_volumes_response *compute::describe_volumes(const describe_volumes_requ
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		describe_volumes_response *res = new describe_volumes_response(response.first);
 		return res;
@@ -359,7 +359,7 @@ create_volume_response *compute::create_volume(const create_volume_request &req)
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		create_volume_response *res = new create_volume_response(response.first);
 		return res;
@@ -378,7 +378,7 @@ delete_volume_response *compute::delete_volume(const delete_volume_request &req)
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		delete_volume_response *res = new delete_volume_response(response.first);
 		return res;
@@ -397,7 +397,7 @@ attach_volume_response *compute::attach_volume(const attach_volume_request &req)
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		attach_volume_response *res = new attach_volume_response(response.first);
 		return res;
@@ -416,7 +416,7 @@ detach_volume_response *compute::detach_volume(const detach_volume_request &req)
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		detach_volume_response *res = new detach_volume_response(response.first);
 		return res;
@@ -435,7 +435,7 @@ show_delete_on_termination_flag_response *compute::show_delete_on_termination_fl
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		show_delete_on_termination_flag_response *res = new show_delete_on_termination_flag_response(response.first);
 		return res;
@@ -454,7 +454,7 @@ update_delete_on_termination_flag_response *compute::update_delete_on_terminatio
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{ 
 		update_delete_on_termination_flag_response *res = new update_delete_on_termination_flag_response(response.first);
 		return res;
@@ -473,7 +473,7 @@ get_password_data_response *compute::get_password_data(const get_password_data_r
 		cerr<<"Cannot contact server"<<endl;
 		return NULL;
 	}
-	if(response.second == 200)
+	if(response.second >=200 && response.second < 300)
 	{
 		get_password_data_response *res = new get_password_data_response(response.first);
 		

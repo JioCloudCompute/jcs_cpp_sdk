@@ -27,7 +27,6 @@
 #include "src/compute_api/include/model/describe_images_request.hpp"
 #include "src/compute_api/include/model/describe_images_response.hpp"
 #include "src/utils.hpp"
-#include "src/requestify.hpp"
 
 
 using namespace std;
