@@ -62,16 +62,16 @@ namespace auth{
 	void Authorization::add_params(std::map <std::string,std::string > &params, utils::auth_var &data)
 	{	
 		//Add generic key-value pairs in the param map
-		params["JCSAccessKeyId"] = data.access_key;
-		params["SignatureVersion"] = "2";
-		params["SignatureMethod"] = "HmacSHA256";
+		params[JCS_ACCESS_KEY_ID] = data.access_key;
+		params[SIGNATURE_VERSION] = "2";
+		params[HMAC_SHA256_ALGORITHM] = "HmacSHA256";
 		//Time Stamp
 		time_t now = time(NULL);
 		tm *gmtm = gmtime(&now);
 		char stamp[64];
 		//utf-8 encoding
 		strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
-		params["Timestamp"] = stamp;
+		params[TIMESTAMP] = stamp;
 	}
 
 	std::string Authorization::_get_utf8_value(std::string value)
@@ -132,7 +132,7 @@ namespace auth{
 		//base64 and urlencode
 		CURL *curl = curl_easy_init();
 		char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(&hmac_256[0], hmac_256.length()).c_str(),0);
-		params["Signature"]=hmac_Signature;
+		params[SIGNATURE]=hmac_Signature;
 	#ifdef CLI_DEBUG
 		std::cout<<"HMAC SIGNATURE 0: " << utils::base64encode(&hmac_256[0], hmac_256.length())<<"\n";
 		std::cout<<"HMAC SIGNATURE:  " << hmac_Signature<<"\n";
