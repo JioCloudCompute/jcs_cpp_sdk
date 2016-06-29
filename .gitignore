@@ -1,3 +1,5 @@
 *pem
 *pub
 *out
+*.o
+*.d
