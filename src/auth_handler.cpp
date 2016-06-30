@@ -64,7 +64,7 @@ namespace auth{
 		//Add generic key-value pairs in the param map
 		params[JCS_ACCESS_KEY_ID] = data.access_key;
 		params[SIGNATURE_VERSION] = "2";
-		params[HMAC_SHA256_ALGORITHM] = "HmacSHA256";
+		params[SIGNATURE_METHOD] = HMAC_SHA256_ALGORITHM;
 		//Time Stamp
 		time_t now = time(NULL);
 		tm *gmtm = gmtime(&now);

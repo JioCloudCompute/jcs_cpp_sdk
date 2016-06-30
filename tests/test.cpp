@@ -43,7 +43,7 @@ int main()
 				describe_images_request req0;
 				describe_images_response *res0;
 				res0 = obj.describe_images(req0);
-				if(res0 != NULL)cout << res0->get_images()[0].get_image_id();
+				if(res0 != NULL)cout << res0->get_images()[0].get_image_id()<<endl;
 				delete res0;
 				break;
 			}
@@ -52,9 +52,6 @@ int main()
 				//describe Instance 
 				describe_instances_request req1;
 				describe_instances_response *res1;
-				// vector<string> v;
-				// v.push_back("sdc");
-				// req1.set_instance_ids(v);
 				res1 = obj.describe_instances(req1);
 				if(res1!=NULL){
 					vector<model::instance> tr = res1->get_instances();

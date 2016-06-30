@@ -28,63 +28,63 @@ using namespace std;
 class constants 
 {
 public:
-	static string ACTION;
-	static string VERSION;
+	static const string ACTION;
+	static const string VERSION;
 
-	static string ID;
-	static string USER_ID;
-	static string USER_NAME;
-	static string GROUP_ID;
-	static string GROUP_NAME;
+	static const string ID;
+	static const string USER_ID;
+	static const string USER_NAME;
+	static const string GROUP_ID;
+	static const string GROUP_NAME;
 
 
-	static string DESCRIBE_IMAGES;
+	static const string DESCRIBE_IMAGES;
 
-	static string DESCRIBE_INSTANCES;
-	static string DESCRIBE_INSTANCE_TYPES;
-	static string RUN_INSTANCES;
-	static string START_INSTANCES;
-	static string STOP_INSTANCES;
-	static string REBOOT_INSTANCES;
-	static string TERMINATE_INSTANCES;
-	static string GET_PASSWORD_DATA;
+	static const string DESCRIBE_INSTANCES;
+	static const string DESCRIBE_INSTANCE_TYPES;
+	static const string RUN_INSTANCES;
+	static const string START_INSTANCES;
+	static const string STOP_INSTANCES;
+	static const string REBOOT_INSTANCES;
+	static const string TERMINATE_INSTANCES;
+	static const string GET_PASSWORD_DATA;
 
-	static string CREATE_KEY_PAIR;
-	static string DELETE_KEY_PAIR;
-	static string DESCRIBE_KEY_PAIRS;
-	static string IMPORT_KEY_PAIR;
+	static const string CREATE_KEY_PAIR;
+	static const string DELETE_KEY_PAIR;
+	static const string DESCRIBE_KEY_PAIRS;
+	static const string IMPORT_KEY_PAIR;
 
-	static string CREATE_SNAPSHOT;
-	static string DELETE_SNAPSHOT;
-	static string DESCRIBE_SNAPSHOTS;
+	static const string CREATE_SNAPSHOT;
+	static const string DELETE_SNAPSHOT;
+	static const string DESCRIBE_SNAPSHOTS;
 
-	static string CREATE_VOLUME;
-	static string DELETE_VOLUME;
-	static string ATTACH_VOLUME;
-	static string DETACH_VOLUME;
-	static string DESCRIBE_VOLUMES;
-	static string SHOW_DELETE_ON_TERMINATION_FLAG;
-	static string UPDATE_DELETE_ON_TERMINATION_FLAG;
+	static const string CREATE_VOLUME;
+	static const string DELETE_VOLUME;
+	static const string ATTACH_VOLUME;
+	static const string DETACH_VOLUME;
+	static const string DESCRIBE_VOLUMES;
+	static const string SHOW_DELETE_ON_TERMINATION_FLAG;
+	static const string UPDATE_DELETE_ON_TERMINATION_FLAG;
 
-	static string IMAGE_ID;
-	static string INSTANCE_ID;
-	static string INSTANCE_TYPE_ID;
-	static string VOLUME_ID;
-	static string SNAPSHOT_ID;
-	static string MAX_RESULTS;
-	static string NEXT_TOKEN;
-	static string DETAIL;
-	static string SIZE;
-	static string DEVICE;
-	static string DELETE_ON_TERMINATION;
-	static string KEY_NAME;
-	static string PUBLIC_KEY_MATERIAL;
-	static string DEVICE_NAME;
-	static string VOLUME_SIZE;
-	static string INSTANCE_COUNT;
-	static string SUBNET_ID;
-	static string PRIVATE_IP_ADDRESS;
-	static string SECURITY_GROUP_ID;
-	static string BLOCK;
+	static const string IMAGE_ID;
+	static const string INSTANCE_ID;
+	static const string INSTANCE_TYPE_ID;
+	static const string VOLUME_ID;
+	static const string SNAPSHOT_ID;
+	static const string MAX_RESULTS;
+	static const string NEXT_TOKEN;
+	static const string DETAIL;
+	static const string SIZE;
+	static const string DEVICE;
+	static const string DELETE_ON_TERMINATION;
+	static const string KEY_NAME;
+	static const string PUBLIC_KEY_MATERIAL;
+	static const string DEVICE_NAME;
+	static const string VOLUME_SIZE;
+	static const string INSTANCE_COUNT;
+	static const string SUBNET_ID;
+	static const string PRIVATE_IP_ADDRESS;
+	static const string SECURITY_GROUP_ID;
+	static const string BLOCK;
 };
 #endif

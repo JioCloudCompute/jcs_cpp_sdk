@@ -22,61 +22,61 @@
  *******************************************************************************/
 #include "src/compute_api/include/constants.hpp"
 
-string constants::ACTION = "Action";
-string constants::VERSION = "Version";
+const string constants::ACTION = "Action";
+const string constants::VERSION = "Version";
 
-string constants::ID = "Id";
-string constants::USER_ID = "UserId";
-string constants::USER_NAME = "UserName";
-string constants::GROUP_ID = "GroupId";
-string constants::GROUP_NAME = "GroupName";
+const string constants::ID = "Id";
+const string constants::USER_ID = "UserId";
+const string constants::USER_NAME = "UserName";
+const string constants::GROUP_ID = "GroupId";
+const string constants::GROUP_NAME = "GroupName";
 
 
-string constants::DESCRIBE_IMAGES = "DescribeImages";
+const string constants::DESCRIBE_IMAGES = "DescribeImages";
 
-string constants::DESCRIBE_INSTANCES = "DescribeInstances";
-string constants::DESCRIBE_INSTANCE_TYPES = "DescribeInstanceTypes";
-string constants::RUN_INSTANCES = "RunInstances";
-string constants::START_INSTANCES = "StartInstances";
-string constants::STOP_INSTANCES = "StopInstances";
-string constants::REBOOT_INSTANCES = "RebootInstances";
-string constants::TERMINATE_INSTANCES = "TerminateInstances";
-string constants::GET_PASSWORD_DATA = "GetPasswordData";
+const string constants::DESCRIBE_INSTANCES = "DescribeInstances";
+const string constants::DESCRIBE_INSTANCE_TYPES = "DescribeInstanceTypes";
+const string constants::RUN_INSTANCES = "RunInstances";
+const string constants::START_INSTANCES = "StartInstances";
+const string constants::STOP_INSTANCES = "StopInstances";
+const string constants::REBOOT_INSTANCES = "RebootInstances";
+const string constants::TERMINATE_INSTANCES = "TerminateInstances";
+const string constants::GET_PASSWORD_DATA = "GetPasswordData";
 
-string constants::CREATE_KEY_PAIR = "CreateKeyPair";
-string constants::DELETE_KEY_PAIR = "DeleteKeyPair";
-string constants::DESCRIBE_KEY_PAIRS = "DescribeKeyPairs";
-string constants::IMPORT_KEY_PAIR = "ImportKeyPair";
+const string constants::CREATE_KEY_PAIR = "CreateKeyPair";
+const string constants::DELETE_KEY_PAIR = "DeleteKeyPair";
+const string constants::DESCRIBE_KEY_PAIRS = "DescribeKeyPairs";
+const string constants::IMPORT_KEY_PAIR = "ImportKeyPair";
 
-string constants::CREATE_SNAPSHOT = "CreateSnapshot";
-string constants::DELETE_SNAPSHOT = "DeleteSnapshot";
-string constants::DESCRIBE_SNAPSHOTS = "DescribeSnapshots";
+const string constants::CREATE_SNAPSHOT = "CreateSnapshot";
+const string constants::DELETE_SNAPSHOT = "DeleteSnapshot";
+const string constants::DESCRIBE_SNAPSHOTS = "DescribeSnapshots";
 
-string constants::CREATE_VOLUME = "CreateVolume";
-string constants::DELETE_VOLUME = "DeleteVolume";
-string constants::ATTACH_VOLUME = "AttachVolume";
-string constants::DETACH_VOLUME = "DetachVolume";
-string constants::DESCRIBE_VOLUMES = "DecribeVolumes";
-string constants::SHOW_DELETE_ON_TERMINATION_FLAG = "ShowDeleteOnTermiantionFlag";
-string constants::UPDATE_DELETE_ON_TERMINATION_FLAG = "UpdateDeleteOnTermination";
+const string constants::CREATE_VOLUME = "CreateVolume";
+const string constants::DELETE_VOLUME = "DeleteVolume";
+const string constants::ATTACH_VOLUME = "AttachVolume";
+const string constants::DETACH_VOLUME = "DetachVolume";
+const string constants::DESCRIBE_VOLUMES = "DecribeVolumes";
+const string constants::SHOW_DELETE_ON_TERMINATION_FLAG = "ShowDeleteOnTermiantionFlag";
+const string constants::UPDATE_DELETE_ON_TERMINATION_FLAG = "UpdateDeleteOnTermination";
 
-string constants::IMAGE_ID = "ImageId";
-string constants::INSTANCE_ID = "InstanceId";
-string constants::INSTANCE_TYPE_ID = "InstanceTypeId";
-string constants::VOLUME_ID = "VolumeId";
-string constants::SNAPSHOT_ID = "SnapshotId";
-string constants::MAX_RESULTS = "MaxResults";
-string constants::NEXT_TOKEN = "NextToken";
-string constants::DETAIL = "Detail";
-string constants::SIZE = "Size";
-string constants::DEVICE = "Device";
-string constants::DELETE_ON_TERMINATION = "DeleteOnTermination";
-string constants::KEY_NAME = "KeyName";
-string constants::PUBLIC_KEY_MATERIAL = "PublicKeyMaterial";
-string constants::DEVICE_NAME = "DeviceName";
-string constants::VOLUME_SIZE = "VolumeSize";
-string constants::INSTANCE_COUNT = "InstanceCount";
-string constants::SUBNET_ID = "SubnetId";
-string constants::PRIVATE_IP_ADDRESS= "PrivateIpAddress";
-string constants::SECURITY_GROUP_ID = "SecurityGroupId";
-string constants::BLOCK = "BlockDeviceMapping";
+const string constants::IMAGE_ID = "ImageId";
+const string constants::INSTANCE_ID = "InstanceId";
+const string constants::INSTANCE_TYPE_ID = "InstanceTypeId";
+const string constants::VOLUME_ID = "VolumeId";
+const string constants::SNAPSHOT_ID = "SnapshotId";
+const string constants::MAX_RESULTS = "MaxResults";
+const string constants::NEXT_TOKEN = "NextToken";
+const string constants::DETAIL = "Detail";
+const string constants::SIZE = "Size";
+const string constants::DEVICE = "Device";
+const string constants::DELETE_ON_TERMINATION = "DeleteOnTermination";
+const string constants::KEY_NAME = "KeyName";
+const string constants::PUBLIC_KEY_MATERIAL = "PublicKeyMaterial";
+const string constants::DEVICE_NAME = "DeviceName";
+const string constants::VOLUME_SIZE = "VolumeSize";
+const string constants::INSTANCE_COUNT = "InstanceCount";
+const string constants::SUBNET_ID = "SubnetId";
+const string constants::PRIVATE_IP_ADDRESS= "PrivateIpAddress";
+const string constants::SECURITY_GROUP_ID = "SecurityGroupId";
+const string constants::BLOCK = "BlockDeviceMapping";
