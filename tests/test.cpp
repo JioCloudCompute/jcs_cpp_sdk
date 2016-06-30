@@ -164,16 +164,16 @@ int main()
 				// Run Instances
 				run_instances_request req7;
 				run_instances_response *res7;
-				req7.set_image_id("image id");
-				req7.set_instance_type_id("instance type id");
+				req7.set_image_id("jmi-bc345d58");
+				req7.set_instance_type_id("c1.small");
 				res7 = obj.run_instances(req7);
 				if(res7!=NULL){
-					vector< model::instance> tr = res7->get_instances();
+					vector< std::string> tr = res7->get_instances();
 
 					for(int i =0;i<tr.size();i++)
 					{
-						cout<<tr[i].get_instance_id()<<endl;	
-						cout<<tr[i].get_instance_state()<<endl;
+						cout<<tr[i]<<endl;	
+						
 					}
 				}
 				delete res7;
