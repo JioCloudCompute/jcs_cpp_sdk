@@ -43,7 +43,7 @@ int main()
 				describe_images_request req0;
 				describe_images_response *res0;
 				res0 = obj.describe_images(req0);
-				if(res0 != NULL)cout << res0->get_images()[0].get_image_id();
+				if(res0 != NULL)cout << res0->get_images()[0].get_image_id()<<endl;
 				delete res0;
 				break;
 			}
@@ -52,9 +52,6 @@ int main()
 				//describe Instance 
 				describe_instances_request req1;
 				describe_instances_response *res1;
-				// vector<string> v;
-				// v.push_back("sdc");
-				// req1.set_instance_ids(v);
 				res1 = obj.describe_instances(req1);
 				if(res1!=NULL){
 					vector<model::instance> tr = res1->get_instances();
@@ -167,16 +164,16 @@ int main()
 				// Run Instances
 				run_instances_request req7;
 				run_instances_response *res7;
-				req7.set_image_id("image id");
-				req7.set_instance_type_id("instance type id");
+				req7.set_image_id("jmi-bc345d58");
+				req7.set_instance_type_id("c1.small");
 				res7 = obj.run_instances(req7);
 				if(res7!=NULL){
-					vector< model::instance> tr = res7->get_instances();
+					vector< std::string> tr = res7->get_instances();
 
 					for(int i =0;i<tr.size();i++)
 					{
-						cout<<tr[i].get_instance_id()<<endl;	
-						cout<<tr[i].get_instance_state()<<endl;
+						cout<<tr[i]<<endl;	
+						
 					}
 				}
 				delete res7;

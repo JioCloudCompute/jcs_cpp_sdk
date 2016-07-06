@@ -5,7 +5,7 @@
 
 git clone https://github.com/jiocloudservices/jcsclient.git  
 $ cd jcs_cpp_sdk/  
-$ make setup (For installing libraries libcurl and openssl libraries)  
+$ make setup (For installing libraries libcurl and openssl)  
 $ make  
 $ make install (install static and shared library in /usr/lib)  
 $ make doc (to create Documentation of the project)  

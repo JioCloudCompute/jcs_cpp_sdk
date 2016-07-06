@@ -28,114 +28,116 @@
 #include <sstream>
 
 using namespace std;
-auth::Authorization::Authorization(const struct utils::auth_var data) : data_(data) //Use pass by const reference
-{	
+namespace auth{
+	void Authorization::auth_modify(utils::auth_var &data)
+	{	
 
-	// test for this part:TODO
-	if (strcmp(data.path,""))
-		strcpy(data_.path,data.path);
-	else strcpy(data_.path,"/");
+		// test for this part:TODO
+		if (!strcmp(data.path,""))
+			strcpy(data.path,"/");
 
-	std::string protocol = utils::get_protocol(data_.url);	//utils
-	std::string host = utils::get_host(data_.url);			//utils
-	//todo: see how to handle
-	if( protocol.compare("https") && protocol.compare("http"))
-	{
-		std::cout<<"Unsupported protocol present in given url";	
-		//exit here
+		std::string protocol = utils::get_protocol(data.url);	//utils
+		std::string host = utils::get_host(data.url);			//utils
+		//todo: see how to handle
+		if( protocol.compare("https") && protocol.compare("http"))
+		{
+			std::cout<<"Unsupported protocol present in given url";	
+			//exit here
+		}
+
+		strcpy(data.protocol,protocol.c_str());
+		strcpy(data.host, host.c_str());
+		strcpy(data.port,"None"); // default to http port
+		
+		size_t pos = host.find(":"); // if port specified in url
+
+		if(pos != std::string::npos)
+		{
+			strcpy(data.port,host.substr(pos+1).c_str());
+			strcpy(data.host, host.substr(0,pos).c_str());	
+		}
+
 	}
 
-	strcpy(data_.protocol,protocol.c_str());
-	strcpy(data_.host, host.c_str());
-	strcpy(data_.port,"None"); // default to http port
-	
-	size_t pos = host.find(":"); // if port specified in url
-
-	if(pos != std::string::npos)
-	{
-		strcpy(data_.port,host.substr(pos+1).c_str());
-		strcpy(data_.host, host.substr(0,pos).c_str());	
+	void Authorization::add_params(std::map <std::string,std::string > &params, utils::auth_var &data)
+	{	
+		//Add generic key-value pairs in the param map
+		params[JCS_ACCESS_KEY_ID] = data.access_key;
+		params[SIGNATURE_VERSION] = "2";
+		params[SIGNATURE_METHOD] = HMAC_SHA256_ALGORITHM;
+		//Time Stamp
+		time_t now = time(NULL);
+		tm *gmtm = gmtime(&now);
+		char stamp[64];
+		//utf-8 encoding
+		strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
+		params[TIMESTAMP] = stamp;
 	}
 
-}
-
-void auth::Authorization::add_params(std::map <std::string,std::string > &params)
-{	
-	//Add generic key-value pairs in the param map
-	params["JCSAccessKeyId"] = data_.access_key;
-	params["SignatureVersion"] = "2";
-	params["SignatureMethod"] = "HmacSHA256";
-	//Time Stamp
-	time_t now = time(NULL);
-	tm *gmtm = gmtime(&now);
-	char stamp[64];
-	//utf-8 encoding
-	strftime(stamp,64,"%Y-%m-%dT%H:%M:%SZ",gmtm);
-	params["Timestamp"] = stamp;
-}
-
-std::string auth::Authorization::_get_utf8_value(std::string value)
-{
-	//todo(devender): To look at string to utf-8.
-	return value;
-}
-
-std::string auth::Authorization::sort_params(std::map<std::string ,std::string> &params)
-{
-	
-	stringstream qs;
-	CURL *curl = curl_easy_init();
-	char *value; 
-	for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
+	std::string Authorization::_get_utf8_value(std::string value)
 	{
-		//Some parse and safety check left  refer auth_handler.py
-		// utf encoding on values left
-		//url encoding
-		value = curl_easy_escape(curl,it->second.c_str(),0);
-		qs<<it->first<<"="<<value<<"&";
-	}
-	string qs_ = qs.str();
-	qs_[qs_.length()-1]='\0'; //removing last &
-	curl_free(value);
-	return qs_;
-
-
-}
-std::string auth::Authorization::string_to_sign(std::map <std::string , std::string> &params)
-{
-	//Calculate the canonical string for the request
-	std::string verb_ = data_.verb;
-	stringstream ss;
-	ss<<verb_<<"\n"<<data_.host;
-	
-	if(strcmp(data_.port,"None"))
-	{
-		ss<<":";
-		ss<<data_.port;
+		//todo(devender): To look at string to utf-8.
+		return value;
 	}
 
-	ss<<"\n"<<data_.path<<"\n";
-	add_params(params);
-	ss<<sort_params(params);
-	return ss.str();
+	std::string Authorization::sort_params(std::map<std::string ,std::string> &params)
+	{
+		
+		stringstream qs;
+		CURL *curl = curl_easy_init();
+		char *value; 
+		for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
+		{
+			//Some parse and safety check left  refer auth_handler.py
+			// utf encoding on values left
+			//url encoding
+			value = curl_easy_escape(curl,it->second.c_str(),0);
+			qs<<it->first<<"="<<value<<"&";
+		}
+		string qs_ = qs.str();
+		qs_[qs_.length()-1]='\0'; //removing last &
+		curl_free(value);
+		return qs_;
 
-}
 
-void auth::Authorization::add_authorization(std::map<std::string, std::string> &params)
-{
+	}
+	std::string Authorization::string_to_sign(std::map <std::string , std::string> &params, utils::auth_var &data)
+	{
+		//Calculate the canonical string for the request
+		std::string verb_ = data.verb;
+		stringstream ss;
+		ss<<verb_<<"\n"<<data.host;
+		
+		if(strcmp(data.port,"None"))
+		{
+			ss<<":";
+			ss<<data.port;
+		}
 
-	//data
-	std::string canonical_string = string_to_sign(params);
-	//HMAC SHA 256
-	std::string hmac_256 = utils::hmac_sha256(canonical_string,data_.secret_key);
-	//base64 and urlencode
-	CURL *curl = curl_easy_init();
-	char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(&hmac_256[0], hmac_256.length()).c_str(),0);
-	params["Signature"]=hmac_Signature;
-#ifdef CLI_DEBUG
-	std::cout<<"HMAC SIGNATURE 0: " << utils::base64encode(&hmac_256[0], hmac_256.length())<<"\n";
-	std::cout<<"HMAC SIGNATURE:  " << hmac_Signature<<"\n";
-#endif
-	free(hmac_Signature);
+		ss<<"\n"<<data.path<<"\n";
+		add_params(params, data);
+		ss<<sort_params(params);
+		return ss.str();
 
+	}
+
+	void Authorization::add_authorization(std::map<std::string, std::string> &params, utils::auth_var &data)
+	{
+
+		//data
+		auth_modify(data);
+		std::string canonical_string = string_to_sign(params, data);
+		//HMAC SHA 256
+		std::string hmac_256 = utils::hmac_sha256(canonical_string,data.secret_key);
+		//base64 and urlencode
+		CURL *curl = curl_easy_init();
+		char *hmac_Signature = curl_easy_escape(curl,utils::base64encode(&hmac_256[0], hmac_256.length()).c_str(),0);
+		params[SIGNATURE]=hmac_Signature;
+	#ifdef CLI_DEBUG
+		std::cout<<"HMAC SIGNATURE 0: " << utils::base64encode(&hmac_256[0], hmac_256.length())<<"\n";
+		std::cout<<"HMAC SIGNATURE:  " << hmac_Signature<<"\n";
+	#endif
+		free(hmac_Signature);
+
+	}
 }

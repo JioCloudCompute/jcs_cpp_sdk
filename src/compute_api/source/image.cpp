@@ -23,16 +23,18 @@
 #include "src/compute_api/include/image.hpp"
 #include <map>
 #include <sstream>
+#include "src/compute_api/include/constants.hpp"
+#include "src/requestify.hpp"
 
 namespace image
 {
 	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
 	{
 		map <string, string> params;
-		params["Action"] = "DescribeImages"; // Adding action to the map params 
-		params["Version"] = info.version;	// Adding version to the map params
+		params[constants::ACTION] = constants::DESCRIBE_IMAGES; // Adding action to the map params 
+		params[constants::VERSION] = info.version;	// Adding version to the map params
 		stringstream ss;
-		string key = "ImageId.";
+		string key = constants::IMAGE_ID + ".";
 		for(size_t i=0 ; i<(req.get_image_ids())->size() ; i++)
 		{
 			ss << i+1;
