@@ -68,6 +68,7 @@ describe_images_response *compute::describe_images(const describe_images_request
 describe_instances_response *compute::describe_instances(const describe_instances_request &req)
 {
 	pair<string, long> response = instance::describe_instances(info, req);
+	
 	if(response.first == "")
 	{
 		cerr<<"Cannot contact server"<<endl;

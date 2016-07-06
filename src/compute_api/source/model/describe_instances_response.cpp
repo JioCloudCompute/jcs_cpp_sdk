@@ -59,72 +59,128 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
 		blocks.clear();
 		groups.clear();
 		
-		blockListElement = InstanceElement->FirstChildElement("item");
+		if(InstanceElement != NULL)blockListElement = InstanceElement->FirstChildElement("item");
+		else cout<<"Error Parsing Instances List"<<endl;
 		while(blockListElement != NULL)
 		{
 			blockElement = blockListElement->FirstChildElement("status");
-			if(blockElement->GetText()!=NULL)block.status = blockElement->GetText();
-			
-			blockElement = blockElement->NextSiblingElement();
-			if(blockElement->GetText()!=NULL)block.device_name = blockElement->GetText();
+			if(blockElement !=  NULL)
+			{
+				if(blockElement->GetText()!=NULL)block.status = blockElement->GetText();
+				blockElement = blockElement->NextSiblingElement();
+			}
+			else cout<<"Error Parsing 'status' from blockDeviceMapping"<<endl;;
 
-			blockElement = blockElement->NextSiblingElement();
-			blockElement->QueryBoolText(&temp);
-			block.delete_on_termination = temp;
+			if(blockElement!=NULL)	
+			{
+				if(blockElement->GetText()!=NULL)block.device_name = blockElement->GetText();
+				blockElement = blockElement->NextSiblingElement();
+			}
+			else cout<< " Error Pasring Device Name from XML Response"<<endl;
 
-			blockElement = blockElement->NextSiblingElement();
-			if(blockElement->GetText()!=NULL)block.volume_id = blockElement->GetText();
-
-			blocks.push_back(block);
+			if(blockElement != NULL)
+			{
+				blockElement->QueryBoolText(&temp);
+				block.delete_on_termination = temp;
+				blockElement = blockElement->NextSiblingElement();
+			}
+			else cout << "Error Parsing Block Device delete_on_termination flag from XML Response"<<endl;
+			if(blockElement != NULL)	
+			{
+				if(blockElement->GetText()!=NULL)block.volume_id = blockElement->GetText();
+				blocks.push_back(block);
+			}
+			else cout<< "Error Parsing Block Device Volume ID from XML Response"<<endl;
 			blockListElement=blockListElement->NextSiblingElement();
 
 		}
 
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)dns_name=InstanceElement->GetText();
-		
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)instance_id=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)instance_state=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)image_id=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)private_dns_name=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)key_name=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)launch_time=InstanceElement->GetText();
-
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)subnet_id=InstanceElement->GetText();
-
+		if(InstanceElement!=NULL)InstanceElement=InstanceElement->NextSiblingElement();
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)dns_name=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing DNS Name from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)instance_id=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing Instance Id from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)instance_state=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout << "Error Parsing Instance State from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)image_id=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing image_id from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)private_dns_name=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing private_dns_name from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)key_name=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing key_name from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)launch_time=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing launch_time from XML Response"<<endl;
 		XMLElement *GroupListElement,*GroupElement;
-		InstanceElement = InstanceElement->NextSiblingElement();
-		GroupListElement = InstanceElement->FirstChildElement("item");
-		
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)subnet_id=InstanceElement->GetText();
+			InstanceElement = InstanceElement->NextSiblingElement();
+			GroupListElement = InstanceElement->FirstChildElement("item");
+		}
+		else cout<<"Error Parsing subnet_id from XML Response"<<endl;
 		while(GroupListElement != NULL)
 		{
 			GroupElement=GroupListElement->FirstChildElement("groupName");
-			group.group_name = GroupElement->GetText();
-			GroupElement=GroupElement->NextSiblingElement();
-			group.group_id = GroupElement->GetText();
+			if(GroupElement !=NULL)
+			{
+				group.group_name = GroupElement->GetText();
+				GroupElement=GroupElement->NextSiblingElement();
+			}
+			if(GroupElement!=NULL)
+			{
+				group.group_id = GroupElement->GetText();
+				GroupListElement=GroupListElement->NextSiblingElement();
+			}
+			else cout<<"Error Parsing GroupSet from XML Response"<<endl;
 			groups.push_back(group);
-			GroupListElement=GroupListElement->NextSiblingElement();
+			
 		}
-		
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)vpc_id=InstanceElement->GetText();
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)instance_type=InstanceElement->GetText();
-		InstanceElement=InstanceElement->NextSiblingElement();
-		if(InstanceElement->GetText()!=NULL)private_ip_address=InstanceElement->GetText();
-
+		if(InstanceElement != NULL)InstanceElement=InstanceElement->NextSiblingElement();
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)vpc_id=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing vpc_id from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{	
+			if(InstanceElement->GetText()!=NULL)instance_type=InstanceElement->GetText();
+			InstanceElement=InstanceElement->NextSiblingElement();
+		}
+		else cout<<"Error Parsing instance_type from XML Response"<<endl;
+		if(InstanceElement != NULL)
+		{
+			if(InstanceElement->GetText()!=NULL)private_ip_address=InstanceElement->GetText();
+		}
+		else cout<<"Error Parsing private_ip_address from XML Response"<<endl;
 		ListElement=ListElement->NextSiblingElement();
 		
 		instance data(blocks,dns_name, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address);
