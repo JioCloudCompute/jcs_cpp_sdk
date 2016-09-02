@@ -20,14 +20,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute.hpp"
+#include "compute.hpp"
 #include <bits/stdc++.h>
 
 using namespace JIOCOMPUTE;
 using namespace std;
 int main()
 {
-	compute obj;
+	compute obj("https://compute.ind-west-1.staging.jiocloudservices.com/", 
+              "5550b2c0322a4da4b38e32705a45d8a0", 
+              "3df7f61dfd79468596cc3474e8cb09d1",
+              false);
 	vector<string>instance_ids;
 
 	int option;
@@ -44,6 +47,7 @@ int main()
 				describe_images_response *res0;
 				res0 = obj.describe_images(req0);
 				if(res0 != NULL)cout << res0->get_images()[0].get_image_id();
+        else cerr << "No response from the server"<<endl;
 				delete res0;
 				break;
 			}
@@ -64,7 +68,8 @@ int main()
 						cout<<tr[i].get_instance_state()<<endl;
 						cout<<endl;
 					}
-				}
+				} else
+          cerr << "No response from the server"<<endl;
 				delete res1;
 				break;
 			}
@@ -349,7 +354,7 @@ int main()
 			{	// show delete on termination flag
 				show_delete_on_termination_flag_request req19;
 				show_delete_on_termination_flag_response *res19;
-				req19.set_volume_id("volume id");
+				req19.set_volume_id("c7d80b1d-8974-49ff-9836-0d6a53e5eddc");
 				res19 = obj.show_delete_on_termination_flag(req19);
 				if(res19!=NULL){
 					cout<<res19->get_volume_id()<<endl;

@@ -22,7 +22,7 @@
 ******************************************************************************/
 #ifndef DESCRIBE_IMAGESR_H
 #define DESCRIBE_IMAGESR_H
-#include "image.hpp"
+#include "model/image.hpp"
 #include <string>
 #include <vector>
 #include <map>

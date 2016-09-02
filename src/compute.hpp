@@ -23,28 +23,33 @@
 #ifndef COMPUTEM_H
 #define COMPUTEM_H
 
-#include "src/requestify.hpp"
-#include "src/config.hpp"
-#include "src/utils.hpp"
-#include "src/compute_api/include/image.hpp"
-#include "src/compute_api/include/instance.hpp"
-#include "src/compute_api/include/volume.hpp"
-#include "src/compute_api/include/snapshot.hpp"
-#include "src/compute_api/include/key_pair.hpp"
-#include "src/compute_api/include/model/error_response.hpp"
+#include "requestify.hpp"
+#include "config.hpp"
+#include "utils.hpp"
+#include "image.hpp"
+#include "instance.hpp"
+#include "volume.hpp"
+#include "snapshot.hpp"
+#include "key_pair.hpp"
+#include "model/error_response.hpp"
 
 
 namespace JIOCOMPUTE{
 	class compute
 	{
-		utils::http_var info;
+		utils::auth_var info;
 
 		public:
 		///Constructor
 		/**
 			Initializes the compute endpoint url, Type of HTTP request, Version
 		*/
-		compute();
+		compute(const std::string& url, const std::string& access_key, const std::string& secret_key, bool is_secure=true);
+
+
+    void set_timeout(int timeout_in_secs);
+    void set_retry(int retry_count);
+
 		///Method to get info of the requested images 
 		/**
 			\param req : Type describe_images_request object 

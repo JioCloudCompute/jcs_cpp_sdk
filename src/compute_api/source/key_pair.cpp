@@ -20,15 +20,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/key_pair.hpp"
-#include "src/requestify.hpp"
+#include "key_pair.hpp"
+#include "requestify.hpp"
 #include <sstream>
 #include <map>
 #include <vector>
 
 namespace key_pair
 {
-	pair<string,long> describe_key_pairs(utils::http_var &info)
+	pair<string,long> describe_key_pairs(utils::auth_var &info)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeKeyPairs";
@@ -38,7 +38,7 @@ namespace key_pair
 	}
 
 
-	pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req)
+	pair<string,long> create_key_pair(utils::auth_var &info, const model::create_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "CreateKeyPair";
@@ -56,7 +56,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req)
+	pair<string,long> delete_key_pair(utils::auth_var &info, const model::delete_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DeleteKeyPair";
@@ -74,7 +74,7 @@ namespace key_pair
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req)
+	pair<string,long> import_key_pair(utils::auth_var &info, const model::import_key_pair_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "ImportKeyPair";

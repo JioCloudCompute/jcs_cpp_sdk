@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/create_snapshot_request.hpp"
+#include "model/create_snapshot_request.hpp"
 
 using namespace std;
 using namespace model;

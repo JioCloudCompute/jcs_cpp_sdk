@@ -23,7 +23,7 @@
 #ifndef AUTHHANDLER_H
 #define AUTHHANDLER_H
 
-#include "src/utils.hpp"
+#include "utils.hpp"
 #include <string>
 #include <string.h>
 #include <map>
@@ -33,10 +33,10 @@ namespace auth{
 	{	
 		utils::auth_var data_;
 	public:
-		Authorization(const struct utils::auth_var data); //Use pass by const reference
+		Authorization(const struct utils::auth_var& data); //Use pass by const reference
 		void add_params(std::map <std::string,std::string > &params);
-		std::string _get_utf8_value(std::string value);
-		std::string sort_params(std::map<std::string ,std::string> &params);
+		std::string _get_utf8_value(const std::string& value);
+		std::string sort_params(const std::map<std::string ,std::string> &params);
 		std::string string_to_sign(std::map <std::string , std::string> &params);
 		void add_authorization(std::map<std::string, std::string> &params);
 	};

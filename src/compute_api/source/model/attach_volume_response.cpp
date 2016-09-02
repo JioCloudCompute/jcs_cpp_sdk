@@ -20,8 +20,9 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/attach_volume_response.hpp"
-#include "src/XMLParser.h"
+
+#include "model/attach_volume_response.hpp"
+#include "XMLParser.h"
 #include <iostream>
 #ifndef XMLCheckResult
 	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }

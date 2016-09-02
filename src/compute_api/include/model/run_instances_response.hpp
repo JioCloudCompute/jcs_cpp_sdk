@@ -24,7 +24,7 @@
 #define RUN_INSTANCESR_H
 #include <string>
 #include <map>
-#include <src/compute_api/include/model/instance.hpp>
+#include <model/instance.hpp>
 
 using namespace std;
 using namespace model;

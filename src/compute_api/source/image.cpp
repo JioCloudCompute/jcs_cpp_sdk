@@ -20,13 +20,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/image.hpp"
+#include "image.hpp"
 #include <map>
 #include <sstream>
 
 namespace image
 {
-	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
+	pair<string, long> describe_images(utils::auth_var &info, const model::describe_images_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeImages"; // Adding action to the map params 

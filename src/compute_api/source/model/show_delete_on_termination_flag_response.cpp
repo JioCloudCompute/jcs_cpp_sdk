@@ -20,8 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/show_delete_on_termination_flag_response.hpp"
-#include "src/XMLParser.h"
+#include "model/show_delete_on_termination_flag_response.hpp"
+#include "XMLParser.h"
 #include <string>
 #include <iostream>
 

@@ -21,7 +21,7 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 
-#include "src/compute.hpp"
+#include "compute.hpp"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -33,14 +33,18 @@ using namespace instance;
 using namespace snapshot;
 using namespace key_pair;
 using namespace volume;
-using namespace config;
 using namespace JIOCOMPUTE;
 
-compute::compute(){
-			strcpy(info.url,(config::get_service_url("compute")).c_str());
+compute::compute(const std::string& url, const std::string& access_key, const std::string& secret_key, bool is_secure){
+			strcpy(info.url,(url.c_str()));
 			strcpy(info.verb, "GET");
 			strcpy(info.headers, "");
 			strcpy(info.version, "2016-03-01");
+			strcpy(info.access_key, access_key.c_str());
+			strcpy(info.secret_key, secret_key.c_str());
+      info.is_secure = is_secure;
+      if ('/' == info.url[strlen(info.url)-1])
+        info.url[strlen(info.url)-1]= '\0';
 		}
 
 describe_images_response *compute::describe_images(const describe_images_request &req)
@@ -49,7 +53,9 @@ describe_images_response *compute::describe_images(const describe_images_request
 
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -70,7 +76,9 @@ describe_instances_response *compute::describe_instances(const describe_instance
 	pair<string, long> response = instance::describe_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -90,7 +98,9 @@ describe_instance_types_response *compute::describe_instance_types(const describ
 	pair<string, long> response = instance::describe_instance_types(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -109,7 +119,9 @@ start_instances_response *compute::start_instances(const start_instances_request
 	pair<string, long> response = instance::start_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -128,7 +140,9 @@ stop_instances_response *compute::stop_instances(const stop_instances_request &r
 	pair<string, long> response = instance::stop_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -147,7 +161,9 @@ reboot_instances_response *compute::reboot_instances(const reboot_instances_requ
 	pair<string, long> response = instance::reboot_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -166,7 +182,9 @@ terminate_instances_response *compute::terminate_instances(const terminate_insta
 	pair<string, long> response = instance::terminate_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -185,7 +203,9 @@ run_instances_response *compute::run_instances(const run_instances_request &req)
 	pair<string, long> response = instance::run_instances(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -204,7 +224,9 @@ describe_key_pairs_response *compute::describe_key_pairs()
 	pair<string, long> response = key_pair::describe_key_pairs(info);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -223,8 +245,10 @@ create_key_pair_response *compute::create_key_pair(const create_key_pair_request
 	pair<string, long> response = key_pair::create_key_pair(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -242,8 +266,10 @@ delete_key_pair_response *compute::delete_key_pair(const delete_key_pair_request
 	pair<string, long> response = key_pair::delete_key_pair(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -261,8 +287,10 @@ import_key_pair_response *compute::import_key_pair(const import_key_pair_request
 	pair<string, long> response = key_pair::import_key_pair(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -280,8 +308,10 @@ describe_snapshots_response *compute::describe_snapshots(const describe_snapshot
 	pair<string, long> response = snapshot::describe_snapshots(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -299,8 +329,10 @@ create_snapshot_response *compute::create_snapshot(const create_snapshot_request
 	pair<string, long> response = snapshot::create_snapshot(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -318,8 +350,10 @@ delete_snapshot_response *compute::delete_snapshot(const delete_snapshot_request
 	pair<string, long> response = snapshot::delete_snapshot(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
-		return NULL;
+#endif
+    return NULL;
 	}
 	if(response.second == 200)
 	{ 
@@ -337,7 +371,9 @@ describe_volumes_response *compute::describe_volumes(const describe_volumes_requ
 	pair<string, long> response = volume::describe_volumes(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -356,7 +392,9 @@ create_volume_response *compute::create_volume(const create_volume_request &req)
 	pair<string, long> response = volume::create_volume(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -375,7 +413,9 @@ delete_volume_response *compute::delete_volume(const delete_volume_request &req)
 	pair<string, long> response = volume::delete_volume(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -394,7 +434,9 @@ attach_volume_response *compute::attach_volume(const attach_volume_request &req)
 	pair<string, long> response = volume::attach_volume(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -413,7 +455,9 @@ detach_volume_response *compute::detach_volume(const detach_volume_request &req)
 	pair<string, long> response = volume::detach_volume(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -432,7 +476,9 @@ show_delete_on_termination_flag_response *compute::show_delete_on_termination_fl
 	pair<string, long> response = volume::show_delete_on_termination_flag(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -451,7 +497,9 @@ update_delete_on_termination_flag_response *compute::update_delete_on_terminatio
 	pair<string, long> response = volume::update_delete_on_termination_flag(info, req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)
@@ -470,7 +518,9 @@ get_password_data_response *compute::get_password_data(const get_password_data_r
 	pair<string , long > response = instance::get_password_data(info,req);
 	if(response.first == "")
 	{
+#ifdef CLI_DEBUG
 		cerr<<"Cannot contact server"<<endl;
+#endif
 		return NULL;
 	}
 	if(response.second == 200)

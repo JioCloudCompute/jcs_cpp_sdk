@@ -24,7 +24,7 @@
 #define DESCRIBE_VOLUMESR_H
 #include <map>
 #include <vector>
-#include "src/compute_api/include/model/volume.hpp"
+#include "model/volume.hpp"
 using namespace std;
 using namespace model;
 

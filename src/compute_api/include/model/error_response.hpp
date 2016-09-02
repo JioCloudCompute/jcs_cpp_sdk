@@ -22,11 +22,11 @@
 ******************************************************************************/
 #ifndef ERRORRESPONSE
 #define ERRORRESPONSE
-#include "src/XMLParser.h"
+#include "XMLParser.h"
 #include <iostream>
 
 #ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
+	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { fprintf(stderr, "Error: %i\n", a_eResult); return a_eResult; }
 #endif
 
 using namespace std;

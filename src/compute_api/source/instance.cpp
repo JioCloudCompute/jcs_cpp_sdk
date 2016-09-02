@@ -20,21 +20,21 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/instance.hpp"
+#include "instance.hpp"
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <openssl/rsa.h>
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include "src/requestify.hpp"
+#include "requestify.hpp"
 #include <sstream>
 #include <map>
 
 namespace instance 
 {
 
-	pair<string,long> describe_instances(utils::http_var &info, const model::describe_instances_request &req)
+	pair<string,long> describe_instances(utils::auth_var &info, const model::describe_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstances";
@@ -55,7 +55,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> describe_instance_types(utils::http_var &info, const model::describe_instance_types_request &req)
+	pair<string,long> describe_instance_types(utils::auth_var &info, const model::describe_instance_types_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "DescribeInstanceTypes";
@@ -76,7 +76,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> start_instances(utils::http_var &info, const model::start_instances_request &req)
+	pair<string,long> start_instances(utils::auth_var &info, const model::start_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "StartInstances";
@@ -99,7 +99,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> stop_instances(utils::http_var &info, const model::stop_instances_request &req)
+	pair<string,long> stop_instances(utils::auth_var &info, const model::stop_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "StopInstances";
@@ -123,7 +123,7 @@ namespace instance
 	}
 
 
-	pair<string,long> reboot_instances(utils::http_var &info, const model::reboot_instances_request &req)
+	pair<string,long> reboot_instances(utils::auth_var &info, const model::reboot_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "RebootInstances";
@@ -147,7 +147,7 @@ namespace instance
 	}
 
 
-	pair<string,long> terminate_instances(utils::http_var &info, const model::terminate_instances_request &req)
+	pair<string,long> terminate_instances(utils::auth_var &info, const model::terminate_instances_request &req)
 	{
 		map <string, string> params;
 		params["Action"] = "TerminateInstances";
@@ -172,7 +172,7 @@ namespace instance
 
 
 
-	pair<string,long> run_instances(utils::http_var &info, const model::run_instances_request &req )
+	pair<string,long> run_instances(utils::auth_var &info, const model::run_instances_request &req )
 	{
 		map <string, string> params;
 		params["Action"] = "RunInstances";
@@ -247,7 +247,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data_request &req)
+	pair<string, long> get_password_data(utils::auth_var &info, const model::get_password_data_request &req)
 
 	{	
 		map<string , string > params;
@@ -265,7 +265,7 @@ namespace instance
 
 	}
 
-	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string passphrase)
+	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string& passphrase)
 	{
 		
 		RSA *rsa = utils::import_ssh_key(private_key_file, passphrase);

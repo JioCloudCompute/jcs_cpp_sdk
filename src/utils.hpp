@@ -33,10 +33,17 @@ namespace utils{
 		char access_key[128];
 		char secret_key[128];
 		char headers[128];
+    char version[16];
 		char path[128];
 		char protocol[8];
 		char host[128];
-		char port[8];
+		int  port;
+    bool is_secure;
+
+    auth_var (): url(""), verb(""), access_key(""), secret_key(""), headers(""),
+      path(""), protocol(""), host(""), port(80), is_secure(true)
+    {
+    }
 		//copy constructor
 
 
@@ -49,8 +56,8 @@ namespace utils{
 		char headers[128];
 		
 	};
-	std::string get_protocol(char url[512]);
-	std::string get_host(char url[128]);
+	std::string get_protocol(const char* url);
+	std::string get_host(const char* url);
 	std::string hmac_sha256(std::string canonical_string ,const char *secret_key);
 	std::string base64encode(const char * instring, size_t len);
 	int base64decode(const char *decode, char *decoded, size_t len);

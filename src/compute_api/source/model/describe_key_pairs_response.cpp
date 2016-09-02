@@ -20,8 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_key_pairs_response.hpp"
-#include "src/XMLParser.h"
+#include "model/describe_key_pairs_response.hpp"
+#include "XMLParser.h"
 #include <iostream>
 #include <string>
 #include <vector>

@@ -21,7 +21,7 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 
-#include <src/utils.hpp>
+#include <utils.hpp>
 #include <map>
 #include <string.h>
 #include <iostream>
@@ -37,18 +37,49 @@ using namespace std;
 namespace utils
 {
 
-	std::string get_protocol(char url[512])
-	{	
+	std::string get_protocol(const char * url)
+	{
 		//EXTRA CHECK REQUIRED Regexp
-		std::string url_ = url;
-		return url_.substr(0,5);   //https
+    size_t pos = 0;
+    for(size_t index = 0; index < strlen(url); ++index)
+    {
+      if(':' == url[index]) {
+        pos = index;
+        break;
+      }
+    }
+    return std::string(url, pos);
 	}
 
-	std::string get_host(char url[128])
+	std::string get_host(const char * url)
 	{
-		std::string host_ = url;
-		return host_.substr(8);
+    size_t startpos = 0;
+    size_t endpos = strlen(url);
+    bool lastsl = false;
+    bool contsl = false;
+
+    for(size_t index=0; index < strlen(url); ++index)
+    {
+      if ('/' == url[index]) {
+        if (lastsl)
+          contsl = true;
+        lastsl = true;
+        if (startpos) {
+          endpos = index;
+          break;
+        }
+      } else {
+        lastsl = false;
+        if (contsl and not startpos)
+          startpos = index;
+        contsl = false;
+        //contsl = false;
+      }
+    }
+
+    return endpos ? string(url+startpos, endpos - startpos + 1): "";
 	}
+
 	std::string hmac_sha256(std::string canonical_string ,const char *secret_key)
 	{
 		unsigned len = 32;
@@ -63,6 +94,7 @@ namespace utils
 	   	//hmac_256[len]='\0';
 	   	return std::string((const char*)hmac_256, len);
 	}
+
 	std::string base64encode(const char * instring, size_t len)
 	{	
 		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		

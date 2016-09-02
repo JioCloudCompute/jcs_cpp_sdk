@@ -20,8 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/get_password_data_response.hpp"
-#include "src/XMLParser.h"
+#include "model/get_password_data_response.hpp"
+#include "XMLParser.h"
 #include <iostream>
 
 #ifndef XMLCheckResult

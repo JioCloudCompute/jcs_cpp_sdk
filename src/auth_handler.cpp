@@ -20,15 +20,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/auth_handler.hpp"
+#include "auth_handler.hpp"
 #include <iostream>
 #include <time.h>
-#include "src/utils.hpp"
+#include "utils.hpp"
 #include <curl/curl.h>
 #include <sstream>
+#include <cstdlib>
+
+const int http_port = 80;
+const int https_port = 443;
 
 using namespace std;
-auth::Authorization::Authorization(const struct utils::auth_var data) : data_(data) //Use pass by const reference
+auth::Authorization::Authorization(const struct utils::auth_var& data) : data_(data)
 {	
 
 	// test for this part:TODO
@@ -47,13 +51,15 @@ auth::Authorization::Authorization(const struct utils::auth_var data) : data_(da
 
 	strcpy(data_.protocol,protocol.c_str());
 	strcpy(data_.host, host.c_str());
-	strcpy(data_.port,"None"); // default to http port
-	
+  data_.port = http_port;
+  if(!protocol.compare("https"))
+    data_.port = https_port;
+
 	size_t pos = host.find(":"); // if port specified in url
 
 	if(pos != std::string::npos)
 	{
-		strcpy(data_.port,host.substr(pos+1).c_str());
+    data_.port = atoi(host.substr(pos+1).c_str());
 		strcpy(data_.host, host.substr(0,pos).c_str());	
 	}
 
@@ -74,19 +80,19 @@ void auth::Authorization::add_params(std::map <std::string,std::string > &params
 	params["Timestamp"] = stamp;
 }
 
-std::string auth::Authorization::_get_utf8_value(std::string value)
+std::string auth::Authorization::_get_utf8_value(const std::string& value)
 {
 	//todo(devender): To look at string to utf-8.
 	return value;
 }
 
-std::string auth::Authorization::sort_params(std::map<std::string ,std::string> &params)
+std::string auth::Authorization::sort_params(const std::map<std::string ,std::string> &params)
 {
 	
 	stringstream qs;
 	CURL *curl = curl_easy_init();
 	char *value; 
-	for (std::map<std::string,std::string>::iterator it=params.begin(); it!=params.end(); ++it)
+	for (std::map<std::string,std::string>::const_iterator it=params.begin(); it!=params.end(); ++it)
 	{
 		//Some parse and safety check left  refer auth_handler.py
 		// utf encoding on values left
@@ -101,14 +107,20 @@ std::string auth::Authorization::sort_params(std::map<std::string ,std::string> 
 
 
 }
+
+bool is_standard_port(int port)
+{
+  return 80==port or 443==port;
+}
+
 std::string auth::Authorization::string_to_sign(std::map <std::string , std::string> &params)
 {
 	//Calculate the canonical string for the request
 	std::string verb_ = data_.verb;
 	stringstream ss;
 	ss<<verb_<<"\n"<<data_.host;
-	
-	if(strcmp(data_.port,"None"))
+
+	if(data_.port and not is_standard_port)
 	{
 		ss<<":";
 		ss<<data_.port;
