@@ -51,22 +51,6 @@ model::describe_volumes_response::describe_volumes_response(const string &xml_do
 
     while(ListElement != NULL)
     {
-      /*
-         <item>
-         <status>in-use</status>
-         <encrypted>false</encrypted>
-         <volumeType>standard</volumeType>
-         <volumeId>3b5c39bb-5e03-4967-ae32-0ed094b27672</volumeId>
-         <attachmentSet>
-         <item>
-         <device>/dev/vda</device>
-         <instanceId />
-         </item>
-         </attachmentSet>
-         <snapshotId />
-         <createTime>2016-03-01T11:21:39.000000</createTime>
-         <size>4</size></item> 
-         */
       XMLElement *VolumeSet,*SubElement;
       string status,volume_id, device, instance_id, snapshot_id,create_time;
       bool encrypted = false;
@@ -82,8 +66,7 @@ model::describe_volumes_response::describe_volumes_response(const string &xml_do
 
       //read
       if (VolumeSet and VolumeSet->GetText())
-        if(!strcmp("true", VolumeSet->GetText()))
-          encrypted = true;
+        VolumeSet->QueryBoolText(&encrypted);
 
       VolumeSet = ListElement->FirstChildElement("volumeType");
       if (VolumeSet and VolumeSet->GetText())

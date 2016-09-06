@@ -25,6 +25,10 @@
 
 #include <string>
 #include <openssl/rsa.h>
+#include <XMLParser.h>
+
+using namespace tinyxml2;
+
 namespace utils{
 	
 	struct auth_var{
@@ -62,7 +66,15 @@ namespace utils{
 	std::string base64encode(const char * instring, size_t len);
 	int base64decode(const char *decode, char *decoded, size_t len);
 	RSA *import_ssh_key(std::string private_key_file, std::string passphrase= "");
- }
+
+
+void set_string_value(const XMLNode * element, const char* field, std::string& value);
+void set_string_value(const XMLElement * element, const char* field, std::string& value);
+void set_float_value(const XMLElement * element, const char* field, float& value);
+void set_bool_value(const XMLElement * element, const char* field, bool& value);
+
+}
+
 #endif
 
 

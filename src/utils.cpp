@@ -158,4 +158,34 @@ namespace utils
 		return NULL;
 
 	}
+
+void set_string_value(const XMLNode * element, const char* field, std::string& value)
+{
+  const XMLElement * val = element->FirstChildElement(field);
+  if (val and val->GetText())
+    value = val->GetText();
+}
+
+void set_string_value(const XMLElement * element, const char* field, std::string& value)
+{
+  const XMLElement * val = element->FirstChildElement(field);
+  if (val and val->GetText())
+    value = val->GetText();
+}
+
+void set_float_value(const XMLElement * element, const char* field, float& value)
+{
+  const XMLElement * val = element->FirstChildElement(field);
+  if (val and val->GetText())
+    val->QueryFloatText(&value);
+}
+
+
+void set_bool_value(const XMLElement * element, const char* field, bool& value)
+{
+  const XMLElement * val = element->FirstChildElement(field);
+  if (val and val->GetText())
+    val->QueryBoolText(&value);
+}
+
 }
