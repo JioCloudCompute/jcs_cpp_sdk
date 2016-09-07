@@ -39,7 +39,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		vector<model::instance_set> instances;
+		vector<model::instance_state_set> instances;
 
 	public:
 		/// Constructor
@@ -52,7 +52,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}
@@ -61,7 +61,7 @@ namespace model
 			\return const vector<instance_set>
 			A vector of objects of class instance_set
 		*/
-		const vector<model::instance_set> get_instances() const
+		const vector<model::instance_state_set>& get_instances() const
 		{
 			return instances;
 		}

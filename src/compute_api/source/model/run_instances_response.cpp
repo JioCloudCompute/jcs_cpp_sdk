@@ -23,137 +23,83 @@
 #include "model/run_instances_response.hpp"
 #include "XMLParser.h"
 #include <iostream>
+#include <utils.hpp>
 
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
 
 using namespace std;
 using namespace tinyxml2;
 using namespace model;
-
+using namespace utils;
 
 
 run_instances_response::run_instances_response(const string &xml_doc)
 {	
-	
-	XMLDocument doc;
-	doc.Parse(xml_doc.c_str());
-	//Root
-	XMLNode *RootNode = doc.FirstChild();
 
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)request_id = Element->GetText();
-	Element = RootNode->FirstChildElement("instancesSet");
-	
-	block_device_instance block;
-	group_set group;
-	XMLElement *ListElement = Element->FirstChildElement("item");
-	XMLElement *InstanceElement;
-	vector< group_set > groups;
-	string vpc_id, dnsName, instance_id, instance_state,image_id,private_dns_name,key_name, launch_time, subnet_id, instance_type, private_ip_address;
-	while(ListElement != NULL)
-	{
-		InstanceElement =  ListElement->FirstChildElement("vpcId");
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)vpc_id=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing vpc_id from XML run_instances_response\n";
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)dnsName=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing dnsName from XML run_instances_response\n";
+  XMLDocument doc;
+  doc.Parse(xml_doc.c_str());
+  //Root
+  const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
+    set_string_value(RootNode, "requestId", request_id);
+    const XMLElement* Element = RootNode->FirstChildElement("instancesSet");
+    if(Element) {  
+      const XMLElement *ListElement = Element->FirstChildElement("item");
+      const XMLElement *InstanceElement;
+      while(ListElement != NULL)
+      {
+        ////
+        block_device_instance block;
+        group_set group;
+        vector<group_set> groups;
+        vector<block_device_instance> blocks;
+        string vpc_id, dns_name, instance_id, instance_state,image_id,private_dns_name,key_name, launch_time, subnet_id, instance_type, private_ip_address, ip_address;
 
-		if(InstanceElement!=NULL)
-		{	
-			if(InstanceElement->GetText()!=NULL)instance_id=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing instance_id from XML run_instances_response\n";
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)instance_state=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing instance_state from XML run_instances_response\n";
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)image_id=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing image_id from XML run_instances_response\n";
-		if(InstanceElement!=NULL)
-		{	
-			if(InstanceElement->GetText()!=NULL)private_dns_name=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing private_dns_name from XML run_instances_response\n";
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)key_name=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error PArsing key_name from XML run_instances_response\n";
-		if(InstanceElement !=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)launch_time=InstanceElement->GetText();
-			InstanceElement=InstanceElement->NextSiblingElement();
-		}
-		else cout<<"Error parsing launch_time from XML run_instances_response\n";
+        InstanceElement =  ListElement->FirstChildElement("blockDeviceMapping");
+        if (InstanceElement) { 
+          const XMLElement* blockListElement = InstanceElement->FirstChildElement("item");
+          while(blockListElement != NULL)
+          {
+            set_string_value(blockListElement, "status", block.status);
+            set_string_value(blockListElement, "deviceName", block.device_name);
+            set_bool_value(blockListElement, "deleteOnTermination", block.delete_on_termination);
+            set_string_value(blockListElement, "volumeId", block.volume_id);
 
-		if(InstanceElement!=NULL)
-		if(InstanceElement->GetText()!=NULL)subnet_id=InstanceElement->GetText();
+            blocks.push_back(block);
 
-		XMLElement *GroupListElement,*GroupElement;
-		
-		if(InstanceElement!=NULL)
-		{	
-			InstanceElement = InstanceElement->NextSiblingElement();
-			GroupListElement = InstanceElement->FirstChildElement("item");
-		}
-		groups.clear();
-		while(GroupListElement != NULL)
-		{
-			GroupElement=GroupListElement->FirstChildElement("groupName");
-			if(GroupElement!=NULL)
-			{	
-				if(GroupElement->GetText()!=NULL)
-				group.group_name = GroupElement->GetText();
-				GroupElement=GroupElement->NextSiblingElement();
-			}
-			if(GroupElement!=NULL)
-			{
-				if(GroupElement->GetText()!=NULL)group.group_id = GroupElement->GetText();}
-			else cout<<"Error Parsing Group Element Data from XML run_instances_response\n";
-			
-			groups.push_back(group);
-			GroupListElement=GroupListElement->NextSiblingElement();
-		}
-		if(InstanceElement!=NULL)
-		InstanceElement=InstanceElement->NextSiblingElement();
-		
-		if(InstanceElement!=NULL)
-		{
-			if(InstanceElement->GetText()!=NULL)instance_type=(InstanceElement->GetText());
-			InstanceElement=InstanceElement->NextSiblingElement();	
-		}
-		else cout<<"Error Parsing instance_type from XML run_instances_response\n";
-		
-		if(InstanceElement!=NULL)
-		if(InstanceElement->GetText()!=NULL)private_ip_address=(InstanceElement->GetText());
+            blockListElement=blockListElement->NextSiblingElement();
+          }
+        }
 
-		ListElement=ListElement->NextSiblingElement();
-		
-		instance data(vpc_id,dnsName, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, instance_type, private_ip_address);
-		instances.push_back(data);
+        set_string_value(ListElement, "vpcId", vpc_id);
+        set_string_value(ListElement, "dnsName", dns_name);
+        set_string_value(ListElement, "instanceId", instance_id);
+        set_string_value(ListElement, "instanceState", instance_state);
+        set_string_value(ListElement, "imageId", image_id);
+        set_string_value(ListElement, "privateDnsName", private_dns_name);
+        set_string_value(ListElement, "keyName", key_name);
+        set_string_value(ListElement, "launchTime", launch_time);
+        set_string_value(ListElement, "subnetId", subnet_id);
+        InstanceElement = ListElement->FirstChildElement("groupSet");
+        if (InstanceElement) {
+          const XMLElement * gse = InstanceElement->FirstChildElement("item");
+          while(gse) {
+            set_string_value(gse, "groupName", group.group_name);
+            set_string_value(gse, "groupId", group.group_id);
+            groups.push_back(group);
+            gse = gse->NextSiblingElement();
+          }
+        }
+        set_string_value(ListElement, "instanceType", instance_type);
+        set_string_value(ListElement, "privateIpAddress", private_ip_address);
+        set_string_value(ListElement, "ipAddress", ip_address);
 
-	}
+        instance data(blocks,dns_name, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address, ip_address);
 
+        instances.push_back(data);
 
+      }
+    }
+  }
 }
 
 

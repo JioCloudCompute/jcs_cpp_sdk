@@ -51,7 +51,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_image_id() const;
+		const string& get_image_id() const;
 		/// Setter for the private variable image_id
 		/**
 			\param image_id_ : image id of new instances to be created
@@ -61,7 +61,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_type_id() const;
+		const string& get_instance_type_id() const;
 		/// Setter for the private variable instance_type_id
 		/**
 			\param instance_type_id_ : instance type id of the new instances to be created
@@ -91,17 +91,17 @@ namespace model
 		/**
 			\return const int
 		*/
-		const int get_instance_count() const;
+		int get_instance_count() const;
 		/// Setter for the private variable instance_count
 		/**
 			\param instance_count_ (optional): Integer representing how many instances to be launched. Default is 1.
 		*/
-		void set_instance_count(const int& instance_count_);
+		void set_instance_count(int instance_count_);
 		/// Getter for the private variable subnet_id
 		/**
 			\return const string
 		*/
-		const string get_subnet_id() const;
+		const string& get_subnet_id() const;
 		/// Setter for the private variable subnet_id
 		/**
 			\param subnet_id_ (optional): Unique identifier for the subnet where the instance is created.
@@ -113,7 +113,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_ip_address() const;
+		const string& get_private_ip_address() const;
 		/// Setter for the private variable private_ip_address
 		/**
 			\param private_ip_address_ (optional): Valid IP address from the subnet CIDR block. If not given, an
@@ -136,7 +136,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name() const;
+		const string& get_key_name() const;
 		/// Setter for the private variable key_name
 		/**
 			\param key_name_ (optional): Key Name to be used while launching the instance. If not given

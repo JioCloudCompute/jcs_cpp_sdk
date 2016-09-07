@@ -28,8 +28,14 @@ namespace model
 	struct block_device_mapping
 	{
 		string device_name;
+    string snapshot_id;
 		bool delete_on_termination;
 		int volume_size;
+    bool encrypted;
+
+    block_device_mapping():delete_on_termination(false), encrypted(false), volume_size(1),
+      device_name("/dev/vda")
+    {}
 	};
 }
 

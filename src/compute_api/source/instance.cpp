@@ -119,6 +119,7 @@ namespace instance
 			ss.str("");
 		}
 
+    params["Force"] = req.get_force()?"True":"False";
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
@@ -155,7 +156,8 @@ namespace instance
 		
 		if((req.get_instance_ids())->size() == 0)
 		{	
-			cout << "Error : Instance-Id needed";
+			//cout << "Error : Instance-Id needed";
+      return make_pair("", 600);
 		}
 
 		string key = "InstanceId.";
@@ -178,20 +180,12 @@ namespace instance
 		params["Action"] = "RunInstances";
 		params["Version"] = info.version;
 
-		if(req.get_image_id().length() == 0)
+		if(req.get_image_id().length())
 		{	
-			cout << "Error : Image-Id needed";
-		}
-		else
-		{
 			params["ImageId"] = req.get_image_id();
 		}
 
-		if(req.get_instance_type_id().length() == 0)
-		{	
-			cout << "Error : Instance-Type-Id needed";
-		}
-		else
+		if(req.get_instance_type_id().length())
 		{
 			params["InstanceTypeId"] = req.get_instance_type_id();
 		}
@@ -203,13 +197,26 @@ namespace instance
 			for(size_t i=0 ; i<(req.get_block_device_mapping())->size() ; i++)
 			{
 				ss << i+1;
-				params[key+ss.str()+".DeviceName"] = (*req.get_block_device_mapping())[i].device_name;
-				(*req.get_block_device_mapping())[i].delete_on_termination ? ss1.str("true") : ss1.str("false");
-				params[key+ss.str()+".DeleteOnTermination"] = ss1.str();
-				ss1.str("");
-				ss1 << (*req.get_block_device_mapping())[i].volume_size;
-				params[key+ss.str()+".VolumeSize"] = ss1.str();
-				ss1.str("");
+        string device_name = (*req.get_block_device_mapping())[i].device_name;
+        if (device_name.length())
+  				params[key+ss.str()+".DeviceName"] = device_name;
+        bool dont = (*req.get_block_device_mapping())[i].delete_on_termination;
+        dont ? ss1.str("true") : ss1.str("false");
+        params[key+ss.str()+".DeleteOnTermination"] = ss1.str();
+        int volume_size = (*req.get_block_device_mapping())[i].volume_size;
+        if (volume_size) {
+          ss1.str("");
+          ss1 << (*req.get_block_device_mapping())[i].volume_size;
+          params[key+ss.str()+".VolumeSize"] = ss1.str();
+        }
+        ss1.str("");
+        ss1 << (*req.get_block_device_mapping())[i].encrypted?"True":"False";
+        params[key+ss.str()+".Encrypted"] = ss1.str();
+        ss1.str("");
+        string dot = (*req.get_block_device_mapping())[i].snapshot_id;
+        if (dot.length()) {
+          params[key+ss.str()+".SnapshotId"] = dot;
+        }
 				ss.str("");
 			}
 		}
@@ -231,11 +238,11 @@ namespace instance
 
 		if(!(req.get_security_group_ids())->empty())
 		{
+      char key_buffer[256];
 			for(size_t i=0 ; i<(req.get_security_group_ids())->size() ; i++)
 			{
-				string key = "SecurityGroupId.0";
-				key[key.length()-1] = i+1;
-				params[key] = (*req.get_security_group_ids())[i];
+        sprintf(key_buffer, "SecurityGroupId.%zu", i+1);
+				params[key_buffer] = (*req.get_security_group_ids())[i];
 			}		
 		}
 

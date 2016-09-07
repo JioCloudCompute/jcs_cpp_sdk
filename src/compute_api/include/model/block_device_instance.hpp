@@ -33,6 +33,7 @@ namespace model{
 		string device_name;///< Device Name of the Volume
 		bool delete_on_termination;///< If true Block is deleted on Termination of Instance
 		string volume_id;///< Volume ID of the volume being described
+    bool encrypted; ///< If block volume is encrypted or not.
 	};
 }
 

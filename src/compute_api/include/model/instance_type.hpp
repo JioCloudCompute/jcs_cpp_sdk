@@ -34,20 +34,21 @@ namespace model
 		float vcpus;
 		float ram;
 		string id;
+
 	public:
 		///Constructor
-		instance_type(float vcpus_, float ram_, string id_)
-		{
-			vcpus = vcpus_;
-			ram = ram_;
-			id = id_;
-		}
+		instance_type(float vcpus_, float ram_, const string& id_):
+      vcpus(vcpus_),
+			ram(ram_),
+			id(id_)
+    {}
+
 		instance_type(){}
 		///Getter for the VC Pus of the Instance
 		/**
 			\return const float
 		*/
-		const float get_vcpus() const
+		float get_vcpus() const
 		{
 			return vcpus;
 		}
@@ -55,7 +56,7 @@ namespace model
 		/**
 			\return const float
 		*/
-		const float get_ram() const
+		float get_ram() const
 		{
 			return ram;
 		}
@@ -63,7 +64,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_id() const
+		const string& get_id() const
 		{
 			return id;
 		}

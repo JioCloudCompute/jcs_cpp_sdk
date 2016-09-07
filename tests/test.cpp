@@ -84,10 +84,20 @@ int main()
 					vector<model::instance> tr = res1->get_instances();
 					for(int i = 0;i<tr.size();i++)
 					{
-						cout<<tr[i].get_instance_id()<<endl;
-						cout<<tr[i].get_instance_state()<<endl;
-						cout<<endl;
+            cout << "\nInstance: "<<i+1;
+            cout <<"\n\tId:" <<tr[i].get_instance_id();
+            cout <<"\n\tState:" <<tr[i].get_instance_state();
+            cout <<"\n\tImage Id:" <<tr[i].get_image_id();
+            cout <<"\n\tKey Name:" <<tr[i].get_key_name();
+            cout <<"\n\tSubnet Id:" <<tr[i].get_subnet_id();
+            cout <<"\n\tType: " <<tr[i].get_instance_type();
+            cout <<"\n\tPrivate IP: "<<tr[i].get_private_ip_address();
+            cout <<"\n\tIP Address: "<<tr[i].get_ip_address();
+						//cout<<tr[i].get_instance_id()<<endl;
+						//cout<<tr[i].get_instance_state()<<endl;
+
 					}
+						cout<<endl;
 				} else
           cerr << "No response from the server"<<endl;
 				delete res1;
@@ -115,7 +125,7 @@ int main()
 				req3.set_instance_ids(instance_ids);
 				res3 = obj.stop_instances(req3);
 				if(res3!=NULL){
-					vector<model::instance_set> tr = res3->get_instances();
+					vector<model::instance_state_set> tr = res3->get_instances();
 
 					for(int i=0 ; i<tr.size() ; i++)
 					{
@@ -135,7 +145,7 @@ int main()
 				req4.set_instance_ids(instance_ids);
 				res4 = obj.start_instances(req4);
 				if(res4!=NULL){	
-					vector< model::instance_set> tr = res4->get_instances();
+					vector< model::instance_state_set> tr = res4->get_instances();
 
 					for(int i =0;i<tr.size();i++)
 					{
@@ -156,7 +166,7 @@ int main()
 				req5.set_instance_ids(instance_ids);
 				res5 = obj.reboot_instances(req5);
 				if(res5!=NULL){
-					vector< model::instance_set> tr = res5->get_instances();
+					vector< model::instance_state_set> tr = res5->get_instances();
 					for(int i =0;i<tr.size();i++)
 					{
 						cout<<tr[i].get_instance_id()<<endl;
@@ -176,7 +186,7 @@ int main()
 				req6.set_instance_ids(instance_ids);
 				res6 = obj.terminate_instances(req6);
 				if(res6!=NULL){
-					vector< model::instance_set> tr = res6->get_instances();
+					vector< model::instance_state_set> tr = res6->get_instances();
 					for(int i =0;i<tr.size();i++)
 					{
 						cout<<tr[i].get_instance_id()<<endl;
@@ -277,7 +287,7 @@ int main()
 				req12.set_snapshot_id("snapshot id");
 				res12 = obj.delete_snapshot(req12);
 				if(res12!=NULL){
-					cout<<res12->get_result()<<endl;
+					cout<<res12->get_return()<<endl;
 				}
 				delete res12;
 				break;
@@ -322,7 +332,7 @@ int main()
 				req15.set_volume_id("volume id");
 				res15 = obj.delete_volume(req15);
 				if(res15!=NULL){
-					cout<<res15->get_result()<<endl;
+					cout<<res15->get_return()<<endl;
 				}
 				delete res15;
 				break;
