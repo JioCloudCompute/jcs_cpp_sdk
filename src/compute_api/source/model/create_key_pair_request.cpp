@@ -25,7 +25,7 @@ using namespace std;
 using namespace model;
 
 
-const string model::create_key_pair_request::get_key_name() const
+const string& model::create_key_pair_request::get_key_name() const
 {
 	return key_name;
 }

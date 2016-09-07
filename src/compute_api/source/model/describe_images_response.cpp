@@ -54,34 +54,35 @@ describe_images_response::describe_images_response(const string &xml_doc)
 	doc.Parse(xml_doc.c_str());
 	//Root
 	const XMLNode *RootNode = doc.FirstChild();
-	
-	//First Child;
-  set_string_value(RootNode, "requestId", request_id);
+  if (RootNode) {	
+    //First Child;
+    set_string_value(RootNode, "requestId", request_id);
 
-	//ImageSet
-	const XMLElement *SecondElement = RootNode->FirstChildElement("imagesSet");
-	
-  if(SecondElement) {
-    const XMLElement* ListElement= SecondElement->FirstChildElement("item");
+    //ImageSet
+    const XMLElement *SecondElement = RootNode->FirstChildElement("imagesSet");
 
-    //iterating over the list
-    while(ListElement)
-    {
-      string name,image_id, image_state, architecture, image_type;
-      block_device block_device_mapping;
-      bool isPublic=false;
-      parse_block_device_mapping(ListElement, block_device_mapping);
-      set_string_value(ListElement, "name", name);
-      set_bool_value(ListElement, "isPublic", isPublic);
-      set_string_value(ListElement, "imageId", image_id);
-      set_string_value(ListElement, "imageState", image_state);
-      set_string_value(ListElement, "architecture", architecture);
-      set_string_value(ListElement, "imageType", image_type);		
-      //constructor of Image Object
-      image image_data(block_device_mapping, name, isPublic, image_id, image_state, architecture, image_type);
-      images.push_back(image_data);
+    if(SecondElement) {
+      const XMLElement* ListElement= SecondElement->FirstChildElement("item");
 
-      ListElement=ListElement->NextSiblingElement();
+      //iterating over the list
+      while(ListElement)
+      {
+        string name,image_id, image_state, architecture, image_type;
+        block_device block_device_mapping;
+        bool isPublic=false;
+        parse_block_device_mapping(ListElement, block_device_mapping);
+        set_string_value(ListElement, "name", name);
+        set_bool_value(ListElement, "isPublic", isPublic);
+        set_string_value(ListElement, "imageId", image_id);
+        set_string_value(ListElement, "imageState", image_state);
+        set_string_value(ListElement, "architecture", architecture);
+        set_string_value(ListElement, "imageType", image_type);		
+        //constructor of Image Object
+        image image_data(block_device_mapping, name, isPublic, image_id, image_state, architecture, image_type);
+        images.push_back(image_data);
+
+        ListElement=ListElement->NextSiblingElement();
+      }
     }
   }
 }

@@ -122,7 +122,7 @@ namespace model{
 			\return const vector<block_device>
 			A vector of Objects of the class Block Device
 		*/
-		const model::block_device get_block_device_mapping() const
+		const model::block_device& get_block_device_mapping() const
 		{
 			return block_device_mapping;
 		}

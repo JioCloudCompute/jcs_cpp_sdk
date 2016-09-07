@@ -21,14 +21,15 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "model/import_key_pair_request.hpp"
+#include <utils.hpp>
 
 using namespace std;
 using namespace model;
-
+using namespace utils;
 
 model::import_key_pair_request::import_key_pair_request(){}
 
-const string model::import_key_pair_request::get_key_name() const
+const string& model::import_key_pair_request::get_key_name() const
 {
 	return key_name;
 }
@@ -38,7 +39,7 @@ void model::import_key_pair_request::set_key_name(const string& key_name_)
 	key_name = key_name_;
 }
 
-const string model::import_key_pair_request::get_public_key_material() const
+const string& model::import_key_pair_request::get_public_key_material() const
 {
 	return public_key_material;
 }
@@ -46,4 +47,9 @@ const string model::import_key_pair_request::get_public_key_material() const
 void model::import_key_pair_request::set_public_key_material(const string& public_key_material_)
 {
 	public_key_material = public_key_material_;
+}
+
+void model::import_key_pair_request::set_public_key_material_raw(const string& public_key_material_)
+{
+  public_key_material = base64encode(public_key_material_.c_str(), public_key_material_.size());
 }

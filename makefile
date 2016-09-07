@@ -133,6 +133,7 @@ doc:
 clean:
 	@$(ECHO) -n "Cleaning up..."
 	@$(RM) -rf $(OBJDIR)/static/*.o $(OBJDIR)/shared/*.o $(OBJDIR)/static/*.d $(OBJDIR)/shared/*.d
+	@find obj  ! -type d -exec rm -- {} +
 	@$(ECHO) "Done"
 
 distclean: clean

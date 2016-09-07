@@ -36,7 +36,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		model ::key_pair key;
+		model::key_pair key;
 	public:
 		/// Constructor
 		/**

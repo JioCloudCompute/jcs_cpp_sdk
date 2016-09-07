@@ -51,7 +51,7 @@ namespace model
 			\return const vector<model::key_pair>  
 			A vector of objects of class key_pair
 		*/
-		const vector<model::key_pair> get_key_pairs() const
+		const vector<model::key_pair>& get_key_pairs() const
 		{
 			return key_pairs;
 		}

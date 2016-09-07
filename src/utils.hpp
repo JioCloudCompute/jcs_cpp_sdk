@@ -69,9 +69,8 @@ namespace utils{
 
 
 void set_string_value(const XMLNode * element, const char* field, std::string& value);
-void set_string_value(const XMLElement * element, const char* field, std::string& value);
-void set_float_value(const XMLElement * element, const char* field, float& value);
-void set_bool_value(const XMLElement * element, const char* field, bool& value);
+void set_float_value(const XMLNode * element, const char* field, float& value);
+void set_bool_value(const XMLNode * element, const char* field, bool& value);
 
 }
 

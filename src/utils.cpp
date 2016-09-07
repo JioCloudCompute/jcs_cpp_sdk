@@ -37,9 +37,9 @@ using namespace std;
 namespace utils
 {
 
-	std::string get_protocol(const char * url)
-	{
-		//EXTRA CHECK REQUIRED Regexp
+  std::string get_protocol(const char * url)
+  {
+    //EXTRA CHECK REQUIRED Regexp
     size_t pos = 0;
     for(size_t index = 0; index < strlen(url); ++index)
     {
@@ -49,10 +49,10 @@ namespace utils
       }
     }
     return std::string(url, pos);
-	}
+  }
 
-	std::string get_host(const char * url)
-	{
+  std::string get_host(const char * url)
+  {
     size_t startpos = 0;
     size_t endpos = strlen(url);
     bool lastsl = false;
@@ -78,114 +78,109 @@ namespace utils
     }
 
     return endpos ? string(url+startpos, endpos - startpos + 1): "";
-	}
+  }
 
-	std::string hmac_sha256(std::string canonical_string ,const char *secret_key)
-	{
-		unsigned len = 32;
-		unsigned char hmac_256[len+1];
-	    
-	    HMAC_CTX ctx;
-	    HMAC_CTX_init(&ctx);
-		HMAC_Init_ex(&ctx, secret_key, strlen(secret_key), EVP_sha256(), NULL);
-		HMAC_Update(&ctx,(unsigned char*)(canonical_string.c_str()), strlen(canonical_string.c_str()));
-		HMAC_Final(&ctx, hmac_256, &len);
-	   	HMAC_CTX_cleanup(&ctx);
-	   	//hmac_256[len]='\0';
-	   	return std::string((const char*)hmac_256, len);
-	}
+  std::string hmac_sha256(std::string canonical_string ,const char *secret_key)
+  {
+    unsigned len = 32;
+    unsigned char hmac_256[len+1];
 
-	std::string base64encode(const char * instring, size_t len)
-	{	
-		//Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
-		BIO *bio, *b64;
-		const size_t mlen = len*8/6 + len%6;	
-		char b64message[mlen+1];
-		b64 = BIO_new(BIO_f_base64());
-		bio = BIO_new(BIO_s_mem());
-		BIO_push(b64, bio);
-		BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
-		BIO_write(b64, instring, len);
-		BIO_flush(b64);
-		int length = BIO_read(bio, b64message, mlen);
-		BIO_free_all(b64);
-		b64message[length]='\0';
-		return b64message;
+    HMAC_CTX ctx;
+    HMAC_CTX_init(&ctx);
+    HMAC_Init_ex(&ctx, secret_key, strlen(secret_key), EVP_sha256(), NULL);
+    HMAC_Update(&ctx,(unsigned char*)(canonical_string.c_str()), strlen(canonical_string.c_str()));
+    HMAC_Final(&ctx, hmac_256, &len);
+    HMAC_CTX_cleanup(&ctx);
+    //hmac_256[len]='\0';
+    return std::string((const char*)hmac_256, len);
+  }
 
-	}
+  std::string base64encode(const char * instring, size_t len)
+  {	
+    //Length of hmac signature 256 bits(32bytes) : 64 base encoding length 4*32/3 Therfore introduced \0 at 44		
+    BIO *bio, *b64;
+    const size_t mlen = len*8/6 + len%6;	
+    char b64message[mlen+1];
+    b64 = BIO_new(BIO_f_base64());
+    bio = BIO_new(BIO_s_mem());
+    BIO_push(b64, bio);
+    BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
+    BIO_write(b64, instring, len);
+    BIO_flush(b64);
+    int length = BIO_read(bio, b64message, mlen);
+    BIO_free_all(b64);
+    b64message[length]='\0';
+    return b64message;
 
-	int base64decode(const char *decode, char *decoded, size_t len)
-	{ 
-		BIO *bio, *b64;
-		const size_t mlen = (len*6)/8 + len%8;
-		
-		int inlen;
-		b64 = BIO_new(BIO_f_base64());
-		bio = BIO_new(BIO_s_mem());
-		
-		BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
-		BIO_write(bio, decode, len+1);
-		BIO_push(b64, bio);
-		
-		inlen = BIO_read(b64, decoded, mlen);
-		decoded[inlen]='\0';
+  }
 
-		BIO_flush(b64);
-		BIO_free_all(b64);
-		 
-		return inlen;
-	}
+  int base64decode(const char *decode, char *decoded, size_t len)
+  { 
+    BIO *bio, *b64;
+    const size_t mlen = (len*6)/8 + len%8;
 
-	RSA *import_ssh_key(std::string private_key_file, std::string passphrase)
-	{
-		//Read the PEM file
-		std::ifstream in(private_key_file.c_str());
-		std::string mKey((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-		
-		if(mKey.length()==0) std::cout<<"Invalid File"<<std::endl;
+    int inlen;
+    b64 = BIO_new(BIO_f_base64());
+    bio = BIO_new(BIO_s_mem());
 
-		BIO* bo = BIO_new( BIO_s_mem() );
-		BIO_write( bo, mKey.c_str(),strlen(mKey.c_str()));
+    BIO_set_flags(b64,BIO_FLAGS_BASE64_NO_NL);
+    BIO_write(bio, decode, len+1);
+    BIO_push(b64, bio);
 
-		EVP_PKEY* pkey = 0;
-		PEM_read_bio_PrivateKey( bo, &pkey, 0, 0 );
+    inlen = BIO_read(b64, decoded, mlen);
+    decoded[inlen]='\0';
 
-		BIO_free(bo);
+    BIO_flush(b64);
+    BIO_free_all(b64);
 
-		RSA* rsa = EVP_PKEY_get1_RSA( pkey );
-		if(rsa!=NULL) return rsa;
+    return inlen;
+  }
 
-		return NULL;
+  RSA *import_ssh_key(std::string private_key_file, std::string passphrase)
+  {
+    //Read the PEM file
+    std::ifstream in(private_key_file.c_str());
+    std::string mKey((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
-	}
+    if(mKey.length()==0) std::cout<<"Invalid File"<<std::endl;
 
-void set_string_value(const XMLNode * element, const char* field, std::string& value)
-{
-  const XMLElement * val = element->FirstChildElement(field);
-  if (val and val->GetText())
-    value = val->GetText();
-}
+    BIO* bo = BIO_new( BIO_s_mem() );
+    BIO_write( bo, mKey.c_str(),strlen(mKey.c_str()));
 
-void set_string_value(const XMLElement * element, const char* field, std::string& value)
-{
-  const XMLElement * val = element->FirstChildElement(field);
-  if (val and val->GetText())
-    value = val->GetText();
-}
+    EVP_PKEY* pkey = 0;
+    PEM_read_bio_PrivateKey( bo, &pkey, 0, 0 );
 
-void set_float_value(const XMLElement * element, const char* field, float& value)
-{
-  const XMLElement * val = element->FirstChildElement(field);
-  if (val and val->GetText())
-    val->QueryFloatText(&value);
-}
+    BIO_free(bo);
+
+    RSA* rsa = EVP_PKEY_get1_RSA( pkey );
+    if(rsa!=NULL) return rsa;
+
+    return NULL;
+
+  }
 
 
-void set_bool_value(const XMLElement * element, const char* field, bool& value)
-{
-  const XMLElement * val = element->FirstChildElement(field);
-  if (val and val->GetText())
-    val->QueryBoolText(&value);
-}
+  void set_string_value(const XMLNode * element, const char* field, std::string& value)
+  {
+    const XMLElement * val = element->FirstChildElement(field);
+    if (val and val->GetText())
+      value = val->GetText();
+  }
+
+
+  void set_float_value(const XMLNode * element, const char* field, float& value)
+  {
+    const XMLElement * val = element->FirstChildElement(field);
+    if (val and val->GetText())
+      val->QueryFloatText(&value);
+  }
+
+
+  void set_bool_value(const XMLNode * element, const char* field, bool& value)
+  {
+    const XMLElement * val = element->FirstChildElement(field);
+    if (val and val->GetText())
+      val->QueryBoolText(&value);
+  }
 
 }

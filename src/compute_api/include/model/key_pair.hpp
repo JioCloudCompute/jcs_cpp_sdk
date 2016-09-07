@@ -32,19 +32,24 @@ namespace model
 	private:
 		string key_name;
 		string key_fingerprint;
+    string key_material;
 	public:
 		///Constructor
-		key_pair(string key_name_, string key_fingerprint_)
-		{
-			key_name = key_name_;
-			key_fingerprint = key_fingerprint_;
-		}
+		key_pair(string key_name, string key_fingerprint):key_name(key_name), key_fingerprint(key_fingerprint)
+		{}
+
 		key_pair(){}
+    ~key_pair()
+    {
+      //To make sure that key should not be held in memory as someone
+      //can print trace of memory once object is not use
+      key_material.erase();
+    }
 		///Getter for the Key-Name of the Key
 		/**
 			\return const string
 		*/
-		const string get_key_name() const
+		const string& get_key_name() const
 		{
 			return key_name;
 		}
@@ -52,10 +57,27 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_fingerprint() const
+		const string& get_key_fingerprint() const
 		{
 			return key_fingerprint;
 		}
+    const string& get_key_material() const
+    {
+      return key_material;
+    }
+    void set_key_material(const string& key_material)
+    {
+      this->key_material = key_material;
+    }
+    void set_key_name(const string& key_name)
+    {
+      this->key_name = key_name;
+    }
+    void set_key_fingerprint(const string& key_fingerprint)
+    {
+      this->key_fingerprint = key_fingerprint;
+    }
+
 	};
 }
 #endif

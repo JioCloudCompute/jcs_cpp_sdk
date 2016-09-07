@@ -59,7 +59,7 @@ namespace model
 			\return vector<image> *
 			A vector of objects of class image
 		*/
-		const vector<image> get_images() const
+		const vector<image>& get_images() const
 		{
 			return images;
 		}

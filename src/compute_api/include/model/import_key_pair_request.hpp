@@ -44,22 +44,27 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name() const;
+		const string& get_key_name() const;
 		/// Setter for the private variable key_name
 		/**
 			\param key_name_ : key name (unique for each key)
 		*/
 		void set_key_name(const string& key_name_);
+
 		/// Getter for the private variable public_key_material
 		/**
 			\return const string
 		*/
-		const string get_public_key_material() const;
+		const string& get_public_key_material() const;
 		/// Setter for the private variable public_key_material
 		/**
-			\param public_key_material_ : The public key contents created by a third party software. If not base64 encoded the public key material import would fail
+			\param public_key_material_ : base64 encoded ssh pubic key material. If ssh pubilc key is like "ssh-rsa AACDF3498934 ...", it should be base64 encoded.
 		*/
-		void set_public_key_material(const string& public_key_material_);
+		void set_public_key_material(const string& public_key_material_b64);
+    /**
+     * This takes ssh public key in ssh public key format which should be PEM format. Key should be like "ssh-rsa AACDF3498934 ...".
+     * */
+    void set_public_key_material_raw(const string& pubilc_key_material);
 	};
 }
 #endif

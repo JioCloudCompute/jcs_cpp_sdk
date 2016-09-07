@@ -21,6 +21,7 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 #include "compute.hpp"
+#include <model/image.hpp>
 #include <bits/stdc++.h>
 
 using namespace JIOCOMPUTE;
@@ -46,9 +47,28 @@ int main()
 				describe_images_request req0;
 				describe_images_response *res0;
 				res0 = obj.describe_images(req0);
-				if(res0 != NULL)cout << res0->get_images()[0].get_image_id();
-        else cerr << "No response from the server"<<endl;
+        
+				if(res0 != NULL) {
+          const vector<model::image>& images = res0->get_images();
+          for(size_t i=0;i<images.size(); ++i) {
+            const model::image& im = images[i];
+            cout << "\nImage "<<i+1;
+            cout << "\tImage name: "<<im.get_name();
+            cout << "\n\tImage id: "<< im.get_image_id();
+            cout << "\n\tIs Public: "<<im.get_is_public();
+            cout << "\n\tImage state: "<<im.get_image_state();
+            cout << "\n\tArchitecture: "<<im.get_architecture();
+            cout << "\n\tImage type: "<<im.get_image_type();
+            const block_device& bd = im.get_block_device_mapping();
+            cout << "\n\tBlock Device Mapping:";
+            cout << "\n\t\tVolume size: "<<bd.volumeSize;
+            cout << "\n\t\tDelete on Termination: "<<bd.deleteOnTermination;
+            cout << "\n\t\tDevice Name: "<<bd.deviceName;
+            cout << "\n\t\tsnapshotId: "<<bd.snapshotId;
+          }
+        } else cerr << "No response from the server"<<endl;
 				delete res0;
+        cout <<"\n";
 				break;
 			}
 			case 1:
@@ -192,12 +212,15 @@ int main()
 				//describe key pairs 
 				describe_key_pairs_response *res8;
 				res8 = obj.describe_key_pairs();
-				if(res8!=NULL){
-					vector<model::key_pair> tr = res8->get_key_pairs();
-					for(int i=0 ; i<tr.size() ; i++)
+				if(res8){
+					const vector<model::key_pair>& tr = res8->get_key_pairs();
+					for(size_t i=0 ; i<tr.size() ; i++)
 					{
-						cout<<tr[i].get_key_name()<<endl;	
+            cout << "\nKey "<<i+1;
+						cout << "\n\tKey Name: "<<tr[i].get_key_name();
+            cout << "\n\tKey Fingerprint: "<<tr[i].get_key_fingerprint();
 					}
+          cout << "\n";
 				}
 				delete res8;
 				break;
@@ -207,12 +230,12 @@ int main()
 				//create key pair 
 				create_key_pair_request req9;
 				create_key_pair_response *res9;
-				req9.set_key_name("key name");
+				req9.set_key_name("key_name");
 				res9 = obj.create_key_pair(req9);
 				if(res9!=NULL){
-					cout<<res9->get_key_material()<<endl;
-					cout<<res9->get_key_fingerprint()<<endl;
-					cout<<res9->get_key_name()<<endl	;
+					cout<<"Key Material: " << res9->get_key_material()<<endl;
+					cout<<"Key Fingerprint: " << res9->get_key_fingerprint()<<endl;
+					cout<<"Key Name: " << res9->get_key_name()<<endl;
 				}
 				delete res9;
 				break;
@@ -222,7 +245,7 @@ int main()
 				// Delete key pair
 				delete_key_pair_request req10;
 				delete_key_pair_response *res10;
-				req10.set_key_name("key name");
+				req10.set_key_name("key_name");
 				res10 = obj.delete_key_pair(req10);
 				if(res10!=NULL){
 					cout<<res10->get_result()<<endl;
@@ -383,12 +406,13 @@ int main()
 				// import key pair
 				import_key_pair_request req21;
 				import_key_pair_response *res21;
-				ifstream f("public key file");
+				ifstream f("/home/devender/.ssh/id_rsa.pub");
 				string s;
 				getline(f,s);
 				f.close();		
-				req21.set_key_name("key name");
-				// req21.set_public_key_material(utils::base64encode(s.c_str(), s.size()));
+				req21.set_key_name("key_test_name");
+				//req21.set_public_key_material(utils::base64encode(s.c_str(), s.size()));
+				req21.set_public_key_material_raw(s);
 				res21 = obj.import_key_pair(req21);
 				if(res21!=NULL){
 					cout<<(res21->get_key()).get_key_fingerprint()<<endl;
