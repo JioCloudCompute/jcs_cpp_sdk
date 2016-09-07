@@ -23,28 +23,20 @@
 #include "model/delete_volume_response.hpp"
 #include "XMLParser.h"
 #include <iostream>
-
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
+#include <utils.hpp>
 
 using namespace std;
 using namespace tinyxml2;
+using namespace utils;
 
 model::delete_volume_response::delete_volume_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
-	XMLNode *RootNode = doc.FirstChild();
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)
-	{
-		if(Element->GetText()!=NULL)request_id = Element->GetText();
-		Element=Element->NextSiblingElement();
-	}
-	else cout<<"Error Parsing request ID from XML delete_volume_response\n";
-	if(Element!=NULL)
-		Element->QueryBoolText(&result);
-	else cout<<"Error Parsing result from XML delete_volume_response\n"; 
+  const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
+    set_string_value(RootNode, "requestId", request_id);
+    set_bool_value(RootNode, "return", result);
+  }
 }

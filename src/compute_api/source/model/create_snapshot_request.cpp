@@ -26,7 +26,7 @@ using namespace std;
 using namespace model;
 
 
-const string model::create_snapshot_request::get_volume_id() const
+const string& model::create_snapshot_request::get_volume_id() const
 {
 	return volume_id;
 }

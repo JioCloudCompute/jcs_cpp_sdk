@@ -36,23 +36,19 @@ namespace model
 		float volume_size;
 		string volume_id;
 		string start_time;
+    bool encrypted;
 
 	public:
 		///Constructor
-		snapshot(string status_, string snapshot_id_, float volume_size_, string volume_id_, string start_time_)
-		{
-			status = status_;
-			snapshot_id = snapshot_id_;
-			volume_size = volume_size_;
-			volume_id = volume_id_;
-			start_time = start_time;
-		}
+		snapshot(string status_, string snapshot_id_, float volume_size_, string volume_id_, string start_time_, bool encrypted=false):
+      status(status_), snapshot_id(snapshot_id_), volume_size(volume_size_), volume_id(volume_id_), start_time(start_time_), encrypted(encrypted){}
+
 		snapshot(){}
 		///Getter for the Snapshot ID of the snapshot
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id() const
+		const string& get_snapshot_id() const
 		{
 			return snapshot_id;
 		}
@@ -61,7 +57,7 @@ namespace model
 			\return const string
 		*/
 
-		const string get_volume_id() const
+		const string& get_volume_id() const
 		{
 			return volume_id;
 		}
@@ -70,7 +66,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_status() const
+		const string& get_status() const
 		{
 			return status;
 		}
@@ -78,7 +74,7 @@ namespace model
 		/**
 			\return const float
 		*/
-		const float get_volume_size() const
+		float get_volume_size() const
 		{
 			return volume_size;
 		}
@@ -86,10 +82,15 @@ namespace model
 		/**
 			\return const string 
 		*/
-		const string get_start_time() const
+		const string& get_start_time() const
 		{
 			return start_time;
 		}
+
+    bool get_encrypted() const
+    {
+      return encrypted;
+    }
 	};
 }
 #endif

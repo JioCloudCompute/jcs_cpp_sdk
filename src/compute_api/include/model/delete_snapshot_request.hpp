@@ -43,7 +43,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id() const;
+		const string& get_snapshot_id() const;
 		/// Setter for the private variable snapshot_id
 		/**
 			\param snapshot_id_ : snapshot id to be deleted(unique for each snapshot)

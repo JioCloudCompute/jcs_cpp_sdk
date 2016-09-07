@@ -24,85 +24,46 @@
 #include "XMLParser.h"
 #include <string>
 #include <iostream>
-
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
+#include <utils.hpp>
 
 using namespace std;
 using namespace tinyxml2;
+using namespace utils;
 
 model::describe_volumes_response::describe_volumes_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
-	XMLNode *RootNode = doc.FirstChild();
+	const XMLNode *RootNode = doc.FirstChild();
   if (RootNode) {
-    XMLElement *Element = RootNode->FirstChildElement("requestId");
-
-    if(Element and Element->GetText())
-      request_id = Element->GetText();
-
-    Element = RootNode->FirstChildElement("volumeSet");
-    XMLElement * ListElement = NULL;
+    set_string_value(RootNode, "requestId", request_id);
+    const XMLElement * Element = RootNode->FirstChildElement("volumeSet");
+    const XMLElement * ListElement = NULL;
     if (Element)
       ListElement = Element->FirstChildElement("item");
-
     while(ListElement != NULL)
     {
-      XMLElement *VolumeSet,*SubElement;
       string status,volume_id, device, instance_id, snapshot_id,create_time;
       bool encrypted = false;
       string volume_type;
       float size;
 
-      VolumeSet =  ListElement->FirstChildElement("status");
-      if(VolumeSet and VolumeSet->GetText())
-        status = VolumeSet->GetText();
-
-      //Check and get
-      VolumeSet = ListElement->FirstChildElement("encrypted");
-
-      //read
-      if (VolumeSet and VolumeSet->GetText())
-        VolumeSet->QueryBoolText(&encrypted);
-
-      VolumeSet = ListElement->FirstChildElement("volumeType");
-      if (VolumeSet and VolumeSet->GetText())
-        volume_type = VolumeSet->GetText();
-
-      //else cout<<"Error Parsing status from XML describe_volumes_response\n";
-      VolumeSet = ListElement->FirstChildElement("volumeId");
-      if(VolumeSet and VolumeSet->GetText())
-        volume_id = VolumeSet->GetText();
-
-      VolumeSet = ListElement->FirstChildElement("attachmentSet");
-      if(VolumeSet)
-      {
-        SubElement = VolumeSet->FirstChildElement("item");
-        if (SubElement) {
-          XMLElement * child = SubElement->FirstChildElement("device");
-          if (child and child->GetText())
-            device = child->GetText();
-
-          child = SubElement->FirstChildElement("instanceId");
-          if (child and child->GetText())
-            instance_id = child->GetText();
+      set_string_value(ListElement, "status", status);
+      set_string_value(ListElement, "volumeId", volume_id);
+      //Attachment set
+      const XMLElement* attachment = ListElement->FirstChildElement("attachmentSet");
+      if (attachment) {
+        const XMLElement* items = attachment->FirstChildElement("item");
+        if (items) {
+          set_string_value(items, "device", device);
+          set_string_value(items, "instanceId", instance_id);
         }
       }
-
-      VolumeSet = ListElement->FirstChildElement("snapshotId");
-      if(VolumeSet and VolumeSet->GetText())
-        snapshot_id = VolumeSet->GetText();
-
-      VolumeSet = ListElement->FirstChildElement("createTime");
-      if(VolumeSet and VolumeSet->GetText())
-        create_time= VolumeSet->GetText();
-
-      VolumeSet = ListElement->FirstChildElement("size");
-      if (VolumeSet and VolumeSet->GetText())
-        VolumeSet->QueryFloatText(&size);
+      set_string_value(ListElement, "snapshotId", snapshot_id);
+      set_string_value(ListElement, "createTime", create_time);
+      set_float_value(ListElement, "size", size);
+      set_bool_value(ListElement, "encrypted", encrypted);
 
       model::volume data(status, volume_id, device, instance_id, snapshot_id, create_time, size, encrypted, volume_type);
       volume_set.push_back(data);

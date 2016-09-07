@@ -27,7 +27,7 @@ using namespace model;
 
 model::delete_snapshot_request::delete_snapshot_request(){}
 
-const string model::delete_snapshot_request::get_snapshot_id() const
+const string& model::delete_snapshot_request::get_snapshot_id() const
 {
 	return snapshot_id;
 }

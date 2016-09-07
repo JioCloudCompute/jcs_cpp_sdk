@@ -113,19 +113,16 @@ namespace volume{
 		params["Action"] = "DetachVolume";
 		params["Version"] = info.version;
 		
-		if(req.get_instance_id().length() != 0)
+		if(req.get_instance_id().length())
 		{
-			params["InstanceId"] = req.get_instance_id();	
+			params["InstanceId"] = req.get_instance_id();
 		}
 
-		if(req.get_volume_id().length() == 0)
-		{	
-			cout <<  "Error : Volume ID needed";
-		}
-		else
+		if(req.get_volume_id().length())
 		{
 			params["VolumeId"] = req.get_volume_id();
 		}
+    params["Force"] = req.get_force()?"True":"False";
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
@@ -152,6 +149,8 @@ namespace volume{
 		{	
 			params["SnapshotId"] = req.get_snapshot_id();
 		}
+
+    params["Encrypted"] = (int)!!req.get_encrypted();
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}

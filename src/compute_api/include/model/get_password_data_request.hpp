@@ -46,7 +46,7 @@ namespace model
 		/**
 			\return const string
 		*/ 
-		const string get_instance_id() const;
+		const string& get_instance_id() const;
 
 		/// Setter for the private variable instance_id 
 		/**
@@ -58,7 +58,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_key_file () const;
+		const string& get_private_key_file () const;
 
 		/// Setter for the private variable private_key_file
 		/**
@@ -70,7 +70,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_passphrase() const;
+		const string& get_passphrase() const;
 
 		/// Setter for the private variable passphrase 
 		/**

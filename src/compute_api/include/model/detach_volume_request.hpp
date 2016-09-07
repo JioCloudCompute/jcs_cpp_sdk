@@ -36,6 +36,7 @@ namespace model
 	{
 	private:
 		string instance_id;
+    bool force;
 		string volume_id;
 
 	public:
@@ -45,7 +46,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id() const;
+		const string& get_instance_id() const;
 		/// Setter for the private variable instance_id
 		/**
 			\param instance_id_ (optional): instance id (unique for each instance)
@@ -55,12 +56,15 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id() const;
+		const string& get_volume_id() const;
 		/// Setter for the private variable volume_id
 		/**
 			\param volume_id_ : volume id (unique for each volume)
 		*/
 		void set_volume_id(const string& volume_id_);
+
+    void set_force(bool force);
+    bool get_force() const;
 
 	};
 }

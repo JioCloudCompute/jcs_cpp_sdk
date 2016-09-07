@@ -25,7 +25,7 @@
 using namespace std;
 using namespace model;
 
-const string model::get_password_data_request::get_instance_id() const
+const string& model::get_password_data_request::get_instance_id() const
 {
 	return instance_id;
 }
@@ -35,7 +35,7 @@ void model::get_password_data_request::set_instance_id(const string& instance_id
 	instance_id = instance_id_;
 }
 
-const string model::get_password_data_request::get_private_key_file () const
+const string& model::get_password_data_request::get_private_key_file () const
 {
 	return private_key_file;
 }
@@ -45,7 +45,7 @@ void model::get_password_data_request::set_private_key_file(const string& privat
 	private_key_file = private_key_file_;
 }
 
-const string model::get_password_data_request::get_passphrase() const
+const string& model::get_password_data_request::get_passphrase() const
 {
 	return passphrase;
 }

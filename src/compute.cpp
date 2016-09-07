@@ -525,14 +525,8 @@ get_password_data_response *compute::get_password_data(const get_password_data_r
 	}
 	if(response.second == 200)
 	{
+    //User should have other ways of descrypting password.
 		get_password_data_response *res = new get_password_data_response(response.first);
-		
-		if(res!=NULL)
-		{
-			res->set_data(instance::decrypt_password((res->get_password_data()).c_str(), req.get_private_key_file(), req.get_passphrase()));
-
-		}
-
 		return res;
 	}
 	else
