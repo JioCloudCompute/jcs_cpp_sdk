@@ -180,7 +180,7 @@ namespace model
 			\return const vector<group>
 			A vector of objects of class group_set
 		*/
-		const vector<group_set>& get_group() const
+		const vector<group_set>& get_groups() const
 		{
 			return group;
 		}
@@ -212,6 +212,11 @@ namespace model
     const string& get_ip_address() const
     {
       return ip_address;
+    }
+
+    const vector<block_device_instance>& get_block_devices() const
+    {
+      return block_devices;
     }
 	};
 }

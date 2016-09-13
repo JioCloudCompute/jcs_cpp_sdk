@@ -59,6 +59,7 @@ describe_instances_response::describe_instances_response(const string &xml_doc)
             set_string_value(blockListElement, "status", block.status);
             set_string_value(blockListElement, "deviceName", block.device_name);
             set_bool_value(blockListElement, "deleteOnTermination", block.delete_on_termination);
+            set_bool_value(blockListElement, "encrypted", block.encrypted);
             set_string_value(blockListElement, "volumeId", block.volume_id);
 
             blocks.push_back(block);

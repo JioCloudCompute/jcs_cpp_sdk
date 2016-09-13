@@ -145,3 +145,11 @@ test: $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
 
 testclean:
 	rm -f tests/bin/tests
+
+unittest: cpunit/test/tester
+cpunit/test/tester: $(BINDIR)/$(TARGETSTATIC)
+	@cd cpunit && bash build_cpunit
+	@cd cpunit/test && bash build_tests
+
+unitclean:
+	rm -f cpunit/lib/* cpunit/test/tester
