@@ -31,7 +31,7 @@ using namespace tinyxml2;
 using namespace model;
 using namespace utils;
 
-attach_volume_response::attach_volume_response(const string &xml_doc)
+attach_volume_response::attach_volume_response(const string &xml_doc):delete_on_termination(false)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());

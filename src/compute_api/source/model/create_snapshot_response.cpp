@@ -32,7 +32,7 @@ using namespace tinyxml2;
 using namespace model;
 using namespace utils;
 
-model::create_snapshot_response::create_snapshot_response(const string &xml_doc)
+model::create_snapshot_response::create_snapshot_response(const string &xml_doc): encrypted(false), volume_size(0)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
