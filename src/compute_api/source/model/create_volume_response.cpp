@@ -29,7 +29,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace utils;
 
-model::create_volume_response::create_volume_response(const string &xml_doc)
+model::create_volume_response::create_volume_response(const string &xml_doc):size(0), encrypted(false)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
@@ -41,7 +41,7 @@ model::create_volume_response::create_volume_response(const string &xml_doc)
     set_string_value(RootNode, "volumeId", volume_id);
     set_string_value(RootNode, "snapshotId", snapshot_id);
     set_string_value(RootNode, "createTime", create_time);
-    set_float_value(RootNode, "size", size);
+    set_unsigned_value(RootNode, "size", size);
     set_bool_value(RootNode, "encrypted", encrypted);
   }
 }

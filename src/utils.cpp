@@ -175,6 +175,12 @@ namespace utils
       val->QueryFloatText(&value);
   }
 
+  void set_unsigned_value(const XMLNode * element, const char* field, unsigned& value)
+  {
+    const XMLElement * val = element->FirstChildElement(field);
+    if (val and val->GetText())
+      val->QueryUnsignedText(&value);
+  }
 
   void set_bool_value(const XMLNode * element, const char* field, bool& value)
   {

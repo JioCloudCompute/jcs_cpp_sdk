@@ -37,7 +37,7 @@ namespace model
 		string status;
 		string volume_id;
 		string snapshot_id;
-		float size;
+		unsigned size;
 		string create_time;
     bool encrypted;
 
@@ -84,7 +84,7 @@ namespace model
 		/**
 			\return float
 		*/
-		float get_size() const
+		unsigned get_size() const
 		{
 			return size;
 		}

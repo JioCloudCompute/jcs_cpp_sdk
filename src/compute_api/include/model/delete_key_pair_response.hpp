@@ -56,7 +56,7 @@ namespace model
 			\return bool
 			True if Key Pair was successfully Deleted
 		*/
-		bool get_result() const
+		bool get_return() const
 		{
 			return result;
 		}

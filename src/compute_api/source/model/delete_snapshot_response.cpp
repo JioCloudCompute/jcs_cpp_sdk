@@ -29,7 +29,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace utils;
 
-model::delete_snapshot_response::delete_snapshot_response(const string &xml_doc)
+model::delete_snapshot_response::delete_snapshot_response(const string &xml_doc):result(false)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
