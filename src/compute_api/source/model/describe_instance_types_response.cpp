@@ -44,9 +44,10 @@ model::describe_instance_types_response::describe_instance_types_response(const 
       const XMLElement *InstanceTypeElement;
       const XMLElement *ListElement = Element->FirstChildElement("item");
       while(ListElement != NULL) {
-        float vcpus,ram;
+        unsigned vcpus;
+        float ram;
         string id;
-        set_float_value(ListElement, "vcpus", vcpus);
+        set_unsigned_value(ListElement, "vcpus", vcpus);
         set_float_value(ListElement, "ram", ram);
         set_string_value(ListElement, "id", id);
         //Add to map
