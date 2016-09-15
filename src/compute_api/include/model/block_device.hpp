@@ -30,7 +30,7 @@ namespace model
 	class block_device
 	{	
 	public:
-		float volumeSize; ///< Volume Size of the Block Device
+		unsigned volumeSize; ///< Volume Size of the Block Device
 		bool deleteOnTermination;///< If true Block is deleted on Termination of Instance
 		string deviceName;///< Device Name of the Volume
 		string snapshotId;///< Snapshot ID of the snapshot to which the Volume begins

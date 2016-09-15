@@ -40,7 +40,7 @@ void parse_block_device_mapping(const XMLElement * list_element, block_device& b
 
       set_bool_value(ImageElement, "deleteOnTermination", block_device_mapping.deleteOnTermination);
 
-      set_float_value(ImageElement, "volumeSize", block_device_mapping.volumeSize);
+      set_unsigned_value(ImageElement, "volumeSize", block_device_mapping.volumeSize);
 
       set_string_value(ImageElement, "snapshotId", block_device_mapping.snapshotId);
 
