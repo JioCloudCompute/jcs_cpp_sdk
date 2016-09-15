@@ -59,7 +59,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}

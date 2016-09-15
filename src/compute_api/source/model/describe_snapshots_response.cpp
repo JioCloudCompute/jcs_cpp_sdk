@@ -45,11 +45,11 @@ model::describe_snapshots_response::describe_snapshots_response(const string &xm
       while(ListElement != NULL)
       {
         string status, snapshot_id,  start_time, volume_id;
-        bool encrypted;
-        float volume_size;
+        bool encrypted(false);
+        unsigned volume_size(0);
         set_string_value(ListElement, "status", status);
         set_string_value(ListElement, "snapshotId", snapshot_id);
-        set_float_value(ListElement, "volumeSize", volume_size);
+        set_unsigned_value(ListElement, "volumeSize", volume_size);
         set_string_value(ListElement, "volumeId", volume_id);
         set_string_value(ListElement, "startTime", start_time);
         set_bool_value(ListElement, "encrypted", encrypted);

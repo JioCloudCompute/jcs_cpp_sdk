@@ -33,14 +33,14 @@ namespace model
 	private:
 		string status;
 		string snapshot_id;
-		float volume_size;
+		unsigned volume_size;
 		string volume_id;
 		string start_time;
     bool encrypted;
 
 	public:
 		///Constructor
-		snapshot(string status_, string snapshot_id_, float volume_size_, string volume_id_, string start_time_, bool encrypted=false):
+		snapshot(string status_, string snapshot_id_, unsigned volume_size_, string volume_id_, string start_time_, bool encrypted=false):
       status(status_), snapshot_id(snapshot_id_), volume_size(volume_size_), volume_id(volume_id_), start_time(start_time_), encrypted(encrypted){}
 
 		snapshot(){}
@@ -74,7 +74,7 @@ namespace model
 		/**
 			\return const float
 		*/
-		float get_volume_size() const
+		unsigned get_volume_size() const
 		{
 			return volume_size;
 		}
