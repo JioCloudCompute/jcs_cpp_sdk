@@ -47,7 +47,6 @@ run_instances_response::run_instances_response(const string &xml_doc)
       const XMLElement *InstanceElement;
       while(ListElement != NULL)
       {
-        ////
         block_device_instance block;
         group_set group;
         vector<group_set> groups;
@@ -63,7 +62,7 @@ run_instances_response::run_instances_response(const string &xml_doc)
             set_string_value(blockListElement, "deviceName", block.device_name);
             set_bool_value(blockListElement, "deleteOnTermination", block.delete_on_termination);
             set_string_value(blockListElement, "volumeId", block.volume_id);
-
+            set_bool_value(blockListElement, "encrypted", block.encrypted);
             blocks.push_back(block);
 
             blockListElement=blockListElement->NextSiblingElement();
@@ -96,6 +95,8 @@ run_instances_response::run_instances_response(const string &xml_doc)
         instance data(blocks,dns_name, instance_id, instance_state, image_id, private_dns_name, key_name, launch_time, subnet_id, groups, vpc_id, instance_type, private_ip_address, ip_address);
 
         instances.push_back(data);
+
+        ListElement = ListElement->NextSiblingElement();
 
       }
     }
