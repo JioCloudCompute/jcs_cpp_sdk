@@ -48,7 +48,6 @@ namespace model
 			This parses the XML_response of the API and sets the private member variables
 		*/
 		start_instances_response(const string &xml_doc);
-		start_instances_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
