@@ -43,7 +43,6 @@ namespace model
 			This parses the XML_response of the API and sets the private member variables
 		*/
 		get_password_data_response(const string &xml_doc);
-		get_password_data_response(){}
 		///Getter for the Request ID
 		/**
 			\return  String
