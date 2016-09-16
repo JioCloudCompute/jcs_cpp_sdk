@@ -30,7 +30,7 @@ using namespace std;
 using namespace tinyxml2;
 using namespace utils;
 
-model::update_delete_on_termination_flag_response::update_delete_on_termination_flag_response(const string &xml_doc)
+model::update_delete_on_termination_flag_response::update_delete_on_termination_flag_response(const string &xml_doc):delete_on_termination(false)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
@@ -41,7 +41,7 @@ model::update_delete_on_termination_flag_response::update_delete_on_termination_
     const XMLElement *Element = RootNode->FirstChildElement("volume");
     if (Element) {
       set_string_value(Element, "instanceId", instance_id);
-      set_string_value(Element, "VolumeId", volume_id);
+      set_string_value(Element, "volumeId", volume_id);
       set_bool_value(Element, "deleteOnTermination", delete_on_termination);
     }
   }
