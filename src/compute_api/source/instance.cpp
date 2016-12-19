@@ -20,14 +20,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/instance.hpp"
+#include "instance.hpp"
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <openssl/rsa.h>
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include "src/requestify.hpp"
+#include "requestify.hpp"
 #include <sstream>
 #include <map>
 #include "src/compute_api/include/constants.hpp"
@@ -35,7 +35,7 @@
 namespace instance 
 {
 
-	pair<string,long> describe_instances(utils::http_var &info, const model::describe_instances_request &req)
+	pair<string,long> describe_instances(utils::auth_var &info, const model::describe_instances_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DESCRIBE_INSTANCES;
@@ -56,7 +56,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> describe_instance_types(utils::http_var &info, const model::describe_instance_types_request &req)
+	pair<string,long> describe_instance_types(utils::auth_var &info, const model::describe_instance_types_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DESCRIBE_INSTANCE_TYPES;
@@ -77,7 +77,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> start_instances(utils::http_var &info, const model::start_instances_request &req)
+	pair<string,long> start_instances(utils::auth_var &info, const model::start_instances_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::START_INSTANCES;
@@ -100,7 +100,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> stop_instances(utils::http_var &info, const model::stop_instances_request &req)
+	pair<string,long> stop_instances(utils::auth_var &info, const model::stop_instances_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::STOP_INSTANCES;
@@ -120,11 +120,12 @@ namespace instance
 			ss.str("");
 		}
 
+    params["Force"] = req.get_force()?"True":"False";
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
 
-	pair<string,long> reboot_instances(utils::http_var &info, const model::reboot_instances_request &req)
+	pair<string,long> reboot_instances(utils::auth_var &info, const model::reboot_instances_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::REBOOT_INSTANCES;
@@ -148,15 +149,16 @@ namespace instance
 	}
 
 
-	pair<string,long> terminate_instances(utils::http_var &info, const model::terminate_instances_request &req)
+	pair<string,long> terminate_instances(utils::auth_var &info, const model::terminate_instances_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::TERMINATE_INSTANCES;
 		params[constants::VERSION] = info.version;
 		
 		if((req.get_instance_ids())->size() == 0)
-		{	
-			cerr << "Error : Instance-Id needed";
+		{
+			//cout << "Error : Instance-Id needed";
+      return make_pair("", 600);
 		}
 
 		string key = constants::INSTANCE_ID + ".";
@@ -173,26 +175,18 @@ namespace instance
 
 
 
-	pair<string,long> run_instances(utils::http_var &info, const model::run_instances_request &req )
+	pair<string,long> run_instances(utils::auth_var &info, const model::run_instances_request &req )
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::RUN_INSTANCES;
 		params[constants::VERSION] = info.version;
 
-		if(req.get_image_id().length() == 0)
+		if(req.get_image_id().length())
 		{	
-			cerr << "Error : Image-Id needed";
-		}
-		else
-		{
-			params[constants::IMAGE_ID] = req.get_image_id();
+			params["ImageId"] = req.get_image_id();
 		}
 
-		if(req.get_instance_type_id().length() == 0)
-		{	
-			cerr << "Error : Instance-Type-Id needed";
-		}
-		else
+		if(req.get_instance_type_id().length())
 		{
 			params[constants::INSTANCE_TYPE_ID] = req.get_instance_type_id();
 		}
@@ -204,13 +198,26 @@ namespace instance
 			for(size_t i=0 ; i<(req.get_block_device_mapping())->size() ; i++)
 			{
 				ss << i+1;
-				params[key + ss.str() + "." + constants::DEVICE_NAME] = (*req.get_block_device_mapping())[i].device_name;
-				(*req.get_block_device_mapping())[i].delete_on_termination ? ss1.str("true") : ss1.str("false");
-				params[key + ss.str() + "." + constants::DELETE_ON_TERMINATION] = ss1.str();
-				ss1.str("");
-				ss1 << (*req.get_block_device_mapping())[i].volume_size;
-				params[key + ss.str() + "." + constants::VOLUME_SIZE] = ss1.str();
-				ss1.str("");
+        string device_name = (*req.get_block_device_mapping())[i].device_name;
+        if (device_name.length())
+  				params[key+ss.str()+".DeviceName"] = device_name;
+        bool dont = (*req.get_block_device_mapping())[i].delete_on_termination;
+        dont ? ss1.str("true") : ss1.str("false");
+        params[key+ss.str()+".DeleteOnTermination"] = ss1.str();
+        int volume_size = (*req.get_block_device_mapping())[i].volume_size;
+        if (volume_size) {
+          ss1.str("");
+          ss1 << (*req.get_block_device_mapping())[i].volume_size;
+          params[key+ss.str()+".VolumeSize"] = ss1.str();
+        }
+        ss1.str("");
+        ss1 << (*req.get_block_device_mapping())[i].encrypted?"True":"False";
+        params[key+ss.str()+".Encrypted"] = ss1.str();
+        ss1.str("");
+        string dot = (*req.get_block_device_mapping())[i].snapshot_id;
+        if (dot.length()) {
+          params[key+ss.str()+".SnapshotId"] = dot;
+        }
 				ss.str("");
 			}
 		}
@@ -232,13 +239,11 @@ namespace instance
 
 		if(!(req.get_security_group_ids())->empty())
 		{
-			string key = constants::SECURITY_GROUP_ID + ".";
-			stringstream ss;
+      char key_buffer[256];
 			for(size_t i=0 ; i<(req.get_security_group_ids())->size() ; i++)
 			{
-				ss<<i+1;
-				params[key + ss.str()] = (*req.get_security_group_ids())[i];
-				ss.str("");
+        sprintf(key_buffer, "SecurityGroupId.%zu", i+1);
+				params[key_buffer] = (*req.get_security_group_ids())[i];
 			}
 		}
 
@@ -250,7 +255,7 @@ namespace instance
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data_request &req)
+	pair<string, long> get_password_data(utils::auth_var &info, const model::get_password_data_request &req)
 
 	{	
 		map<string , string > params;
@@ -268,7 +273,7 @@ namespace instance
 
 	}
 
-	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string passphrase)
+	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string& passphrase)
 	{
 		
 		RSA *rsa = utils::import_ssh_key(private_key_file, passphrase);

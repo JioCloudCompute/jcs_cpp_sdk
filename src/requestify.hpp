@@ -27,15 +27,15 @@
 #include <string>
 #include <string.h>
 #include <map>
-#include "src/config.hpp"
-#include "src/utils.hpp"
+#include "config.hpp"
+#include "utils.hpp"
 #include <utility>
 
 namespace requestify
 {
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up);
-	std::pair<std::string, long> CURL_REQUEST(const std::string &request_string, config::ConfigHandler& config);
-	std::pair<std::string, long> make_request(const utils::http_var &info, std::map<std::string, std::string> &params);
+	std::pair<std::string, long> CURL_REQUEST(const std::string &request_string, const utils::auth_var &info);
+	std::pair<std::string, long> make_request(const utils::auth_var &info, std::map<std::string, std::string> &params);
 	
 }
 #endif

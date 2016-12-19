@@ -25,38 +25,38 @@
 #define VOLUME_DEFINER_H
 #include <iostream>
 #include <string>
-#include "src/compute_api/include/model/create_volume_request.hpp"
-#include "src/compute_api/include/model/create_volume_response.hpp"
-#include "src/compute_api/include/model/delete_volume_request.hpp"
-#include "src/compute_api/include/model/delete_volume_response.hpp"
-#include "src/compute_api/include/model/attach_volume_request.hpp"
-#include "src/compute_api/include/model/attach_volume_response.hpp"
-#include "src/compute_api/include/model/detach_volume_request.hpp"
-#include "src/compute_api/include/model/detach_volume_response.hpp"
-#include "src/compute_api/include/model/describe_volumes_request.hpp"
-#include "src/compute_api/include/model/describe_volumes_response.hpp"
-#include "src/compute_api/include/model/show_delete_on_termination_flag_request.hpp"
-#include "src/compute_api/include/model/show_delete_on_termination_flag_response.hpp"
-#include "src/compute_api/include/model/update_delete_on_termination_flag_request.hpp"
-#include "src/compute_api/include/model/update_delete_on_termination_flag_response.hpp"
-#include "src/utils.hpp"
+#include "model/create_volume_request.hpp"
+#include "model/create_volume_response.hpp"
+#include "model/delete_volume_request.hpp"
+#include "model/delete_volume_response.hpp"
+#include "model/attach_volume_request.hpp"
+#include "model/attach_volume_response.hpp"
+#include "model/detach_volume_request.hpp"
+#include "model/detach_volume_response.hpp"
+#include "model/describe_volumes_request.hpp"
+#include "model/describe_volumes_response.hpp"
+#include "model/show_delete_on_termination_flag_request.hpp"
+#include "model/show_delete_on_termination_flag_response.hpp"
+#include "model/update_delete_on_termination_flag_request.hpp"
+#include "model/update_delete_on_termination_flag_response.hpp"
+#include "utils.hpp"
 
 using namespace std;
 
 namespace volume
 {
-	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req);
+	pair<string,long> describe_volumes(utils::auth_var &info, const model::describe_volumes_request &req);
 
-	pair<string,long> attach_volume(utils::http_var &info, const model::attach_volume_request &req);
+	pair<string,long> attach_volume(utils::auth_var &info, const model::attach_volume_request &req);
 
-	pair<string,long> detach_volume(utils::http_var &info, const model::detach_volume_request &req);
+	pair<string,long> detach_volume(utils::auth_var &info, const model::detach_volume_request &req);
 
-	pair<string,long> create_volume(utils::http_var &info, const model::create_volume_request &req);
+	pair<string,long> create_volume(utils::auth_var &info, const model::create_volume_request &req);
 
-	pair<string,long> delete_volume(utils::http_var &info, const model::delete_volume_request &req);
+	pair<string,long> delete_volume(utils::auth_var &info, const model::delete_volume_request &req);
 
-	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, const model::show_delete_on_termination_flag_request &req);
+	pair<string,long> show_delete_on_termination_flag(utils::auth_var &info, const model::show_delete_on_termination_flag_request &req);
 
-	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, const model::update_delete_on_termination_flag_request &req);
+	pair<string,long> update_delete_on_termination_flag(utils::auth_var &info, const model::update_delete_on_termination_flag_request &req);
 }
-#endif VOLUME_DEFINER_H
+#endif //VOLUME_DEFINER_H

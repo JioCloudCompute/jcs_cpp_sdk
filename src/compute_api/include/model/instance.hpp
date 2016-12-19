@@ -25,7 +25,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "block_device_instance.hpp"
+#include "model/block_device_instance.hpp"
 
 using namespace std;
 namespace model
@@ -54,6 +54,7 @@ namespace model
 		string vpc_id;
 		string instance_type;
 		string private_ip_address;
+    string ip_address; ///< routable ip
 	public:
 		instance(){}
 
@@ -63,49 +64,58 @@ namespace model
 
 		*/
 		// Constructor used by describe_instances_response
-		instance(vector<block_device_instance> block_devices_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
-				string launch_time_, string subnet_id_, vector<group_set>group_ ,string vpc_id_, string instance_type_, string private_ip_address_)
-		{
-			block_devices = block_devices_;
-			dns_name = dns_name_;
-			instance_id = instance_id_;
-			instance_state = instance_state_;
-			image_id = image_id_;
-			private_dns_name_ = private_dns_name_;
-			key_name = key_name_;
-			launch_time = launch_time_;
-			subnet_id = subnet_id_;
-			group = group_;
-			vpc_id = vpc_id_;
-			instance_type = instance_type_;
-			private_ip_address = private_ip_address_;
-		}
+		instance(const vector<block_device_instance>& block_devices_,
+        const string& dns_name_ , const string& instance_id_,
+        const string& instance_state_, const string& image_id_, 
+        const string& private_dns_name_, const string& key_name_,
+        const string& launch_time_,
+        const string& subnet_id_, const vector<group_set>& group_,
+        const string& vpc_id_, const string& instance_type_, 
+        const string& private_ip_address_, const string& ip_address):
+
+      block_devices(block_devices_),
+			dns_name(dns_name_),
+			instance_id(instance_id_),
+			instance_state(instance_state_),
+			image_id(image_id_),
+			private_dns_name(private_dns_name_),
+			key_name(key_name_),
+			launch_time(launch_time_),
+			subnet_id(subnet_id_),
+			group(group_),
+			vpc_id(vpc_id_),
+			instance_type(instance_type_),
+			private_ip_address(private_ip_address_),
+      ip_address(ip_address){}
 		///Constructor 
 		/**
 			This constructor is used to instantiate instances objects from the response of run instances request
 		*/
 		// Constructor used by run_instances_response
-		instance(string vpc_id_, string dns_name_ , string instance_id_, string instance_state_, string image_id_, string private_dns_name_, string key_name_,
-				string launch_time_, string subnet_id_, vector<group_set>group_ , string instance_type_, string private_ip_address_)
-		{
-			dns_name = dns_name_;
-			instance_id = instance_id_;
-			instance_state = instance_state_;
-			image_id = image_id_;
-			private_dns_name_ = private_dns_name_;
-			key_name = key_name_;
-			launch_time = launch_time_;
-			subnet_id = subnet_id_;
-			group = group_;
-			vpc_id = vpc_id_;
-			instance_type = instance_type_;
-			private_ip_address = private_ip_address_;
-		}
+		instance(const string& vpc_id_, const string& dns_name_ ,
+        const string& instance_id_, const string& instance_state_,
+        const string& image_id_, const string& private_dns_name_,
+        const string& key_name_,
+				const string& launch_time_, const string& subnet_id_,
+        const vector<group_set>& group_ , const string& instance_type_,
+        const string& private_ip_address_): 
+      dns_name(dns_name_),
+			instance_id(instance_id_),
+			instance_state(instance_state_),
+			image_id(image_id_),
+			private_dns_name(private_dns_name_),
+			key_name(key_name_),
+			launch_time(launch_time_),
+			subnet_id(subnet_id_),
+			group(group_),
+			vpc_id(vpc_id_),
+			instance_type(instance_type_),
+			private_ip_address(private_ip_address_){}
 		///Getter for the DNS Name 
 		/**
 			\return const string
 		*/		
-		const string get_dns_name() const
+		const string& get_dns_name() const
 		{
 			return dns_name;
 		}
@@ -113,7 +123,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id() const
+		const string& get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -121,7 +131,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_state() const
+		const string& get_instance_state() const
 		{
 			return instance_state;
 		}
@@ -129,7 +139,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_image_id() const
+		const string& get_image_id() const
 		{
 			return image_id;
 		}
@@ -137,7 +147,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_dns_name() const
+		const string& get_private_dns_name() const
 		{
 			return private_dns_name;
 		}
@@ -145,7 +155,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_key_name() const
+		const string& get_key_name() const
 		{
 			return key_name;
 		}
@@ -153,7 +163,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_launch_time() const
+		const string& get_launch_time() const
 		{
 			return launch_time;
 		}
@@ -161,7 +171,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_subnet_id() const
+		const string& get_subnet_id() const
 		{
 			return subnet_id;
 		}
@@ -170,7 +180,7 @@ namespace model
 			\return const vector<group>
 			A vector of objects of class group_set
 		*/
-		const vector<group_set> get_group() const
+		const vector<group_set>& get_groups() const
 		{
 			return group;
 		}
@@ -178,7 +188,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_vpc_id() const
+		const string& get_vpc_id() const
 		{
 			return vpc_id;
 		}
@@ -186,7 +196,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_type() const
+		const string& get_instance_type() const
 		{
 			return instance_type;
 		}
@@ -194,10 +204,20 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_private_ip_address() const
+		const string& get_private_ip_address() const
 		{
 			return private_ip_address;
 		}
+
+    const string& get_ip_address() const
+    {
+      return ip_address;
+    }
+
+    const vector<block_device_instance>& get_block_devices() const
+    {
+      return block_devices;
+    }
 	};
 }
 #endif

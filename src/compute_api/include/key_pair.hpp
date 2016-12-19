@@ -24,27 +24,27 @@
 #define KEY_PAIR_DEFINER_H
 #include <iostream>
 #include <string>
-#include "src/compute_api/include/model/describe_key_pairs_response.hpp"
-#include "src/compute_api/include/model/create_key_pair_request.hpp"
-#include "src/compute_api/include/model/create_key_pair_response.hpp"
-#include "src/compute_api/include/model/delete_key_pair_request.hpp"
-#include "src/compute_api/include/model/delete_key_pair_response.hpp"
-#include "src/compute_api/include/model/import_key_pair_request.hpp"
-#include "src/compute_api/include/model/import_key_pair_response.hpp"
-#include "src/utils.hpp"
+#include "model/describe_key_pairs_response.hpp"
+#include "model/create_key_pair_request.hpp"
+#include "model/create_key_pair_response.hpp"
+#include "model/delete_key_pair_request.hpp"
+#include "model/delete_key_pair_response.hpp"
+#include "model/import_key_pair_request.hpp"
+#include "model/import_key_pair_response.hpp"
+#include "utils.hpp"
 
 
 using namespace std;
 
 namespace key_pair
 {
-	pair<string,long> describe_key_pairs(utils::http_var &info);
+	pair<string,long> describe_key_pairs(utils::auth_var &info);
 
-	pair<string,long> create_key_pair(utils::http_var &info, const model::create_key_pair_request &req);
+	pair<string,long> create_key_pair(utils::auth_var &info, const model::create_key_pair_request &req);
 
-	pair<string,long> delete_key_pair(utils::http_var &info, const model::delete_key_pair_request &req);
+	pair<string,long> delete_key_pair(utils::auth_var &info, const model::delete_key_pair_request &req);
 
-	pair<string,long> import_key_pair(utils::http_var &info, const model::import_key_pair_request &req);
+	pair<string,long> import_key_pair(utils::auth_var &info, const model::import_key_pair_request &req);
 
 }
 #endif

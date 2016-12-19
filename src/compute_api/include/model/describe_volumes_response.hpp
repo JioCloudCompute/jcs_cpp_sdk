@@ -24,7 +24,7 @@
 #define DESCRIBE_VOLUMESR_H
 #include <map>
 #include <vector>
-#include "src/compute_api/include/model/volume.hpp"
+#include "model/volume.hpp"
 using namespace std;
 using namespace model;
 
@@ -38,7 +38,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		vector< model::volume>volume_set;
+		vector<model::volume>volume_set;
 
 	public:
 		/// Constructor
@@ -51,7 +51,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}
@@ -60,7 +60,7 @@ namespace model
 			\return const vector<model::volume>  
 			A vector of objects of class volume
 		*/
-		const vector<model::volume> get_volume_set() const
+		const vector<model::volume>& get_volume_set() const
 		{
 			return volume_set;
 		}

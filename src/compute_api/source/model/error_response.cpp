@@ -21,8 +21,9 @@
 * IN THE SOFTWARE.
 ******************************************************************************/
 
-#include "src/compute_api/include/model/error_response.hpp"
+#include "model/error_response.hpp"
 
+#ifdef CLI_DEBUG
 void error_report_parse(const string &xml_doc)
 {
 	XMLDocument doc;
@@ -31,26 +32,38 @@ void error_report_parse(const string &xml_doc)
 	XMLNode *RootNode = doc.FirstChild();
 
 	XMLElement *Element = RootNode->NextSiblingElement();
-	if(Element == NULL)
+	if(not Element)
 		return;
 
 	for(int i = 0;i<3;i++)
 	{
-		if(Element != NULL )Element = Element->FirstChildElement();
-		else {cout<<"Error Occured while Parsing XML or Server Didn't Respond";return;}
+		if(Element)Element = Element->FirstChildElement();
+		else {
+      cerr<<"Error Occured while Parsing XML or Server Didn't Respond"<<endl;
+      return;
+    }
 
 	}
 
-	if(Element != NULL & Element->GetText() !=NULL)
+	if(Element and Element->GetText())
 	{
-		cout<<Element->GetText()<<endl;Element=Element->NextSiblingElement();
+		cerr<<Element->GetText()<<endl;
+    Element=Element->NextSiblingElement();
 	}
 	else 
 		return;
 
-	if(Element->GetText() != NULL)
-		cout<<Element->GetText();
+	if(Element->GetText())
+		cerr<<Element->GetText();
 	else
-		cout<<"Error Parsing XML";
+		cerr<<"Error Parsing XML"<<endl;
 
 }
+
+#else
+
+void error_report_parse(const string&)
+{
+}
+
+#endif

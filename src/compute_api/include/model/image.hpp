@@ -24,7 +24,7 @@
 #define IMAGE_H
 #include <string.h>
 #include <string>
-#include "block_device.hpp"
+#include "model/block_device.hpp"
 using namespace std;
 
 namespace model{
@@ -72,7 +72,7 @@ namespace model{
 		/**
 			\return const bool
 		*/
-		const bool get_is_public() const
+		bool get_is_public() const
 		{
 			return is_public;
 		}
@@ -80,7 +80,7 @@ namespace model{
 		/**
 			\return const string
 		*/
-		const string get_name() const
+		const string& get_name() const
 		{
 			return name;
 		}
@@ -88,7 +88,7 @@ namespace model{
 		/**
 			\return const string
 		*/
-		const string get_image_id() const
+		const string& get_image_id() const
 		{
 			return image_id;
 		}
@@ -97,7 +97,7 @@ namespace model{
 			\return const string
 
 		*/
-		const string get_image_state() const
+		const string& get_image_state() const
 		{
 			return image_state;
 		}
@@ -105,7 +105,7 @@ namespace model{
 		/**
 			\return const string
 		*/
-		const string get_architecture() const
+		const string& get_architecture() const
 		{
 			return architecture;
 		}
@@ -113,7 +113,7 @@ namespace model{
 		/**
 			\return const string
 		*/
-		const string get_image_type() const
+		const string& get_image_type() const
 		{
 			return image_type;
 		}
@@ -122,7 +122,7 @@ namespace model{
 			\return const vector<block_device>
 			A vector of Objects of the class Block Device
 		*/
-		const model::block_device get_block_device_mapping() const
+		const model::block_device& get_block_device_mapping() const
 		{
 			return block_device_mapping;
 		}

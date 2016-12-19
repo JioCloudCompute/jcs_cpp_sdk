@@ -22,7 +22,7 @@
 ******************************************************************************/
 #ifndef DESCRIBE_IMAGESR_H
 #define DESCRIBE_IMAGESR_H
-#include "image.hpp"
+#include "model/image.hpp"
 #include <string>
 #include <vector>
 #include <map>
@@ -59,10 +59,11 @@ namespace model
 			\return vector<image> *
 			A vector of objects of class image
 		*/
-		const vector<image> get_images() const
+		const vector<image>& get_images() const
 		{
 			return images;
 		}
+
 	};
 }
 #endif

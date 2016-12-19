@@ -36,6 +36,7 @@ namespace model
 	{
 	private:
 		vector<string> instance_ids;
+    bool force;
 
 	public:
 		/// Constructor
@@ -50,6 +51,15 @@ namespace model
 			\param instance_id_set (optional) : reference to a vector of instance ids
 		*/
 		void set_instance_ids(const vector<string>& instance_id_set);
+
+    void set_force(bool force)
+    {
+      this->force = force;
+    }
+    bool get_force() const
+    {
+      return force;
+    }
 	};
 }
 #endif

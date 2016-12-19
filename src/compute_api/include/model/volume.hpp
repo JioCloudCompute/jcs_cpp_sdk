@@ -33,25 +33,21 @@ namespace model
 	{
 	private:
 		string status;
+    bool  encrypted;
 		string volume_id;
 		string device;
 		string instance_id;
 		string snapshot_id;
 		string create_time;
-		float size;
+    string volume_type;
+		unsigned size;
 
 	public:
 		///Constructor
-		volume(string status_, string volume_id_, string device_, string instance_id_, string snapshot_id_, string create_time_, float size_)
+		volume(const string& status_, const string& volume_id_, const string& device_, const string& instance_id_, const string& snapshot_id_, const string& create_time_, unsigned size_,
+        bool encrypted_, const string& volume_type):status(status_), volume_id(volume_id_), device(device_), instance_id(instance_id_), snapshot_id(snapshot_id_),
+                      create_time(create_time_), size(size_), encrypted(encrypted_), volume_type(volume_type)
 		{
-			status = status_;
-			volume_id = volume_id_;
-			device = device_;
-			instance_id = instance_id_;
-			snapshot_id = snapshot_id_;
-			create_time = create_time_;
-			size = size_;
-
 		}
 
 		volume(){}
@@ -59,7 +55,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_status() const
+		const string& get_status() const
 		{
 			return status;
 		}
@@ -67,7 +63,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id() const
+		const string& get_volume_id() const
 		{
 			return volume_id;
 		}
@@ -75,7 +71,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_device() const
+		const string& get_device() const
 		{
 			return device;
 		}
@@ -83,7 +79,7 @@ namespace model
 		/**
 			return const string
 		*/
-		const string get_instance_id() const
+		const string& get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -91,7 +87,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id() const
+		const string& get_snapshot_id() const
 		{
 			return snapshot_id;
 		}
@@ -99,7 +95,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_create_time() const
+		const string& get_create_time() const
 		{
 			return create_time;
 		}
@@ -107,11 +103,20 @@ namespace model
 		/**
 			\return const float
 		*/
-		const float get_size() const
+		unsigned get_size() const
 		{
 			return size;
 		}
 
+    bool get_encrypted() const
+    {
+        return encrypted;
+    }
+
+    const string& get_volumetype() const
+    {
+      return volume_type;
+    }
 	};
 }
 #endif

@@ -20,48 +20,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/show_delete_on_termination_flag_response.hpp"
-#include "src/XMLParser.h"
+#include "model/show_delete_on_termination_flag_response.hpp"
+#include "XMLParser.h"
 #include <string>
 #include <iostream>
-
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
+#include <utils.hpp>
 
 using namespace std;
 using namespace tinyxml2;
+using namespace utils;
 
-model::show_delete_on_termination_flag_response::show_delete_on_termination_flag_response(const string &xml_doc)
+model::show_delete_on_termination_flag_response::show_delete_on_termination_flag_response(const string &xml_doc):delete_on_termination(false)
 {
-	XMLDocument doc;
-	doc.Parse(xml_doc.c_str());
-	//Root
-	XMLNode *RootNode = doc.FirstChild();
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)
-	{
-		if(Element->GetText())request_id = Element->GetText();
-		Element = Element->NextSiblingElement();
-	}
-	else cout<<"Error Parsing request_id from XML show_delete_on_termination_flag_response\n";
-	XMLElement *VolumeElement;
-	if(Element!=NULL)
-	{
-		if(Element->GetText()!=NULL)VolumeElement = Element->FirstChildElement("instanceId");
-		if(VolumeElement!=NULL){
-			instance_id = VolumeElement->GetText();
-			VolumeElement=VolumeElement->NextSiblingElement();
-		}
-		else cout<< "Error Parsing instance_id from show_delete_on_termination_flag_response XML\n";
-	}
-	
-	if(VolumeElement!=NULL)
-	{
-		if(VolumeElement->GetText()!=NULL)volume_id = VolumeElement->GetText();
-		VolumeElement=VolumeElement->NextSiblingElement();
-	}
-	else cout<<"Error Parsing volume_id from XML show_delete_on_termination_flag_response\n";
+  XMLDocument doc;
+  doc.Parse(xml_doc.c_str());
+  //Root
+  const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
 
-	VolumeElement->QueryBoolText(&delete_on_termination);
+    set_string_value(RootNode, "requestId", request_id);
+    const XMLElement *Element = RootNode->FirstChildElement("volume");
+    if(Element!=NULL)
+    {
+      set_string_value(Element, "instanceId", instance_id);
+      set_string_value(Element, "volumeId", volume_id);
+      set_bool_value(Element, "deleteOnTermination", delete_on_termination);
+    }
+
+  }
 }

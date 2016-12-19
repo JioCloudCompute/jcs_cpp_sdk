@@ -39,18 +39,18 @@ namespace model
 		bool delete_on_termination;
 		string status;
 		string volume_id;
+
 	public:
 		/// Constructor
 		/**
 			This parses the XML_response of the API and sets the private member variables
 		*/
 		detach_volume_response(const string &xml_doc);
-		detach_volume_response(){}
 		///Getter for the Unique Request ID
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}
@@ -58,7 +58,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_status() const
+		const string& get_status() const
 		{
 			return status;
 		}
@@ -66,7 +66,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_device() const
+		const string& get_device() const
 		{
 			return device;
 		}
@@ -74,7 +74,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_instance_id() const
+		const string& get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -82,7 +82,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id() const
+		const string& get_volume_id() const
 		{
 			return  volume_id;
 		}
@@ -91,7 +91,7 @@ namespace model
 			\return const bool
 			True if volume get's Deleted** on Termination of the instance to which the it is attached
 		*/
-		const bool get_delete_on_termination() const
+		bool get_delete_on_termination() const
 		{
 			return delete_on_termination;
 		}

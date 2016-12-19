@@ -24,46 +24,46 @@
 #define INSTANCE_DEFINER_H
 #include <iostream>
 #include <string>
-#include "src/compute_api/include/model/describe_instances_response.hpp"
-#include "src/compute_api/include/model/describe_instances_request.hpp"
-#include "src/compute_api/include/model/run_instances_response.hpp"
-#include "src/compute_api/include/model/run_instances_request.hpp"
-#include "src/compute_api/include/model/start_instances_response.hpp"
-#include "src/compute_api/include/model/start_instances_request.hpp"
-#include "src/compute_api/include/model/stop_instances_response.hpp"
-#include "src/compute_api/include/model/stop_instances_request.hpp"
-#include "src/compute_api/include/model/terminate_instances_response.hpp"
-#include "src/compute_api/include/model/terminate_instances_request.hpp"
-#include "src/compute_api/include/model/reboot_instances_response.hpp"
-#include "src/compute_api/include/model/reboot_instances_request.hpp"
-#include "src/compute_api/include/model/describe_instance_types_response.hpp"
-#include "src/compute_api/include/model/describe_instance_types_request.hpp"
-#include "src/compute_api/include/model/get_password_data_request.hpp"
-#include "src/compute_api/include/model/get_password_data_response.hpp"
-#include "src/utils.hpp"
+#include "model/describe_instances_response.hpp"
+#include "model/describe_instances_request.hpp"
+#include "model/run_instances_response.hpp"
+#include "model/run_instances_request.hpp"
+#include "model/start_instances_response.hpp"
+#include "model/start_instances_request.hpp"
+#include "model/stop_instances_response.hpp"
+#include "model/stop_instances_request.hpp"
+#include "model/terminate_instances_response.hpp"
+#include "model/terminate_instances_request.hpp"
+#include "model/reboot_instances_response.hpp"
+#include "model/reboot_instances_request.hpp"
+#include "model/describe_instance_types_response.hpp"
+#include "model/describe_instance_types_request.hpp"
+#include "model/get_password_data_request.hpp"
+#include "model/get_password_data_response.hpp"
+#include "utils.hpp"
 
 
 using namespace std;
 
 namespace instance
 {
-	pair<string,long> describe_instances(utils::http_var &info, const model::describe_instances_request &req);
+	pair<string,long> describe_instances(utils::auth_var &info, const model::describe_instances_request &req);
 	
-	pair<string,long> describe_instance_types(utils::http_var &info, const model::describe_instance_types_request &req);
+	pair<string,long> describe_instance_types(utils::auth_var &info, const model::describe_instance_types_request &req);
 	
-	pair<string,long> start_instances(utils::http_var &info, const model::start_instances_request &req);
+	pair<string,long> start_instances(utils::auth_var &info, const model::start_instances_request &req);
 	
-	pair<string,long> stop_instances(utils::http_var &info, const model::stop_instances_request &req);
+	pair<string,long> stop_instances(utils::auth_var &info, const model::stop_instances_request &req);
 	
-	pair<string,long> reboot_instances(utils::http_var &info, const model::reboot_instances_request &req);
+	pair<string,long> reboot_instances(utils::auth_var &info, const model::reboot_instances_request &req);
 
-	pair<string,long> terminate_instances(utils::http_var &info, const model::terminate_instances_request &req);
+	pair<string,long> terminate_instances(utils::auth_var &info, const model::terminate_instances_request &req);
 
-	pair<string,long> run_instances(utils::http_var &info, const model::run_instances_request &req );
+	pair<string,long> run_instances(utils::auth_var &info, const model::run_instances_request &req );
 
-	pair<string, long> get_password_data(utils::http_var &info, const model::get_password_data_request &req);
+	pair<string, long> get_password_data(utils::auth_var &info, const model::get_password_data_request &req);
 	
-	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string passphrase);
+	string decrypt_password(const char* encrypted_password, const std::string &private_key_file, const std::string& passphrase);
 
 }
 #endif

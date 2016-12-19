@@ -24,26 +24,26 @@
 #define SNAPSHOT_DEFINER_H
 #include <iostream>
 #include <string>
-#include "src/compute_api/include/model/describe_snapshots_request.hpp"
-#include "src/compute_api/include/model/describe_snapshots_response.hpp"
-#include "src/compute_api/include/model/delete_snapshot_request.hpp"
-#include "src/compute_api/include/model/delete_snapshot_response.hpp"
-#include "src/compute_api/include/model/create_snapshot_request.hpp"
-#include "src/compute_api/include/model/create_snapshot_response.hpp"
-#include "src/utils.hpp"
+#include "model/describe_snapshots_request.hpp"
+#include "model/describe_snapshots_response.hpp"
+#include "model/delete_snapshot_request.hpp"
+#include "model/delete_snapshot_response.hpp"
+#include "model/create_snapshot_request.hpp"
+#include "model/create_snapshot_response.hpp"
+#include "utils.hpp"
 
 
 using namespace std;
 
 namespace snapshot
 {
-	pair<string,long> create_snapshot(utils::http_var &info, const model::create_snapshot_request &req);
+	pair<string,long> create_snapshot(utils::auth_var &info, const model::create_snapshot_request &req);
 	
 
-	pair<string,long> delete_snapshot(utils::http_var &info, const model::delete_snapshot_request &req);
+	pair<string,long> delete_snapshot(utils::auth_var &info, const model::delete_snapshot_request &req);
 	
 
-	pair<string,long> describe_snapshots(utils::http_var &info, const model::describe_snapshots_request &req);
+	pair<string,long> describe_snapshots(utils::auth_var &info, const model::describe_snapshots_request &req);
 	
 }
 #endif

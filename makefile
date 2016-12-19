@@ -24,7 +24,7 @@ PROJECT_ROOT=.
 SRC = $(PROJECT_ROOT)/src
 EXTERNAL_ROOT=$(PROJECT_ROOT)/external
 SRCDIR = $(SRC) $(PROJECT_ROOT)/src/compute_api/source $(PROJECT_ROOT)/src/compute_api/source/model $(PROJECT_ROOT)/src/tinyxml2
-INCDIR = $(SRC) $(PROJECT_ROOT)/src/compute_api/include/model
+INCDIR = $(SRC) $(PROJECT_ROOT)/src/compute_api/include/
 OBJDIR = $(PROJECT_ROOT)/obj
 BINDIR = $(PROJECT_ROOT)/bin
 DOCDIR = $(PROJECT_ROOT)/doc
@@ -35,8 +35,9 @@ LIBPATH = /usr/lib/
 #Libraries
 LIBS = -lcrypto -lcurl
 
+INCFLAG=$(foreach dir, $(INCDIR), -I$(dir))
 # Compiler and Linker flags
-CPPFLAGS =-g
+CPPFLAGS = -O0 -g -I$(SRC) -I$(PROJECT_ROOT)/src/compute_api/include/
 
 ######################################
 
@@ -131,8 +132,24 @@ doc:
 
 clean:
 	@$(ECHO) -n "Cleaning up..."
-	@$(RM) -rf $(OBJDIR)
+	@$(RM) -rf $(OBJDIR)/static/*.o $(OBJDIR)/shared/*.o $(OBJDIR)/static/*.d $(OBJDIR)/shared/*.d
+	@find obj  ! -type d -exec rm -- {} +
 	@$(ECHO) "Done"
 
 distclean: clean
 	@$(RM) -rf $(BINDIR) $(DOCDIR)
+
+test: $(BINDIR)/$(TARGETSTATIC) $(BINDIR)/$(TARGETSHARED)
+	@mkdir	-p	tests/bin
+	@$(CC)	$(CPPFLAGS)	tests/test.cpp	-o tests/bin/tests	-L$(BINDIR)	-lcompute
+
+testclean:
+	rm -f tests/bin/tests
+
+unittest: cpunit/test/tester
+cpunit/test/tester: $(BINDIR)/$(TARGETSTATIC)
+	@cd cpunit && bash build_cpunit
+	@cd cpunit/test && bash build_tests
+
+unitclean:
+	rm -f cpunit/lib/* cpunit/test/tester

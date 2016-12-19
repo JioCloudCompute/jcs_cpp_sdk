@@ -559,6 +559,13 @@ public:
         return strncmp( p, q, nChar ) == 0;
     }
     
+    inline static bool StringEqualI( const char* p, const char* q, int nChar=INT_MAX )  {
+        if ( p == q ) {
+            return true;
+        }
+        return strncasecmp( p, q, nChar ) == 0;
+    }
+
     inline static bool IsUTF8Continuation( char p ) {
         return ( p & 0x80 ) != 0;
     }

@@ -24,7 +24,7 @@
 #define IMPORT_KEY_PAIRR_H
 #include <string>
 #include <vector>
-#include "src/compute_api/include/model/key_pair.hpp"
+#include "model/key_pair.hpp"
 using namespace std;
 namespace model
 {
@@ -36,7 +36,7 @@ namespace model
 	{
 	private:
 		string request_id;
-		model ::key_pair key;
+		model::key_pair key;
 	public:
 		/// Constructor
 		/**
@@ -48,7 +48,7 @@ namespace model
 			\return const vector<key_pair>
 			A vector of objects of class key_pair
 		*/
-		const model::key_pair get_key() const
+		const model::key_pair& get_key() const
 		{
 			return key;
 		}
@@ -56,7 +56,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}

@@ -39,11 +39,12 @@ namespace model
 	public:
 		/// Constructor
 		create_key_pair_request(){}
+    create_key_pair_request(const string& key_name):key_name(key_name){}
 		/// Getter for the private variable key_name
 		/**
 			\return const string
 		*/ 
-		const string get_key_name() const;
+		const string& get_key_name() const;
 		/// Setter for the private variable key_name
 		/**
 			\param key_name_ : key name of the key pair created (unique for each key pair)

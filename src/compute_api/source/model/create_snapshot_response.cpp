@@ -20,74 +20,31 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/create_snapshot_response.hpp"
-#include "src/XMLParser.h"
+#include "model/create_snapshot_response.hpp"
+#include "XMLParser.h"
 #include <iostream>
 #include <string>
+#include <utils.hpp>
 
-
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
 
 using namespace std;
 using namespace tinyxml2;
 using namespace model;
+using namespace utils;
 
-model::create_snapshot_response::create_snapshot_response(const string &xml_doc)
+model::create_snapshot_response::create_snapshot_response(const string &xml_doc): encrypted(false), volume_size(0)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
-	XMLNode *RootNode = doc.FirstChild();
-
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)
-		{
-			if(Element->GetText()!=NULL)request_id = Element->GetText();
-			Element=Element->NextSiblingElement();
-		}
-	else
-		cout<<"Error Parsing request_id from XML Create Snapshot Response\n";
-
-	
-	if(Element != NULL)
-		{
-			if(Element->GetText()!=NULL)status = Element->GetText();
-			Element=Element->NextSiblingElement();
-		}
-	else
-		cout<<"Error Parsing Status from XML Create Snapshot Response\n";
-	
-	if(Element != NULL)
-		{
-			if(Element->GetText()!=NULL)snapshot_id = Element->GetText();
-			Element=Element->NextSiblingElement();
-		}
-	else
-		cout<<"Error Parsing Snapshot ID from XML Create Snapshot Response\n";
-	
-	if(Element!=NULL)
-		{
-			if(Element->GetText()!=NULL)Element->QueryFloatText(&volume_size);
-			Element=Element->NextSiblingElement();
-		}
-	else
-		cout<<"Error Parsing Volume Size from XML create_snapshot_response\n";
-
-	
-	if(Element!=NULL)
-	{	
-		if(Element->GetText()!=NULL)volume_id = Element->GetText();
-		Element=Element->NextSiblingElement();
-	}
-	else 
-		cout<<"Error Parsing Volume Id from XMl create_snapshot_response\n";
-	
-	if(Element!=NULL)
-		if(Element->GetText()!=NULL)start_time = Element->GetText();	
-	else
-		cout<<"Error Parsing start_time from XML Create Snapshot Response\n";
-
-
+	const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
+    set_string_value(RootNode, "requestId", request_id);
+    set_string_value(RootNode, "status", status);	
+    set_string_value(RootNode, "snapshotId", snapshot_id);
+    set_float_value(RootNode, "volumeSize", volume_size);
+    set_string_value(RootNode, "volumeId", volume_id);
+    set_string_value(RootNode, "startTime", start_time);
+    set_bool_value(RootNode, "encrypted", encrypted);
+  }
 }

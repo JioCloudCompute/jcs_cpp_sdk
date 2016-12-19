@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/image.hpp"
+#include "image.hpp"
 #include <map>
 #include <sstream>
 #include "src/compute_api/include/constants.hpp"
@@ -28,17 +28,18 @@
 
 namespace image
 {
-	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req)
+	pair<string, long> describe_images(utils::auth_var &info, const model::describe_images_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DESCRIBE_IMAGES; // Adding action to the map params 
 		params[constants::VERSION] = info.version;	// Adding version to the map params
 		stringstream ss;
-		string key = constants::IMAGE_ID + ".";
-		for(size_t i=0 ; i<(req.get_image_ids())->size() ; i++)
+		string key = "ImageId.";
+    size_t i = 1;
+    for(std::set<std::string>::const_iterator iter = req.get_image_ids()->begin(); iter!=req.get_image_ids()->end(); ++iter)
 		{
-			ss << i+1;
-			params[key+ss.str()] = (*req.get_image_ids())[i];	//Adding images ids in params
+			ss << i++;
+			params[key+ss.str()] = *iter;	//Adding images ids in params
 			ss.str("");
 		}
 

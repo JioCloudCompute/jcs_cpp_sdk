@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_volumes_request.hpp"
+#include "model/describe_volumes_request.hpp"
 
 using namespace std;
 using namespace model;
@@ -41,17 +41,17 @@ void model::describe_volumes_request::set_volume_ids(const vector<string>& volum
 	volume_ids.insert(volume_ids.begin(), volume_id_set.begin(), volume_id_set.end());
 }
 
-const int model::describe_volumes_request::get_max_results() const
+int model::describe_volumes_request::get_max_results() const
 {
 	return max_results;
 }
 
-void model::describe_volumes_request::set_max_results(const int& max_results_)
+void model::describe_volumes_request::set_max_results(int max_results_)
 {
 	max_results = max_results_;
 }
 
-const string model::describe_volumes_request::get_next_token() const
+const string& model::describe_volumes_request::get_next_token() const
 {
 	return next_token;
 }
@@ -61,12 +61,12 @@ void model::describe_volumes_request::set_next_token(const string& next_token_)
 	next_token = next_token_;
 }
 
-const bool model::describe_volumes_request::get_detail() const
+bool model::describe_volumes_request::get_detail() const
 {
 	return detail;
 }
 
-void model::describe_volumes_request::set_detail(const bool& detail_)
+void model::describe_volumes_request::set_detail(bool detail_)
 {
 	detail = detail_;
 }

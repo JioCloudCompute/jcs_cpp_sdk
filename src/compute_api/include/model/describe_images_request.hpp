@@ -22,10 +22,11 @@
 ******************************************************************************/
 #ifndef DESCRIBE_IMAGES_H
 #define DESCRIBE_IMAGES_H
-#include <vector>
-#include <string>
 
-using namespace std;
+#include <set>
+#include <string>
+#include <vector>
+
 namespace model
 {	/// Class to handle describe images request
 	/**
@@ -34,7 +35,7 @@ namespace model
 	class describe_images_request
 	{
 	private:
-		vector<string> image_ids;
+    std::set<std::string> image_ids;
 
 	public:
 		/// Constructor
@@ -43,12 +44,18 @@ namespace model
 		/**
 			\return const vector<string> *
 		*/
-		const vector<string>* get_image_ids() const;
+		const std::set<std::string>* get_image_ids() const;
 		/// Setter for the private variable image_ids
 		/**
 			\param image_id_set (optional) : reference to a vector of image ids for which description is needed
 		*/
-		void set_image_ids(const vector<string> &image_id_set);
+		void set_image_ids(const std::vector<std::string>& image_id_set);
+
+    /**
+     * Add the image id to the request.
+     * */
+    void add_image_id(const std::string& image_id);
+
 	};
 }
 

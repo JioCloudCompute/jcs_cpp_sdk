@@ -20,90 +20,56 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_volumes_response.hpp"
-#include "src/XMLParser.h"
+#include "model/describe_volumes_response.hpp"
+#include "XMLParser.h"
 #include <string>
 #include <iostream>
-
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
+#include <utils.hpp>
 
 using namespace std;
 using namespace tinyxml2;
+using namespace utils;
 
 model::describe_volumes_response::describe_volumes_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
-	XMLNode *RootNode = doc.FirstChild();
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)
-	{	if(Element->GetText()!=NULL)request_id = Element->GetText();
-		Element=Element->NextSiblingElement();
-	}
-	else cout<<"Error Parsing request_id from XML describe_volumes_response\n";
+	const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
+    set_string_value(RootNode, "requestId", request_id);
+    const XMLElement * Element = RootNode->FirstChildElement("volumeSet");
+    const XMLElement * ListElement = NULL;
+    if (Element)
+      ListElement = Element->FirstChildElement("item");
+    while(ListElement != NULL)
+    {
+      string status,volume_id, device, instance_id, snapshot_id,create_time;
+      bool encrypted = false;
+      string volume_type;
+      float size;
 
-	XMLElement *ListElement = Element->FirstChildElement("item");
-	XMLElement *VolumeSet,*SubElement;
-	string status,volume_id, device, instance_id, snapshot_id,create_time;
-	float size;
-	while(ListElement != NULL)
-	{
-		VolumeSet =  ListElement->FirstChildElement("status");
-		if(VolumeSet!=NULL)
-		{
-			if(VolumeSet->GetText()!=NULL)status = VolumeSet->GetText();
-			VolumeSet =VolumeSet->NextSiblingElement();
-		}
-		else cout<<"Error Parsing status from XML describe_volumes_response\n";
-		if(VolumeSet!=NULL)
-		{
-			if(VolumeSet->GetText()!=NULL)volume_id = VolumeSet->GetText();
-			VolumeSet = VolumeSet->NextSiblingElement();
-		}
-		else cout<<"Error Parsing volume_id from XML describe_volumes_response\n";
-		
-		if(VolumeSet!=NULL)
-		{
-			if(VolumeSet->GetText()!=NULL)
-			{
-				SubElement = (VolumeSet->FirstChildElement("item"))->FirstChildElement("device");
-				if(SubElement!=NULL)
-				{
-					if(SubElement->GetText()!=NULL)device = SubElement->GetText();
-					SubElement = SubElement->NextSiblingElement();
-				}
-				else cout<<"Error Parsing device Name from XML describe_volumes_response\n";
+      set_string_value(ListElement, "status", status);
+      set_string_value(ListElement, "volumeId", volume_id);
+      //Attachment set
+      const XMLElement* attachment = ListElement->FirstChildElement("attachmentSet");
+      if (attachment) {
+        const XMLElement* items = attachment->FirstChildElement("item");
+        if (items) {
+          set_string_value(items, "device", device);
+          set_string_value(items, "instanceId", instance_id);
+        }
+      }
+      set_string_value(ListElement, "snapshotId", snapshot_id);
+      set_string_value(ListElement, "createTime", create_time);
+      set_float_value(ListElement, "size", size);
+      set_bool_value(ListElement, "encrypted", encrypted);
 
-				if(SubElement!=NULL)
-				if(SubElement->GetText()!=NULL)instance_id = SubElement->GetText();
-			}
-			VolumeSet=VolumeSet->NextSiblingElement();
-		}
-		if(VolumeSet!=NULL)
-		{	
-			if(VolumeSet->GetText()!=NULL)snapshot_id = VolumeSet->GetText();
-			VolumeSet=VolumeSet->NextSiblingElement();
-		}
-		else cout<<"Error Parsing snapshot_id from XML describe_volumes_response\n";	
-		if(VolumeSet!=NULL)
-		{
-			if(VolumeSet->GetText()!=NULL)create_time= VolumeSet->GetText();
-			VolumeSet=VolumeSet->NextSiblingElement();
-		}
-		else cout<<"Error Parsing create_time from XML describe_volumes_response\n";
-		
-		if(VolumeSet!=NULL)
-			{if(VolumeSet->GetText()!=NULL)VolumeSet->QueryFloatText(&size);}
-		else cout<<"Error Parsing Volume Size from XML describe_volumes_response\n";
+      model::volume data(status, volume_id, device, instance_id, snapshot_id, create_time, size, encrypted, volume_type);
+      volume_set.push_back(data);
 
-		model::volume data(status, volume_id, device, instance_id, snapshot_id, create_time, size);
-		volume_set.push_back(data);
+      ListElement=ListElement->NextSiblingElement();
 
-		ListElement=ListElement->NextSiblingElement();
-
-	}
-
+    }
+  }
 }

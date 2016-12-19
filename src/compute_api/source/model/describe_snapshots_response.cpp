@@ -20,73 +20,44 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_snapshots_response.hpp"
-#include "src/XMLParser.h"
+#include "model/describe_snapshots_response.hpp"
+#include "XMLParser.h"
 #include <string>
 #include <iostream>
+#include <utils.hpp>
 
-#ifndef XMLCheckResult
-	#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
-#endif
 
 using namespace std;
 using namespace tinyxml2;
+using namespace utils;
 
 model::describe_snapshots_response::describe_snapshots_response(const string &xml_doc)
 {
 	XMLDocument doc;
 	doc.Parse(xml_doc.c_str());
 	//Root
-	XMLNode *RootNode = doc.FirstChild();
-	XMLElement *Element = RootNode->FirstChildElement("requestId");
-	if(Element!=NULL)
-	{
-		request_id = Element->GetText();
-		Element=Element->NextSiblingElement();
-	}
-	else cout<<"Error Parsing Request ID from XML describe_snapshots_response\n";
-	XMLElement *ListElement = Element->FirstChildElement("item");
-	XMLElement *SnapshotElement;
-	string status, snapshot_id,  start_time, volume_id;
-	float volume_size;
-	while(ListElement != NULL)
-	{
-		SnapshotElement = ListElement->FirstChildElement("status");
-		if(SnapshotElement!=NULL)
-		{
-			status = SnapshotElement->GetText();
-			SnapshotElement = SnapshotElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing status from XML describe_snapshots_response\n";
-
-		if(SnapshotElement!=NULL)
-		{	
-			snapshot_id = SnapshotElement->GetText();
-			SnapshotElement=SnapshotElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing snapshot_id from XML describe_snapshots_response\n";
-
-		if(SnapshotElement!=NULL)
-		{
-			SnapshotElement->QueryFloatText(&volume_size);
-			SnapshotElement=SnapshotElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing volume_size from XML describe_snapshots_response\n";
-		
-		if(SnapshotElement!=NULL)
-		{
-			volume_id=SnapshotElement->GetText();
-			SnapshotElement=SnapshotElement->NextSiblingElement();
-		}
-		else cout<<"Error Parsing volume_id from XML describe_snapshots_response\n";
-		
-		if(SnapshotElement!=NULL)
-			if(SnapshotElement->GetText()!=NULL) start_time = SnapshotElement->GetText();
-		else cout<<"Error Parsing start_time from XML describe_snapshots_response\n";
-		//add to map
-		model::snapshot data(status,snapshot_id,volume_size,volume_id,start_time);
-		snapshot_set.push_back(data);
-		ListElement=ListElement->NextSiblingElement();
-	}
+	const XMLNode *RootNode = doc.FirstChild();
+  if (RootNode) {
+    set_string_value(RootNode, "requestId", request_id);
+    const XMLElement * items = RootNode->FirstChildElement("snapshotSet");
+    if (items) {
+      const XMLElement *ListElement = items->FirstChildElement("item");
+      while(ListElement != NULL)
+      {
+        string status, snapshot_id,  start_time, volume_id;
+        bool encrypted(false);
+        unsigned volume_size(0);
+        set_string_value(ListElement, "status", status);
+        set_string_value(ListElement, "snapshotId", snapshot_id);
+        set_unsigned_value(ListElement, "volumeSize", volume_size);
+        set_string_value(ListElement, "volumeId", volume_id);
+        set_string_value(ListElement, "startTime", start_time);
+        set_bool_value(ListElement, "encrypted", encrypted);
+        model::snapshot data(status,snapshot_id,volume_size,volume_id,start_time, encrypted);
+        snapshot_set.push_back(data);
+        ListElement=ListElement->NextSiblingElement();
+      }
+    }
+  }
 
 }

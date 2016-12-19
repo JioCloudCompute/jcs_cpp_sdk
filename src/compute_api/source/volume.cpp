@@ -20,8 +20,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/volume.hpp"
-#include "src/requestify.hpp"
+#include "volume.hpp"
+#include "requestify.hpp"
 #include <sstream>
 #include <map>
 #include "src/compute_api/include/constants.hpp"
@@ -29,7 +29,7 @@
 
 namespace volume{
 
-	pair<string,long> describe_volumes(utils::http_var &info, const model::describe_volumes_request &req)
+	pair<string,long> describe_volumes(utils::auth_var &info, const model::describe_volumes_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DESCRIBE_VOLUMES;	// Adding action to map params
@@ -71,7 +71,7 @@ namespace volume{
 
 
 
-	pair<string,long> attach_volume(utils::http_var &info, const model::attach_volume_request &req)
+	pair<string,long> attach_volume(utils::auth_var &info, const model::attach_volume_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::ATTACH_VOLUME;
@@ -108,30 +108,27 @@ namespace volume{
 	}
 
 
-	pair<string,long> detach_volume(utils::http_var &info, const model::detach_volume_request &req)
+	pair<string,long> detach_volume(utils::auth_var &info, const model::detach_volume_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DETACH_VOLUME;
 		params[constants::VERSION] = info.version;
 		
-		if(req.get_instance_id().length() != 0)
+		if(req.get_instance_id().length())
 		{
-			params[constants::INSTANCE_ID] = req.get_instance_id();	
+			params["InstanceId"] = req.get_instance_id();
 		}
 
-		if(req.get_volume_id().length() == 0)
-		{	
-			cerr <<  "Error : Volume ID needed";
-		}
-		else
+		if(req.get_volume_id().length())
 		{
 			params[constants::VOLUME_ID] = req.get_volume_id();
 		}
+    params["Force"] = req.get_force()?"True":"False";
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> create_volume(utils::http_var &info, const model::create_volume_request &req)
+	pair<string,long> create_volume(utils::auth_var &info, const model::create_volume_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::VOLUME_ID;
@@ -154,10 +151,12 @@ namespace volume{
 			params[constants::SNAPSHOT_ID] = req.get_snapshot_id();
 		}
 
+    params["Encrypted"] = (int)!!req.get_encrypted();
+
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
 
-	pair<string,long> delete_volume(utils::http_var &info, const model::delete_volume_request &req)
+	pair<string,long> delete_volume(utils::auth_var &info, const model::delete_volume_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::DELETE_VOLUME;
@@ -176,7 +175,7 @@ namespace volume{
 	}
 
 
-	pair<string,long> show_delete_on_termination_flag(utils::http_var &info, const model::show_delete_on_termination_flag_request &req)
+	pair<string,long> show_delete_on_termination_flag(utils::auth_var &info, const model::show_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::SHOW_DELETE_ON_TERMINATION_FLAG;
@@ -195,7 +194,7 @@ namespace volume{
 	}
 
 
-	pair<string,long> update_delete_on_termination_flag(utils::http_var &info, const model::update_delete_on_termination_flag_request &req)
+	pair<string,long> update_delete_on_termination_flag(utils::auth_var &info, const model::update_delete_on_termination_flag_request &req)
 	{
 		map <string, string> params;
 		params[constants::ACTION] = constants::UPDATE_DELETE_ON_TERMINATION_FLAG;

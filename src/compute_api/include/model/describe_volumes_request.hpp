@@ -57,17 +57,17 @@ namespace model
 		/**
 			\return const int
 		*/
-		const int get_max_results() const;
+		int get_max_results() const;
 		/// Setter for the private variable max_results
 		/**
 			\param max_results_ (optional): Max number of results to be shown in response.
 		*/
-		void set_max_results(const int& max_results_);
+		void set_max_results(int max_results_);
 		/// Getter for the private variable next_token
 		/**
 			\return const string
 		*/
-		const string get_next_token() const;
+		const string& get_next_token() const;
 		/// Setter for the private variable next_token
 		/**
 			\param next_token_ (optional): NextToken - Id of last snapshot seen if max number of results is less than total snapshots
@@ -77,12 +77,12 @@ namespace model
 		/**
 			\return const bool
 		*/
-		const bool get_detail() const;
+		bool get_detail() const;
 		/// Setter for the private variable detail
 		/**
 			\param detail_ (optional): Detail - by default this is true. Set to false to will supress detailed response
 		*/
-		void set_detail(const bool& detail_);
+		void set_detail(bool detail_);
 		
 	};
 }

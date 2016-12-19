@@ -46,7 +46,7 @@ namespace model
 		/**
 			\return const string
 		*/ 
-		const string get_instance_id() const;
+		const string& get_instance_id() const;
 
 		/// Setter for the private variable instance_id 
 		/**
@@ -58,7 +58,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_volume_id() const;
+		const string& get_volume_id() const;
 
 		/// Setter for the private variable volume
 		/**
@@ -70,7 +70,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_device() const;
+		const string& get_device() const;
 
 		/// Setter for the private variable device 
 		/**

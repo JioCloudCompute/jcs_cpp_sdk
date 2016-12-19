@@ -33,9 +33,10 @@ namespace model
 	*/
 	class create_volume_request
 	{
-	private:
+    private:
 		string snapshot_id;
 		int size;
+    bool encrypted;
 
 	public:
 		/// Constructor
@@ -44,22 +45,31 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_snapshot_id() const;
+		const string& get_snapshot_id() const;
 		/// Setter for the private variable snapshot_id
 		/**
-			\param snapshot_id_ (optional) : snapshot id to create volume similar to the volume from which snapshot is created(unique for each snapshot). Not necessary if size is given
+			\param snapshot_id_
+      @note: Set either snapshot or size.
 		*/
 		void set_snapshot_id(const string& snapshot_id_);
-		/// Getter for the private variable size
 		/**
-			\return const string
+			\return Size of volume in GB.
 		*/
-		const int get_size() const;
-		/// Setter for the private variable size
+		int get_size() const;
+		/// Setter for the privat
 		/**
-			\param size_(optional) : size of the volume. Not necessary if snapshot id is given
+			\param size_: size of volume in GB.
 		*/
-		void set_size(const int& size_);
+		void set_size(int size_);
+
+    /**
+     *Get whether Encrypted flag is true or not.
+     * */
+    bool get_encrypted() const;
+    /**
+     * Set if Encrypted flag is required to be false or true.
+     * */
+    void set_encrypted(bool encrypt);
 	};
 }
 #endif

@@ -20,14 +20,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/delete_snapshot_request.hpp"
+#include "model/delete_snapshot_request.hpp"
 
 using namespace std;
 using namespace model;
 
 model::delete_snapshot_request::delete_snapshot_request(){}
 
-const string model::delete_snapshot_request::get_snapshot_id() const
+const string& model::delete_snapshot_request::get_snapshot_id() const
 {
 	return snapshot_id;
 }

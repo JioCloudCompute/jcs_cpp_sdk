@@ -20,14 +20,14 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/delete_volume_request.hpp"
+#include "model/delete_volume_request.hpp"
 
 using namespace std;
 using namespace model;
 
 model::delete_volume_request::delete_volume_request(){}
 
-const string model::delete_volume_request::get_volume_id() const
+const string& model::delete_volume_request::get_volume_id() const
 {
 	return volume_id;
 }

@@ -29,30 +29,24 @@
 #include <iostream>
 
 using namespace std;
-using namespace config;
 using namespace utils;
 
 namespace requestify
 {
-	string response ;
+	//string response ;
 	size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up)
-	{ //callback must have this declaration
-	    //buf is a pointer to the data that curl has for us
-	    //size*nmemb is the size of the buffer
-	    for (size_t c = 0; c<size*nmemb; c++)
-	    {
-	        response.push_back(buf[c]);
-	    }
+	{   
+      string & response = *(string *)up;
+      response.append(buf, size*nmemb/sizeof(char));
 	    return size*nmemb; //tell curl how many bytes we handled
-	}
+	} 
 
-	pair<string, long> CURL_REQUEST(const string &request_string, ConfigHandler& config)
+	pair<string, long> CURL_REQUEST(const string &request_string, const utils::auth_var& info)
 	{
 		CURL* curl; // curl object
 		CURLcode res;
 		curl_global_init(CURL_GLOBAL_ALL);
 		curl = curl_easy_init();
-
 		//headers
 		struct curl_slist *header_list = NULL;
 		header_list = curl_slist_append(header_list, "Content-Type: application/json");
@@ -60,11 +54,16 @@ namespace requestify
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 		
 		//SSL verifiation off
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, config.check_secure());
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, config.check_secure());
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, info.is_secure);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, info.is_secure);
 		
 		curl_easy_setopt(curl, CURLOPT_URL, request_string.c_str());
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
+    string response;
+    string header;
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+    curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, writeCallback);
+    curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header); 
 		// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L); //tell curl to output its progress
 		res = curl_easy_perform(curl);
 
@@ -79,36 +78,17 @@ namespace requestify
 		long http_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 		curl_easy_cleanup(curl);
-		curl_global_cleanup();
+		//curl_global_cleanup();
 
 		return make_pair(response, http_code);
-		
 	}
 
-	pair<string, long> make_request(const utils::http_var &info, map<string, string> &params)
+	pair<string, long> make_request(const utils::auth_var& info, map<string, string>& params)
 	{
-		utils::auth_var auth_data;
-		response.clear();
-		//Access Key ,Secret Key, Debug Mode, Secure Mode Config
-		config::ConfigHandler config;
-		string data;
-		strcpy(auth_data.url, info.url);
-		strcpy(auth_data.verb, info.verb);
-		strcpy(auth_data.headers, info.headers);
-		strcpy(auth_data.access_key, config.get_access_key().c_str());
-		strcpy(auth_data.secret_key, config.get_secret_key().c_str());
-
-		//Set the Path according to your need
-		string path = "";
-		strcpy(auth_data.path,path.c_str());   //
-
-		// Removing '/' from url
-		if(info.url[strlen(info.url)-1] == '/')
-			auth_data.url[strlen(auth_data.url)-1] = '\0';
 
 		//Sending the url info to authorization to generate signature. 
-		
-		auth::Authorization::add_authorization(params, auth_data);
+		auth::Authorization object(info);
+		object.add_authorization(params);
 
 		string request_string = info.url; 
 		stringstream ss;
@@ -126,7 +106,7 @@ namespace requestify
 				// TODO: Header handling remaining
 				cout<<request_string<<endl;
 		#endif
-		return CURL_REQUEST(request_string, config);
+		return CURL_REQUEST(request_string, info);
 	}
 
 }

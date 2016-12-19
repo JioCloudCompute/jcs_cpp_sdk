@@ -30,7 +30,7 @@ namespace model
 	/**
 		
 	*/
-	class instance_set
+	class instance_state_set
 	{
 	private:
 		string instance_id;
@@ -39,18 +39,18 @@ namespace model
 	public:
 		///Constructor
 		
-		instance_set(string instance_id_, string current_state_, string previous_state_)
-		{
-			instance_id = instance_id_;
-			current_state = current_state_;
-			previous_state = previous_state_;
-		}
-		instance_set(){}
+		instance_state_set(const string& instance_id_, const string& current_state_, const string& previous_state_):
+      instance_id(instance_id_),
+			current_state(current_state_),
+			previous_state(previous_state_)
+    {}
+
+		instance_state_set(){}
 		///Getter for the Instance ID
 		/**
 			\return const string
 		*/
-		const string get_instance_id() const
+		const string& get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -60,7 +60,7 @@ namespace model
 			pending, running, shutting-down, terminated, stopping, stopped
 		*/
 
-		const string get_current_state() const
+		const string& get_current_state() const
 		{
 			return current_state;
 		}
@@ -69,7 +69,7 @@ namespace model
 			\return const string
 			pending, running, shutting-down, terminated, stopping, stopped
 		*/
-		const string get_previous_state() const
+		const string& get_previous_state() const
 		{
 			return previous_state;
 		}

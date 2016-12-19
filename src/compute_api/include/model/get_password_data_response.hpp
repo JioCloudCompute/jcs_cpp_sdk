@@ -43,12 +43,11 @@ namespace model
 			This parses the XML_response of the API and sets the private member variables
 		*/
 		get_password_data_response(const string &xml_doc);
-		get_password_data_response(){}
 		///Getter for the Request ID
 		/**
 			\return  String
 		*/
-		const string get_request_id() const 
+		const string& get_request_id() const 
 		{
 			return request_id;
 		}
@@ -56,7 +55,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_password_data() const
+		const string& get_password_data() const
 		{
 			return password_data;
 		}
@@ -64,7 +63,7 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_instance_id() const
+		const string& get_instance_id() const
 		{
 			return instance_id;
 		}
@@ -72,15 +71,10 @@ namespace model
 		/**
 			\return  String
 		*/
-		const string get_timestamp() const
+		const string& get_timestamp() const
 		{
 			return  timestamp;
 		}
-
-		void set_data(string password_data)
-		{
-			this->password_data=password_data;
-		}	
 
 	};
 

@@ -20,12 +20,12 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/create_key_pair_request.hpp"
+#include "model/create_key_pair_request.hpp"
 using namespace std;
 using namespace model;
 
 
-const string model::create_key_pair_request::get_key_name() const
+const string& model::create_key_pair_request::get_key_name() const
 {
 	return key_name;
 }

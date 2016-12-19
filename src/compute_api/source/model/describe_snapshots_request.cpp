@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_snapshots_request.hpp"
+#include "model/describe_snapshots_request.hpp"
 
 using namespace std;
 using namespace model;
@@ -44,7 +44,7 @@ void model::describe_snapshots_request::set_snapshot_ids(const vector<string>& s
 	}
 }
 
-const int model::describe_snapshots_request::get_max_results() const
+int model::describe_snapshots_request::get_max_results() const
 {
 	return max_results;
 }
@@ -54,7 +54,7 @@ void model::describe_snapshots_request::set_max_results(const int& max_results_)
 	max_results = max_results_;
 }
 
-const string model::describe_snapshots_request::get_next_token() const
+const string& model::describe_snapshots_request::get_next_token() const
 {
 	return next_token;
 }
@@ -64,7 +64,7 @@ void model::describe_snapshots_request::set_next_token(const string &next_token_
 	next_token = next_token_;
 }
 
-const bool model::describe_snapshots_request::get_detail() const
+bool model::describe_snapshots_request::get_detail() const
 {
 	return detail;
 }

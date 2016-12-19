@@ -20,22 +20,29 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 ******************************************************************************/
-#include "src/compute_api/include/model/describe_images_request.hpp"
+#include "model/describe_images_request.hpp"
 
 using namespace std;
 using namespace model;
 
 model::describe_images_request::describe_images_request()
 {
-	image_ids = vector<string>();
 }
 
-const vector<string> * model::describe_images_request::get_image_ids() const
+
+const std::set<std::string>* model::describe_images_request::get_image_ids() const
 {
 	return &image_ids;
 }
 
-void model::describe_images_request::set_image_ids(const vector<string> &image_id_set)
+
+void model::describe_images_request::set_image_ids(const std::vector <std::string> &image_id_set)
 {
-	image_ids.insert(image_ids.end(), image_id_set.begin(), image_id_set.end());
+	image_ids.insert(image_id_set.begin(), image_id_set.end());
+}
+
+
+void model::describe_images_request::add_image_id(const std::string& image_id)
+{
+  image_ids.insert(image_id);
 }

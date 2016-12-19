@@ -24,15 +24,15 @@
 #define IMAGE_DEFINER_H
 #include <iostream>
 #include <string>
-#include "src/compute_api/include/model/describe_images_request.hpp"
-#include "src/compute_api/include/model/describe_images_response.hpp"
-#include "src/utils.hpp"
-
+#include "model/describe_images_request.hpp"
+#include "model/describe_images_response.hpp"
+#include "utils.hpp"
+#include "requestify.hpp"
 
 using namespace std;
 
 namespace image
 {
-	pair<string, long> describe_images(utils::http_var &info, const model::describe_images_request &req);
+	pair<string, long> describe_images(utils::auth_var &info, const model::describe_images_request &req);
 }
 #endif

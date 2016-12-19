@@ -25,7 +25,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "src/compute_api/include/model/key_pair.hpp"
+#include "model/key_pair.hpp"
 using namespace std;
 using namespace model;
 
@@ -51,7 +51,7 @@ namespace model
 			\return const vector<model::key_pair>  
 			A vector of objects of class key_pair
 		*/
-		const vector<model::key_pair> get_key_pairs() const
+		const vector<model::key_pair>& get_key_pairs() const
 		{
 			return key_pairs;
 		}
@@ -59,7 +59,7 @@ namespace model
 		/**
 			\return const string
 		*/
-		const string get_request_id() const
+		const string& get_request_id() const
 		{
 			return request_id;
 		}

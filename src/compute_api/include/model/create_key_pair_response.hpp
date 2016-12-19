@@ -23,6 +23,7 @@
 #ifndef CREATE_KEY_PAIRR_H
 #define CREATE_KEY_PAIRR_H
 #include <string>
+#include <model/key_pair.hpp>
 using namespace std;
 namespace model
 {
@@ -33,9 +34,10 @@ namespace model
 	class create_key_pair_response
 	{
 	private:
-		string key_fingerprint;
+    model::key_pair keypair;
+		/*string key_fingerprint;
 		string key_material;
-		string key_name;
+		string key_name;*/
 		string request_id;
 	public:
 		/// Constructor 
@@ -51,7 +53,7 @@ namespace model
 		*/
 		const string get_key_fingerprint() const
 		{
-			return key_fingerprint;
+			return keypair.get_key_fingerprint();
 		}
 		///Getter for the Key Material(RSA Private Key) of the Key Created
 		/**
@@ -59,7 +61,7 @@ namespace model
 		*/
 		const string get_key_material() const
 		{
-			return key_material;
+			return keypair.get_key_material();
 		}
 		///Getter for the Key Name of the Key Created
 		/**
@@ -67,7 +69,7 @@ namespace model
 		*/
 		const string get_key_name() const
 		{
-			return key_name;
+			return keypair.get_key_name();
 		}
 		///Getter for the Unique Request ID
 		/**
