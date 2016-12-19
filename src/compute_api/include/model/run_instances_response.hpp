@@ -37,7 +37,7 @@ namespace model
 
 	class run_instances_response{
 	private:
-		vector<instance> instances;
+		vector<string> instances;
 		string request_id;
 	public:
 		/// Constructor
@@ -55,7 +55,7 @@ namespace model
 		}
 		///Getter for the Description of the instances that were requested to run
 		/**
-			\return const vector<instance>
+			\return const vector<string>
 			A vector of objects of class instance
 		*/
 		const vector<instance>& get_instances() const

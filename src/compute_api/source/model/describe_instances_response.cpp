@@ -32,7 +32,7 @@ using namespace utils;
 
 
 describe_instances_response::describe_instances_response(const string &xml_doc)
-{	
+{
   XMLDocument doc;
   doc.Parse(xml_doc.c_str());
   //Root

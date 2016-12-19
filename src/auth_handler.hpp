@@ -28,10 +28,17 @@
 #include <string.h>
 #include <map>
 
+const std::string HMAC_SHA256_ALGORITHM = "HmacSHA256";
+const std::string UTF8_CHARSET = "UTF-8";
+const std::string JCS_ACCESS_KEY_ID = "JCSAccessKeyId";
+const std::string SIGNATURE_VERSION = "SignatureVersion";
+const std::string SIGNATURE_METHOD = "SignatureMethod";
+const std::string TIMESTAMP = "Timestamp";
+const std::string SIGNATURE = "Signature";
+
 namespace auth{
 	class Authorization
-	{	
-		utils::auth_var data_;
+	{ 
 	public:
 		Authorization(const struct utils::auth_var& data); //Use pass by const reference
 		void add_params(std::map <std::string,std::string > &params);

@@ -25,14 +25,15 @@
 #include <sstream>
 #include <map>
 #include <vector>
+#include "src/compute_api/include/constants.hpp"
 
 namespace key_pair
 {
 	pair<string,long> describe_key_pairs(utils::auth_var &info)
 	{
 		map <string, string> params;
-		params["Action"] = "DescribeKeyPairs";
-		params["Version"] = info.version;
+		params[constants::ACTION] = constants::DESCRIBE_KEY_PAIRS;
+		params[constants::VERSION] = info.version;
 		
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
 	}
@@ -41,16 +42,16 @@ namespace key_pair
 	pair<string,long> create_key_pair(utils::auth_var &info, const model::create_key_pair_request &req)
 	{
 		map <string, string> params;
-		params["Action"] = "CreateKeyPair";
-		params["Version"] = info.version;
+		params[constants::ACTION] = constants::CREATE_KEY_PAIR;
+		params[constants::VERSION] = info.version;
 		
 		if(req.get_key_name().length() == 0)
 		{	
-			cout <<  "Error : Key-Name needed";
+			cerr <<  "Error : Key-Name needed";
 		}
 		else
 		{
-			params["KeyName"] = req.get_key_name();
+			params[constants::KEY_NAME] = req.get_key_name();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -59,16 +60,16 @@ namespace key_pair
 	pair<string,long> delete_key_pair(utils::auth_var &info, const model::delete_key_pair_request &req)
 	{
 		map <string, string> params;
-		params["Action"] = "DeleteKeyPair";
-		params["Version"] = info.version;
+		params[constants::ACTION] = constants::DELETE_KEY_PAIR;
+		params[constants::VERSION] = info.version;
 
 		if(req.get_key_name().length() == 0)
 		{	
-			cout <<  "Error : KeyName needed";
+			cerr <<  "Error : KeyName needed";
 		}
 		else
 		{
-			params["KeyName"] = req.get_key_name();
+			params[constants::KEY_NAME] = req.get_key_name();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"
@@ -77,26 +78,26 @@ namespace key_pair
 	pair<string,long> import_key_pair(utils::auth_var &info, const model::import_key_pair_request &req)
 	{
 		map <string, string> params;
-		params["Action"] = "ImportKeyPair";
-		params["Version"] = info.version;
+		params[constants::ACTION] = constants::IMPORT_KEY_PAIR;
+		params[constants::VERSION] = info.version;
 
 		if(req.get_key_name().length() == 0)
 		{	
-			cout <<  "Error : KeyName needed";
+			cerr <<  "Error : KeyName needed";
 		}
 		else
 		{
-			params["KeyName"] = req.get_key_name();
+			params[constants::KEY_NAME] = req.get_key_name();
 		}
 
 
 		if(req.get_public_key_material().length() == 0)
 		{	
-			cout <<  "Error : Public key material needed";
+			cerr <<  "Error : Public key material needed";
 		}
 		else
 		{
-			params["PublicKeyMaterial"] = req.get_public_key_material();
+			params[constants::PUBLIC_KEY_MATERIAL] = req.get_public_key_material();
 		}
 
 		return requestify::make_request(info, params);	// requestify::make_request function in "requestify.cpp"	

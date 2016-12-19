@@ -33,8 +33,7 @@ using namespace utils;
 
 
 run_instances_response::run_instances_response(const string &xml_doc)
-{	
-
+{
   XMLDocument doc;
   doc.Parse(xml_doc.c_str());
   //Root

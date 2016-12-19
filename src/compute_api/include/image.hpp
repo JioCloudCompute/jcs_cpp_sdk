@@ -29,7 +29,6 @@
 #include "utils.hpp"
 #include "requestify.hpp"
 
-
 using namespace std;
 
 namespace image
